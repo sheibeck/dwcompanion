@@ -1,5 +1,27 @@
 {
   "api": {
+    "AdminQueries": {
+      "authorizationType": "AMAZON_COGNITO_USER_POOLS",
+      "dependsOn": [
+        {
+          "attributes": [
+            "UserPoolId"
+          ],
+          "category": "auth",
+          "resourceName": "dungeonworldcompf878a003"
+        },
+        {
+          "attributes": [
+            "Arn",
+            "Name"
+          ],
+          "category": "function",
+          "resourceName": "AdminQueries93882c08"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "API Gateway"
+    },
     "dungeonworldcomp": {
       "dependsOn": [],
       "output": {
@@ -59,6 +81,20 @@
     }
   },
   "function": {
+    "AdminQueries93882c08": {
+      "build": true,
+      "dependsOn": [
+        {
+          "attributes": [
+            "UserPoolId"
+          ],
+          "category": "auth",
+          "resourceName": "dungeonworldcompf878a003"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
     "dungeonworldcompf878a003CustomMessage": {
       "build": true,
       "providerPlugin": "awscloudformation",
@@ -66,6 +102,22 @@
     }
   },
   "parameters": {
+    "AMPLIFY_function_AdminQueries93882c08_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "AdminQueries93882c08"
+        }
+      ]
+    },
+    "AMPLIFY_function_AdminQueries93882c08_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "AdminQueries93882c08"
+        }
+      ]
+    },
     "AMPLIFY_function_dungeonworldcompf878a003CustomMessage_EMAILMESSAGE": {
       "usedBy": [
         {

@@ -1,5 +1,10 @@
 export type AmplifyDependentResourcesAttributes = {
   "api": {
+    "AdminQueries": {
+      "ApiId": "string",
+      "ApiName": "string",
+      "RootUrl": "string"
+    },
     "dungeonworldcomp": {
       "GraphQLAPIEndpointOutput": "string",
       "GraphQLAPIIdOutput": "string",
@@ -20,6 +25,13 @@ export type AmplifyDependentResourcesAttributes = {
     }
   },
   "function": {
+    "AdminQueries93882c08": {
+      "Arn": "string",
+      "LambdaExecutionRole": "string",
+      "LambdaExecutionRoleArn": "string",
+      "Name": "string",
+      "Region": "string"
+    },
     "dungeonworldcompf878a003CustomMessage": {
       "Arn": "string",
       "LambdaExecutionRole": "string",

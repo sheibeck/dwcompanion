@@ -14,7 +14,8 @@
     },
     "categories": {
       "api": {
-        "dungeonworldcomp": {}
+        "dungeonworldcomp": {},
+        "AdminQueries": {}
       },
       "auth": {
         "dungeonworldcompf878a003": {}
@@ -26,6 +27,10 @@
           "EMAILMESSAGE": "Thank you for signing up for Dungone World Companion. Please click the link to complete your registration.",
           "deploymentBucketName": "amplify-dungeonworldcomp-dev-121356-deployment",
           "s3Key": "amplify-builds/dungeonworldcompf878a003CustomMessage-586a6b4d413779326b50-build.zip"
+        },
+        "AdminQueries93882c08": {
+          "deploymentBucketName": "amplify-dungeonworldcomp-dev-121356-deployment",
+          "s3Key": "amplify-builds/AdminQueries93882c08-4b50396368703933416f-build.zip"
         }
       }
     }
