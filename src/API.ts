@@ -29,6 +29,7 @@ export type Character = {
   gear?:  Array<CharacterGear | null > | null,
   spells?:  Array<CharacterSpell | null > | null,
   isPublic?: boolean | null,
+  isCoreTemplate?: boolean | null,
 };
 
 export type User = {
@@ -42,8 +43,6 @@ export type Class = {
   __typename: "Class",
   name: string,
   description: string,
-  isPublic?: boolean | null,
-  isCore?: boolean | null,
 };
 
 export type Look = {
@@ -154,12 +153,13 @@ export type Spell = {
   class?: Class | null,
 };
 
-export type GetCharacterQueryVariables = {
+export type DuplicateCharacterMutationVariables = {
   characterId: string,
+  newOwnerId: string,
 };
 
-export type GetCharacterQuery = {
-  getCharacter?:  {
+export type DuplicateCharacterMutation = {
+  duplicateCharacter?:  {
     __typename: "Character",
     owner?:  {
       __typename: "User",
@@ -172,8 +172,6 @@ export type GetCharacterQuery = {
       __typename: "Class",
       name: string,
       description: string,
-      isPublic?: boolean | null,
-      isCore?: boolean | null,
     } | null >,
     look?:  Array< {
       __typename: "Look",
@@ -213,8 +211,6 @@ export type GetCharacterQuery = {
         __typename: "Class",
         name: string,
         description: string,
-        isPublic?: boolean | null,
-        isCore?: boolean | null,
       } | null > | null,
     } | null > | null,
     race?:  Array< {
@@ -230,8 +226,6 @@ export type GetCharacterQuery = {
         __typename: "Class",
         name: string,
         description: string,
-        isPublic?: boolean | null,
-        isCore?: boolean | null,
       } | null > | null,
     } | null > | null,
     abilityScores?:  {
@@ -379,6 +373,230 @@ export type GetCharacterQuery = {
       } | null > | null,
     } | null > | null,
     isPublic?: boolean | null,
+    isCoreTemplate?: boolean | null,
+  } | null,
+};
+
+export type GetCharacterQueryVariables = {
+  characterId: string,
+};
+
+export type GetCharacterQuery = {
+  getCharacter?:  {
+    __typename: "Character",
+    owner?:  {
+      __typename: "User",
+      id: string,
+      username: string,
+      email: string,
+    } | null,
+    name: string,
+    class:  Array< {
+      __typename: "Class",
+      name: string,
+      description: string,
+    } | null >,
+    look?:  Array< {
+      __typename: "Look",
+      name?: string | null,
+      description?: string | null,
+      tags?:  Array< {
+        __typename: "Tag",
+        name?: string | null,
+        description?: string | null,
+      } | null > | null,
+    } | null > | null,
+    level?: number | null,
+    xp?: number | null,
+    armor?: number | null,
+    hitPointsMax?: number | null,
+    hitPointsCurrent?: number | null,
+    conditions?: number | null,
+    damage?:  {
+      __typename: "DiceType",
+      name?: string | null,
+    } | null,
+    tags?:  Array< {
+      __typename: "Tag",
+      name?: string | null,
+      description?: string | null,
+    } | null > | null,
+    alignment?:  Array< {
+      __typename: "Alignment",
+      name?: string | null,
+      description?: string | null,
+      tags?:  Array< {
+        __typename: "Tag",
+        name?: string | null,
+        description?: string | null,
+      } | null > | null,
+      class?:  Array< {
+        __typename: "Class",
+        name: string,
+        description: string,
+      } | null > | null,
+    } | null > | null,
+    race?:  Array< {
+      __typename: "Race",
+      name?: string | null,
+      description?: string | null,
+      tags?:  Array< {
+        __typename: "Tag",
+        name?: string | null,
+        description?: string | null,
+      } | null > | null,
+      class?:  Array< {
+        __typename: "Class",
+        name: string,
+        description: string,
+      } | null > | null,
+    } | null > | null,
+    abilityScores?:  {
+      __typename: "AbilityScoreBase",
+      strength?:  {
+        __typename: "AbilityScore",
+        name?: string | null,
+        shortName?: string | null,
+        value?: number | null,
+        bonus?: number | null,
+        debility?: string | null,
+        debilityPenalty?: string | null,
+      } | null,
+      dexterity?:  {
+        __typename: "AbilityScore",
+        name?: string | null,
+        shortName?: string | null,
+        value?: number | null,
+        bonus?: number | null,
+        debility?: string | null,
+        debilityPenalty?: string | null,
+      } | null,
+      constitution?:  {
+        __typename: "AbilityScore",
+        name?: string | null,
+        shortName?: string | null,
+        value?: number | null,
+        bonus?: number | null,
+        debility?: string | null,
+        debilityPenalty?: string | null,
+      } | null,
+      intelligence?:  {
+        __typename: "AbilityScore",
+        name?: string | null,
+        shortName?: string | null,
+        value?: number | null,
+        bonus?: number | null,
+        debility?: string | null,
+        debilityPenalty?: string | null,
+      } | null,
+      wisdom?:  {
+        __typename: "AbilityScore",
+        name?: string | null,
+        shortName?: string | null,
+        value?: number | null,
+        bonus?: number | null,
+        debility?: string | null,
+        debilityPenalty?: string | null,
+      } | null,
+      charisma?:  {
+        __typename: "AbilityScore",
+        name?: string | null,
+        shortName?: string | null,
+        value?: number | null,
+        bonus?: number | null,
+        debility?: string | null,
+        debilityPenalty?: string | null,
+      } | null,
+    } | null,
+    bonds?:  Array< {
+      __typename: "Bond",
+      description?: string | null,
+      tags?:  Array< {
+        __typename: "Tag",
+        name?: string | null,
+        description?: string | null,
+      } | null > | null,
+    } | null > | null,
+    startingMoves:  Array< {
+      __typename: "CharacterMove",
+      move?:  {
+        __typename: "Move",
+        name: string,
+        description: string,
+      } | null,
+      selected?: boolean | null,
+      tags?:  Array< {
+        __typename: "Tag",
+        name?: string | null,
+        description?: string | null,
+      } | null > | null,
+    } | null >,
+    twoToTenMoves?:  Array< {
+      __typename: "CharacterMove",
+      move?:  {
+        __typename: "Move",
+        name: string,
+        description: string,
+      } | null,
+      selected?: boolean | null,
+      tags?:  Array< {
+        __typename: "Tag",
+        name?: string | null,
+        description?: string | null,
+      } | null > | null,
+    } | null > | null,
+    sixToTenMoves?:  Array< {
+      __typename: "CharacterMove",
+      move?:  {
+        __typename: "Move",
+        name: string,
+        description: string,
+      } | null,
+      selected?: boolean | null,
+      tags?:  Array< {
+        __typename: "Tag",
+        name?: string | null,
+        description?: string | null,
+      } | null > | null,
+    } | null > | null,
+    coin?: number | null,
+    loadMax?: number | null,
+    loadCurrent?: number | null,
+    gear?:  Array< {
+      __typename: "CharacterGear",
+      gear?:  {
+        __typename: "Gear",
+        name: string,
+        description?: string | null,
+        uses?: number | null,
+        weight?: number | null,
+      } | null,
+      selected?: boolean | null,
+      tags?:  Array< {
+        __typename: "Tag",
+        name?: string | null,
+        description?: string | null,
+      } | null > | null,
+    } | null > | null,
+    spells?:  Array< {
+      __typename: "CharacterSpell",
+      spell?:  {
+        __typename: "Spell",
+        name: string,
+        level: number,
+        type?: string | null,
+        ongoing?: boolean | null,
+        description: string,
+      } | null,
+      selected?: boolean | null,
+      tags?:  Array< {
+        __typename: "Tag",
+        name?: string | null,
+        description?: string | null,
+      } | null > | null,
+    } | null > | null,
+    isPublic?: boolean | null,
+    isCoreTemplate?: boolean | null,
   } | null,
 };
 
@@ -400,8 +618,6 @@ export type GetUserCharactersQuery = {
       __typename: "Class",
       name: string,
       description: string,
-      isPublic?: boolean | null,
-      isCore?: boolean | null,
     } | null >,
     look?:  Array< {
       __typename: "Look",
@@ -441,8 +657,6 @@ export type GetUserCharactersQuery = {
         __typename: "Class",
         name: string,
         description: string,
-        isPublic?: boolean | null,
-        isCore?: boolean | null,
       } | null > | null,
     } | null > | null,
     race?:  Array< {
@@ -458,8 +672,6 @@ export type GetUserCharactersQuery = {
         __typename: "Class",
         name: string,
         description: string,
-        isPublic?: boolean | null,
-        isCore?: boolean | null,
       } | null > | null,
     } | null > | null,
     abilityScores?:  {
@@ -607,6 +819,230 @@ export type GetUserCharactersQuery = {
       } | null > | null,
     } | null > | null,
     isPublic?: boolean | null,
+    isCoreTemplate?: boolean | null,
+  } | null > | null,
+};
+
+export type GetCoreClassTemplatesQueryVariables = {
+  isCoreTemplate: boolean,
+};
+
+export type GetCoreClassTemplatesQuery = {
+  getCoreClassTemplates?:  Array< {
+    __typename: "Character",
+    owner?:  {
+      __typename: "User",
+      id: string,
+      username: string,
+      email: string,
+    } | null,
+    name: string,
+    class:  Array< {
+      __typename: "Class",
+      name: string,
+      description: string,
+    } | null >,
+    look?:  Array< {
+      __typename: "Look",
+      name?: string | null,
+      description?: string | null,
+      tags?:  Array< {
+        __typename: "Tag",
+        name?: string | null,
+        description?: string | null,
+      } | null > | null,
+    } | null > | null,
+    level?: number | null,
+    xp?: number | null,
+    armor?: number | null,
+    hitPointsMax?: number | null,
+    hitPointsCurrent?: number | null,
+    conditions?: number | null,
+    damage?:  {
+      __typename: "DiceType",
+      name?: string | null,
+    } | null,
+    tags?:  Array< {
+      __typename: "Tag",
+      name?: string | null,
+      description?: string | null,
+    } | null > | null,
+    alignment?:  Array< {
+      __typename: "Alignment",
+      name?: string | null,
+      description?: string | null,
+      tags?:  Array< {
+        __typename: "Tag",
+        name?: string | null,
+        description?: string | null,
+      } | null > | null,
+      class?:  Array< {
+        __typename: "Class",
+        name: string,
+        description: string,
+      } | null > | null,
+    } | null > | null,
+    race?:  Array< {
+      __typename: "Race",
+      name?: string | null,
+      description?: string | null,
+      tags?:  Array< {
+        __typename: "Tag",
+        name?: string | null,
+        description?: string | null,
+      } | null > | null,
+      class?:  Array< {
+        __typename: "Class",
+        name: string,
+        description: string,
+      } | null > | null,
+    } | null > | null,
+    abilityScores?:  {
+      __typename: "AbilityScoreBase",
+      strength?:  {
+        __typename: "AbilityScore",
+        name?: string | null,
+        shortName?: string | null,
+        value?: number | null,
+        bonus?: number | null,
+        debility?: string | null,
+        debilityPenalty?: string | null,
+      } | null,
+      dexterity?:  {
+        __typename: "AbilityScore",
+        name?: string | null,
+        shortName?: string | null,
+        value?: number | null,
+        bonus?: number | null,
+        debility?: string | null,
+        debilityPenalty?: string | null,
+      } | null,
+      constitution?:  {
+        __typename: "AbilityScore",
+        name?: string | null,
+        shortName?: string | null,
+        value?: number | null,
+        bonus?: number | null,
+        debility?: string | null,
+        debilityPenalty?: string | null,
+      } | null,
+      intelligence?:  {
+        __typename: "AbilityScore",
+        name?: string | null,
+        shortName?: string | null,
+        value?: number | null,
+        bonus?: number | null,
+        debility?: string | null,
+        debilityPenalty?: string | null,
+      } | null,
+      wisdom?:  {
+        __typename: "AbilityScore",
+        name?: string | null,
+        shortName?: string | null,
+        value?: number | null,
+        bonus?: number | null,
+        debility?: string | null,
+        debilityPenalty?: string | null,
+      } | null,
+      charisma?:  {
+        __typename: "AbilityScore",
+        name?: string | null,
+        shortName?: string | null,
+        value?: number | null,
+        bonus?: number | null,
+        debility?: string | null,
+        debilityPenalty?: string | null,
+      } | null,
+    } | null,
+    bonds?:  Array< {
+      __typename: "Bond",
+      description?: string | null,
+      tags?:  Array< {
+        __typename: "Tag",
+        name?: string | null,
+        description?: string | null,
+      } | null > | null,
+    } | null > | null,
+    startingMoves:  Array< {
+      __typename: "CharacterMove",
+      move?:  {
+        __typename: "Move",
+        name: string,
+        description: string,
+      } | null,
+      selected?: boolean | null,
+      tags?:  Array< {
+        __typename: "Tag",
+        name?: string | null,
+        description?: string | null,
+      } | null > | null,
+    } | null >,
+    twoToTenMoves?:  Array< {
+      __typename: "CharacterMove",
+      move?:  {
+        __typename: "Move",
+        name: string,
+        description: string,
+      } | null,
+      selected?: boolean | null,
+      tags?:  Array< {
+        __typename: "Tag",
+        name?: string | null,
+        description?: string | null,
+      } | null > | null,
+    } | null > | null,
+    sixToTenMoves?:  Array< {
+      __typename: "CharacterMove",
+      move?:  {
+        __typename: "Move",
+        name: string,
+        description: string,
+      } | null,
+      selected?: boolean | null,
+      tags?:  Array< {
+        __typename: "Tag",
+        name?: string | null,
+        description?: string | null,
+      } | null > | null,
+    } | null > | null,
+    coin?: number | null,
+    loadMax?: number | null,
+    loadCurrent?: number | null,
+    gear?:  Array< {
+      __typename: "CharacterGear",
+      gear?:  {
+        __typename: "Gear",
+        name: string,
+        description?: string | null,
+        uses?: number | null,
+        weight?: number | null,
+      } | null,
+      selected?: boolean | null,
+      tags?:  Array< {
+        __typename: "Tag",
+        name?: string | null,
+        description?: string | null,
+      } | null > | null,
+    } | null > | null,
+    spells?:  Array< {
+      __typename: "CharacterSpell",
+      spell?:  {
+        __typename: "Spell",
+        name: string,
+        level: number,
+        type?: string | null,
+        ongoing?: boolean | null,
+        description: string,
+      } | null,
+      selected?: boolean | null,
+      tags?:  Array< {
+        __typename: "Tag",
+        name?: string | null,
+        description?: string | null,
+      } | null > | null,
+    } | null > | null,
+    isPublic?: boolean | null,
+    isCoreTemplate?: boolean | null,
   } | null > | null,
 };
 
@@ -615,8 +1051,6 @@ export type GetClassesQuery = {
     __typename: "Class",
     name: string,
     description: string,
-    isPublic?: boolean | null,
-    isCore?: boolean | null,
   } | null,
 };
 
@@ -632,8 +1066,6 @@ export type GetSpellsQuery = {
       __typename: "Class",
       name: string,
       description: string,
-      isPublic?: boolean | null,
-      isCore?: boolean | null,
     } | null,
   } | null,
 };
@@ -654,8 +1086,6 @@ export type GetSpellsByClassQuery = {
       __typename: "Class",
       name: string,
       description: string,
-      isPublic?: boolean | null,
-      isCore?: boolean | null,
     } | null,
   } | null > | null,
 };
@@ -681,8 +1111,6 @@ export type GetRacesQuery = {
       __typename: "Class",
       name: string,
       description: string,
-      isPublic?: boolean | null,
-      isCore?: boolean | null,
     } | null > | null,
   } | null,
 };
@@ -696,8 +1124,6 @@ export type GetMovesQuery = {
       __typename: "Class",
       name: string,
       description: string,
-      isPublic?: boolean | null,
-      isCore?: boolean | null,
     } | null,
   } | null,
 };
@@ -715,8 +1141,6 @@ export type GetMovesByClassQuery = {
       __typename: "Class",
       name: string,
       description: string,
-      isPublic?: boolean | null,
-      isCore?: boolean | null,
     } | null,
   } | null > | null,
 };

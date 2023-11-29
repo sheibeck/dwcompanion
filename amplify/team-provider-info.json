@@ -14,6 +14,16 @@
     "categories": {
       "api": {
         "dungeonworldcomp": {}
+      },
+      "auth": {
+        "dungeonworldcompf878a003": {}
+      },
+      "function": {
+        "dungeonworldcompf878a003CustomMessage": {
+          "REDIRECTURL": "https://dungeon-world-companion.com/",
+          "EMAILSUBJECT": "Dungeon World Companion Registration",
+          "EMAILMESSAGE": "Thank you for signing up for Dungone World Companion. Please click the link to complete your registration."
+        }
       }
     }
   }

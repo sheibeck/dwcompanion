@@ -35,13 +35,12 @@ type Character {
   gear: [CharacterGear]
   spells: [CharacterSpell]
   isPublic: Boolean       # allow other people to view this character
+  isCoreTemplate: Boolean         # is this a core class template?
 }
 
 type Class {
   name: String!
   description: String!
-  isPublic: Boolean
-  isCore: Boolean
 }
 
 type CharacterCondition {
@@ -157,6 +156,7 @@ type Spell {
 type Query {
   getCharacter(characterId: ID!): Character
   getUserCharacters(userId: ID!): [Character]
+  getCoreClassTemplates(isCoreTemplate: Boolean!): [Character]  # Return a list of all characters that are CW Core Class templates
   getClasses: Class
   getSpells: Spell
   getSpellsByClass(className: String!): [Spell]
@@ -166,3 +166,6 @@ type Query {
   getMovesByClass(className: String!): [Move]
 }
 
+type Mutation {
+  duplicateCharacter(characterId: ID!, newOwnerId: ID!): Character
+}

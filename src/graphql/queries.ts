@@ -15,8 +15,6 @@ export const getCharacter = /* GraphQL */ `
       class {
         name
         description
-        isPublic
-        isCore
         __typename
       }
       look {
@@ -55,8 +53,6 @@ export const getCharacter = /* GraphQL */ `
         class {
           name
           description
-          isPublic
-          isCore
           __typename
         }
         __typename
@@ -72,8 +68,6 @@ export const getCharacter = /* GraphQL */ `
         class {
           name
           description
-          isPublic
-          isCore
           __typename
         }
         __typename
@@ -223,6 +217,7 @@ export const getCharacter = /* GraphQL */ `
         __typename
       }
       isPublic
+      isCoreTemplate
       __typename
     }
   }
@@ -240,8 +235,6 @@ export const getUserCharacters = /* GraphQL */ `
       class {
         name
         description
-        isPublic
-        isCore
         __typename
       }
       look {
@@ -280,8 +273,6 @@ export const getUserCharacters = /* GraphQL */ `
         class {
           name
           description
-          isPublic
-          isCore
           __typename
         }
         __typename
@@ -297,8 +288,6 @@ export const getUserCharacters = /* GraphQL */ `
         class {
           name
           description
-          isPublic
-          isCore
           __typename
         }
         __typename
@@ -448,6 +437,227 @@ export const getUserCharacters = /* GraphQL */ `
         __typename
       }
       isPublic
+      isCoreTemplate
+      __typename
+    }
+  }
+`;
+export const getCoreClassTemplates = /* GraphQL */ `
+  query GetCoreClassTemplates($isCoreTemplate: Boolean!) {
+    getCoreClassTemplates(isCoreTemplate: $isCoreTemplate) {
+      owner {
+        id
+        username
+        email
+        __typename
+      }
+      name
+      class {
+        name
+        description
+        __typename
+      }
+      look {
+        name
+        description
+        tags {
+          name
+          description
+          __typename
+        }
+        __typename
+      }
+      level
+      xp
+      armor
+      hitPointsMax
+      hitPointsCurrent
+      conditions
+      damage {
+        name
+        __typename
+      }
+      tags {
+        name
+        description
+        __typename
+      }
+      alignment {
+        name
+        description
+        tags {
+          name
+          description
+          __typename
+        }
+        class {
+          name
+          description
+          __typename
+        }
+        __typename
+      }
+      race {
+        name
+        description
+        tags {
+          name
+          description
+          __typename
+        }
+        class {
+          name
+          description
+          __typename
+        }
+        __typename
+      }
+      abilityScores {
+        strength {
+          name
+          shortName
+          value
+          bonus
+          debility
+          debilityPenalty
+          __typename
+        }
+        dexterity {
+          name
+          shortName
+          value
+          bonus
+          debility
+          debilityPenalty
+          __typename
+        }
+        constitution {
+          name
+          shortName
+          value
+          bonus
+          debility
+          debilityPenalty
+          __typename
+        }
+        intelligence {
+          name
+          shortName
+          value
+          bonus
+          debility
+          debilityPenalty
+          __typename
+        }
+        wisdom {
+          name
+          shortName
+          value
+          bonus
+          debility
+          debilityPenalty
+          __typename
+        }
+        charisma {
+          name
+          shortName
+          value
+          bonus
+          debility
+          debilityPenalty
+          __typename
+        }
+        __typename
+      }
+      bonds {
+        description
+        tags {
+          name
+          description
+          __typename
+        }
+        __typename
+      }
+      startingMoves {
+        move {
+          name
+          description
+          __typename
+        }
+        selected
+        tags {
+          name
+          description
+          __typename
+        }
+        __typename
+      }
+      twoToTenMoves {
+        move {
+          name
+          description
+          __typename
+        }
+        selected
+        tags {
+          name
+          description
+          __typename
+        }
+        __typename
+      }
+      sixToTenMoves {
+        move {
+          name
+          description
+          __typename
+        }
+        selected
+        tags {
+          name
+          description
+          __typename
+        }
+        __typename
+      }
+      coin
+      loadMax
+      loadCurrent
+      gear {
+        gear {
+          name
+          description
+          uses
+          weight
+          __typename
+        }
+        selected
+        tags {
+          name
+          description
+          __typename
+        }
+        __typename
+      }
+      spells {
+        spell {
+          name
+          level
+          type
+          ongoing
+          description
+          __typename
+        }
+        selected
+        tags {
+          name
+          description
+          __typename
+        }
+        __typename
+      }
+      isPublic
+      isCoreTemplate
       __typename
     }
   }
@@ -457,8 +667,6 @@ export const getClasses = /* GraphQL */ `
     getClasses {
       name
       description
-      isPublic
-      isCore
       __typename
     }
   }
@@ -474,8 +682,6 @@ export const getSpells = /* GraphQL */ `
       class {
         name
         description
-        isPublic
-        isCore
         __typename
       }
       __typename
@@ -493,8 +699,6 @@ export const getSpellsByClass = /* GraphQL */ `
       class {
         name
         description
-        isPublic
-        isCore
         __typename
       }
       __typename
@@ -522,8 +726,6 @@ export const getRaces = /* GraphQL */ `
       class {
         name
         description
-        isPublic
-        isCore
         __typename
       }
       __typename
@@ -538,8 +740,6 @@ export const getMoves = /* GraphQL */ `
       class {
         name
         description
-        isPublic
-        isCore
         __typename
       }
       __typename
@@ -554,8 +754,6 @@ export const getMovesByClass = /* GraphQL */ `
       class {
         name
         description
-        isPublic
-        isCore
         __typename
       }
       __typename
