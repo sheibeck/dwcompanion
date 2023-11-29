@@ -89,6 +89,22 @@
           "resourceName": "dungeonworldcompf878a003CustomMessage"
         }
       ]
+    },
+    "AMPLIFY_function_dungeonworldcompf878a003CustomMessage_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "dungeonworldcompf878a003CustomMessage"
+        }
+      ]
+    },
+    "AMPLIFY_function_dungeonworldcompf878a003CustomMessage_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "dungeonworldcompf878a003CustomMessage"
+        }
+      ]
     }
   }
 }

@@ -9,7 +9,8 @@
       "UnauthRoleName": "amplify-dungeonworldcomp-dev-121356-unauthRole",
       "StackName": "amplify-dungeonworldcomp-dev-121356",
       "StackId": "arn:aws:cloudformation:us-east-1:210120940769:stack/amplify-dungeonworldcomp-dev-121356/aed1e4f0-8eda-11ee-93c7-12fb25351f4f",
-      "AmplifyAppId": "d3e6jynefwsc7i"
+      "AmplifyAppId": "d3e6jynefwsc7i",
+      "AuthTriggerTemplateURL": "https://s3.amazonaws.com/amplify-dungeonworldcomp-dev-121356-deployment/amplify-cfn-templates/auth/auth-trigger-cloudformation-template.json"
     },
     "categories": {
       "api": {
@@ -22,7 +23,9 @@
         "dungeonworldcompf878a003CustomMessage": {
           "REDIRECTURL": "https://dungeon-world-companion.com/",
           "EMAILSUBJECT": "Dungeon World Companion Registration",
-          "EMAILMESSAGE": "Thank you for signing up for Dungone World Companion. Please click the link to complete your registration."
+          "EMAILMESSAGE": "Thank you for signing up for Dungone World Companion. Please click the link to complete your registration.",
+          "deploymentBucketName": "amplify-dungeonworldcomp-dev-121356-deployment",
+          "s3Key": "amplify-builds/dungeonworldcompf878a003CustomMessage-586a6b4d413779326b50-build.zip"
         }
       }
     }
