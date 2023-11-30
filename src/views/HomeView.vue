@@ -25,9 +25,7 @@
 
       <!-- Page Content -->
       <div class="container-fluid mt-5">
-        <!-- Your page content goes here -->
-        <h1>Welcome to Your Website</h1>
-        <p>This is a simple dark-themed Bootstrap template.</p>
+        <Characters />
       </div>
     </main>
   </template>
@@ -35,6 +33,8 @@
 
 <script setup lang="ts">
   import { Authenticator, useAuthenticator } from '@aws-amplify/ui-vue';
+  import Characters from '@/components/Characters.vue';
+  
   const auth = useAuthenticator();
 </script>
 
