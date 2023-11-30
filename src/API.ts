@@ -2,6 +2,282 @@
 /* eslint-disable */
 //  This file was automatically generated and should not be edited.
 
+export type CreateCharacterInput = {
+  userId: string,
+  id?: string | null,
+  name: string,
+  level?: number | null,
+  xp?: number | null,
+  armor?: number | null,
+  hitPointsMax?: number | null,
+  hitPointsCurrent?: number | null,
+  coin?: number | null,
+  loadMax?: number | null,
+  loadCurrent?: number | null,
+  isPublic?: boolean | null,
+  isCoreTemplate?: boolean | null,
+  spells?: Array< CharacterSpellInput | null > | null,
+  gear?: Array< CharacterGearInput | null > | null,
+  sixToTenMoves?: Array< CharacterMoveInput | null > | null,
+  twoToTenMoves?: Array< CharacterMoveInput | null > | null,
+  startingMoves?: Array< CharacterMoveInput | null > | null,
+  bonds?: Array< CharacterBondInput | null > | null,
+  abilityscores?: Array< CharacterAbilityScoreInput | null > | null,
+  race?: CharacterRaceInput | null,
+  alignment?: CharacterAlignmentInput | null,
+  tags?: Array< string | null > | null,
+  conditionTypes?: Array< CharacterConditionsInput | null > | null,
+  look?: CharacterLookInput | null,
+  class?: CharacterClassInput | null,
+  notes?: string | null,
+};
+
+export type CharacterSpellInput = {
+  id: string,
+  spell: SpellInput,
+  selected?: boolean | null,
+  tags?: Array< string | null > | null,
+};
+
+export type SpellInput = {
+  id: string,
+  name: string,
+  level: number,
+  type: string,
+  ongoing?: boolean | null,
+  description: string,
+  source: SourceInput,
+  class: ClassInput,
+};
+
+export type SourceInput = {
+  id: string,
+  name: string,
+};
+
+export type ClassInput = {
+  id: string,
+  name: string,
+  description: string,
+  source: SourceInput,
+  damageDiceType?: DiceTypeInput | null,
+};
+
+export type DiceTypeInput = {
+  id: string,
+  name?: string | null,
+};
+
+export type CharacterGearInput = {
+  id: string,
+  gear: GearInput,
+  uses?: number | null,
+  tags?: Array< string | null > | null,
+};
+
+export type GearInput = {
+  id: string,
+  description: string,
+  weight: number,
+  uses?: number | null,
+  tags?: Array< string | null > | null,
+};
+
+export type CharacterMoveInput = {
+  id: string,
+  selected?: boolean | null,
+  move: MoveInput,
+};
+
+export type MoveInput = {
+  id: string,
+  description: string,
+  class: ClassInput,
+};
+
+export type CharacterBondInput = {
+  id: string,
+  description?: string | null,
+  bond: BondInput,
+  selected?: boolean | null,
+};
+
+export type BondInput = {
+  id: string,
+  description?: string | null,
+  class: ClassInput,
+};
+
+export type CharacterAbilityScoreInput = {
+  abilityScore: AbilityScoreInput,
+  value: string,
+  bonus: number,
+  tags?: Array< string | null > | null,
+};
+
+export type AbilityScoreInput = {
+  id: string,
+  name: string,
+  shortName: string,
+  debility: string,
+  debilityPenalty: string,
+};
+
+export type CharacterRaceInput = {
+  id: string,
+  race: RaceInput,
+};
+
+export type RaceInput = {
+  id: string,
+  name?: string | null,
+  description?: string | null,
+  class?: ClassInput | null,
+  source: SourceInput,
+};
+
+export type CharacterAlignmentInput = {
+  id: string,
+  alignment: AlignmentInput,
+  selected?: boolean | null,
+};
+
+export type AlignmentInput = {
+  id: string,
+  name?: string | null,
+  description?: string | null,
+  class: ClassInput,
+};
+
+export type CharacterConditionsInput = {
+  id: string,
+  conditionTypes?: Array< ConditionTypeInput | null > | null,
+};
+
+export type ConditionTypeInput = {
+  id: string,
+  name: string,
+  conditions?: Array< ConditionInput | null > | null,
+};
+
+export type ConditionInput = {
+  id: string,
+  description: string,
+  selected?: boolean | null,
+};
+
+export type CharacterLookInput = {
+  id: string,
+  look: Array< LookInput | null >,
+};
+
+export type LookInput = {
+  id: string,
+  name: string,
+  description: string,
+  class: ClassInput,
+};
+
+export type CharacterClassInput = {
+  id: string,
+  class: ClassInput,
+};
+
+export type ModelCharacterConditionInput = {
+  userId?: ModelIDInput | null,
+  name?: ModelStringInput | null,
+  level?: ModelIntInput | null,
+  xp?: ModelIntInput | null,
+  armor?: ModelIntInput | null,
+  hitPointsMax?: ModelIntInput | null,
+  hitPointsCurrent?: ModelIntInput | null,
+  coin?: ModelIntInput | null,
+  loadMax?: ModelIntInput | null,
+  loadCurrent?: ModelIntInput | null,
+  isPublic?: ModelBooleanInput | null,
+  isCoreTemplate?: ModelBooleanInput | null,
+  tags?: ModelStringInput | null,
+  notes?: ModelStringInput | null,
+  and?: Array< ModelCharacterConditionInput | null > | null,
+  or?: Array< ModelCharacterConditionInput | null > | null,
+  not?: ModelCharacterConditionInput | null,
+};
+
+export type ModelIDInput = {
+  ne?: string | null,
+  eq?: string | null,
+  le?: string | null,
+  lt?: string | null,
+  ge?: string | null,
+  gt?: string | null,
+  contains?: string | null,
+  notContains?: string | null,
+  between?: Array< string | null > | null,
+  beginsWith?: string | null,
+  attributeExists?: boolean | null,
+  attributeType?: ModelAttributeTypes | null,
+  size?: ModelSizeInput | null,
+};
+
+export enum ModelAttributeTypes {
+  binary = "binary",
+  binarySet = "binarySet",
+  bool = "bool",
+  list = "list",
+  map = "map",
+  number = "number",
+  numberSet = "numberSet",
+  string = "string",
+  stringSet = "stringSet",
+  _null = "_null",
+}
+
+
+export type ModelSizeInput = {
+  ne?: number | null,
+  eq?: number | null,
+  le?: number | null,
+  lt?: number | null,
+  ge?: number | null,
+  gt?: number | null,
+  between?: Array< number | null > | null,
+};
+
+export type ModelStringInput = {
+  ne?: string | null,
+  eq?: string | null,
+  le?: string | null,
+  lt?: string | null,
+  ge?: string | null,
+  gt?: string | null,
+  contains?: string | null,
+  notContains?: string | null,
+  between?: Array< string | null > | null,
+  beginsWith?: string | null,
+  attributeExists?: boolean | null,
+  attributeType?: ModelAttributeTypes | null,
+  size?: ModelSizeInput | null,
+};
+
+export type ModelIntInput = {
+  ne?: number | null,
+  eq?: number | null,
+  le?: number | null,
+  lt?: number | null,
+  ge?: number | null,
+  gt?: number | null,
+  between?: Array< number | null > | null,
+  attributeExists?: boolean | null,
+  attributeType?: ModelAttributeTypes | null,
+};
+
+export type ModelBooleanInput = {
+  ne?: boolean | null,
+  eq?: boolean | null,
+  attributeExists?: boolean | null,
+  attributeType?: ModelAttributeTypes | null,
+};
+
 export type Character = {
   __typename: "Character",
   userId: string,
@@ -31,6 +307,8 @@ export type Character = {
   look?: CharacterLook | null,
   class?: CharacterClass | null,
   notes?: string | null,
+  createdAt: string,
+  updatedAt: string,
 };
 
 export type CharacterSpell = {
@@ -207,13 +485,141 @@ export type CharacterClass = {
   class: Class,
 };
 
-export type DuplicateCharacterMutationVariables = {
-  characterId: string,
-  newUserId: string,
+export type UpdateCharacterInput = {
+  userId?: string | null,
+  id: string,
+  name?: string | null,
+  level?: number | null,
+  xp?: number | null,
+  armor?: number | null,
+  hitPointsMax?: number | null,
+  hitPointsCurrent?: number | null,
+  coin?: number | null,
+  loadMax?: number | null,
+  loadCurrent?: number | null,
+  isPublic?: boolean | null,
+  isCoreTemplate?: boolean | null,
+  spells?: Array< CharacterSpellInput | null > | null,
+  gear?: Array< CharacterGearInput | null > | null,
+  sixToTenMoves?: Array< CharacterMoveInput | null > | null,
+  twoToTenMoves?: Array< CharacterMoveInput | null > | null,
+  startingMoves?: Array< CharacterMoveInput | null > | null,
+  bonds?: Array< CharacterBondInput | null > | null,
+  abilityscores?: Array< CharacterAbilityScoreInput | null > | null,
+  race?: CharacterRaceInput | null,
+  alignment?: CharacterAlignmentInput | null,
+  tags?: Array< string | null > | null,
+  conditionTypes?: Array< CharacterConditionsInput | null > | null,
+  look?: CharacterLookInput | null,
+  class?: CharacterClassInput | null,
+  notes?: string | null,
 };
 
-export type DuplicateCharacterMutation = {
-  duplicateCharacter?:  {
+export type DeleteCharacterInput = {
+  id: string,
+};
+
+export type ModelCharacterFilterInput = {
+  userId?: ModelIDInput | null,
+  id?: ModelIDInput | null,
+  name?: ModelStringInput | null,
+  level?: ModelIntInput | null,
+  xp?: ModelIntInput | null,
+  armor?: ModelIntInput | null,
+  hitPointsMax?: ModelIntInput | null,
+  hitPointsCurrent?: ModelIntInput | null,
+  coin?: ModelIntInput | null,
+  loadMax?: ModelIntInput | null,
+  loadCurrent?: ModelIntInput | null,
+  isPublic?: ModelBooleanInput | null,
+  isCoreTemplate?: ModelBooleanInput | null,
+  tags?: ModelStringInput | null,
+  notes?: ModelStringInput | null,
+  and?: Array< ModelCharacterFilterInput | null > | null,
+  or?: Array< ModelCharacterFilterInput | null > | null,
+  not?: ModelCharacterFilterInput | null,
+};
+
+export type ModelCharacterConnection = {
+  __typename: "ModelCharacterConnection",
+  items:  Array<Character | null >,
+  nextToken?: string | null,
+};
+
+export type ModelSubscriptionCharacterFilterInput = {
+  userId?: ModelSubscriptionIDInput | null,
+  id?: ModelSubscriptionIDInput | null,
+  name?: ModelSubscriptionStringInput | null,
+  level?: ModelSubscriptionIntInput | null,
+  xp?: ModelSubscriptionIntInput | null,
+  armor?: ModelSubscriptionIntInput | null,
+  hitPointsMax?: ModelSubscriptionIntInput | null,
+  hitPointsCurrent?: ModelSubscriptionIntInput | null,
+  coin?: ModelSubscriptionIntInput | null,
+  loadMax?: ModelSubscriptionIntInput | null,
+  loadCurrent?: ModelSubscriptionIntInput | null,
+  isPublic?: ModelSubscriptionBooleanInput | null,
+  isCoreTemplate?: ModelSubscriptionBooleanInput | null,
+  tags?: ModelSubscriptionStringInput | null,
+  notes?: ModelSubscriptionStringInput | null,
+  and?: Array< ModelSubscriptionCharacterFilterInput | null > | null,
+  or?: Array< ModelSubscriptionCharacterFilterInput | null > | null,
+};
+
+export type ModelSubscriptionIDInput = {
+  ne?: string | null,
+  eq?: string | null,
+  le?: string | null,
+  lt?: string | null,
+  ge?: string | null,
+  gt?: string | null,
+  contains?: string | null,
+  notContains?: string | null,
+  between?: Array< string | null > | null,
+  beginsWith?: string | null,
+  in?: Array< string | null > | null,
+  notIn?: Array< string | null > | null,
+};
+
+export type ModelSubscriptionStringInput = {
+  ne?: string | null,
+  eq?: string | null,
+  le?: string | null,
+  lt?: string | null,
+  ge?: string | null,
+  gt?: string | null,
+  contains?: string | null,
+  notContains?: string | null,
+  between?: Array< string | null > | null,
+  beginsWith?: string | null,
+  in?: Array< string | null > | null,
+  notIn?: Array< string | null > | null,
+};
+
+export type ModelSubscriptionIntInput = {
+  ne?: number | null,
+  eq?: number | null,
+  le?: number | null,
+  lt?: number | null,
+  ge?: number | null,
+  gt?: number | null,
+  between?: Array< number | null > | null,
+  in?: Array< number | null > | null,
+  notIn?: Array< number | null > | null,
+};
+
+export type ModelSubscriptionBooleanInput = {
+  ne?: boolean | null,
+  eq?: boolean | null,
+};
+
+export type CreateCharacterMutationVariables = {
+  input: CreateCharacterInput,
+  condition?: ModelCharacterConditionInput | null,
+};
+
+export type CreateCharacterMutation = {
+  createCharacter?:  {
     __typename: "Character",
     userId: string,
     id: string,
@@ -290,11 +696,189 @@ export type DuplicateCharacterMutation = {
       id: string,
     } | null,
     notes?: string | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type UpdateCharacterMutationVariables = {
+  input: UpdateCharacterInput,
+  condition?: ModelCharacterConditionInput | null,
+};
+
+export type UpdateCharacterMutation = {
+  updateCharacter?:  {
+    __typename: "Character",
+    userId: string,
+    id: string,
+    name: string,
+    level?: number | null,
+    xp?: number | null,
+    armor?: number | null,
+    hitPointsMax?: number | null,
+    hitPointsCurrent?: number | null,
+    coin?: number | null,
+    loadMax?: number | null,
+    loadCurrent?: number | null,
+    isPublic?: boolean | null,
+    isCoreTemplate?: boolean | null,
+    spells?:  Array< {
+      __typename: "CharacterSpell",
+      id: string,
+      selected?: boolean | null,
+      tags?: Array< string | null > | null,
+    } | null > | null,
+    gear?:  Array< {
+      __typename: "CharacterGear",
+      id: string,
+      uses?: number | null,
+      tags?: Array< string | null > | null,
+    } | null > | null,
+    sixToTenMoves?:  Array< {
+      __typename: "CharacterMove",
+      id: string,
+      selected?: boolean | null,
+    } | null > | null,
+    twoToTenMoves?:  Array< {
+      __typename: "CharacterMove",
+      id: string,
+      selected?: boolean | null,
+    } | null > | null,
+    startingMoves?:  Array< {
+      __typename: "CharacterMove",
+      id: string,
+      selected?: boolean | null,
+    } | null > | null,
+    bonds?:  Array< {
+      __typename: "CharacterBond",
+      id: string,
+      description?: string | null,
+      selected?: boolean | null,
+    } | null > | null,
+    abilityscores?:  Array< {
+      __typename: "CharacterAbilityScore",
+      value: string,
+      bonus: number,
+      tags?: Array< string | null > | null,
+    } | null > | null,
+    race?:  {
+      __typename: "CharacterRace",
+      id: string,
+    } | null,
+    alignment?:  {
+      __typename: "CharacterAlignment",
+      id: string,
+      selected?: boolean | null,
+    } | null,
+    tags?: Array< string | null > | null,
+    conditionTypes?:  Array< {
+      __typename: "CharacterConditions",
+      id: string,
+    } | null > | null,
+    look?:  {
+      __typename: "CharacterLook",
+      id: string,
+    } | null,
+    class?:  {
+      __typename: "CharacterClass",
+      id: string,
+    } | null,
+    notes?: string | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type DeleteCharacterMutationVariables = {
+  input: DeleteCharacterInput,
+  condition?: ModelCharacterConditionInput | null,
+};
+
+export type DeleteCharacterMutation = {
+  deleteCharacter?:  {
+    __typename: "Character",
+    userId: string,
+    id: string,
+    name: string,
+    level?: number | null,
+    xp?: number | null,
+    armor?: number | null,
+    hitPointsMax?: number | null,
+    hitPointsCurrent?: number | null,
+    coin?: number | null,
+    loadMax?: number | null,
+    loadCurrent?: number | null,
+    isPublic?: boolean | null,
+    isCoreTemplate?: boolean | null,
+    spells?:  Array< {
+      __typename: "CharacterSpell",
+      id: string,
+      selected?: boolean | null,
+      tags?: Array< string | null > | null,
+    } | null > | null,
+    gear?:  Array< {
+      __typename: "CharacterGear",
+      id: string,
+      uses?: number | null,
+      tags?: Array< string | null > | null,
+    } | null > | null,
+    sixToTenMoves?:  Array< {
+      __typename: "CharacterMove",
+      id: string,
+      selected?: boolean | null,
+    } | null > | null,
+    twoToTenMoves?:  Array< {
+      __typename: "CharacterMove",
+      id: string,
+      selected?: boolean | null,
+    } | null > | null,
+    startingMoves?:  Array< {
+      __typename: "CharacterMove",
+      id: string,
+      selected?: boolean | null,
+    } | null > | null,
+    bonds?:  Array< {
+      __typename: "CharacterBond",
+      id: string,
+      description?: string | null,
+      selected?: boolean | null,
+    } | null > | null,
+    abilityscores?:  Array< {
+      __typename: "CharacterAbilityScore",
+      value: string,
+      bonus: number,
+      tags?: Array< string | null > | null,
+    } | null > | null,
+    race?:  {
+      __typename: "CharacterRace",
+      id: string,
+    } | null,
+    alignment?:  {
+      __typename: "CharacterAlignment",
+      id: string,
+      selected?: boolean | null,
+    } | null,
+    tags?: Array< string | null > | null,
+    conditionTypes?:  Array< {
+      __typename: "CharacterConditions",
+      id: string,
+    } | null > | null,
+    look?:  {
+      __typename: "CharacterLook",
+      id: string,
+    } | null,
+    class?:  {
+      __typename: "CharacterClass",
+      id: string,
+    } | null,
+    notes?: string | null,
+    createdAt: string,
+    updatedAt: string,
   } | null,
 };
 
 export type GetCharacterQueryVariables = {
-  characterId: string,
+  id: string,
 };
 
 export type GetCharacterQuery = {
@@ -375,15 +959,50 @@ export type GetCharacterQuery = {
       id: string,
     } | null,
     notes?: string | null,
+    createdAt: string,
+    updatedAt: string,
   } | null,
 };
 
-export type GetUserCharactersQueryVariables = {
-  userId: string,
+export type ListCharactersQueryVariables = {
+  filter?: ModelCharacterFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
 };
 
-export type GetUserCharactersQuery = {
-  getUserCharacters?:  Array< {
+export type ListCharactersQuery = {
+  listCharacters?:  {
+    __typename: "ModelCharacterConnection",
+    items:  Array< {
+      __typename: "Character",
+      userId: string,
+      id: string,
+      name: string,
+      level?: number | null,
+      xp?: number | null,
+      armor?: number | null,
+      hitPointsMax?: number | null,
+      hitPointsCurrent?: number | null,
+      coin?: number | null,
+      loadMax?: number | null,
+      loadCurrent?: number | null,
+      isPublic?: boolean | null,
+      isCoreTemplate?: boolean | null,
+      tags?: Array< string | null > | null,
+      notes?: string | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type OnCreateCharacterSubscriptionVariables = {
+  filter?: ModelSubscriptionCharacterFilterInput | null,
+};
+
+export type OnCreateCharacterSubscription = {
+  onCreateCharacter?:  {
     __typename: "Character",
     userId: string,
     id: string,
@@ -460,14 +1079,17 @@ export type GetUserCharactersQuery = {
       id: string,
     } | null,
     notes?: string | null,
-  } | null > | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
 };
 
-export type GetCoreClassTemplatesQueryVariables = {
+export type OnUpdateCharacterSubscriptionVariables = {
+  filter?: ModelSubscriptionCharacterFilterInput | null,
 };
 
-export type GetCoreClassTemplatesQuery = {
-  getCoreClassTemplates?:  Array< {
+export type OnUpdateCharacterSubscription = {
+  onUpdateCharacter?:  {
     __typename: "Character",
     userId: string,
     id: string,
@@ -544,149 +1166,94 @@ export type GetCoreClassTemplatesQuery = {
       id: string,
     } | null,
     notes?: string | null,
-  } | null > | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
 };
 
-export type GetClassesQueryVariables = {
+export type OnDeleteCharacterSubscriptionVariables = {
+  filter?: ModelSubscriptionCharacterFilterInput | null,
 };
 
-export type GetClassesQuery = {
-  getClasses?:  Array< {
-    __typename: "Class",
+export type OnDeleteCharacterSubscription = {
+  onDeleteCharacter?:  {
+    __typename: "Character",
+    userId: string,
     id: string,
     name: string,
-    description: string,
-    source:  {
-      __typename: "Source",
+    level?: number | null,
+    xp?: number | null,
+    armor?: number | null,
+    hitPointsMax?: number | null,
+    hitPointsCurrent?: number | null,
+    coin?: number | null,
+    loadMax?: number | null,
+    loadCurrent?: number | null,
+    isPublic?: boolean | null,
+    isCoreTemplate?: boolean | null,
+    spells?:  Array< {
+      __typename: "CharacterSpell",
       id: string,
-      name: string,
-    },
-    damageDiceType?:  {
-      __typename: "DiceType",
+      selected?: boolean | null,
+      tags?: Array< string | null > | null,
+    } | null > | null,
+    gear?:  Array< {
+      __typename: "CharacterGear",
       id: string,
-      name?: string | null,
+      uses?: number | null,
+      tags?: Array< string | null > | null,
+    } | null > | null,
+    sixToTenMoves?:  Array< {
+      __typename: "CharacterMove",
+      id: string,
+      selected?: boolean | null,
+    } | null > | null,
+    twoToTenMoves?:  Array< {
+      __typename: "CharacterMove",
+      id: string,
+      selected?: boolean | null,
+    } | null > | null,
+    startingMoves?:  Array< {
+      __typename: "CharacterMove",
+      id: string,
+      selected?: boolean | null,
+    } | null > | null,
+    bonds?:  Array< {
+      __typename: "CharacterBond",
+      id: string,
+      description?: string | null,
+      selected?: boolean | null,
+    } | null > | null,
+    abilityscores?:  Array< {
+      __typename: "CharacterAbilityScore",
+      value: string,
+      bonus: number,
+      tags?: Array< string | null > | null,
+    } | null > | null,
+    race?:  {
+      __typename: "CharacterRace",
+      id: string,
     } | null,
-  } | null > | null,
-};
-
-export type GetSpellsQueryVariables = {
-};
-
-export type GetSpellsQuery = {
-  getSpells?:  Array< {
-    __typename: "Spell",
-    id: string,
-    name: string,
-    level: number,
-    type: string,
-    ongoing?: boolean | null,
-    description: string,
-    source:  {
-      __typename: "Source",
+    alignment?:  {
+      __typename: "CharacterAlignment",
       id: string,
-      name: string,
-    },
-    class:  {
-      __typename: "Class",
+      selected?: boolean | null,
+    } | null,
+    tags?: Array< string | null > | null,
+    conditionTypes?:  Array< {
+      __typename: "CharacterConditions",
       id: string,
-      name: string,
-      description: string,
-    },
-  } | null > | null,
-};
-
-export type GetSpellsByClassQueryVariables = {
-  className: string,
-};
-
-export type GetSpellsByClassQuery = {
-  getSpellsByClass?:  Array< {
-    __typename: "Spell",
-    id: string,
-    name: string,
-    level: number,
-    type: string,
-    ongoing?: boolean | null,
-    description: string,
-    source:  {
-      __typename: "Source",
+    } | null > | null,
+    look?:  {
+      __typename: "CharacterLook",
       id: string,
-      name: string,
-    },
-    class:  {
-      __typename: "Class",
-      id: string,
-      name: string,
-      description: string,
-    },
-  } | null > | null,
-};
-
-export type GetDiceTypesQueryVariables = {
-};
-
-export type GetDiceTypesQuery = {
-  getDiceTypes?:  Array< {
-    __typename: "DiceType",
-    id: string,
-    name?: string | null,
-  } | null > | null,
-};
-
-export type GetRacesQueryVariables = {
-};
-
-export type GetRacesQuery = {
-  getRaces?:  Array< {
-    __typename: "Race",
-    id: string,
-    name?: string | null,
-    description?: string | null,
+    } | null,
     class?:  {
-      __typename: "Class",
+      __typename: "CharacterClass",
       id: string,
-      name: string,
-      description: string,
     } | null,
-    source:  {
-      __typename: "Source",
-      id: string,
-      name: string,
-    },
-  } | null > | null,
-};
-
-export type GetMovesQueryVariables = {
-};
-
-export type GetMovesQuery = {
-  getMoves?:  Array< {
-    __typename: "Move",
-    id: string,
-    description: string,
-    class:  {
-      __typename: "Class",
-      id: string,
-      name: string,
-      description: string,
-    },
-  } | null > | null,
-};
-
-export type GetMovesByClassQueryVariables = {
-  className: string,
-};
-
-export type GetMovesByClassQuery = {
-  getMovesByClass?:  Array< {
-    __typename: "Move",
-    id: string,
-    description: string,
-    class:  {
-      __typename: "Class",
-      id: string,
-      name: string,
-      description: string,
-    },
-  } | null > | null,
+    notes?: string | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
 };

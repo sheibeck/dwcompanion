@@ -3,16 +3,13 @@
 // this is an auto generated file. This will be overwritten
 
 import * as APITypes from "../API";
-type GeneratedMutation<InputType, OutputType> = string & {
-  __generatedMutationInput: InputType;
-  __generatedMutationOutput: OutputType;
+type GeneratedSubscription<InputType, OutputType> = string & {
+  __generatedSubscriptionInput: InputType;
+  __generatedSubscriptionOutput: OutputType;
 };
 
-export const createCharacter = /* GraphQL */ `mutation CreateCharacter(
-  $input: CreateCharacterInput!
-  $condition: ModelCharacterConditionInput
-) {
-  createCharacter(input: $input, condition: $condition) {
+export const onCreateCharacter = /* GraphQL */ `subscription OnCreateCharacter($filter: ModelSubscriptionCharacterFilterInput) {
+  onCreateCharacter(filter: $filter) {
     userId
     id
     name
@@ -93,15 +90,12 @@ export const createCharacter = /* GraphQL */ `mutation CreateCharacter(
     __typename
   }
 }
-` as GeneratedMutation<
-  APITypes.CreateCharacterMutationVariables,
-  APITypes.CreateCharacterMutation
+` as GeneratedSubscription<
+  APITypes.OnCreateCharacterSubscriptionVariables,
+  APITypes.OnCreateCharacterSubscription
 >;
-export const updateCharacter = /* GraphQL */ `mutation UpdateCharacter(
-  $input: UpdateCharacterInput!
-  $condition: ModelCharacterConditionInput
-) {
-  updateCharacter(input: $input, condition: $condition) {
+export const onUpdateCharacter = /* GraphQL */ `subscription OnUpdateCharacter($filter: ModelSubscriptionCharacterFilterInput) {
+  onUpdateCharacter(filter: $filter) {
     userId
     id
     name
@@ -182,15 +176,12 @@ export const updateCharacter = /* GraphQL */ `mutation UpdateCharacter(
     __typename
   }
 }
-` as GeneratedMutation<
-  APITypes.UpdateCharacterMutationVariables,
-  APITypes.UpdateCharacterMutation
+` as GeneratedSubscription<
+  APITypes.OnUpdateCharacterSubscriptionVariables,
+  APITypes.OnUpdateCharacterSubscription
 >;
-export const deleteCharacter = /* GraphQL */ `mutation DeleteCharacter(
-  $input: DeleteCharacterInput!
-  $condition: ModelCharacterConditionInput
-) {
-  deleteCharacter(input: $input, condition: $condition) {
+export const onDeleteCharacter = /* GraphQL */ `subscription OnDeleteCharacter($filter: ModelSubscriptionCharacterFilterInput) {
+  onDeleteCharacter(filter: $filter) {
     userId
     id
     name
@@ -271,7 +262,7 @@ export const deleteCharacter = /* GraphQL */ `mutation DeleteCharacter(
     __typename
   }
 }
-` as GeneratedMutation<
-  APITypes.DeleteCharacterMutationVariables,
-  APITypes.DeleteCharacterMutation
+` as GeneratedSubscription<
+  APITypes.OnDeleteCharacterSubscriptionVariables,
+  APITypes.OnDeleteCharacterSubscription
 >;

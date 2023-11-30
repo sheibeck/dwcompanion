@@ -28,8 +28,14 @@
     // Fetch a single record by its identifier
     const getCharacterList = async () => {
         const result = await client.graphql({
-            query: queries.getUserCharacters,
-            variables: { userId: "1" }
+            query: queries.listCharacters,
+            variables: {
+                filter: {
+                    userId: {
+                        eq: '1'
+                    }
+                }
+            }
         });
         return result;
     }

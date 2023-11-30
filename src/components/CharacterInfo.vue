@@ -26,7 +26,7 @@ onMounted(async () => {
 const getCharacter = async () => {
     const character = await client.graphql({
         query: queries.getCharacter,
-        variables: { characterId: characterId }
+        variables: { id: characterId }
      });
 
     return character;

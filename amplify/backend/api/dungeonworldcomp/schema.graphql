@@ -2,57 +2,57 @@
 # all models in this schema. Learn more about authorization rules here: https://docs.amplify.aws/cli/graphql/authorization-rules
 input AMPLIFY { globalAuthRule: AuthRule = { allow: public } } # FOR TESTING ONLY!
 
-type User {
+type User @model {
   id: ID!
   name: String!
   email: String!
   # Add other user-related fields as needed
 }
 
-type Source {
+type Source @model {
   id: ID!
   name: String!
 }
 
-type CharacterClass {
+type CharacterClass @model {
   id: ID!
-  class: Class!
+  class: Class! @hasOne
 }
 
-type Class {
+type Class @model {
   id: ID!
   name: String!
   description: String!
-  source: Source!
-  damageDiceType: DiceType
+  source: Source! @hasOne
+  damageDiceType: DiceType @hasOne
 }
 
-type Spell {
+type Spell @model {
   id: ID!
   name: String!
   level: Int!
   type: String!
   ongoing: Boolean
   description: String!
-  source: Source!
-  class: Class!
+  source: Source! @hasOne
+  class: Class! @hasOne
 }
 
-type CharacterSpell {
+type CharacterSpell @model {
   id: ID!
-  spell: Spell!
+  spell: Spell! @hasOne
   selected: Boolean
   tags: [String]
 }
 
-type CharacterGear {
+type CharacterGear @model {
   id: ID!
-  gear: Gear!
+  gear: Gear! @hasOne
   uses: Int
   tags: [String]
 }
 
-type Gear {
+type Gear @model {
   id: ID!
   description: String!
   weight: Int!
@@ -61,39 +61,40 @@ type Gear {
 }
 
 
-type CharacterMove {
+type CharacterMove @model {
   id: ID!
   selected: Boolean
-  move: Move!
+  move: Move! @hasOne
 }
 
-type Move {
+type Move @model {
   id: ID!
   description: String!
-  class: Class!
+  class: Class! @hasOne
 }
 
-type CharacterBond {
+type CharacterBond @model {
   id: ID!
   description: String
-  bond: Bond!
+  bond: Bond! @hasOne
   selected: Boolean
 }
 
-type Bond {
+type Bond @model {
   id: ID!
   description: String
-  class: Class!
+  class: Class! @hasOne
 }
 
-type CharacterAbilityScore {
-  abilityScore: AbilityScore!
+type CharacterAbilityScore @model {
+  abilityScore: AbilityScore! @hasOne
+  id: ID!
   value: String!
   bonus: Int!
   tags: [String]
 }
 
-type AbilityScore {
+type AbilityScore @model {
   id: ID!
   name: String!
   shortName: String!
@@ -101,69 +102,69 @@ type AbilityScore {
   debilityPenalty: String!
 }
 
-type CharacterRace {
+type CharacterRace @model {
   id: ID!
-  race: Race!
+  race: Race! @hasOne
 }
 
-type Race {
+type Race @model {
   id: ID!
   name: String
   description: String
-  class: Class
-  source: Source!
+  class: Class @hasOne
+  source: Source! @hasOne
 }
 
-type CharacterAlignment {
+type CharacterAlignment @model {
   id: ID!
-  alignment: Alignment!
+  alignment: Alignment! @hasOne
   selected: Boolean
 }
 
-type Alignment {
+type Alignment @model {
   id: ID!
   name: String
   description: String
-  class: Class!
+  class: Class! @hasOne
 }
 
-type DiceType {
+type DiceType @model {
   id: ID!
   name: String
 }
 
-type CharacterConditions {
+type CharacterConditions @model {
   id: ID!
-  conditionTypes: [ConditionType]
+  conditionTypes: [ConditionType] @hasMany
 }
 
-type Condition {
+type Condition @model {
   id: ID!
   description: String!
   selected: Boolean
 }
 
-type ConditionType {
+type ConditionType @model {
   id: ID!
   name: String!
-  conditions: [Condition]
+  conditions: [Condition] @hasMany
 }
 
-type CharacterLook {
+type CharacterLook @model {
   id: ID!
-  look: [Look]!
+  look: [Look]! @hasMany
 }
 
-type Look {
+type Look @model {
   id: ID!
   name: String!
   description: String!
-  class: Class!
+  class: Class! @hasOne
 }
 
-type Character {
-  userId: ID!
-  id: ID!
+type Character @model {
+  userId: ID! @index(name: "byUser", queryField: "characterByUser")
+  id: ID! @primaryKey
   name: String!
   level: Int
   xp: Int
@@ -175,35 +176,18 @@ type Character {
   loadCurrent: Int
   isPublic: Boolean
   isCoreTemplate: Boolean
-  spells: [CharacterSpell]
-  gear: [CharacterGear]
-  sixToTenMoves: [CharacterMove]
-  twoToTenMoves: [CharacterMove]
-  startingMoves: [CharacterMove]
-  bonds: [CharacterBond]
-  abilityscores: [CharacterAbilityScore]
-  race: CharacterRace
-  alignment: CharacterAlignment
+  spells: [CharacterSpell] @hasMany
+  gear: [CharacterGear] @hasMany
+  sixToTenMoves: [CharacterMove] @hasMany
+  twoToTenMoves: [CharacterMove] @hasMany
+  startingMoves: [CharacterMove] @hasMany
+  bonds: [CharacterBond] @hasMany
+  abilityscores: [CharacterAbilityScore] @hasMany
+  race: CharacterRace @hasOne
+  alignment: CharacterAlignment @hasOne
   tags: [String]
-  conditionTypes: [CharacterConditions]
-  look: CharacterLook
-  class: CharacterClass
+  conditionTypes: [CharacterConditions] @hasMany
+  look: CharacterLook @hasOne
+  class: CharacterClass @hasOne
   notes: String
-}
-
-type Query {
-  getCharacter(characterId: ID!): Character
-  getUserCharacters(userId: ID!): [Character]
-  getCoreClassTemplates: [Character]            # Return a list of all characters that are CW Core Class templates
-  getClasses: [Class]
-  getSpells: [Spell]
-  getSpellsByClass(className: String!): [Spell]
-  getDiceTypes: [DiceType]
-  getRaces: [Race]
-  getMoves: [Move]
-  getMovesByClass(className: String!): [Move]
-}
-
-type Mutation {
-  duplicateCharacter(characterId: ID!, newUserId: ID!): Character
 }
