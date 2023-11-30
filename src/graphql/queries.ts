@@ -2,761 +2,394 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const getCharacter = /* GraphQL */ `
-  query GetCharacter($characterId: ID!) {
-    getCharacter(characterId: $characterId) {
-      owner {
-        id
-        username
-        email
-        __typename
-      }
-      name
-      class {
-        name
-        description
-        __typename
-      }
-      look {
-        name
-        description
-        tags {
-          name
-          description
-          __typename
-        }
-        __typename
-      }
-      level
-      xp
-      armor
-      hitPointsMax
-      hitPointsCurrent
-      conditions
-      damage {
-        name
-        __typename
-      }
-      tags {
-        name
-        description
-        __typename
-      }
-      alignment {
-        name
-        description
-        tags {
-          name
-          description
-          __typename
-        }
-        class {
-          name
-          description
-          __typename
-        }
-        __typename
-      }
-      race {
-        name
-        description
-        tags {
-          name
-          description
-          __typename
-        }
-        class {
-          name
-          description
-          __typename
-        }
-        __typename
-      }
-      abilityScores {
-        strength {
-          name
-          shortName
-          value
-          bonus
-          debility
-          debilityPenalty
-          __typename
-        }
-        dexterity {
-          name
-          shortName
-          value
-          bonus
-          debility
-          debilityPenalty
-          __typename
-        }
-        constitution {
-          name
-          shortName
-          value
-          bonus
-          debility
-          debilityPenalty
-          __typename
-        }
-        intelligence {
-          name
-          shortName
-          value
-          bonus
-          debility
-          debilityPenalty
-          __typename
-        }
-        wisdom {
-          name
-          shortName
-          value
-          bonus
-          debility
-          debilityPenalty
-          __typename
-        }
-        charisma {
-          name
-          shortName
-          value
-          bonus
-          debility
-          debilityPenalty
-          __typename
-        }
-        __typename
-      }
-      bonds {
-        description
-        tags {
-          name
-          description
-          __typename
-        }
-        __typename
-      }
-      startingMoves {
-        move {
-          name
-          description
-          __typename
-        }
-        selected
-        tags {
-          name
-          description
-          __typename
-        }
-        __typename
-      }
-      twoToTenMoves {
-        move {
-          name
-          description
-          __typename
-        }
-        selected
-        tags {
-          name
-          description
-          __typename
-        }
-        __typename
-      }
-      sixToTenMoves {
-        move {
-          name
-          description
-          __typename
-        }
-        selected
-        tags {
-          name
-          description
-          __typename
-        }
-        __typename
-      }
-      coin
-      loadMax
-      loadCurrent
-      gear {
-        gear {
-          name
-          description
-          uses
-          weight
-          __typename
-        }
-        selected
-        tags {
-          name
-          description
-          __typename
-        }
-        __typename
-      }
-      spells {
-        spell {
-          name
-          level
-          type
-          ongoing
-          description
-          __typename
-        }
-        selected
-        tags {
-          name
-          description
-          __typename
-        }
-        __typename
-      }
-      isPublic
-      isCoreTemplate
+import * as APITypes from "../API";
+type GeneratedQuery<InputType, OutputType> = string & {
+  __generatedQueryInput: InputType;
+  __generatedQueryOutput: OutputType;
+};
+
+export const getCharacter = /* GraphQL */ `query GetCharacter($characterId: ID!) {
+  getCharacter(characterId: $characterId) {
+    userId
+    id
+    name
+    level
+    xp
+    armor
+    hitPointsMax
+    hitPointsCurrent
+    coin
+    loadMax
+    loadCurrent
+    isPublic
+    isCoreTemplate
+    spells {
+      id
+      selected
+      tags
       __typename
     }
-  }
-`;
-export const getUserCharacters = /* GraphQL */ `
-  query GetUserCharacters($userId: ID!) {
-    getUserCharacters(userId: $userId) {
-      owner {
-        id
-        username
-        email
-        __typename
-      }
-      name
-      class {
-        name
-        description
-        __typename
-      }
-      look {
-        name
-        description
-        tags {
-          name
-          description
-          __typename
-        }
-        __typename
-      }
-      level
-      xp
-      armor
-      hitPointsMax
-      hitPointsCurrent
-      conditions
-      damage {
-        name
-        __typename
-      }
-      tags {
-        name
-        description
-        __typename
-      }
-      alignment {
-        name
-        description
-        tags {
-          name
-          description
-          __typename
-        }
-        class {
-          name
-          description
-          __typename
-        }
-        __typename
-      }
-      race {
-        name
-        description
-        tags {
-          name
-          description
-          __typename
-        }
-        class {
-          name
-          description
-          __typename
-        }
-        __typename
-      }
-      abilityScores {
-        strength {
-          name
-          shortName
-          value
-          bonus
-          debility
-          debilityPenalty
-          __typename
-        }
-        dexterity {
-          name
-          shortName
-          value
-          bonus
-          debility
-          debilityPenalty
-          __typename
-        }
-        constitution {
-          name
-          shortName
-          value
-          bonus
-          debility
-          debilityPenalty
-          __typename
-        }
-        intelligence {
-          name
-          shortName
-          value
-          bonus
-          debility
-          debilityPenalty
-          __typename
-        }
-        wisdom {
-          name
-          shortName
-          value
-          bonus
-          debility
-          debilityPenalty
-          __typename
-        }
-        charisma {
-          name
-          shortName
-          value
-          bonus
-          debility
-          debilityPenalty
-          __typename
-        }
-        __typename
-      }
-      bonds {
-        description
-        tags {
-          name
-          description
-          __typename
-        }
-        __typename
-      }
-      startingMoves {
-        move {
-          name
-          description
-          __typename
-        }
-        selected
-        tags {
-          name
-          description
-          __typename
-        }
-        __typename
-      }
-      twoToTenMoves {
-        move {
-          name
-          description
-          __typename
-        }
-        selected
-        tags {
-          name
-          description
-          __typename
-        }
-        __typename
-      }
-      sixToTenMoves {
-        move {
-          name
-          description
-          __typename
-        }
-        selected
-        tags {
-          name
-          description
-          __typename
-        }
-        __typename
-      }
-      coin
-      loadMax
-      loadCurrent
-      gear {
-        gear {
-          name
-          description
-          uses
-          weight
-          __typename
-        }
-        selected
-        tags {
-          name
-          description
-          __typename
-        }
-        __typename
-      }
-      spells {
-        spell {
-          name
-          level
-          type
-          ongoing
-          description
-          __typename
-        }
-        selected
-        tags {
-          name
-          description
-          __typename
-        }
-        __typename
-      }
-      isPublic
-      isCoreTemplate
+    gear {
+      id
+      uses
+      tags
       __typename
     }
-  }
-`;
-export const getCoreClassTemplates = /* GraphQL */ `
-  query GetCoreClassTemplates($isCoreTemplate: Boolean!) {
-    getCoreClassTemplates(isCoreTemplate: $isCoreTemplate) {
-      owner {
-        id
-        username
-        email
-        __typename
-      }
-      name
-      class {
-        name
-        description
-        __typename
-      }
-      look {
-        name
-        description
-        tags {
-          name
-          description
-          __typename
-        }
-        __typename
-      }
-      level
-      xp
-      armor
-      hitPointsMax
-      hitPointsCurrent
-      conditions
-      damage {
-        name
-        __typename
-      }
-      tags {
-        name
-        description
-        __typename
-      }
-      alignment {
-        name
-        description
-        tags {
-          name
-          description
-          __typename
-        }
-        class {
-          name
-          description
-          __typename
-        }
-        __typename
-      }
-      race {
-        name
-        description
-        tags {
-          name
-          description
-          __typename
-        }
-        class {
-          name
-          description
-          __typename
-        }
-        __typename
-      }
-      abilityScores {
-        strength {
-          name
-          shortName
-          value
-          bonus
-          debility
-          debilityPenalty
-          __typename
-        }
-        dexterity {
-          name
-          shortName
-          value
-          bonus
-          debility
-          debilityPenalty
-          __typename
-        }
-        constitution {
-          name
-          shortName
-          value
-          bonus
-          debility
-          debilityPenalty
-          __typename
-        }
-        intelligence {
-          name
-          shortName
-          value
-          bonus
-          debility
-          debilityPenalty
-          __typename
-        }
-        wisdom {
-          name
-          shortName
-          value
-          bonus
-          debility
-          debilityPenalty
-          __typename
-        }
-        charisma {
-          name
-          shortName
-          value
-          bonus
-          debility
-          debilityPenalty
-          __typename
-        }
-        __typename
-      }
-      bonds {
-        description
-        tags {
-          name
-          description
-          __typename
-        }
-        __typename
-      }
-      startingMoves {
-        move {
-          name
-          description
-          __typename
-        }
-        selected
-        tags {
-          name
-          description
-          __typename
-        }
-        __typename
-      }
-      twoToTenMoves {
-        move {
-          name
-          description
-          __typename
-        }
-        selected
-        tags {
-          name
-          description
-          __typename
-        }
-        __typename
-      }
-      sixToTenMoves {
-        move {
-          name
-          description
-          __typename
-        }
-        selected
-        tags {
-          name
-          description
-          __typename
-        }
-        __typename
-      }
-      coin
-      loadMax
-      loadCurrent
-      gear {
-        gear {
-          name
-          description
-          uses
-          weight
-          __typename
-        }
-        selected
-        tags {
-          name
-          description
-          __typename
-        }
-        __typename
-      }
-      spells {
-        spell {
-          name
-          level
-          type
-          ongoing
-          description
-          __typename
-        }
-        selected
-        tags {
-          name
-          description
-          __typename
-        }
-        __typename
-      }
-      isPublic
-      isCoreTemplate
+    sixToTenMoves {
+      id
+      selected
       __typename
     }
+    twoToTenMoves {
+      id
+      selected
+      __typename
+    }
+    startingMoves {
+      id
+      selected
+      __typename
+    }
+    bonds {
+      id
+      description
+      selected
+      __typename
+    }
+    abilityscores {
+      value
+      bonus
+      tags
+      __typename
+    }
+    race {
+      id
+      __typename
+    }
+    alignment {
+      id
+      selected
+      __typename
+    }
+    tags
+    conditionTypes {
+      id
+      __typename
+    }
+    look {
+      id
+      __typename
+    }
+    class {
+      id
+      __typename
+    }
+    notes
+    __typename
   }
-`;
-export const getClasses = /* GraphQL */ `
-  query GetClasses {
-    getClasses {
+}
+` as GeneratedQuery<
+  APITypes.GetCharacterQueryVariables,
+  APITypes.GetCharacterQuery
+>;
+export const getUserCharacters = /* GraphQL */ `query GetUserCharacters($userId: ID!) {
+  getUserCharacters(userId: $userId) {
+    userId
+    id
+    name
+    level
+    xp
+    armor
+    hitPointsMax
+    hitPointsCurrent
+    coin
+    loadMax
+    loadCurrent
+    isPublic
+    isCoreTemplate
+    spells {
+      id
+      selected
+      tags
+      __typename
+    }
+    gear {
+      id
+      uses
+      tags
+      __typename
+    }
+    sixToTenMoves {
+      id
+      selected
+      __typename
+    }
+    twoToTenMoves {
+      id
+      selected
+      __typename
+    }
+    startingMoves {
+      id
+      selected
+      __typename
+    }
+    bonds {
+      id
+      description
+      selected
+      __typename
+    }
+    abilityscores {
+      value
+      bonus
+      tags
+      __typename
+    }
+    race {
+      id
+      __typename
+    }
+    alignment {
+      id
+      selected
+      __typename
+    }
+    tags
+    conditionTypes {
+      id
+      __typename
+    }
+    look {
+      id
+      __typename
+    }
+    class {
+      id
+      __typename
+    }
+    notes
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.GetUserCharactersQueryVariables,
+  APITypes.GetUserCharactersQuery
+>;
+export const getCoreClassTemplates = /* GraphQL */ `query GetCoreClassTemplates {
+  getCoreClassTemplates {
+    userId
+    id
+    name
+    level
+    xp
+    armor
+    hitPointsMax
+    hitPointsCurrent
+    coin
+    loadMax
+    loadCurrent
+    isPublic
+    isCoreTemplate
+    spells {
+      id
+      selected
+      tags
+      __typename
+    }
+    gear {
+      id
+      uses
+      tags
+      __typename
+    }
+    sixToTenMoves {
+      id
+      selected
+      __typename
+    }
+    twoToTenMoves {
+      id
+      selected
+      __typename
+    }
+    startingMoves {
+      id
+      selected
+      __typename
+    }
+    bonds {
+      id
+      description
+      selected
+      __typename
+    }
+    abilityscores {
+      value
+      bonus
+      tags
+      __typename
+    }
+    race {
+      id
+      __typename
+    }
+    alignment {
+      id
+      selected
+      __typename
+    }
+    tags
+    conditionTypes {
+      id
+      __typename
+    }
+    look {
+      id
+      __typename
+    }
+    class {
+      id
+      __typename
+    }
+    notes
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.GetCoreClassTemplatesQueryVariables,
+  APITypes.GetCoreClassTemplatesQuery
+>;
+export const getClasses = /* GraphQL */ `query GetClasses {
+  getClasses {
+    id
+    name
+    description
+    source {
+      id
+      name
+      __typename
+    }
+    damageDiceType {
+      id
+      name
+      __typename
+    }
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.GetClassesQueryVariables,
+  APITypes.GetClassesQuery
+>;
+export const getSpells = /* GraphQL */ `query GetSpells {
+  getSpells {
+    id
+    name
+    level
+    type
+    ongoing
+    description
+    source {
+      id
+      name
+      __typename
+    }
+    class {
+      id
       name
       description
       __typename
     }
+    __typename
   }
-`;
-export const getSpells = /* GraphQL */ `
-  query GetSpells {
-    getSpells {
-      name
-      level
-      type
-      ongoing
-      description
-      class {
-        name
-        description
-        __typename
-      }
-      __typename
-    }
-  }
-`;
-export const getSpellsByClass = /* GraphQL */ `
-  query GetSpellsByClass($className: String!) {
-    getSpellsByClass(className: $className) {
-      name
-      level
-      type
-      ongoing
-      description
-      class {
-        name
-        description
-        __typename
-      }
-      __typename
-    }
-  }
-`;
-export const getDiceTypes = /* GraphQL */ `
-  query GetDiceTypes {
-    getDiceTypes {
+}
+` as GeneratedQuery<APITypes.GetSpellsQueryVariables, APITypes.GetSpellsQuery>;
+export const getSpellsByClass = /* GraphQL */ `query GetSpellsByClass($className: String!) {
+  getSpellsByClass(className: $className) {
+    id
+    name
+    level
+    type
+    ongoing
+    description
+    source {
+      id
       name
       __typename
     }
-  }
-`;
-export const getRaces = /* GraphQL */ `
-  query GetRaces {
-    getRaces {
+    class {
+      id
       name
       description
-      tags {
-        name
-        description
-        __typename
-      }
-      class {
-        name
-        description
-        __typename
-      }
       __typename
     }
+    __typename
   }
-`;
-export const getMoves = /* GraphQL */ `
-  query GetMoves {
-    getMoves {
+}
+` as GeneratedQuery<
+  APITypes.GetSpellsByClassQueryVariables,
+  APITypes.GetSpellsByClassQuery
+>;
+export const getDiceTypes = /* GraphQL */ `query GetDiceTypes {
+  getDiceTypes {
+    id
+    name
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.GetDiceTypesQueryVariables,
+  APITypes.GetDiceTypesQuery
+>;
+export const getRaces = /* GraphQL */ `query GetRaces {
+  getRaces {
+    id
+    name
+    description
+    class {
+      id
       name
       description
-      class {
-        name
-        description
-        __typename
-      }
       __typename
     }
+    source {
+      id
+      name
+      __typename
+    }
+    __typename
   }
-`;
-export const getMovesByClass = /* GraphQL */ `
-  query GetMovesByClass($className: String!) {
-    getMovesByClass(className: $className) {
+}
+` as GeneratedQuery<APITypes.GetRacesQueryVariables, APITypes.GetRacesQuery>;
+export const getMoves = /* GraphQL */ `query GetMoves {
+  getMoves {
+    id
+    description
+    class {
+      id
       name
       description
-      class {
-        name
-        description
-        __typename
-      }
       __typename
     }
+    __typename
   }
-`;
+}
+` as GeneratedQuery<APITypes.GetMovesQueryVariables, APITypes.GetMovesQuery>;
+export const getMovesByClass = /* GraphQL */ `query GetMovesByClass($className: String!) {
+  getMovesByClass(className: $className) {
+    id
+    description
+    class {
+      id
+      name
+      description
+      __typename
+    }
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.GetMovesByClassQueryVariables,
+  APITypes.GetMovesByClassQuery
+>;

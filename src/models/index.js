@@ -4,24 +4,32 @@ import { schema } from './schema';
 
 
 
-const { User, Source, Class, Spell, Spells, Gear, CharacterMove, Move, Bonds, Abilityscores, Race, Alignment, DiceType, Condition, ConditionTypes, Look, Character } = initSchema(schema);
+const { User, Source, CharacterClass, Class, Spell, CharacterSpell, CharacterGear, Gear, CharacterMove, Move, CharacterBond, Bond, CharacterAbilityScore, AbilityScore, CharacterRace, Race, CharacterAlignment, Alignment, DiceType, CharacterConditions, Condition, ConditionType, CharacterLook, Look, Character } = initSchema(schema);
 
 export {
   User,
   Source,
+  CharacterClass,
   Class,
   Spell,
-  Spells,
+  CharacterSpell,
+  CharacterGear,
   Gear,
   CharacterMove,
   Move,
-  Bonds,
-  Abilityscores,
+  CharacterBond,
+  Bond,
+  CharacterAbilityScore,
+  AbilityScore,
+  CharacterRace,
   Race,
+  CharacterAlignment,
   Alignment,
   DiceType,
+  CharacterConditions,
   Condition,
-  ConditionTypes,
+  ConditionType,
+  CharacterLook,
   Look,
   Character
 };

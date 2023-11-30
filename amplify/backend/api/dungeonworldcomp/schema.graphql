@@ -14,11 +14,17 @@ type Source {
   name: String!
 }
 
+type CharacterClass {
+  id: ID!
+  class: Class!
+}
+
 type Class {
   id: ID!
   name: String!
   description: String!
   source: Source!
+  damageDiceType: DiceType
 }
 
 type Spell {
@@ -32,10 +38,18 @@ type Spell {
   class: Class!
 }
 
-type Spells {
+type CharacterSpell {
   id: ID!
-  selected: Boolean
   spell: Spell!
+  selected: Boolean
+  tags: [String]
+}
+
+type CharacterGear {
+  id: ID!
+  gear: Gear!
+  uses: Int
+  tags: [String]
 }
 
 type Gear {
@@ -45,6 +59,7 @@ type Gear {
   uses: Int
   tags: [String]
 }
+
 
 type CharacterMove {
   id: ID!
@@ -58,20 +73,37 @@ type Move {
   class: Class!
 }
 
-type Bonds {
+type CharacterBond {
+  id: ID!
+  description: String
+  bond: Bond!
+  selected: Boolean
+}
+
+type Bond {
   id: ID!
   description: String
   class: Class!
 }
 
-type Abilityscores {
+type CharacterAbilityScore {
+  abilityScore: AbilityScore!
+  value: String!
+  bonus: Int!
+  tags: [String]
+}
+
+type AbilityScore {
   id: ID!
   name: String!
   shortName: String!
-  value: String!
-  bonus: Int!
   debility: String!
   debilityPenalty: String!
+}
+
+type CharacterRace {
+  id: ID!
+  race: Race!
 }
 
 type Race {
@@ -80,6 +112,12 @@ type Race {
   description: String
   class: Class
   source: Source!
+}
+
+type CharacterAlignment {
+  id: ID!
+  alignment: Alignment!
+  selected: Boolean
 }
 
 type Alignment {
@@ -94,15 +132,26 @@ type DiceType {
   name: String
 }
 
+type CharacterConditions {
+  id: ID!
+  conditionTypes: [ConditionType]
+}
+
 type Condition {
   id: ID!
   description: String!
+  selected: Boolean
 }
 
-type ConditionTypes {
+type ConditionType {
   id: ID!
   name: String!
   conditions: [Condition]
+}
+
+type CharacterLook {
+  id: ID!
+  look: [Look]!
 }
 
 type Look {
@@ -113,7 +162,7 @@ type Look {
 }
 
 type Character {
-  ownerId: ID!
+  userId: ID!
   id: ID!
   name: String!
   level: Int
@@ -126,20 +175,19 @@ type Character {
   loadCurrent: Int
   isPublic: Boolean
   isCoreTemplate: Boolean
-  spells: [Spells]
-  gear: [Gear]
+  spells: [CharacterSpell]
+  gear: [CharacterGear]
   sixToTenMoves: [CharacterMove]
   twoToTenMoves: [CharacterMove]
   startingMoves: [CharacterMove]
-  bonds: [Bonds]
-  abilityscores: [Abilityscores]
-  race: Race
-  alignment: Alignment
+  bonds: [CharacterBond]
+  abilityscores: [CharacterAbilityScore]
+  race: CharacterRace
+  alignment: CharacterAlignment
   tags: [String]
-  dicetype: DiceType
-  conditionTypes: [ConditionTypes]
-  look: [Look]
-  class: Class
+  conditionTypes: [CharacterConditions]
+  look: CharacterLook
+  class: CharacterClass
   notes: String
 }
 
@@ -157,5 +205,5 @@ type Query {
 }
 
 type Mutation {
-  duplicateCharacter(characterId: ID!, newOwnerId: ID!): Character
+  duplicateCharacter(characterId: ID!, newUserId: ID!): Character
 }

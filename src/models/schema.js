@@ -12,8 +12,8 @@ export const schema = {
                     "isRequired": true,
                     "attributes": []
                 },
-                "username": {
-                    "name": "username",
+                "name": {
+                    "name": "name",
                     "isArray": false,
                     "type": "String",
                     "isRequired": true,
@@ -42,6 +42,27 @@ export const schema = {
                     "name": "name",
                     "isArray": false,
                     "type": "String",
+                    "isRequired": true,
+                    "attributes": []
+                }
+            }
+        },
+        "CharacterClass": {
+            "name": "CharacterClass",
+            "fields": {
+                "id": {
+                    "name": "id",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "class": {
+                    "name": "class",
+                    "isArray": false,
+                    "type": {
+                        "nonModel": "Class"
+                    },
                     "isRequired": true,
                     "attributes": []
                 }
@@ -78,6 +99,15 @@ export const schema = {
                         "nonModel": "Source"
                     },
                     "isRequired": true,
+                    "attributes": []
+                },
+                "damageDiceType": {
+                    "name": "damageDiceType",
+                    "isArray": false,
+                    "type": {
+                        "nonModel": "DiceType"
+                    },
+                    "isRequired": false,
                     "attributes": []
                 }
             }
@@ -147,21 +177,14 @@ export const schema = {
                 }
             }
         },
-        "Spells": {
-            "name": "Spells",
+        "CharacterSpell": {
+            "name": "CharacterSpell",
             "fields": {
                 "id": {
                     "name": "id",
                     "isArray": false,
                     "type": "ID",
                     "isRequired": true,
-                    "attributes": []
-                },
-                "selected": {
-                    "name": "selected",
-                    "isArray": false,
-                    "type": "Boolean",
-                    "isRequired": false,
                     "attributes": []
                 },
                 "spell": {
@@ -172,6 +195,57 @@ export const schema = {
                     },
                     "isRequired": true,
                     "attributes": []
+                },
+                "selected": {
+                    "name": "selected",
+                    "isArray": false,
+                    "type": "Boolean",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "tags": {
+                    "name": "tags",
+                    "isArray": true,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": [],
+                    "isArrayNullable": true
+                }
+            }
+        },
+        "CharacterGear": {
+            "name": "CharacterGear",
+            "fields": {
+                "id": {
+                    "name": "id",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "gear": {
+                    "name": "gear",
+                    "isArray": false,
+                    "type": {
+                        "nonModel": "Gear"
+                    },
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "uses": {
+                    "name": "uses",
+                    "isArray": false,
+                    "type": "Int",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "tags": {
+                    "name": "tags",
+                    "isArray": true,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": [],
+                    "isArrayNullable": true
                 }
             }
         },
@@ -272,8 +346,43 @@ export const schema = {
                 }
             }
         },
-        "Bonds": {
-            "name": "Bonds",
+        "CharacterBond": {
+            "name": "CharacterBond",
+            "fields": {
+                "id": {
+                    "name": "id",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "description": {
+                    "name": "description",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "bond": {
+                    "name": "bond",
+                    "isArray": false,
+                    "type": {
+                        "nonModel": "Bond"
+                    },
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "selected": {
+                    "name": "selected",
+                    "isArray": false,
+                    "type": "Boolean",
+                    "isRequired": false,
+                    "attributes": []
+                }
+            }
+        },
+        "Bond": {
+            "name": "Bond",
             "fields": {
                 "id": {
                     "name": "id",
@@ -300,8 +409,44 @@ export const schema = {
                 }
             }
         },
-        "Abilityscores": {
-            "name": "Abilityscores",
+        "CharacterAbilityScore": {
+            "name": "CharacterAbilityScore",
+            "fields": {
+                "abilityScore": {
+                    "name": "abilityScore",
+                    "isArray": false,
+                    "type": {
+                        "nonModel": "AbilityScore"
+                    },
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "value": {
+                    "name": "value",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "bonus": {
+                    "name": "bonus",
+                    "isArray": false,
+                    "type": "Int",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "tags": {
+                    "name": "tags",
+                    "isArray": true,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": [],
+                    "isArrayNullable": true
+                }
+            }
+        },
+        "AbilityScore": {
+            "name": "AbilityScore",
             "fields": {
                 "id": {
                     "name": "id",
@@ -324,20 +469,6 @@ export const schema = {
                     "isRequired": true,
                     "attributes": []
                 },
-                "value": {
-                    "name": "value",
-                    "isArray": false,
-                    "type": "String",
-                    "isRequired": true,
-                    "attributes": []
-                },
-                "bonus": {
-                    "name": "bonus",
-                    "isArray": false,
-                    "type": "Int",
-                    "isRequired": true,
-                    "attributes": []
-                },
                 "debility": {
                     "name": "debility",
                     "isArray": false,
@@ -349,6 +480,27 @@ export const schema = {
                     "name": "debilityPenalty",
                     "isArray": false,
                     "type": "String",
+                    "isRequired": true,
+                    "attributes": []
+                }
+            }
+        },
+        "CharacterRace": {
+            "name": "CharacterRace",
+            "fields": {
+                "id": {
+                    "name": "id",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "race": {
+                    "name": "race",
+                    "isArray": false,
+                    "type": {
+                        "nonModel": "Race"
+                    },
                     "isRequired": true,
                     "attributes": []
                 }
@@ -394,6 +546,34 @@ export const schema = {
                         "nonModel": "Source"
                     },
                     "isRequired": true,
+                    "attributes": []
+                }
+            }
+        },
+        "CharacterAlignment": {
+            "name": "CharacterAlignment",
+            "fields": {
+                "id": {
+                    "name": "id",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "alignment": {
+                    "name": "alignment",
+                    "isArray": false,
+                    "type": {
+                        "nonModel": "Alignment"
+                    },
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "selected": {
+                    "name": "selected",
+                    "isArray": false,
+                    "type": "Boolean",
+                    "isRequired": false,
                     "attributes": []
                 }
             }
@@ -452,6 +632,28 @@ export const schema = {
                 }
             }
         },
+        "CharacterConditions": {
+            "name": "CharacterConditions",
+            "fields": {
+                "id": {
+                    "name": "id",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "conditionTypes": {
+                    "name": "conditionTypes",
+                    "isArray": true,
+                    "type": {
+                        "nonModel": "ConditionType"
+                    },
+                    "isRequired": false,
+                    "attributes": [],
+                    "isArrayNullable": true
+                }
+            }
+        },
         "Condition": {
             "name": "Condition",
             "fields": {
@@ -468,11 +670,18 @@ export const schema = {
                     "type": "String",
                     "isRequired": true,
                     "attributes": []
+                },
+                "selected": {
+                    "name": "selected",
+                    "isArray": false,
+                    "type": "Boolean",
+                    "isRequired": false,
+                    "attributes": []
                 }
             }
         },
-        "ConditionTypes": {
-            "name": "ConditionTypes",
+        "ConditionType": {
+            "name": "ConditionType",
             "fields": {
                 "id": {
                     "name": "id",
@@ -497,6 +706,28 @@ export const schema = {
                     "isRequired": false,
                     "attributes": [],
                     "isArrayNullable": true
+                }
+            }
+        },
+        "CharacterLook": {
+            "name": "CharacterLook",
+            "fields": {
+                "id": {
+                    "name": "id",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "look": {
+                    "name": "look",
+                    "isArray": true,
+                    "type": {
+                        "nonModel": "Look"
+                    },
+                    "isRequired": false,
+                    "attributes": [],
+                    "isArrayNullable": false
                 }
             }
         },
@@ -538,8 +769,8 @@ export const schema = {
         "Character": {
             "name": "Character",
             "fields": {
-                "ownerId": {
-                    "name": "ownerId",
+                "userId": {
+                    "name": "userId",
                     "isArray": false,
                     "type": "ID",
                     "isRequired": true,
@@ -633,7 +864,7 @@ export const schema = {
                     "name": "spells",
                     "isArray": true,
                     "type": {
-                        "nonModel": "Spells"
+                        "nonModel": "CharacterSpell"
                     },
                     "isRequired": false,
                     "attributes": [],
@@ -643,7 +874,7 @@ export const schema = {
                     "name": "gear",
                     "isArray": true,
                     "type": {
-                        "nonModel": "Gear"
+                        "nonModel": "CharacterGear"
                     },
                     "isRequired": false,
                     "attributes": [],
@@ -683,7 +914,7 @@ export const schema = {
                     "name": "bonds",
                     "isArray": true,
                     "type": {
-                        "nonModel": "Bonds"
+                        "nonModel": "CharacterBond"
                     },
                     "isRequired": false,
                     "attributes": [],
@@ -693,7 +924,7 @@ export const schema = {
                     "name": "abilityscores",
                     "isArray": true,
                     "type": {
-                        "nonModel": "Abilityscores"
+                        "nonModel": "CharacterAbilityScore"
                     },
                     "isRequired": false,
                     "attributes": [],
@@ -703,7 +934,7 @@ export const schema = {
                     "name": "race",
                     "isArray": false,
                     "type": {
-                        "nonModel": "Race"
+                        "nonModel": "CharacterRace"
                     },
                     "isRequired": false,
                     "attributes": []
@@ -712,7 +943,7 @@ export const schema = {
                     "name": "alignment",
                     "isArray": false,
                     "type": {
-                        "nonModel": "Alignment"
+                        "nonModel": "CharacterAlignment"
                     },
                     "isRequired": false,
                     "attributes": []
@@ -725,20 +956,11 @@ export const schema = {
                     "attributes": [],
                     "isArrayNullable": true
                 },
-                "dicetype": {
-                    "name": "dicetype",
-                    "isArray": false,
-                    "type": {
-                        "nonModel": "DiceType"
-                    },
-                    "isRequired": false,
-                    "attributes": []
-                },
                 "conditionTypes": {
                     "name": "conditionTypes",
                     "isArray": true,
                     "type": {
-                        "nonModel": "ConditionTypes"
+                        "nonModel": "CharacterConditions"
                     },
                     "isRequired": false,
                     "attributes": [],
@@ -746,19 +968,18 @@ export const schema = {
                 },
                 "look": {
                     "name": "look",
-                    "isArray": true,
+                    "isArray": false,
                     "type": {
-                        "nonModel": "Look"
+                        "nonModel": "CharacterLook"
                     },
                     "isRequired": false,
-                    "attributes": [],
-                    "isArrayNullable": true
+                    "attributes": []
                 },
                 "class": {
                     "name": "class",
                     "isArray": false,
                     "type": {
-                        "nonModel": "Class"
+                        "nonModel": "CharacterClass"
                     },
                     "isRequired": false,
                     "attributes": []
@@ -774,5 +995,5 @@ export const schema = {
         }
     },
     "codegenVersion": "3.4.4",
-    "version": "77d98720368f22faab0cb4cdda07168d"
+    "version": "aaec6f4e396e3e9dc7575072442eeeda"
 };
