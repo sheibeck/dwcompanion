@@ -42,17 +42,7 @@
   "auth": {
     "dungeonworldcompf878a003": {
       "customAuth": false,
-      "dependsOn": [
-        {
-          "attributes": [
-            "Arn",
-            "Name"
-          ],
-          "category": "function",
-          "resourceName": "dungeonworldcompf878a003CustomMessage",
-          "triggerProvider": "Cognito"
-        }
-      ],
+      "dependsOn": [],
       "frontendAuthConfig": {
         "mfaConfiguration": "OFF",
         "mfaTypes": [
@@ -94,14 +84,17 @@
       ],
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
-    },
-    "dungeonworldcompf878a003CustomMessage": {
-      "build": true,
-      "providerPlugin": "awscloudformation",
-      "service": "Lambda"
     }
   },
   "parameters": {
+    "AMPLIFY_auth_dungeonworldcompf878a003_googleClientId": {
+      "usedBy": [
+        {
+          "category": "auth",
+          "resourceName": "dungeonworldcompf878a003"
+        }
+      ]
+    },
     "AMPLIFY_function_AdminQueries93882c08_deploymentBucketName": {
       "usedBy": [
         {
@@ -115,46 +108,6 @@
         {
           "category": "function",
           "resourceName": "AdminQueries93882c08"
-        }
-      ]
-    },
-    "AMPLIFY_function_dungeonworldcompf878a003CustomMessage_EMAILMESSAGE": {
-      "usedBy": [
-        {
-          "category": "function",
-          "resourceName": "dungeonworldcompf878a003CustomMessage"
-        }
-      ]
-    },
-    "AMPLIFY_function_dungeonworldcompf878a003CustomMessage_EMAILSUBJECT": {
-      "usedBy": [
-        {
-          "category": "function",
-          "resourceName": "dungeonworldcompf878a003CustomMessage"
-        }
-      ]
-    },
-    "AMPLIFY_function_dungeonworldcompf878a003CustomMessage_REDIRECTURL": {
-      "usedBy": [
-        {
-          "category": "function",
-          "resourceName": "dungeonworldcompf878a003CustomMessage"
-        }
-      ]
-    },
-    "AMPLIFY_function_dungeonworldcompf878a003CustomMessage_deploymentBucketName": {
-      "usedBy": [
-        {
-          "category": "function",
-          "resourceName": "dungeonworldcompf878a003CustomMessage"
-        }
-      ]
-    },
-    "AMPLIFY_function_dungeonworldcompf878a003CustomMessage_s3Key": {
-      "usedBy": [
-        {
-          "category": "function",
-          "resourceName": "dungeonworldcompf878a003CustomMessage"
         }
       ]
     }

@@ -1,7 +1,7 @@
 <template>
 
   <template v-if="auth.route !== 'authenticated'">
-    <div class="authentication">
+    <div class="authentication justify-content-center vh-100">
       <header>
         <img alt="logo" class="logo" src="@/assets/dwlogo.png" />
       </header>
@@ -12,24 +12,24 @@
   </template>
 
   <template v-if="auth.route === 'authenticated'">
-    <div class="content">
+    <main>
       <!-- Navigation Bar -->
-      <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container-fluid">
-          <a class="navbar-brand" href="#">
-            <img alt="logo" class="nav-logo" src="@/assets/dwlogo.png" />
-          </a>
-          <button class="btn btn-secondary" @click="auth.signOut">Sign out</button>
-        </div>
+      <nav class="navbar navbar-expand-lg navbar-dark justify-content-between">
+        <a class="navbar-brand" href="#">
+          <img alt="logo" class="nav-logo" src="@/assets/dwlogo.png" />
+        </a>
+        <div class="ml-auto">
+          <button class="btn btn-secondary text-light btn-link" @click="auth.signOut">Sign out</button>
+        </div> 
       </nav>
 
       <!-- Page Content -->
-      <div class="container-fluid mt-3">
+      <div class="container-fluid mt-5">
         <!-- Your page content goes here -->
         <h1>Welcome to Your Website</h1>
         <p>This is a simple dark-themed Bootstrap template.</p>
       </div>
-    </div>
+    </main>
   </template>
 </template>
 
@@ -40,6 +40,7 @@
 
 <style scoped lang="scss">
 .authentication {
+  margin:auto;
   display: grid;
   grid-template-columns: auto;
 
@@ -72,9 +73,15 @@
   }
 }
 
-.content {
+main {
   .nav-logo {
-    height: 100px;
+    height: 150px;
+    margin-top: 30px;
+  }
+
+  nav {
+    background-color: #181818;
+    max-height: 100px;
   }
 }
 

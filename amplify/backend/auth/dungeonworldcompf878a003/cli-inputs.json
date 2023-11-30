@@ -2,7 +2,7 @@
   "version": "1",
   "cognitoConfig": {
     "identityPoolName": "dungeonworldcompf878a003_identitypool_f878a003",
-    "allowUnauthenticatedIdentities": false,
+    "allowUnauthenticatedIdentities": true,
     "resourceNameTruncated": "dungeof878a003",
     "userPoolName": "dungeonworldcompf878a003_userpool_f878a003",
     "autoVerifiedAttributes": [
@@ -14,8 +14,8 @@
     ],
     "smsAuthenticationMessage": "Your authentication code is {####}",
     "smsVerificationMessage": "Your verification code is {####}",
-    "emailVerificationSubject": "Dungeon World Companion Registration Verification",
-    "emailVerificationMessage": "Thank you for signing up for Dungeon World Companion Registration. You will need to use this code to verify your registration: {####}",
+    "emailVerificationSubject": "Dungeon World Companion Verification",
+    "emailVerificationMessage": "Here is your verification code for Dungeon World Companion: {####}",
     "defaultPasswordPolicy": false,
     "passwordPolicyMinLength": 8,
     "passwordPolicyCharacters": [],
@@ -27,13 +27,16 @@
     "userpoolClientGenerateSecret": false,
     "userpoolClientRefreshTokenValidity": 30,
     "userpoolClientWriteAttributes": [
-      "email"
+      "email",
+      "name"
     ],
     "userpoolClientReadAttributes": [
-      "email"
+      "email",
+      "name",
+      "email_verified"
     ],
     "userpoolClientLambdaRole": "dungeof878a003_userpoolclient_lambda_role",
-    "userpoolClientSetAttributes": false,
+    "userpoolClientSetAttributes": true,
     "sharedId": "f878a003",
     "resourceName": "dungeonworldcompf878a003",
     "authSelections": "identityPoolAndUserPool",
@@ -42,11 +45,7 @@
     "usernameAttributes": [
       "email"
     ],
-    "triggers": {
-      "CustomMessage": [
-        "verification-link"
-      ]
-    },
+    "triggers": {},
     "hostedUIDomainName": "dungeon-world-companion",
     "authProvidersUserPool": [
       "Google"
@@ -70,27 +69,18 @@
       ]
     },
     "breakCircularDependency": true,
-    "dependsOn": [
-      {
-        "category": "function",
-        "resourceName": "dungeonworldcompf878a003CustomMessage",
-        "triggerProvider": "Cognito",
-        "attributes": [
-          "Arn",
-          "Name"
-        ]
-      }
-    ],
+    "dependsOn": [],
     "permissions": [],
-    "authTriggerConnections": "[\n  {\n    \"triggerType\": \"CustomMessage\",\n    \"lambdaFunctionName\": \"dungeonworldcompf878a003CustomMessage\"\n  }\n]",
-    "thirdPartyAuth": true,
-    "authProviders": [],
     "userPoolGroups": false,
-    "adminQueries": true,
-    "oAuthMetadata": "{\"AllowedOAuthFlows\":[\"code\"],\"AllowedOAuthScopes\":[\"phone\",\"email\",\"openid\",\"profile\",\"aws.cognito.signin.user.admin\"],\"CallbackURLs\":[\"https://dungeon-world-companion.com/\",\"https://127.0.0.1:5173/\",\"https://localhost:5173/\",\"https://develop.d3e6jynefwsc7i.amplifyapp.com/\"],\"LogoutURLs\":[\"https://dungeon-world-companion.com/\",\"https://develop.d3e6jynefwsc7i.amplifyapp.com/\"]}",
+    "adminQueries": false,
     "adminQueryGroup": "AdminQueryGroup",
     "parentStack": {
       "Ref": "AWS::StackId"
-    }
+    },
+    "authProviders": [
+      "accounts.google.com"
+    ],
+    "thirdPartyAuth": true,
+    "oAuthMetadata": "{\"AllowedOAuthFlows\":[\"implicit\"],\"AllowedOAuthScopes\":[\"phone\",\"email\",\"openid\",\"profile\",\"aws.cognito.signin.user.admin\"],\"CallbackURLs\":[\"https://dungeon-world-companion.com/\",\"https://127.0.0.1:5173/\",\"https://localhost:5173/\",\"https://develop.d3e6jynefwsc7i.amplifyapp.com/\"],\"LogoutURLs\":[\"https://dungeon-world-companion.com/\",\"https://develop.d3e6jynefwsc7i.amplifyapp.com/\"]}"
   }
 }
