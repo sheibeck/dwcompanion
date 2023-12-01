@@ -1,7 +1,7 @@
 <template>
     <div>
         <CharacterList v-if="!isViewingCharacter" />
-        <CharacterInfo  v-else :characterId="characterId"  />
+        <CharacterInfo  v-else :characterId="characterId" />
     </div>
 </template>
 

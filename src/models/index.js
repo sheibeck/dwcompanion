@@ -4,7 +4,7 @@ import { schema } from './schema';
 
 
 
-const { User, Source, CharacterClass, Class, Spell, CharacterSpell, CharacterGear, Gear, CharacterMove, Move, CharacterBond, Bond, CharacterAbilityScore, AbilityScore, CharacterRace, Race, CharacterAlignment, Alignment, DiceType, CharacterConditions, Condition, ConditionType, CharacterLook, Look, Character } = initSchema(schema);
+const { User, Source, CharacterClass, Class, Spell, CharacterSpell, CharacterGear, Gear, CharacterMove, Move, CharacterBond, Bond, CharacterAbilityScore, AbilityScore, CharacterRace, Race, CharacterAlignment, Alignment, DiceType, CharacterLook, Look, Character } = initSchema(schema);
 
 export {
   User,
@@ -26,9 +26,6 @@ export {
   CharacterAlignment,
   Alignment,
   DiceType,
-  CharacterConditions,
-  Condition,
-  ConditionType,
   CharacterLook,
   Look,
   Character

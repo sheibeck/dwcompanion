@@ -4,7 +4,9 @@
         <h1>Characters</h1>
 
         <div v-if="hasCharacters">
-            <p>A List of Characters</p>
+            <div v-for="character in characterList">
+                {{ character.name }}
+            </div>
         </div>
         <div v-else>
             <button type="button" class="btn btn-secondary" @click="createCharacter()">Create a Character</button>
@@ -13,34 +15,55 @@
 </template>
 
 <script setup lang="ts">
-    import { computed, onMounted, ref } from 'vue';
-    import { generateClient } from 'aws-amplify/api';
-    import * as queries from '@/graphql/queries';
+import { computed, onMounted, ref } from 'vue';
+import { generateClient } from 'aws-amplify/api';
+import * as queries from '@/graphql/queries';
+import * as mutations from '@/graphql/mutations';
+import { Character } from '@/models';
+import { useGlobalStore } from '@/stores/globalStore';
 
-    const client = generateClient();
-    const characterList = ref<any>(null);
-    const hasCharacters = computed(() => characterList.value?.length > 0);
+const globalStore = useGlobalStore();
 
-    onMounted(async () => {
-        characterList.value = getCharacterList();
-    });
+const client = generateClient();
+const characterList = ref<any>(null);
+const hasCharacters = computed(() => characterList.value?.length > 0);
 
-    // Fetch a single record by its identifier
-    const getCharacterList = async () => {
-        const result = await client.graphql({
-            query: queries.listCharacters,
-            variables: {
-                filter: {
-                    userId: {
-                        eq: '1'
-                    }
+onMounted(async () => {
+    const data = await getCharacterList();
+    characterList.value = data;
+});
+
+// Fetch a single record by its identifier
+const getCharacterList = async () => {
+    const result = await client.graphql({
+        query: queries.listCharacters,
+        variables: {
+            filter: {
+                userId: {
+                    eq: globalStore.getUserId
                 }
             }
-        });
-        return result;
-    }
+        }
+    });
+    return result.data.listCharacters.items;
+}
 
-    const createCharacter = () => {
-        alert("create a character!");
-    }
+
+const createCharacter = async () => {
+    const character = new Character({
+        userId: globalStore.getUserId,
+        name: 'Fred Fredricks'
+    });
+    
+    const characterDetails = {
+        userId: globalStore.getUserId,
+        name: 'Fred Fredricks',
+        characterClassId: "e12JxbH91D3wdroqc5Nsei"
+    };
+
+    const newCharacter = await client.graphql({
+        query: mutations.createCharacter,
+        variables: { input: characterDetails }
+    });
+}
 </script>

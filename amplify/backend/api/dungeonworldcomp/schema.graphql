@@ -17,6 +17,7 @@ type Source @model {
 type CharacterClass @model {
   id: ID!
   class: Class! @hasOne
+  character: Character! @hasOne
 }
 
 type Class @model {
@@ -25,6 +26,7 @@ type Class @model {
   description: String!
   source: Source! @hasOne
   damageDiceType: DiceType @hasOne
+  characters: [CharacterClass]! @hasMany
 }
 
 type Spell @model {
@@ -36,10 +38,12 @@ type Spell @model {
   description: String!
   source: Source! @hasOne
   class: Class! @hasOne
+  characters: [CharacterSpell]! @hasMany
 }
 
 type CharacterSpell @model {
   id: ID!
+  character: Character! @hasOne
   spell: Spell! @hasOne
   selected: Boolean
   tags: [String]
@@ -50,6 +54,7 @@ type CharacterGear @model {
   gear: Gear! @hasOne
   uses: Int
   tags: [String]
+  character: Character! @hasOne
 }
 
 type Gear @model {
@@ -58,19 +63,21 @@ type Gear @model {
   weight: Int!
   uses: Int
   tags: [String]
+  characters: [CharacterGear]! @hasMany
 }
-
 
 type CharacterMove @model {
   id: ID!
   selected: Boolean
   move: Move! @hasOne
+  character: Character! @hasOne
 }
 
 type Move @model {
   id: ID!
   description: String!
   class: Class! @hasOne
+  characters: [CharacterMove]! @hasMany
 }
 
 type CharacterBond @model {
@@ -78,12 +85,14 @@ type CharacterBond @model {
   description: String
   bond: Bond! @hasOne
   selected: Boolean
+  character: Character! @hasOne
 }
 
 type Bond @model {
   id: ID!
   description: String
   class: Class! @hasOne
+  characters: [CharacterBond]! @hasMany
 }
 
 type CharacterAbilityScore @model {
@@ -92,6 +101,7 @@ type CharacterAbilityScore @model {
   value: String!
   bonus: Int!
   tags: [String]
+  character: Character! @hasOne
 }
 
 type AbilityScore @model {
@@ -100,11 +110,13 @@ type AbilityScore @model {
   shortName: String!
   debility: String!
   debilityPenalty: String!
+  characters: [CharacterBond]! @hasMany
 }
 
 type CharacterRace @model {
   id: ID!
   race: Race! @hasOne
+  character: Character! @hasOne
 }
 
 type Race @model {
@@ -113,12 +125,14 @@ type Race @model {
   description: String
   class: Class @hasOne
   source: Source! @hasOne
+  characters: [CharacterRace]! @hasMany
 }
 
 type CharacterAlignment @model {
   id: ID!
   alignment: Alignment! @hasOne
   selected: Boolean
+  character: Character! @hasOne
 }
 
 type Alignment @model {
@@ -126,6 +140,7 @@ type Alignment @model {
   name: String
   description: String
   class: Class! @hasOne
+  characters: [CharacterAlignment]! @hasMany
 }
 
 type DiceType @model {
@@ -133,26 +148,10 @@ type DiceType @model {
   name: String
 }
 
-type CharacterConditions @model {
-  id: ID!
-  conditionTypes: [ConditionType] @hasMany
-}
-
-type Condition @model {
-  id: ID!
-  description: String!
-  selected: Boolean
-}
-
-type ConditionType @model {
-  id: ID!
-  name: String!
-  conditions: [Condition] @hasMany
-}
-
 type CharacterLook @model {
   id: ID!
   look: [Look]! @hasMany
+  character: Character! @hasOne
 }
 
 type Look @model {
@@ -160,11 +159,12 @@ type Look @model {
   name: String!
   description: String!
   class: Class! @hasOne
+  characters: [CharacterLook]! @hasMany
 }
 
 type Character @model {
-  userId: ID! @index(name: "byUser", queryField: "characterByUser")
-  id: ID! @primaryKey
+  userId: ID!
+  id: ID!
   name: String!
   level: Int
   xp: Int
@@ -186,7 +186,6 @@ type Character @model {
   race: CharacterRace @hasOne
   alignment: CharacterAlignment @hasOne
   tags: [String]
-  conditionTypes: [CharacterConditions] @hasMany
   look: CharacterLook @hasOne
   class: CharacterClass @hasOne
   notes: String

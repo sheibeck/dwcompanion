@@ -3,6 +3,8 @@
         <!-- Your page content goes here -->
         <h1>Character Info</h1>
         <div>Information about a specific character</div>
+
+  
     </div>
 </template>
 
@@ -31,5 +33,6 @@ const getCharacter = async () => {
 
     return character;
 }
+
 
 </script>
