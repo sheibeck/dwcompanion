@@ -8,9 +8,8 @@
                 {{ character.name }}
             </div>
         </div>
-        <div v-else>
-            <button type="button" class="btn btn-secondary" @click="createCharacter()">Create a Character</button>
-        </div>
+
+        <button type="button" class="btn btn-secondary" @click="createCharacter()">Create a Character</button>
     </div>
 </template>
 

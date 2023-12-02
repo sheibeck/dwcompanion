@@ -9,8 +9,7 @@
       "UnauthRoleName": "amplify-dungeonworldcomp-dev-121356-unauthRole",
       "StackName": "amplify-dungeonworldcomp-dev-121356",
       "StackId": "arn:aws:cloudformation:us-east-1:210120940769:stack/amplify-dungeonworldcomp-dev-121356/aed1e4f0-8eda-11ee-93c7-12fb25351f4f",
-      "AmplifyAppId": "d3e6jynefwsc7i",
-      "AuthTriggerTemplateURL": "https://s3.amazonaws.com/amplify-dungeonworldcomp-dev-121356-deployment/amplify-cfn-templates/auth/auth-trigger-cloudformation-template.json"
+      "AmplifyAppId": "d3e6jynefwsc7i"
     },
     "categories": {
       "api": {

@@ -1,7 +1,6 @@
 {
   "api": {
-    "AdminQueries": {
-      "authorizationType": "AMAZON_COGNITO_USER_POOLS",
+    "dungeonworldcomp": {
       "dependsOn": [
         {
           "attributes": [
@@ -9,24 +8,18 @@
           ],
           "category": "auth",
           "resourceName": "dungeonworldcompf878a003"
-        },
-        {
-          "attributes": [
-            "Arn",
-            "Name"
-          ],
-          "category": "function",
-          "resourceName": "AdminQueries93882c08"
         }
       ],
-      "providerPlugin": "awscloudformation",
-      "service": "API Gateway"
-    },
-    "dungeonworldcomp": {
-      "dependsOn": [],
       "output": {
         "authConfig": {
-          "additionalAuthenticationProviders": [],
+          "additionalAuthenticationProviders": [
+            {
+              "authenticationType": "AMAZON_COGNITO_USER_POOLS",
+              "userPoolConfig": {
+                "userPoolId": "authdungeonworldcompf878a003"
+              }
+            }
+          ],
           "defaultAuthentication": {
             "apiKeyConfig": {
               "apiKeyExpirationDays": 7

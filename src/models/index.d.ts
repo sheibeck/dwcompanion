@@ -70,13 +70,12 @@ type EagerCharacterClass = {
     readOnlyFields: 'createdAt' | 'updatedAt';
   };
   readonly id: string;
-  readonly class: Class;
   readonly character: Character;
+  readonly class: Class;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
-  readonly characterClassClassId: string;
   readonly characterClassCharacterId: string;
-  readonly classCharactersId?: string | null;
+  readonly characterClassClassId: string;
 }
 
 type LazyCharacterClass = {
@@ -85,13 +84,12 @@ type LazyCharacterClass = {
     readOnlyFields: 'createdAt' | 'updatedAt';
   };
   readonly id: string;
-  readonly class: AsyncItem<Class>;
   readonly character: AsyncItem<Character>;
+  readonly class: AsyncItem<Class>;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
-  readonly characterClassClassId: string;
   readonly characterClassCharacterId: string;
-  readonly classCharactersId?: string | null;
+  readonly characterClassClassId: string;
 }
 
 export declare type CharacterClass = LazyLoading extends LazyLoadingDisabled ? EagerCharacterClass : LazyCharacterClass
@@ -110,7 +108,6 @@ type EagerClass = {
   readonly description: string;
   readonly source: Source;
   readonly damageDiceType?: DiceType | null;
-  readonly characters: (CharacterClass | null)[];
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
   readonly classSourceId: string;
@@ -127,7 +124,6 @@ type LazyClass = {
   readonly description: string;
   readonly source: AsyncItem<Source>;
   readonly damageDiceType: AsyncItem<DiceType | undefined>;
-  readonly characters: AsyncCollection<CharacterClass>;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
   readonly classSourceId: string;
@@ -153,7 +149,6 @@ type EagerSpell = {
   readonly description: string;
   readonly source: Source;
   readonly class: Class;
-  readonly characters: (CharacterSpell | null)[];
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
   readonly spellSourceId: string;
@@ -173,7 +168,6 @@ type LazySpell = {
   readonly description: string;
   readonly source: AsyncItem<Source>;
   readonly class: AsyncItem<Class>;
-  readonly characters: AsyncCollection<CharacterSpell>;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
   readonly spellSourceId: string;
@@ -192,14 +186,11 @@ type EagerCharacterSpell = {
     readOnlyFields: 'createdAt' | 'updatedAt';
   };
   readonly id: string;
-  readonly character: Character;
   readonly spell: Spell;
   readonly selected?: boolean | null;
   readonly tags?: (string | null)[] | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
-  readonly spellCharactersId?: string | null;
-  readonly characterSpellCharacterId: string;
   readonly characterSpellSpellId: string;
   readonly characterSpellsId?: string | null;
 }
@@ -210,14 +201,11 @@ type LazyCharacterSpell = {
     readOnlyFields: 'createdAt' | 'updatedAt';
   };
   readonly id: string;
-  readonly character: AsyncItem<Character>;
   readonly spell: AsyncItem<Spell>;
   readonly selected?: boolean | null;
   readonly tags?: (string | null)[] | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
-  readonly spellCharactersId?: string | null;
-  readonly characterSpellCharacterId: string;
   readonly characterSpellSpellId: string;
   readonly characterSpellsId?: string | null;
 }
@@ -237,12 +225,9 @@ type EagerCharacterGear = {
   readonly gear: Gear;
   readonly uses?: number | null;
   readonly tags?: (string | null)[] | null;
-  readonly character: Character;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
   readonly characterGearGearId: string;
-  readonly characterGearCharacterId: string;
-  readonly gearCharactersId?: string | null;
   readonly characterGearId?: string | null;
 }
 
@@ -255,12 +240,9 @@ type LazyCharacterGear = {
   readonly gear: AsyncItem<Gear>;
   readonly uses?: number | null;
   readonly tags?: (string | null)[] | null;
-  readonly character: AsyncItem<Character>;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
   readonly characterGearGearId: string;
-  readonly characterGearCharacterId: string;
-  readonly gearCharactersId?: string | null;
   readonly characterGearId?: string | null;
 }
 
@@ -280,9 +262,10 @@ type EagerGear = {
   readonly weight: number;
   readonly uses?: number | null;
   readonly tags?: (string | null)[] | null;
-  readonly characters: (CharacterGear | null)[];
+  readonly source?: Source | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
+  readonly gearSourceId?: string | null;
 }
 
 type LazyGear = {
@@ -295,9 +278,10 @@ type LazyGear = {
   readonly weight: number;
   readonly uses?: number | null;
   readonly tags?: (string | null)[] | null;
-  readonly characters: AsyncCollection<CharacterGear>;
+  readonly source: AsyncItem<Source | undefined>;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
+  readonly gearSourceId?: string | null;
 }
 
 export declare type Gear = LazyLoading extends LazyLoadingDisabled ? EagerGear : LazyGear
@@ -314,12 +298,9 @@ type EagerCharacterMove = {
   readonly id: string;
   readonly selected?: boolean | null;
   readonly move: Move;
-  readonly character: Character;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
   readonly characterMoveMoveId: string;
-  readonly characterMoveCharacterId: string;
-  readonly moveCharactersId?: string | null;
   readonly characterSixToTenMovesId?: string | null;
   readonly characterTwoToTenMovesId?: string | null;
   readonly characterStartingMovesId?: string | null;
@@ -333,12 +314,9 @@ type LazyCharacterMove = {
   readonly id: string;
   readonly selected?: boolean | null;
   readonly move: AsyncItem<Move>;
-  readonly character: AsyncItem<Character>;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
   readonly characterMoveMoveId: string;
-  readonly characterMoveCharacterId: string;
-  readonly moveCharactersId?: string | null;
   readonly characterSixToTenMovesId?: string | null;
   readonly characterTwoToTenMovesId?: string | null;
   readonly characterStartingMovesId?: string | null;
@@ -358,10 +336,11 @@ type EagerMove = {
   readonly id: string;
   readonly description: string;
   readonly class: Class;
-  readonly characters: (CharacterMove | null)[];
+  readonly source?: Source | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
   readonly moveClassId: string;
+  readonly moveSourceId?: string | null;
 }
 
 type LazyMove = {
@@ -372,10 +351,11 @@ type LazyMove = {
   readonly id: string;
   readonly description: string;
   readonly class: AsyncItem<Class>;
-  readonly characters: AsyncCollection<CharacterMove>;
+  readonly source: AsyncItem<Source | undefined>;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
   readonly moveClassId: string;
+  readonly moveSourceId?: string | null;
 }
 
 export declare type Move = LazyLoading extends LazyLoadingDisabled ? EagerMove : LazyMove
@@ -393,13 +373,9 @@ type EagerCharacterBond = {
   readonly description?: string | null;
   readonly bond: Bond;
   readonly selected?: boolean | null;
-  readonly character: Character;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
   readonly characterBondBondId: string;
-  readonly characterBondCharacterId: string;
-  readonly bondCharactersId?: string | null;
-  readonly abilityScoreCharactersId?: string | null;
   readonly characterBondsId?: string | null;
 }
 
@@ -412,13 +388,9 @@ type LazyCharacterBond = {
   readonly description?: string | null;
   readonly bond: AsyncItem<Bond>;
   readonly selected?: boolean | null;
-  readonly character: AsyncItem<Character>;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
   readonly characterBondBondId: string;
-  readonly characterBondCharacterId: string;
-  readonly bondCharactersId?: string | null;
-  readonly abilityScoreCharactersId?: string | null;
   readonly characterBondsId?: string | null;
 }
 
@@ -436,7 +408,6 @@ type EagerBond = {
   readonly id: string;
   readonly description?: string | null;
   readonly class: Class;
-  readonly characters: (CharacterBond | null)[];
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
   readonly bondClassId: string;
@@ -450,7 +421,6 @@ type LazyBond = {
   readonly id: string;
   readonly description?: string | null;
   readonly class: AsyncItem<Class>;
-  readonly characters: AsyncCollection<CharacterBond>;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
   readonly bondClassId: string;
@@ -472,11 +442,9 @@ type EagerCharacterAbilityScore = {
   readonly value: string;
   readonly bonus: number;
   readonly tags?: (string | null)[] | null;
-  readonly character: Character;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
   readonly characterAbilityScoreAbilityScoreId: string;
-  readonly characterAbilityScoreCharacterId: string;
   readonly characterAbilityscoresId?: string | null;
 }
 
@@ -490,11 +458,9 @@ type LazyCharacterAbilityScore = {
   readonly value: string;
   readonly bonus: number;
   readonly tags?: (string | null)[] | null;
-  readonly character: AsyncItem<Character>;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
   readonly characterAbilityScoreAbilityScoreId: string;
-  readonly characterAbilityScoreCharacterId: string;
   readonly characterAbilityscoresId?: string | null;
 }
 
@@ -514,7 +480,6 @@ type EagerAbilityScore = {
   readonly shortName: string;
   readonly debility: string;
   readonly debilityPenalty: string;
-  readonly characters: (CharacterBond | null)[];
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -529,7 +494,6 @@ type LazyAbilityScore = {
   readonly shortName: string;
   readonly debility: string;
   readonly debilityPenalty: string;
-  readonly characters: AsyncCollection<CharacterBond>;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -547,12 +511,9 @@ type EagerCharacterRace = {
   };
   readonly id: string;
   readonly race: Race;
-  readonly character: Character;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
   readonly characterRaceRaceId: string;
-  readonly characterRaceCharacterId: string;
-  readonly raceCharactersId?: string | null;
 }
 
 type LazyCharacterRace = {
@@ -562,12 +523,9 @@ type LazyCharacterRace = {
   };
   readonly id: string;
   readonly race: AsyncItem<Race>;
-  readonly character: AsyncItem<Character>;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
   readonly characterRaceRaceId: string;
-  readonly characterRaceCharacterId: string;
-  readonly raceCharactersId?: string | null;
 }
 
 export declare type CharacterRace = LazyLoading extends LazyLoadingDisabled ? EagerCharacterRace : LazyCharacterRace
@@ -586,7 +544,6 @@ type EagerRace = {
   readonly description?: string | null;
   readonly class?: Class | null;
   readonly source: Source;
-  readonly characters: (CharacterRace | null)[];
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
   readonly raceClassId?: string | null;
@@ -603,7 +560,6 @@ type LazyRace = {
   readonly description?: string | null;
   readonly class: AsyncItem<Class | undefined>;
   readonly source: AsyncItem<Source>;
-  readonly characters: AsyncCollection<CharacterRace>;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
   readonly raceClassId?: string | null;
@@ -624,12 +580,9 @@ type EagerCharacterAlignment = {
   readonly id: string;
   readonly alignment: Alignment;
   readonly selected?: boolean | null;
-  readonly character: Character;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
   readonly characterAlignmentAlignmentId: string;
-  readonly characterAlignmentCharacterId: string;
-  readonly alignmentCharactersId?: string | null;
 }
 
 type LazyCharacterAlignment = {
@@ -640,12 +593,9 @@ type LazyCharacterAlignment = {
   readonly id: string;
   readonly alignment: AsyncItem<Alignment>;
   readonly selected?: boolean | null;
-  readonly character: AsyncItem<Character>;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
   readonly characterAlignmentAlignmentId: string;
-  readonly characterAlignmentCharacterId: string;
-  readonly alignmentCharactersId?: string | null;
 }
 
 export declare type CharacterAlignment = LazyLoading extends LazyLoadingDisabled ? EagerCharacterAlignment : LazyCharacterAlignment
@@ -663,7 +613,6 @@ type EagerAlignment = {
   readonly name?: string | null;
   readonly description?: string | null;
   readonly class: Class;
-  readonly characters: (CharacterAlignment | null)[];
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
   readonly alignmentClassId: string;
@@ -678,7 +627,6 @@ type LazyAlignment = {
   readonly name?: string | null;
   readonly description?: string | null;
   readonly class: AsyncItem<Class>;
-  readonly characters: AsyncCollection<CharacterAlignment>;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
   readonly alignmentClassId: string;
@@ -725,11 +673,8 @@ type EagerCharacterLook = {
   };
   readonly id: string;
   readonly look: (Look | null)[];
-  readonly character: Character;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
-  readonly characterLookCharacterId: string;
-  readonly lookCharactersId?: string | null;
 }
 
 type LazyCharacterLook = {
@@ -739,11 +684,8 @@ type LazyCharacterLook = {
   };
   readonly id: string;
   readonly look: AsyncCollection<Look>;
-  readonly character: AsyncItem<Character>;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
-  readonly characterLookCharacterId: string;
-  readonly lookCharactersId?: string | null;
 }
 
 export declare type CharacterLook = LazyLoading extends LazyLoadingDisabled ? EagerCharacterLook : LazyCharacterLook
@@ -761,7 +703,6 @@ type EagerLook = {
   readonly name: string;
   readonly description: string;
   readonly class: Class;
-  readonly characters: (CharacterLook | null)[];
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
   readonly characterLookLookId?: string | null;
@@ -777,7 +718,6 @@ type LazyLook = {
   readonly name: string;
   readonly description: string;
   readonly class: AsyncItem<Class>;
-  readonly characters: AsyncCollection<CharacterLook>;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
   readonly characterLookLookId?: string | null;
@@ -806,8 +746,7 @@ type EagerCharacter = {
   readonly coin?: number | null;
   readonly loadMax?: number | null;
   readonly loadCurrent?: number | null;
-  readonly isPublic?: boolean | null;
-  readonly isCoreTemplate?: boolean | null;
+  readonly isTemplate?: boolean | null;
   readonly spells?: (CharacterSpell | null)[] | null;
   readonly gear?: (CharacterGear | null)[] | null;
   readonly sixToTenMoves?: (CharacterMove | null)[] | null;
@@ -819,6 +758,7 @@ type EagerCharacter = {
   readonly alignment?: CharacterAlignment | null;
   readonly tags?: (string | null)[] | null;
   readonly look?: CharacterLook | null;
+  readonly characterClassId?: string | null;
   readonly class?: CharacterClass | null;
   readonly notes?: string | null;
   readonly createdAt?: string | null;
@@ -826,7 +766,6 @@ type EagerCharacter = {
   readonly characterRaceId?: string | null;
   readonly characterAlignmentId?: string | null;
   readonly characterLookId?: string | null;
-  readonly characterClassId?: string | null;
 }
 
 type LazyCharacter = {
@@ -845,8 +784,7 @@ type LazyCharacter = {
   readonly coin?: number | null;
   readonly loadMax?: number | null;
   readonly loadCurrent?: number | null;
-  readonly isPublic?: boolean | null;
-  readonly isCoreTemplate?: boolean | null;
+  readonly isTemplate?: boolean | null;
   readonly spells: AsyncCollection<CharacterSpell>;
   readonly gear: AsyncCollection<CharacterGear>;
   readonly sixToTenMoves: AsyncCollection<CharacterMove>;
@@ -858,6 +796,7 @@ type LazyCharacter = {
   readonly alignment: AsyncItem<CharacterAlignment | undefined>;
   readonly tags?: (string | null)[] | null;
   readonly look: AsyncItem<CharacterLook | undefined>;
+  readonly characterClassId?: string | null;
   readonly class: AsyncItem<CharacterClass | undefined>;
   readonly notes?: string | null;
   readonly createdAt?: string | null;
@@ -865,7 +804,6 @@ type LazyCharacter = {
   readonly characterRaceId?: string | null;
   readonly characterAlignmentId?: string | null;
   readonly characterLookId?: string | null;
-  readonly characterClassId?: string | null;
 }
 
 export declare type Character = LazyLoading extends LazyLoadingDisabled ? EagerCharacter : LazyCharacter

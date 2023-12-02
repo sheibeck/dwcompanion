@@ -9,6 +9,7 @@ type User @model {
   # Add other user-related fields as needed
 }
 
+# Source book for material. If this is not an official source use Custom
 type Source @model {
   id: ID!
   name: String!
@@ -16,8 +17,8 @@ type Source @model {
 
 type CharacterClass @model {
   id: ID!
+  character: Character! @belongsTo
   class: Class! @hasOne
-  character: Character! @hasOne
 }
 
 type Class @model {
@@ -26,7 +27,6 @@ type Class @model {
   description: String!
   source: Source! @hasOne
   damageDiceType: DiceType @hasOne
-  characters: [CharacterClass]! @hasMany
 }
 
 type Spell @model {
@@ -38,12 +38,10 @@ type Spell @model {
   description: String!
   source: Source! @hasOne
   class: Class! @hasOne
-  characters: [CharacterSpell]! @hasMany
 }
 
 type CharacterSpell @model {
   id: ID!
-  character: Character! @hasOne
   spell: Spell! @hasOne
   selected: Boolean
   tags: [String]
@@ -54,7 +52,6 @@ type CharacterGear @model {
   gear: Gear! @hasOne
   uses: Int
   tags: [String]
-  character: Character! @hasOne
 }
 
 type Gear @model {
@@ -63,21 +60,20 @@ type Gear @model {
   weight: Int!
   uses: Int
   tags: [String]
-  characters: [CharacterGear]! @hasMany
+  source: Source @hasOne
 }
 
 type CharacterMove @model {
   id: ID!
   selected: Boolean
   move: Move! @hasOne
-  character: Character! @hasOne
 }
 
 type Move @model {
   id: ID!
   description: String!
   class: Class! @hasOne
-  characters: [CharacterMove]! @hasMany
+  source: Source @hasOne
 }
 
 type CharacterBond @model {
@@ -85,14 +81,12 @@ type CharacterBond @model {
   description: String
   bond: Bond! @hasOne
   selected: Boolean
-  character: Character! @hasOne
 }
 
 type Bond @model {
   id: ID!
   description: String
   class: Class! @hasOne
-  characters: [CharacterBond]! @hasMany
 }
 
 type CharacterAbilityScore @model {
@@ -101,7 +95,6 @@ type CharacterAbilityScore @model {
   value: String!
   bonus: Int!
   tags: [String]
-  character: Character! @hasOne
 }
 
 type AbilityScore @model {
@@ -110,13 +103,11 @@ type AbilityScore @model {
   shortName: String!
   debility: String!
   debilityPenalty: String!
-  characters: [CharacterBond]! @hasMany
 }
 
 type CharacterRace @model {
   id: ID!
   race: Race! @hasOne
-  character: Character! @hasOne
 }
 
 type Race @model {
@@ -125,14 +116,12 @@ type Race @model {
   description: String
   class: Class @hasOne
   source: Source! @hasOne
-  characters: [CharacterRace]! @hasMany
 }
 
 type CharacterAlignment @model {
   id: ID!
   alignment: Alignment! @hasOne
   selected: Boolean
-  character: Character! @hasOne
 }
 
 type Alignment @model {
@@ -140,7 +129,6 @@ type Alignment @model {
   name: String
   description: String
   class: Class! @hasOne
-  characters: [CharacterAlignment]! @hasMany
 }
 
 type DiceType @model {
@@ -151,7 +139,6 @@ type DiceType @model {
 type CharacterLook @model {
   id: ID!
   look: [Look]! @hasMany
-  character: Character! @hasOne
 }
 
 type Look @model {
@@ -159,7 +146,6 @@ type Look @model {
   name: String!
   description: String!
   class: Class! @hasOne
-  characters: [CharacterLook]! @hasMany
 }
 
 type Character @model {
@@ -174,8 +160,7 @@ type Character @model {
   coin: Int
   loadMax: Int
   loadCurrent: Int
-  isPublic: Boolean
-  isCoreTemplate: Boolean
+  isTemplate: Boolean                               #is a template for creating new characters
   spells: [CharacterSpell] @hasMany
   gear: [CharacterGear] @hasMany
   sixToTenMoves: [CharacterMove] @hasMany
@@ -187,6 +172,7 @@ type Character @model {
   alignment: CharacterAlignment @hasOne
   tags: [String]
   look: CharacterLook @hasOne
-  class: CharacterClass @hasOne
+  characterClassId: ID  @index(name: "byClass", queryField: "charactersByClass")
+  class: CharacterClass @hasOne(fields: ["characterClassId"])
   notes: String
 }
