@@ -5,7 +5,7 @@
 
         <div v-if="hasCharacters">
             <div v-for="character in characterList">
-                {{ character.name }}
+                {{ character.Character.name }} {{ character.Profession.name }}
             </div>
         </div>
 
@@ -24,12 +24,11 @@ import { useGlobalStore } from '@/stores/globalStore';
 const globalStore = useGlobalStore();
 
 const client = generateClient();
-const characterList = ref<any>(null);
+const characterList = ref<any>([]);
 const hasCharacters = computed(() => characterList.value?.length > 0);
 
 onMounted(async () => {
-    const data = await getCharacterList();
-    characterList.value = data;
+    await getCharacterList();
 });
 
 // Fetch a single record by its identifier
@@ -44,7 +43,25 @@ const getCharacterList = async () => {
             }
         }
     });
-    return result.data.listCharacters.items;
+    
+    const characters = result.data.listCharacters.items;
+
+    const charWithProfessions: any = [];
+    
+    characters.forEach(async (character) => {
+        const cpId = character.id;
+        const charProfession = await client.graphql({
+            query: queries.getCharacterProfession,
+            variables: {
+                id: character.characterCharacterProfessionId ?? ""
+            }
+        });
+
+        const item = charProfession.data.getCharacterProfession
+        characterList.value.push(item);
+
+    });
+
 }
 
 

@@ -171,5 +171,4 @@ type Character @model @auth(rules: [{allow: public}]) {
   look: CharacterLook @hasOne
   notes: String
   CharacterProfession: CharacterProfession @hasOne
-}
- 
+} 

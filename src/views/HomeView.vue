@@ -32,10 +32,20 @@
 </template>
 
 <script setup lang="ts">
-  import { Authenticator, useAuthenticator } from '@aws-amplify/ui-vue';
-  import Characters from '@/components/Characters.vue';
+import { Authenticator, useAuthenticator } from '@aws-amplify/ui-vue';
+import Characters from '@/components/Characters.vue';
+import { watch } from 'vue';
+import { useGlobalStore } from '@/stores/globalStore';
   
-  const auth = useAuthenticator();
+const auth = useAuthenticator();
+const globalStore = useGlobalStore();
+
+watch(() => auth.user, () => {
+  if (auth.route === 'authenticated') {
+    globalStore.setUserId(auth.user.userId);
+  }
+})
+
 </script>
 
 <style scoped lang="scss">

@@ -6,8 +6,12 @@ export const useGlobalStore = defineStore('globalStore', () => {
     const userId = ref();
 
     const getUserId = computed(() => userId.value);
+    function setUserId(id: any) {
+        userId.value = id;
+    }
     
     return { 
-        getUserId
+        getUserId,
+        setUserId,
     }
 })
