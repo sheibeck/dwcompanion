@@ -6,6 +6,7 @@ export type CreateUserInput = {
   id?: string | null,
   name: string,
   email: string,
+  _version?: number | null,
 };
 
 export type ModelUserConditionInput = {
@@ -14,6 +15,7 @@ export type ModelUserConditionInput = {
   and?: Array< ModelUserConditionInput | null > | null,
   or?: Array< ModelUserConditionInput | null > | null,
   not?: ModelUserConditionInput | null,
+  _deleted?: ModelBooleanInput | null,
 };
 
 export type ModelStringInput = {
@@ -56,6 +58,13 @@ export type ModelSizeInput = {
   between?: Array< number | null > | null,
 };
 
+export type ModelBooleanInput = {
+  ne?: boolean | null,
+  eq?: boolean | null,
+  attributeExists?: boolean | null,
+  attributeType?: ModelAttributeTypes | null,
+};
+
 export type User = {
   __typename: "User",
   id: string,
@@ -63,21 +72,27 @@ export type User = {
   email: string,
   createdAt: string,
   updatedAt: string,
+  _version: number,
+  _deleted?: boolean | null,
+  _lastChangedAt: number,
 };
 
 export type UpdateUserInput = {
   id: string,
   name?: string | null,
   email?: string | null,
+  _version?: number | null,
 };
 
 export type DeleteUserInput = {
   id: string,
+  _version?: number | null,
 };
 
 export type CreateSourceInput = {
   id?: string | null,
   name: string,
+  _version?: number | null,
 };
 
 export type ModelSourceConditionInput = {
@@ -85,6 +100,7 @@ export type ModelSourceConditionInput = {
   and?: Array< ModelSourceConditionInput | null > | null,
   or?: Array< ModelSourceConditionInput | null > | null,
   not?: ModelSourceConditionInput | null,
+  _deleted?: ModelBooleanInput | null,
 };
 
 export type Source = {
@@ -93,29 +109,36 @@ export type Source = {
   name: string,
   createdAt: string,
   updatedAt: string,
+  _version: number,
+  _deleted?: boolean | null,
+  _lastChangedAt: number,
 };
 
 export type UpdateSourceInput = {
   id: string,
   name?: string | null,
+  _version?: number | null,
 };
 
 export type DeleteSourceInput = {
   id: string,
+  _version?: number | null,
 };
 
-export type CreateCharacterClassInput = {
+export type CreateCharacterProfessionInput = {
   id?: string | null,
-  characterClassClassId: string,
-  characterClassCharacterId: string,
+  _version?: number | null,
+  characterProfessionProfessionId?: string | null,
+  characterProfessionCharacterId?: string | null,
 };
 
-export type ModelCharacterClassConditionInput = {
-  and?: Array< ModelCharacterClassConditionInput | null > | null,
-  or?: Array< ModelCharacterClassConditionInput | null > | null,
-  not?: ModelCharacterClassConditionInput | null,
-  characterClassClassId?: ModelIDInput | null,
-  characterClassCharacterId?: ModelIDInput | null,
+export type ModelCharacterProfessionConditionInput = {
+  and?: Array< ModelCharacterProfessionConditionInput | null > | null,
+  or?: Array< ModelCharacterProfessionConditionInput | null > | null,
+  not?: ModelCharacterProfessionConditionInput | null,
+  _deleted?: ModelBooleanInput | null,
+  characterProfessionProfessionId?: ModelIDInput | null,
+  characterProfessionCharacterId?: ModelIDInput | null,
 };
 
 export type ModelIDInput = {
@@ -134,15 +157,18 @@ export type ModelIDInput = {
   size?: ModelSizeInput | null,
 };
 
-export type CharacterClass = {
-  __typename: "CharacterClass",
+export type CharacterProfession = {
+  __typename: "CharacterProfession",
   id: string,
-  character: Character,
-  class: Class,
+  Character?: Character | null,
+  Profession?: Profession | null,
   createdAt: string,
   updatedAt: string,
-  characterClassClassId: string,
-  characterClassCharacterId: string,
+  _version: number,
+  _deleted?: boolean | null,
+  _lastChangedAt: number,
+  characterProfessionProfessionId?: string | null,
+  characterProfessionCharacterId?: string | null,
 };
 
 export type Character = {
@@ -159,7 +185,6 @@ export type Character = {
   loadMax?: number | null,
   loadCurrent?: number | null,
   isTemplate?: boolean | null,
-  spells?: ModelCharacterSpellConnection | null,
   gear?: ModelCharacterGearConnection | null,
   sixToTenMoves?: ModelCharacterMoveConnection | null,
   twoToTenMoves?: ModelCharacterMoveConnection | null,
@@ -170,75 +195,24 @@ export type Character = {
   alignment?: CharacterAlignment | null,
   tags?: Array< string | null > | null,
   look?: CharacterLook | null,
-  characterClassId?: string | null,
-  class?: CharacterClass | null,
   notes?: string | null,
+  CharacterProfession?: CharacterProfession | null,
   createdAt: string,
   updatedAt: string,
+  _version: number,
+  _deleted?: boolean | null,
+  _lastChangedAt: number,
   characterRaceId?: string | null,
   characterAlignmentId?: string | null,
   characterLookId?: string | null,
-};
-
-export type ModelCharacterSpellConnection = {
-  __typename: "ModelCharacterSpellConnection",
-  items:  Array<CharacterSpell | null >,
-  nextToken?: string | null,
-};
-
-export type CharacterSpell = {
-  __typename: "CharacterSpell",
-  id: string,
-  spell: Spell,
-  selected?: boolean | null,
-  tags?: Array< string | null > | null,
-  createdAt: string,
-  updatedAt: string,
-  characterSpellsId?: string | null,
-  characterSpellSpellId: string,
-};
-
-export type Spell = {
-  __typename: "Spell",
-  id: string,
-  name: string,
-  level: number,
-  type: string,
-  ongoing?: boolean | null,
-  description: string,
-  source: Source,
-  class: Class,
-  createdAt: string,
-  updatedAt: string,
-  spellSourceId: string,
-  spellClassId: string,
-};
-
-export type Class = {
-  __typename: "Class",
-  id: string,
-  name: string,
-  description: string,
-  source: Source,
-  damageDiceType?: DiceType | null,
-  createdAt: string,
-  updatedAt: string,
-  classSourceId: string,
-  classDamageDiceTypeId?: string | null,
-};
-
-export type DiceType = {
-  __typename: "DiceType",
-  id: string,
-  name?: string | null,
-  createdAt: string,
-  updatedAt: string,
+  characterCharacterProfessionId?: string | null,
 };
 
 export type ModelCharacterGearConnection = {
   __typename: "ModelCharacterGearConnection",
   items:  Array<CharacterGear | null >,
   nextToken?: string | null,
+  startedAt?: number | null,
 };
 
 export type CharacterGear = {
@@ -247,9 +221,12 @@ export type CharacterGear = {
   gear: Gear,
   uses?: number | null,
   tags?: Array< string | null > | null,
+  characterID: string,
   createdAt: string,
   updatedAt: string,
-  characterGearId?: string | null,
+  _version: number,
+  _deleted?: boolean | null,
+  _lastChangedAt: number,
   characterGearGearId: string,
 };
 
@@ -263,6 +240,9 @@ export type Gear = {
   source?: Source | null,
   createdAt: string,
   updatedAt: string,
+  _version: number,
+  _deleted?: boolean | null,
+  _lastChangedAt: number,
   gearSourceId?: string | null,
 };
 
@@ -270,6 +250,7 @@ export type ModelCharacterMoveConnection = {
   __typename: "ModelCharacterMoveConnection",
   items:  Array<CharacterMove | null >,
   nextToken?: string | null,
+  startedAt?: number | null,
 };
 
 export type CharacterMove = {
@@ -277,11 +258,12 @@ export type CharacterMove = {
   id: string,
   selected?: boolean | null,
   move: Move,
+  characterID: string,
   createdAt: string,
   updatedAt: string,
-  characterSixToTenMovesId?: string | null,
-  characterTwoToTenMovesId?: string | null,
-  characterStartingMovesId?: string | null,
+  _version: number,
+  _deleted?: boolean | null,
+  _lastChangedAt: number,
   characterMoveMoveId: string,
 };
 
@@ -289,18 +271,49 @@ export type Move = {
   __typename: "Move",
   id: string,
   description: string,
-  class: Class,
+  class: Profession,
   source?: Source | null,
   createdAt: string,
   updatedAt: string,
+  _version: number,
+  _deleted?: boolean | null,
+  _lastChangedAt: number,
   moveClassId: string,
   moveSourceId?: string | null,
+};
+
+export type Profession = {
+  __typename: "Profession",
+  id: string,
+  name: string,
+  description: string,
+  source: Source,
+  damageDiceType?: DiceType | null,
+  createdAt: string,
+  updatedAt: string,
+  _version: number,
+  _deleted?: boolean | null,
+  _lastChangedAt: number,
+  professionSourceId: string,
+  professionDamageDiceTypeId?: string | null,
+};
+
+export type DiceType = {
+  __typename: "DiceType",
+  id: string,
+  name?: string | null,
+  createdAt: string,
+  updatedAt: string,
+  _version: number,
+  _deleted?: boolean | null,
+  _lastChangedAt: number,
 };
 
 export type ModelCharacterBondConnection = {
   __typename: "ModelCharacterBondConnection",
   items:  Array<CharacterBond | null >,
   nextToken?: string | null,
+  startedAt?: number | null,
 };
 
 export type CharacterBond = {
@@ -309,9 +322,12 @@ export type CharacterBond = {
   description?: string | null,
   bond: Bond,
   selected?: boolean | null,
+  characterID: string,
   createdAt: string,
   updatedAt: string,
-  characterBondsId?: string | null,
+  _version: number,
+  _deleted?: boolean | null,
+  _lastChangedAt: number,
   characterBondBondId: string,
 };
 
@@ -319,9 +335,12 @@ export type Bond = {
   __typename: "Bond",
   id: string,
   description?: string | null,
-  class: Class,
+  class: Profession,
   createdAt: string,
   updatedAt: string,
+  _version: number,
+  _deleted?: boolean | null,
+  _lastChangedAt: number,
   bondClassId: string,
 };
 
@@ -329,6 +348,7 @@ export type ModelCharacterAbilityScoreConnection = {
   __typename: "ModelCharacterAbilityScoreConnection",
   items:  Array<CharacterAbilityScore | null >,
   nextToken?: string | null,
+  startedAt?: number | null,
 };
 
 export type CharacterAbilityScore = {
@@ -338,9 +358,12 @@ export type CharacterAbilityScore = {
   value: string,
   bonus: number,
   tags?: Array< string | null > | null,
+  characterID: string,
   createdAt: string,
   updatedAt: string,
-  characterAbilityscoresId?: string | null,
+  _version: number,
+  _deleted?: boolean | null,
+  _lastChangedAt: number,
   characterAbilityScoreAbilityScoreId: string,
 };
 
@@ -353,6 +376,9 @@ export type AbilityScore = {
   debilityPenalty: string,
   createdAt: string,
   updatedAt: string,
+  _version: number,
+  _deleted?: boolean | null,
+  _lastChangedAt: number,
 };
 
 export type CharacterRace = {
@@ -361,6 +387,9 @@ export type CharacterRace = {
   race: Race,
   createdAt: string,
   updatedAt: string,
+  _version: number,
+  _deleted?: boolean | null,
+  _lastChangedAt: number,
   characterRaceRaceId: string,
 };
 
@@ -369,11 +398,14 @@ export type Race = {
   id: string,
   name?: string | null,
   description?: string | null,
-  class?: Class | null,
+  profession?: Profession | null,
   source: Source,
   createdAt: string,
   updatedAt: string,
-  raceClassId?: string | null,
+  _version: number,
+  _deleted?: boolean | null,
+  _lastChangedAt: number,
+  raceProfessionId?: string | null,
   raceSourceId: string,
 };
 
@@ -384,6 +416,9 @@ export type CharacterAlignment = {
   selected?: boolean | null,
   createdAt: string,
   updatedAt: string,
+  _version: number,
+  _deleted?: boolean | null,
+  _lastChangedAt: number,
   characterAlignmentAlignmentId: string,
 };
 
@@ -392,9 +427,12 @@ export type Alignment = {
   id: string,
   name?: string | null,
   description?: string | null,
-  class: Class,
+  class: Profession,
   createdAt: string,
   updatedAt: string,
+  _version: number,
+  _deleted?: boolean | null,
+  _lastChangedAt: number,
   alignmentClassId: string,
 };
 
@@ -404,12 +442,16 @@ export type CharacterLook = {
   look?: ModelLookConnection | null,
   createdAt: string,
   updatedAt: string,
+  _version: number,
+  _deleted?: boolean | null,
+  _lastChangedAt: number,
 };
 
 export type ModelLookConnection = {
   __typename: "ModelLookConnection",
   items:  Array<Look | null >,
   nextToken?: string | null,
+  startedAt?: number | null,
 };
 
 export type Look = {
@@ -417,51 +459,58 @@ export type Look = {
   id: string,
   name: string,
   description: string,
-  class: Class,
+  characterlookID: string,
   createdAt: string,
   updatedAt: string,
-  characterLookLookId: string,
-  lookClassId: string,
+  _version: number,
+  _deleted?: boolean | null,
+  _lastChangedAt: number,
 };
 
-export type UpdateCharacterClassInput = {
+export type UpdateCharacterProfessionInput = {
   id: string,
-  characterClassClassId?: string | null,
-  characterClassCharacterId?: string | null,
+  _version?: number | null,
+  characterProfessionProfessionId?: string | null,
+  characterProfessionCharacterId?: string | null,
 };
 
-export type DeleteCharacterClassInput = {
+export type DeleteCharacterProfessionInput = {
   id: string,
+  _version?: number | null,
 };
 
-export type CreateClassInput = {
+export type CreateProfessionInput = {
   id?: string | null,
   name: string,
   description: string,
-  classSourceId: string,
-  classDamageDiceTypeId?: string | null,
+  _version?: number | null,
+  professionSourceId: string,
+  professionDamageDiceTypeId?: string | null,
 };
 
-export type ModelClassConditionInput = {
+export type ModelProfessionConditionInput = {
   name?: ModelStringInput | null,
   description?: ModelStringInput | null,
-  and?: Array< ModelClassConditionInput | null > | null,
-  or?: Array< ModelClassConditionInput | null > | null,
-  not?: ModelClassConditionInput | null,
-  classSourceId?: ModelIDInput | null,
-  classDamageDiceTypeId?: ModelIDInput | null,
+  and?: Array< ModelProfessionConditionInput | null > | null,
+  or?: Array< ModelProfessionConditionInput | null > | null,
+  not?: ModelProfessionConditionInput | null,
+  _deleted?: ModelBooleanInput | null,
+  professionSourceId?: ModelIDInput | null,
+  professionDamageDiceTypeId?: ModelIDInput | null,
 };
 
-export type UpdateClassInput = {
+export type UpdateProfessionInput = {
   id: string,
   name?: string | null,
   description?: string | null,
-  classSourceId?: string | null,
-  classDamageDiceTypeId?: string | null,
+  _version?: number | null,
+  professionSourceId?: string | null,
+  professionDamageDiceTypeId?: string | null,
 };
 
-export type DeleteClassInput = {
+export type DeleteProfessionInput = {
   id: string,
+  _version?: number | null,
 };
 
 export type CreateSpellInput = {
@@ -471,8 +520,9 @@ export type CreateSpellInput = {
   type: string,
   ongoing?: boolean | null,
   description: string,
+  _version?: number | null,
   spellSourceId: string,
-  spellClassId: string,
+  spellProfessionId: string,
 };
 
 export type ModelSpellConditionInput = {
@@ -484,8 +534,9 @@ export type ModelSpellConditionInput = {
   and?: Array< ModelSpellConditionInput | null > | null,
   or?: Array< ModelSpellConditionInput | null > | null,
   not?: ModelSpellConditionInput | null,
+  _deleted?: ModelBooleanInput | null,
   spellSourceId?: ModelIDInput | null,
-  spellClassId?: ModelIDInput | null,
+  spellProfessionId?: ModelIDInput | null,
 };
 
 export type ModelIntInput = {
@@ -500,11 +551,23 @@ export type ModelIntInput = {
   attributeType?: ModelAttributeTypes | null,
 };
 
-export type ModelBooleanInput = {
-  ne?: boolean | null,
-  eq?: boolean | null,
-  attributeExists?: boolean | null,
-  attributeType?: ModelAttributeTypes | null,
+export type Spell = {
+  __typename: "Spell",
+  id: string,
+  name: string,
+  level: number,
+  type: string,
+  ongoing?: boolean | null,
+  description: string,
+  source: Source,
+  profession: Profession,
+  createdAt: string,
+  updatedAt: string,
+  _version: number,
+  _deleted?: boolean | null,
+  _lastChangedAt: number,
+  spellSourceId: string,
+  spellProfessionId: string,
 };
 
 export type UpdateSpellInput = {
@@ -514,19 +577,21 @@ export type UpdateSpellInput = {
   type?: string | null,
   ongoing?: boolean | null,
   description?: string | null,
+  _version?: number | null,
   spellSourceId?: string | null,
-  spellClassId?: string | null,
+  spellProfessionId?: string | null,
 };
 
 export type DeleteSpellInput = {
   id: string,
+  _version?: number | null,
 };
 
 export type CreateCharacterSpellInput = {
   id?: string | null,
   selected?: boolean | null,
   tags?: Array< string | null > | null,
-  characterSpellsId?: string | null,
+  _version?: number | null,
   characterSpellSpellId: string,
 };
 
@@ -536,37 +601,54 @@ export type ModelCharacterSpellConditionInput = {
   and?: Array< ModelCharacterSpellConditionInput | null > | null,
   or?: Array< ModelCharacterSpellConditionInput | null > | null,
   not?: ModelCharacterSpellConditionInput | null,
-  characterSpellsId?: ModelIDInput | null,
+  _deleted?: ModelBooleanInput | null,
   characterSpellSpellId?: ModelIDInput | null,
+};
+
+export type CharacterSpell = {
+  __typename: "CharacterSpell",
+  id: string,
+  spell: Spell,
+  selected?: boolean | null,
+  tags?: Array< string | null > | null,
+  createdAt: string,
+  updatedAt: string,
+  _version: number,
+  _deleted?: boolean | null,
+  _lastChangedAt: number,
+  characterSpellSpellId: string,
 };
 
 export type UpdateCharacterSpellInput = {
   id: string,
   selected?: boolean | null,
   tags?: Array< string | null > | null,
-  characterSpellsId?: string | null,
+  _version?: number | null,
   characterSpellSpellId?: string | null,
 };
 
 export type DeleteCharacterSpellInput = {
   id: string,
+  _version?: number | null,
 };
 
 export type CreateCharacterGearInput = {
   id?: string | null,
   uses?: number | null,
   tags?: Array< string | null > | null,
-  characterGearId?: string | null,
+  characterID: string,
+  _version?: number | null,
   characterGearGearId: string,
 };
 
 export type ModelCharacterGearConditionInput = {
   uses?: ModelIntInput | null,
   tags?: ModelStringInput | null,
+  characterID?: ModelIDInput | null,
   and?: Array< ModelCharacterGearConditionInput | null > | null,
   or?: Array< ModelCharacterGearConditionInput | null > | null,
   not?: ModelCharacterGearConditionInput | null,
-  characterGearId?: ModelIDInput | null,
+  _deleted?: ModelBooleanInput | null,
   characterGearGearId?: ModelIDInput | null,
 };
 
@@ -574,12 +656,14 @@ export type UpdateCharacterGearInput = {
   id: string,
   uses?: number | null,
   tags?: Array< string | null > | null,
-  characterGearId?: string | null,
+  characterID?: string | null,
+  _version?: number | null,
   characterGearGearId?: string | null,
 };
 
 export type DeleteCharacterGearInput = {
   id: string,
+  _version?: number | null,
 };
 
 export type CreateGearInput = {
@@ -588,6 +672,7 @@ export type CreateGearInput = {
   weight: number,
   uses?: number | null,
   tags?: Array< string | null > | null,
+  _version?: number | null,
   gearSourceId?: string | null,
 };
 
@@ -599,6 +684,7 @@ export type ModelGearConditionInput = {
   and?: Array< ModelGearConditionInput | null > | null,
   or?: Array< ModelGearConditionInput | null > | null,
   not?: ModelGearConditionInput | null,
+  _deleted?: ModelBooleanInput | null,
   gearSourceId?: ModelIDInput | null,
 };
 
@@ -608,49 +694,50 @@ export type UpdateGearInput = {
   weight?: number | null,
   uses?: number | null,
   tags?: Array< string | null > | null,
+  _version?: number | null,
   gearSourceId?: string | null,
 };
 
 export type DeleteGearInput = {
   id: string,
+  _version?: number | null,
 };
 
 export type CreateCharacterMoveInput = {
   id?: string | null,
   selected?: boolean | null,
-  characterSixToTenMovesId?: string | null,
-  characterTwoToTenMovesId?: string | null,
-  characterStartingMovesId?: string | null,
+  characterID: string,
+  _version?: number | null,
   characterMoveMoveId: string,
 };
 
 export type ModelCharacterMoveConditionInput = {
   selected?: ModelBooleanInput | null,
+  characterID?: ModelIDInput | null,
   and?: Array< ModelCharacterMoveConditionInput | null > | null,
   or?: Array< ModelCharacterMoveConditionInput | null > | null,
   not?: ModelCharacterMoveConditionInput | null,
-  characterSixToTenMovesId?: ModelIDInput | null,
-  characterTwoToTenMovesId?: ModelIDInput | null,
-  characterStartingMovesId?: ModelIDInput | null,
+  _deleted?: ModelBooleanInput | null,
   characterMoveMoveId?: ModelIDInput | null,
 };
 
 export type UpdateCharacterMoveInput = {
   id: string,
   selected?: boolean | null,
-  characterSixToTenMovesId?: string | null,
-  characterTwoToTenMovesId?: string | null,
-  characterStartingMovesId?: string | null,
+  characterID?: string | null,
+  _version?: number | null,
   characterMoveMoveId?: string | null,
 };
 
 export type DeleteCharacterMoveInput = {
   id: string,
+  _version?: number | null,
 };
 
 export type CreateMoveInput = {
   id?: string | null,
   description: string,
+  _version?: number | null,
   moveClassId: string,
   moveSourceId?: string | null,
 };
@@ -660,6 +747,7 @@ export type ModelMoveConditionInput = {
   and?: Array< ModelMoveConditionInput | null > | null,
   or?: Array< ModelMoveConditionInput | null > | null,
   not?: ModelMoveConditionInput | null,
+  _deleted?: ModelBooleanInput | null,
   moveClassId?: ModelIDInput | null,
   moveSourceId?: ModelIDInput | null,
 };
@@ -667,29 +755,33 @@ export type ModelMoveConditionInput = {
 export type UpdateMoveInput = {
   id: string,
   description?: string | null,
+  _version?: number | null,
   moveClassId?: string | null,
   moveSourceId?: string | null,
 };
 
 export type DeleteMoveInput = {
   id: string,
+  _version?: number | null,
 };
 
 export type CreateCharacterBondInput = {
   id?: string | null,
   description?: string | null,
   selected?: boolean | null,
-  characterBondsId?: string | null,
+  characterID: string,
+  _version?: number | null,
   characterBondBondId: string,
 };
 
 export type ModelCharacterBondConditionInput = {
   description?: ModelStringInput | null,
   selected?: ModelBooleanInput | null,
+  characterID?: ModelIDInput | null,
   and?: Array< ModelCharacterBondConditionInput | null > | null,
   or?: Array< ModelCharacterBondConditionInput | null > | null,
   not?: ModelCharacterBondConditionInput | null,
-  characterBondsId?: ModelIDInput | null,
+  _deleted?: ModelBooleanInput | null,
   characterBondBondId?: ModelIDInput | null,
 };
 
@@ -697,17 +789,20 @@ export type UpdateCharacterBondInput = {
   id: string,
   description?: string | null,
   selected?: boolean | null,
-  characterBondsId?: string | null,
+  characterID?: string | null,
+  _version?: number | null,
   characterBondBondId?: string | null,
 };
 
 export type DeleteCharacterBondInput = {
   id: string,
+  _version?: number | null,
 };
 
 export type CreateBondInput = {
   id?: string | null,
   description?: string | null,
+  _version?: number | null,
   bondClassId: string,
 };
 
@@ -716,17 +811,20 @@ export type ModelBondConditionInput = {
   and?: Array< ModelBondConditionInput | null > | null,
   or?: Array< ModelBondConditionInput | null > | null,
   not?: ModelBondConditionInput | null,
+  _deleted?: ModelBooleanInput | null,
   bondClassId?: ModelIDInput | null,
 };
 
 export type UpdateBondInput = {
   id: string,
   description?: string | null,
+  _version?: number | null,
   bondClassId?: string | null,
 };
 
 export type DeleteBondInput = {
   id: string,
+  _version?: number | null,
 };
 
 export type CreateCharacterAbilityScoreInput = {
@@ -734,7 +832,8 @@ export type CreateCharacterAbilityScoreInput = {
   value: string,
   bonus: number,
   tags?: Array< string | null > | null,
-  characterAbilityscoresId?: string | null,
+  characterID: string,
+  _version?: number | null,
   characterAbilityScoreAbilityScoreId: string,
 };
 
@@ -742,10 +841,11 @@ export type ModelCharacterAbilityScoreConditionInput = {
   value?: ModelStringInput | null,
   bonus?: ModelIntInput | null,
   tags?: ModelStringInput | null,
+  characterID?: ModelIDInput | null,
   and?: Array< ModelCharacterAbilityScoreConditionInput | null > | null,
   or?: Array< ModelCharacterAbilityScoreConditionInput | null > | null,
   not?: ModelCharacterAbilityScoreConditionInput | null,
-  characterAbilityscoresId?: ModelIDInput | null,
+  _deleted?: ModelBooleanInput | null,
   characterAbilityScoreAbilityScoreId?: ModelIDInput | null,
 };
 
@@ -754,12 +854,14 @@ export type UpdateCharacterAbilityScoreInput = {
   value?: string | null,
   bonus?: number | null,
   tags?: Array< string | null > | null,
-  characterAbilityscoresId?: string | null,
+  characterID?: string | null,
+  _version?: number | null,
   characterAbilityScoreAbilityScoreId?: string | null,
 };
 
 export type DeleteCharacterAbilityScoreInput = {
   id: string,
+  _version?: number | null,
 };
 
 export type CreateAbilityScoreInput = {
@@ -768,6 +870,7 @@ export type CreateAbilityScoreInput = {
   shortName: string,
   debility: string,
   debilityPenalty: string,
+  _version?: number | null,
 };
 
 export type ModelAbilityScoreConditionInput = {
@@ -778,6 +881,7 @@ export type ModelAbilityScoreConditionInput = {
   and?: Array< ModelAbilityScoreConditionInput | null > | null,
   or?: Array< ModelAbilityScoreConditionInput | null > | null,
   not?: ModelAbilityScoreConditionInput | null,
+  _deleted?: ModelBooleanInput | null,
 };
 
 export type UpdateAbilityScoreInput = {
@@ -786,14 +890,17 @@ export type UpdateAbilityScoreInput = {
   shortName?: string | null,
   debility?: string | null,
   debilityPenalty?: string | null,
+  _version?: number | null,
 };
 
 export type DeleteAbilityScoreInput = {
   id: string,
+  _version?: number | null,
 };
 
 export type CreateCharacterRaceInput = {
   id?: string | null,
+  _version?: number | null,
   characterRaceRaceId: string,
 };
 
@@ -801,23 +908,27 @@ export type ModelCharacterRaceConditionInput = {
   and?: Array< ModelCharacterRaceConditionInput | null > | null,
   or?: Array< ModelCharacterRaceConditionInput | null > | null,
   not?: ModelCharacterRaceConditionInput | null,
+  _deleted?: ModelBooleanInput | null,
   characterRaceRaceId?: ModelIDInput | null,
 };
 
 export type UpdateCharacterRaceInput = {
   id: string,
+  _version?: number | null,
   characterRaceRaceId?: string | null,
 };
 
 export type DeleteCharacterRaceInput = {
   id: string,
+  _version?: number | null,
 };
 
 export type CreateRaceInput = {
   id?: string | null,
   name?: string | null,
   description?: string | null,
-  raceClassId?: string | null,
+  _version?: number | null,
+  raceProfessionId?: string | null,
   raceSourceId: string,
 };
 
@@ -827,7 +938,8 @@ export type ModelRaceConditionInput = {
   and?: Array< ModelRaceConditionInput | null > | null,
   or?: Array< ModelRaceConditionInput | null > | null,
   not?: ModelRaceConditionInput | null,
-  raceClassId?: ModelIDInput | null,
+  _deleted?: ModelBooleanInput | null,
+  raceProfessionId?: ModelIDInput | null,
   raceSourceId?: ModelIDInput | null,
 };
 
@@ -835,17 +947,20 @@ export type UpdateRaceInput = {
   id: string,
   name?: string | null,
   description?: string | null,
-  raceClassId?: string | null,
+  _version?: number | null,
+  raceProfessionId?: string | null,
   raceSourceId?: string | null,
 };
 
 export type DeleteRaceInput = {
   id: string,
+  _version?: number | null,
 };
 
 export type CreateCharacterAlignmentInput = {
   id?: string | null,
   selected?: boolean | null,
+  _version?: number | null,
   characterAlignmentAlignmentId: string,
 };
 
@@ -854,23 +969,27 @@ export type ModelCharacterAlignmentConditionInput = {
   and?: Array< ModelCharacterAlignmentConditionInput | null > | null,
   or?: Array< ModelCharacterAlignmentConditionInput | null > | null,
   not?: ModelCharacterAlignmentConditionInput | null,
+  _deleted?: ModelBooleanInput | null,
   characterAlignmentAlignmentId?: ModelIDInput | null,
 };
 
 export type UpdateCharacterAlignmentInput = {
   id: string,
   selected?: boolean | null,
+  _version?: number | null,
   characterAlignmentAlignmentId?: string | null,
 };
 
 export type DeleteCharacterAlignmentInput = {
   id: string,
+  _version?: number | null,
 };
 
 export type CreateAlignmentInput = {
   id?: string | null,
   name?: string | null,
   description?: string | null,
+  _version?: number | null,
   alignmentClassId: string,
 };
 
@@ -880,6 +999,7 @@ export type ModelAlignmentConditionInput = {
   and?: Array< ModelAlignmentConditionInput | null > | null,
   or?: Array< ModelAlignmentConditionInput | null > | null,
   not?: ModelAlignmentConditionInput | null,
+  _deleted?: ModelBooleanInput | null,
   alignmentClassId?: ModelIDInput | null,
 };
 
@@ -887,16 +1007,19 @@ export type UpdateAlignmentInput = {
   id: string,
   name?: string | null,
   description?: string | null,
+  _version?: number | null,
   alignmentClassId?: string | null,
 };
 
 export type DeleteAlignmentInput = {
   id: string,
+  _version?: number | null,
 };
 
 export type CreateDiceTypeInput = {
   id?: string | null,
   name?: string | null,
+  _version?: number | null,
 };
 
 export type ModelDiceTypeConditionInput = {
@@ -904,63 +1027,71 @@ export type ModelDiceTypeConditionInput = {
   and?: Array< ModelDiceTypeConditionInput | null > | null,
   or?: Array< ModelDiceTypeConditionInput | null > | null,
   not?: ModelDiceTypeConditionInput | null,
+  _deleted?: ModelBooleanInput | null,
 };
 
 export type UpdateDiceTypeInput = {
   id: string,
   name?: string | null,
+  _version?: number | null,
 };
 
 export type DeleteDiceTypeInput = {
   id: string,
+  _version?: number | null,
 };
 
 export type CreateCharacterLookInput = {
   id?: string | null,
+  _version?: number | null,
 };
 
 export type ModelCharacterLookConditionInput = {
   and?: Array< ModelCharacterLookConditionInput | null > | null,
   or?: Array< ModelCharacterLookConditionInput | null > | null,
   not?: ModelCharacterLookConditionInput | null,
+  _deleted?: ModelBooleanInput | null,
 };
 
 export type UpdateCharacterLookInput = {
   id: string,
+  _version?: number | null,
 };
 
 export type DeleteCharacterLookInput = {
   id: string,
+  _version?: number | null,
 };
 
 export type CreateLookInput = {
   id?: string | null,
   name: string,
   description: string,
-  characterLookLookId: string,
-  lookClassId: string,
+  characterlookID: string,
+  _version?: number | null,
 };
 
 export type ModelLookConditionInput = {
   name?: ModelStringInput | null,
   description?: ModelStringInput | null,
+  characterlookID?: ModelIDInput | null,
   and?: Array< ModelLookConditionInput | null > | null,
   or?: Array< ModelLookConditionInput | null > | null,
   not?: ModelLookConditionInput | null,
-  characterLookLookId?: ModelIDInput | null,
-  lookClassId?: ModelIDInput | null,
+  _deleted?: ModelBooleanInput | null,
 };
 
 export type UpdateLookInput = {
   id: string,
   name?: string | null,
   description?: string | null,
-  characterLookLookId?: string | null,
-  lookClassId?: string | null,
+  characterlookID?: string | null,
+  _version?: number | null,
 };
 
 export type DeleteLookInput = {
   id: string,
+  _version?: number | null,
 };
 
 export type CreateCharacterInput = {
@@ -977,11 +1108,12 @@ export type CreateCharacterInput = {
   loadCurrent?: number | null,
   isTemplate?: boolean | null,
   tags?: Array< string | null > | null,
-  characterClassId?: string | null,
   notes?: string | null,
+  _version?: number | null,
   characterRaceId?: string | null,
   characterAlignmentId?: string | null,
   characterLookId?: string | null,
+  characterCharacterProfessionId?: string | null,
 };
 
 export type ModelCharacterConditionInput = {
@@ -997,14 +1129,15 @@ export type ModelCharacterConditionInput = {
   loadCurrent?: ModelIntInput | null,
   isTemplate?: ModelBooleanInput | null,
   tags?: ModelStringInput | null,
-  characterClassId?: ModelIDInput | null,
   notes?: ModelStringInput | null,
   and?: Array< ModelCharacterConditionInput | null > | null,
   or?: Array< ModelCharacterConditionInput | null > | null,
   not?: ModelCharacterConditionInput | null,
+  _deleted?: ModelBooleanInput | null,
   characterRaceId?: ModelIDInput | null,
   characterAlignmentId?: ModelIDInput | null,
   characterLookId?: ModelIDInput | null,
+  characterCharacterProfessionId?: ModelIDInput | null,
 };
 
 export type UpdateCharacterInput = {
@@ -1021,15 +1154,17 @@ export type UpdateCharacterInput = {
   loadCurrent?: number | null,
   isTemplate?: boolean | null,
   tags?: Array< string | null > | null,
-  characterClassId?: string | null,
   notes?: string | null,
+  _version?: number | null,
   characterRaceId?: string | null,
   characterAlignmentId?: string | null,
   characterLookId?: string | null,
+  characterCharacterProfessionId?: string | null,
 };
 
 export type DeleteCharacterInput = {
   id: string,
+  _version?: number | null,
 };
 
 export type ModelUserFilterInput = {
@@ -1039,12 +1174,14 @@ export type ModelUserFilterInput = {
   and?: Array< ModelUserFilterInput | null > | null,
   or?: Array< ModelUserFilterInput | null > | null,
   not?: ModelUserFilterInput | null,
+  _deleted?: ModelBooleanInput | null,
 };
 
 export type ModelUserConnection = {
   __typename: "ModelUserConnection",
   items:  Array<User | null >,
   nextToken?: string | null,
+  startedAt?: number | null,
 };
 
 export type ModelSourceFilterInput = {
@@ -1053,44 +1190,50 @@ export type ModelSourceFilterInput = {
   and?: Array< ModelSourceFilterInput | null > | null,
   or?: Array< ModelSourceFilterInput | null > | null,
   not?: ModelSourceFilterInput | null,
+  _deleted?: ModelBooleanInput | null,
 };
 
 export type ModelSourceConnection = {
   __typename: "ModelSourceConnection",
   items:  Array<Source | null >,
   nextToken?: string | null,
+  startedAt?: number | null,
 };
 
-export type ModelCharacterClassFilterInput = {
+export type ModelCharacterProfessionFilterInput = {
   id?: ModelIDInput | null,
-  and?: Array< ModelCharacterClassFilterInput | null > | null,
-  or?: Array< ModelCharacterClassFilterInput | null > | null,
-  not?: ModelCharacterClassFilterInput | null,
-  characterClassClassId?: ModelIDInput | null,
-  characterClassCharacterId?: ModelIDInput | null,
+  and?: Array< ModelCharacterProfessionFilterInput | null > | null,
+  or?: Array< ModelCharacterProfessionFilterInput | null > | null,
+  not?: ModelCharacterProfessionFilterInput | null,
+  _deleted?: ModelBooleanInput | null,
+  characterProfessionProfessionId?: ModelIDInput | null,
+  characterProfessionCharacterId?: ModelIDInput | null,
 };
 
-export type ModelCharacterClassConnection = {
-  __typename: "ModelCharacterClassConnection",
-  items:  Array<CharacterClass | null >,
+export type ModelCharacterProfessionConnection = {
+  __typename: "ModelCharacterProfessionConnection",
+  items:  Array<CharacterProfession | null >,
   nextToken?: string | null,
+  startedAt?: number | null,
 };
 
-export type ModelClassFilterInput = {
+export type ModelProfessionFilterInput = {
   id?: ModelIDInput | null,
   name?: ModelStringInput | null,
   description?: ModelStringInput | null,
-  and?: Array< ModelClassFilterInput | null > | null,
-  or?: Array< ModelClassFilterInput | null > | null,
-  not?: ModelClassFilterInput | null,
-  classSourceId?: ModelIDInput | null,
-  classDamageDiceTypeId?: ModelIDInput | null,
+  and?: Array< ModelProfessionFilterInput | null > | null,
+  or?: Array< ModelProfessionFilterInput | null > | null,
+  not?: ModelProfessionFilterInput | null,
+  _deleted?: ModelBooleanInput | null,
+  professionSourceId?: ModelIDInput | null,
+  professionDamageDiceTypeId?: ModelIDInput | null,
 };
 
-export type ModelClassConnection = {
-  __typename: "ModelClassConnection",
-  items:  Array<Class | null >,
+export type ModelProfessionConnection = {
+  __typename: "ModelProfessionConnection",
+  items:  Array<Profession | null >,
   nextToken?: string | null,
+  startedAt?: number | null,
 };
 
 export type ModelSpellFilterInput = {
@@ -1103,14 +1246,16 @@ export type ModelSpellFilterInput = {
   and?: Array< ModelSpellFilterInput | null > | null,
   or?: Array< ModelSpellFilterInput | null > | null,
   not?: ModelSpellFilterInput | null,
+  _deleted?: ModelBooleanInput | null,
   spellSourceId?: ModelIDInput | null,
-  spellClassId?: ModelIDInput | null,
+  spellProfessionId?: ModelIDInput | null,
 };
 
 export type ModelSpellConnection = {
   __typename: "ModelSpellConnection",
   items:  Array<Spell | null >,
   nextToken?: string | null,
+  startedAt?: number | null,
 };
 
 export type ModelCharacterSpellFilterInput = {
@@ -1120,20 +1265,34 @@ export type ModelCharacterSpellFilterInput = {
   and?: Array< ModelCharacterSpellFilterInput | null > | null,
   or?: Array< ModelCharacterSpellFilterInput | null > | null,
   not?: ModelCharacterSpellFilterInput | null,
-  characterSpellsId?: ModelIDInput | null,
+  _deleted?: ModelBooleanInput | null,
   characterSpellSpellId?: ModelIDInput | null,
+};
+
+export type ModelCharacterSpellConnection = {
+  __typename: "ModelCharacterSpellConnection",
+  items:  Array<CharacterSpell | null >,
+  nextToken?: string | null,
+  startedAt?: number | null,
 };
 
 export type ModelCharacterGearFilterInput = {
   id?: ModelIDInput | null,
   uses?: ModelIntInput | null,
   tags?: ModelStringInput | null,
+  characterID?: ModelIDInput | null,
   and?: Array< ModelCharacterGearFilterInput | null > | null,
   or?: Array< ModelCharacterGearFilterInput | null > | null,
   not?: ModelCharacterGearFilterInput | null,
-  characterGearId?: ModelIDInput | null,
+  _deleted?: ModelBooleanInput | null,
   characterGearGearId?: ModelIDInput | null,
 };
+
+export enum ModelSortDirection {
+  ASC = "ASC",
+  DESC = "DESC",
+}
+
 
 export type ModelGearFilterInput = {
   id?: ModelIDInput | null,
@@ -1144,6 +1303,7 @@ export type ModelGearFilterInput = {
   and?: Array< ModelGearFilterInput | null > | null,
   or?: Array< ModelGearFilterInput | null > | null,
   not?: ModelGearFilterInput | null,
+  _deleted?: ModelBooleanInput | null,
   gearSourceId?: ModelIDInput | null,
 };
 
@@ -1151,17 +1311,17 @@ export type ModelGearConnection = {
   __typename: "ModelGearConnection",
   items:  Array<Gear | null >,
   nextToken?: string | null,
+  startedAt?: number | null,
 };
 
 export type ModelCharacterMoveFilterInput = {
   id?: ModelIDInput | null,
   selected?: ModelBooleanInput | null,
+  characterID?: ModelIDInput | null,
   and?: Array< ModelCharacterMoveFilterInput | null > | null,
   or?: Array< ModelCharacterMoveFilterInput | null > | null,
   not?: ModelCharacterMoveFilterInput | null,
-  characterSixToTenMovesId?: ModelIDInput | null,
-  characterTwoToTenMovesId?: ModelIDInput | null,
-  characterStartingMovesId?: ModelIDInput | null,
+  _deleted?: ModelBooleanInput | null,
   characterMoveMoveId?: ModelIDInput | null,
 };
 
@@ -1171,6 +1331,7 @@ export type ModelMoveFilterInput = {
   and?: Array< ModelMoveFilterInput | null > | null,
   or?: Array< ModelMoveFilterInput | null > | null,
   not?: ModelMoveFilterInput | null,
+  _deleted?: ModelBooleanInput | null,
   moveClassId?: ModelIDInput | null,
   moveSourceId?: ModelIDInput | null,
 };
@@ -1179,16 +1340,18 @@ export type ModelMoveConnection = {
   __typename: "ModelMoveConnection",
   items:  Array<Move | null >,
   nextToken?: string | null,
+  startedAt?: number | null,
 };
 
 export type ModelCharacterBondFilterInput = {
   id?: ModelIDInput | null,
   description?: ModelStringInput | null,
   selected?: ModelBooleanInput | null,
+  characterID?: ModelIDInput | null,
   and?: Array< ModelCharacterBondFilterInput | null > | null,
   or?: Array< ModelCharacterBondFilterInput | null > | null,
   not?: ModelCharacterBondFilterInput | null,
-  characterBondsId?: ModelIDInput | null,
+  _deleted?: ModelBooleanInput | null,
   characterBondBondId?: ModelIDInput | null,
 };
 
@@ -1198,6 +1361,7 @@ export type ModelBondFilterInput = {
   and?: Array< ModelBondFilterInput | null > | null,
   or?: Array< ModelBondFilterInput | null > | null,
   not?: ModelBondFilterInput | null,
+  _deleted?: ModelBooleanInput | null,
   bondClassId?: ModelIDInput | null,
 };
 
@@ -1205,6 +1369,7 @@ export type ModelBondConnection = {
   __typename: "ModelBondConnection",
   items:  Array<Bond | null >,
   nextToken?: string | null,
+  startedAt?: number | null,
 };
 
 export type ModelCharacterAbilityScoreFilterInput = {
@@ -1212,10 +1377,11 @@ export type ModelCharacterAbilityScoreFilterInput = {
   value?: ModelStringInput | null,
   bonus?: ModelIntInput | null,
   tags?: ModelStringInput | null,
+  characterID?: ModelIDInput | null,
   and?: Array< ModelCharacterAbilityScoreFilterInput | null > | null,
   or?: Array< ModelCharacterAbilityScoreFilterInput | null > | null,
   not?: ModelCharacterAbilityScoreFilterInput | null,
-  characterAbilityscoresId?: ModelIDInput | null,
+  _deleted?: ModelBooleanInput | null,
   characterAbilityScoreAbilityScoreId?: ModelIDInput | null,
 };
 
@@ -1228,12 +1394,14 @@ export type ModelAbilityScoreFilterInput = {
   and?: Array< ModelAbilityScoreFilterInput | null > | null,
   or?: Array< ModelAbilityScoreFilterInput | null > | null,
   not?: ModelAbilityScoreFilterInput | null,
+  _deleted?: ModelBooleanInput | null,
 };
 
 export type ModelAbilityScoreConnection = {
   __typename: "ModelAbilityScoreConnection",
   items:  Array<AbilityScore | null >,
   nextToken?: string | null,
+  startedAt?: number | null,
 };
 
 export type ModelCharacterRaceFilterInput = {
@@ -1241,6 +1409,7 @@ export type ModelCharacterRaceFilterInput = {
   and?: Array< ModelCharacterRaceFilterInput | null > | null,
   or?: Array< ModelCharacterRaceFilterInput | null > | null,
   not?: ModelCharacterRaceFilterInput | null,
+  _deleted?: ModelBooleanInput | null,
   characterRaceRaceId?: ModelIDInput | null,
 };
 
@@ -1248,6 +1417,7 @@ export type ModelCharacterRaceConnection = {
   __typename: "ModelCharacterRaceConnection",
   items:  Array<CharacterRace | null >,
   nextToken?: string | null,
+  startedAt?: number | null,
 };
 
 export type ModelRaceFilterInput = {
@@ -1257,7 +1427,8 @@ export type ModelRaceFilterInput = {
   and?: Array< ModelRaceFilterInput | null > | null,
   or?: Array< ModelRaceFilterInput | null > | null,
   not?: ModelRaceFilterInput | null,
-  raceClassId?: ModelIDInput | null,
+  _deleted?: ModelBooleanInput | null,
+  raceProfessionId?: ModelIDInput | null,
   raceSourceId?: ModelIDInput | null,
 };
 
@@ -1265,6 +1436,7 @@ export type ModelRaceConnection = {
   __typename: "ModelRaceConnection",
   items:  Array<Race | null >,
   nextToken?: string | null,
+  startedAt?: number | null,
 };
 
 export type ModelCharacterAlignmentFilterInput = {
@@ -1273,6 +1445,7 @@ export type ModelCharacterAlignmentFilterInput = {
   and?: Array< ModelCharacterAlignmentFilterInput | null > | null,
   or?: Array< ModelCharacterAlignmentFilterInput | null > | null,
   not?: ModelCharacterAlignmentFilterInput | null,
+  _deleted?: ModelBooleanInput | null,
   characterAlignmentAlignmentId?: ModelIDInput | null,
 };
 
@@ -1280,6 +1453,7 @@ export type ModelCharacterAlignmentConnection = {
   __typename: "ModelCharacterAlignmentConnection",
   items:  Array<CharacterAlignment | null >,
   nextToken?: string | null,
+  startedAt?: number | null,
 };
 
 export type ModelAlignmentFilterInput = {
@@ -1289,6 +1463,7 @@ export type ModelAlignmentFilterInput = {
   and?: Array< ModelAlignmentFilterInput | null > | null,
   or?: Array< ModelAlignmentFilterInput | null > | null,
   not?: ModelAlignmentFilterInput | null,
+  _deleted?: ModelBooleanInput | null,
   alignmentClassId?: ModelIDInput | null,
 };
 
@@ -1296,6 +1471,7 @@ export type ModelAlignmentConnection = {
   __typename: "ModelAlignmentConnection",
   items:  Array<Alignment | null >,
   nextToken?: string | null,
+  startedAt?: number | null,
 };
 
 export type ModelDiceTypeFilterInput = {
@@ -1304,12 +1480,14 @@ export type ModelDiceTypeFilterInput = {
   and?: Array< ModelDiceTypeFilterInput | null > | null,
   or?: Array< ModelDiceTypeFilterInput | null > | null,
   not?: ModelDiceTypeFilterInput | null,
+  _deleted?: ModelBooleanInput | null,
 };
 
 export type ModelDiceTypeConnection = {
   __typename: "ModelDiceTypeConnection",
   items:  Array<DiceType | null >,
   nextToken?: string | null,
+  startedAt?: number | null,
 };
 
 export type ModelCharacterLookFilterInput = {
@@ -1317,23 +1495,25 @@ export type ModelCharacterLookFilterInput = {
   and?: Array< ModelCharacterLookFilterInput | null > | null,
   or?: Array< ModelCharacterLookFilterInput | null > | null,
   not?: ModelCharacterLookFilterInput | null,
+  _deleted?: ModelBooleanInput | null,
 };
 
 export type ModelCharacterLookConnection = {
   __typename: "ModelCharacterLookConnection",
   items:  Array<CharacterLook | null >,
   nextToken?: string | null,
+  startedAt?: number | null,
 };
 
 export type ModelLookFilterInput = {
   id?: ModelIDInput | null,
   name?: ModelStringInput | null,
   description?: ModelStringInput | null,
+  characterlookID?: ModelIDInput | null,
   and?: Array< ModelLookFilterInput | null > | null,
   or?: Array< ModelLookFilterInput | null > | null,
   not?: ModelLookFilterInput | null,
-  characterLookLookId?: ModelIDInput | null,
-  lookClassId?: ModelIDInput | null,
+  _deleted?: ModelBooleanInput | null,
 };
 
 export type ModelCharacterFilterInput = {
@@ -1350,27 +1530,23 @@ export type ModelCharacterFilterInput = {
   loadCurrent?: ModelIntInput | null,
   isTemplate?: ModelBooleanInput | null,
   tags?: ModelStringInput | null,
-  characterClassId?: ModelIDInput | null,
   notes?: ModelStringInput | null,
   and?: Array< ModelCharacterFilterInput | null > | null,
   or?: Array< ModelCharacterFilterInput | null > | null,
   not?: ModelCharacterFilterInput | null,
+  _deleted?: ModelBooleanInput | null,
   characterRaceId?: ModelIDInput | null,
   characterAlignmentId?: ModelIDInput | null,
   characterLookId?: ModelIDInput | null,
+  characterCharacterProfessionId?: ModelIDInput | null,
 };
 
 export type ModelCharacterConnection = {
   __typename: "ModelCharacterConnection",
   items:  Array<Character | null >,
   nextToken?: string | null,
+  startedAt?: number | null,
 };
-
-export enum ModelSortDirection {
-  ASC = "ASC",
-  DESC = "DESC",
-}
-
 
 export type ModelSubscriptionUserFilterInput = {
   id?: ModelSubscriptionIDInput | null,
@@ -1378,6 +1554,7 @@ export type ModelSubscriptionUserFilterInput = {
   email?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionUserFilterInput | null > | null,
   or?: Array< ModelSubscriptionUserFilterInput | null > | null,
+  _deleted?: ModelBooleanInput | null,
 };
 
 export type ModelSubscriptionIDInput = {
@@ -1415,20 +1592,23 @@ export type ModelSubscriptionSourceFilterInput = {
   name?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionSourceFilterInput | null > | null,
   or?: Array< ModelSubscriptionSourceFilterInput | null > | null,
+  _deleted?: ModelBooleanInput | null,
 };
 
-export type ModelSubscriptionCharacterClassFilterInput = {
+export type ModelSubscriptionCharacterProfessionFilterInput = {
   id?: ModelSubscriptionIDInput | null,
-  and?: Array< ModelSubscriptionCharacterClassFilterInput | null > | null,
-  or?: Array< ModelSubscriptionCharacterClassFilterInput | null > | null,
+  and?: Array< ModelSubscriptionCharacterProfessionFilterInput | null > | null,
+  or?: Array< ModelSubscriptionCharacterProfessionFilterInput | null > | null,
+  _deleted?: ModelBooleanInput | null,
 };
 
-export type ModelSubscriptionClassFilterInput = {
+export type ModelSubscriptionProfessionFilterInput = {
   id?: ModelSubscriptionIDInput | null,
   name?: ModelSubscriptionStringInput | null,
   description?: ModelSubscriptionStringInput | null,
-  and?: Array< ModelSubscriptionClassFilterInput | null > | null,
-  or?: Array< ModelSubscriptionClassFilterInput | null > | null,
+  and?: Array< ModelSubscriptionProfessionFilterInput | null > | null,
+  or?: Array< ModelSubscriptionProfessionFilterInput | null > | null,
+  _deleted?: ModelBooleanInput | null,
 };
 
 export type ModelSubscriptionSpellFilterInput = {
@@ -1440,6 +1620,7 @@ export type ModelSubscriptionSpellFilterInput = {
   description?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionSpellFilterInput | null > | null,
   or?: Array< ModelSubscriptionSpellFilterInput | null > | null,
+  _deleted?: ModelBooleanInput | null,
 };
 
 export type ModelSubscriptionIntInput = {
@@ -1465,14 +1646,17 @@ export type ModelSubscriptionCharacterSpellFilterInput = {
   tags?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionCharacterSpellFilterInput | null > | null,
   or?: Array< ModelSubscriptionCharacterSpellFilterInput | null > | null,
+  _deleted?: ModelBooleanInput | null,
 };
 
 export type ModelSubscriptionCharacterGearFilterInput = {
   id?: ModelSubscriptionIDInput | null,
   uses?: ModelSubscriptionIntInput | null,
   tags?: ModelSubscriptionStringInput | null,
+  characterID?: ModelSubscriptionIDInput | null,
   and?: Array< ModelSubscriptionCharacterGearFilterInput | null > | null,
   or?: Array< ModelSubscriptionCharacterGearFilterInput | null > | null,
+  _deleted?: ModelBooleanInput | null,
 };
 
 export type ModelSubscriptionGearFilterInput = {
@@ -1483,13 +1667,16 @@ export type ModelSubscriptionGearFilterInput = {
   tags?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionGearFilterInput | null > | null,
   or?: Array< ModelSubscriptionGearFilterInput | null > | null,
+  _deleted?: ModelBooleanInput | null,
 };
 
 export type ModelSubscriptionCharacterMoveFilterInput = {
   id?: ModelSubscriptionIDInput | null,
   selected?: ModelSubscriptionBooleanInput | null,
+  characterID?: ModelSubscriptionIDInput | null,
   and?: Array< ModelSubscriptionCharacterMoveFilterInput | null > | null,
   or?: Array< ModelSubscriptionCharacterMoveFilterInput | null > | null,
+  _deleted?: ModelBooleanInput | null,
 };
 
 export type ModelSubscriptionMoveFilterInput = {
@@ -1497,14 +1684,17 @@ export type ModelSubscriptionMoveFilterInput = {
   description?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionMoveFilterInput | null > | null,
   or?: Array< ModelSubscriptionMoveFilterInput | null > | null,
+  _deleted?: ModelBooleanInput | null,
 };
 
 export type ModelSubscriptionCharacterBondFilterInput = {
   id?: ModelSubscriptionIDInput | null,
   description?: ModelSubscriptionStringInput | null,
   selected?: ModelSubscriptionBooleanInput | null,
+  characterID?: ModelSubscriptionIDInput | null,
   and?: Array< ModelSubscriptionCharacterBondFilterInput | null > | null,
   or?: Array< ModelSubscriptionCharacterBondFilterInput | null > | null,
+  _deleted?: ModelBooleanInput | null,
 };
 
 export type ModelSubscriptionBondFilterInput = {
@@ -1512,6 +1702,7 @@ export type ModelSubscriptionBondFilterInput = {
   description?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionBondFilterInput | null > | null,
   or?: Array< ModelSubscriptionBondFilterInput | null > | null,
+  _deleted?: ModelBooleanInput | null,
 };
 
 export type ModelSubscriptionCharacterAbilityScoreFilterInput = {
@@ -1519,8 +1710,10 @@ export type ModelSubscriptionCharacterAbilityScoreFilterInput = {
   value?: ModelSubscriptionStringInput | null,
   bonus?: ModelSubscriptionIntInput | null,
   tags?: ModelSubscriptionStringInput | null,
+  characterID?: ModelSubscriptionIDInput | null,
   and?: Array< ModelSubscriptionCharacterAbilityScoreFilterInput | null > | null,
   or?: Array< ModelSubscriptionCharacterAbilityScoreFilterInput | null > | null,
+  _deleted?: ModelBooleanInput | null,
 };
 
 export type ModelSubscriptionAbilityScoreFilterInput = {
@@ -1531,12 +1724,14 @@ export type ModelSubscriptionAbilityScoreFilterInput = {
   debilityPenalty?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionAbilityScoreFilterInput | null > | null,
   or?: Array< ModelSubscriptionAbilityScoreFilterInput | null > | null,
+  _deleted?: ModelBooleanInput | null,
 };
 
 export type ModelSubscriptionCharacterRaceFilterInput = {
   id?: ModelSubscriptionIDInput | null,
   and?: Array< ModelSubscriptionCharacterRaceFilterInput | null > | null,
   or?: Array< ModelSubscriptionCharacterRaceFilterInput | null > | null,
+  _deleted?: ModelBooleanInput | null,
 };
 
 export type ModelSubscriptionRaceFilterInput = {
@@ -1545,6 +1740,7 @@ export type ModelSubscriptionRaceFilterInput = {
   description?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionRaceFilterInput | null > | null,
   or?: Array< ModelSubscriptionRaceFilterInput | null > | null,
+  _deleted?: ModelBooleanInput | null,
 };
 
 export type ModelSubscriptionCharacterAlignmentFilterInput = {
@@ -1552,6 +1748,7 @@ export type ModelSubscriptionCharacterAlignmentFilterInput = {
   selected?: ModelSubscriptionBooleanInput | null,
   and?: Array< ModelSubscriptionCharacterAlignmentFilterInput | null > | null,
   or?: Array< ModelSubscriptionCharacterAlignmentFilterInput | null > | null,
+  _deleted?: ModelBooleanInput | null,
 };
 
 export type ModelSubscriptionAlignmentFilterInput = {
@@ -1560,6 +1757,7 @@ export type ModelSubscriptionAlignmentFilterInput = {
   description?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionAlignmentFilterInput | null > | null,
   or?: Array< ModelSubscriptionAlignmentFilterInput | null > | null,
+  _deleted?: ModelBooleanInput | null,
 };
 
 export type ModelSubscriptionDiceTypeFilterInput = {
@@ -1567,20 +1765,24 @@ export type ModelSubscriptionDiceTypeFilterInput = {
   name?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionDiceTypeFilterInput | null > | null,
   or?: Array< ModelSubscriptionDiceTypeFilterInput | null > | null,
+  _deleted?: ModelBooleanInput | null,
 };
 
 export type ModelSubscriptionCharacterLookFilterInput = {
   id?: ModelSubscriptionIDInput | null,
   and?: Array< ModelSubscriptionCharacterLookFilterInput | null > | null,
   or?: Array< ModelSubscriptionCharacterLookFilterInput | null > | null,
+  _deleted?: ModelBooleanInput | null,
 };
 
 export type ModelSubscriptionLookFilterInput = {
   id?: ModelSubscriptionIDInput | null,
   name?: ModelSubscriptionStringInput | null,
   description?: ModelSubscriptionStringInput | null,
+  characterlookID?: ModelSubscriptionIDInput | null,
   and?: Array< ModelSubscriptionLookFilterInput | null > | null,
   or?: Array< ModelSubscriptionLookFilterInput | null > | null,
+  _deleted?: ModelBooleanInput | null,
 };
 
 export type ModelSubscriptionCharacterFilterInput = {
@@ -1597,10 +1799,10 @@ export type ModelSubscriptionCharacterFilterInput = {
   loadCurrent?: ModelSubscriptionIntInput | null,
   isTemplate?: ModelSubscriptionBooleanInput | null,
   tags?: ModelSubscriptionStringInput | null,
-  characterClassId?: ModelSubscriptionIDInput | null,
   notes?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionCharacterFilterInput | null > | null,
   or?: Array< ModelSubscriptionCharacterFilterInput | null > | null,
+  _deleted?: ModelBooleanInput | null,
 };
 
 export type CreateUserMutationVariables = {
@@ -1616,6 +1818,9 @@ export type CreateUserMutation = {
     email: string,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
   } | null,
 };
 
@@ -1632,6 +1837,9 @@ export type UpdateUserMutation = {
     email: string,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
   } | null,
 };
 
@@ -1648,6 +1856,9 @@ export type DeleteUserMutation = {
     email: string,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
   } | null,
 };
 
@@ -1663,6 +1874,9 @@ export type CreateSourceMutation = {
     name: string,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
   } | null,
 };
 
@@ -1678,6 +1892,9 @@ export type UpdateSourceMutation = {
     name: string,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
   } | null,
 };
 
@@ -1693,19 +1910,22 @@ export type DeleteSourceMutation = {
     name: string,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
   } | null,
 };
 
-export type CreateCharacterClassMutationVariables = {
-  input: CreateCharacterClassInput,
-  condition?: ModelCharacterClassConditionInput | null,
+export type CreateCharacterProfessionMutationVariables = {
+  input: CreateCharacterProfessionInput,
+  condition?: ModelCharacterProfessionConditionInput | null,
 };
 
-export type CreateCharacterClassMutation = {
-  createCharacterClass?:  {
-    __typename: "CharacterClass",
+export type CreateCharacterProfessionMutation = {
+  createCharacterProfession?:  {
+    __typename: "CharacterProfession",
     id: string,
-    character:  {
+    Character?:  {
       __typename: "Character",
       userId: string,
       id: string,
@@ -1720,41 +1940,50 @@ export type CreateCharacterClassMutation = {
       loadCurrent?: number | null,
       isTemplate?: boolean | null,
       tags?: Array< string | null > | null,
-      characterClassId?: string | null,
       notes?: string | null,
       createdAt: string,
       updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
       characterRaceId?: string | null,
       characterAlignmentId?: string | null,
       characterLookId?: string | null,
-    },
-    class:  {
-      __typename: "Class",
+      characterCharacterProfessionId?: string | null,
+    } | null,
+    Profession?:  {
+      __typename: "Profession",
       id: string,
       name: string,
       description: string,
       createdAt: string,
       updatedAt: string,
-      classSourceId: string,
-      classDamageDiceTypeId?: string | null,
-    },
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      professionSourceId: string,
+      professionDamageDiceTypeId?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
-    characterClassClassId: string,
-    characterClassCharacterId: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
+    characterProfessionProfessionId?: string | null,
+    characterProfessionCharacterId?: string | null,
   } | null,
 };
 
-export type UpdateCharacterClassMutationVariables = {
-  input: UpdateCharacterClassInput,
-  condition?: ModelCharacterClassConditionInput | null,
+export type UpdateCharacterProfessionMutationVariables = {
+  input: UpdateCharacterProfessionInput,
+  condition?: ModelCharacterProfessionConditionInput | null,
 };
 
-export type UpdateCharacterClassMutation = {
-  updateCharacterClass?:  {
-    __typename: "CharacterClass",
+export type UpdateCharacterProfessionMutation = {
+  updateCharacterProfession?:  {
+    __typename: "CharacterProfession",
     id: string,
-    character:  {
+    Character?:  {
       __typename: "Character",
       userId: string,
       id: string,
@@ -1769,41 +1998,50 @@ export type UpdateCharacterClassMutation = {
       loadCurrent?: number | null,
       isTemplate?: boolean | null,
       tags?: Array< string | null > | null,
-      characterClassId?: string | null,
       notes?: string | null,
       createdAt: string,
       updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
       characterRaceId?: string | null,
       characterAlignmentId?: string | null,
       characterLookId?: string | null,
-    },
-    class:  {
-      __typename: "Class",
+      characterCharacterProfessionId?: string | null,
+    } | null,
+    Profession?:  {
+      __typename: "Profession",
       id: string,
       name: string,
       description: string,
       createdAt: string,
       updatedAt: string,
-      classSourceId: string,
-      classDamageDiceTypeId?: string | null,
-    },
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      professionSourceId: string,
+      professionDamageDiceTypeId?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
-    characterClassClassId: string,
-    characterClassCharacterId: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
+    characterProfessionProfessionId?: string | null,
+    characterProfessionCharacterId?: string | null,
   } | null,
 };
 
-export type DeleteCharacterClassMutationVariables = {
-  input: DeleteCharacterClassInput,
-  condition?: ModelCharacterClassConditionInput | null,
+export type DeleteCharacterProfessionMutationVariables = {
+  input: DeleteCharacterProfessionInput,
+  condition?: ModelCharacterProfessionConditionInput | null,
 };
 
-export type DeleteCharacterClassMutation = {
-  deleteCharacterClass?:  {
-    __typename: "CharacterClass",
+export type DeleteCharacterProfessionMutation = {
+  deleteCharacterProfession?:  {
+    __typename: "CharacterProfession",
     id: string,
-    character:  {
+    Character?:  {
       __typename: "Character",
       userId: string,
       id: string,
@@ -1818,39 +2056,48 @@ export type DeleteCharacterClassMutation = {
       loadCurrent?: number | null,
       isTemplate?: boolean | null,
       tags?: Array< string | null > | null,
-      characterClassId?: string | null,
       notes?: string | null,
       createdAt: string,
       updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
       characterRaceId?: string | null,
       characterAlignmentId?: string | null,
       characterLookId?: string | null,
-    },
-    class:  {
-      __typename: "Class",
+      characterCharacterProfessionId?: string | null,
+    } | null,
+    Profession?:  {
+      __typename: "Profession",
       id: string,
       name: string,
       description: string,
       createdAt: string,
       updatedAt: string,
-      classSourceId: string,
-      classDamageDiceTypeId?: string | null,
-    },
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      professionSourceId: string,
+      professionDamageDiceTypeId?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
-    characterClassClassId: string,
-    characterClassCharacterId: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
+    characterProfessionProfessionId?: string | null,
+    characterProfessionCharacterId?: string | null,
   } | null,
 };
 
-export type CreateClassMutationVariables = {
-  input: CreateClassInput,
-  condition?: ModelClassConditionInput | null,
+export type CreateProfessionMutationVariables = {
+  input: CreateProfessionInput,
+  condition?: ModelProfessionConditionInput | null,
 };
 
-export type CreateClassMutation = {
-  createClass?:  {
-    __typename: "Class",
+export type CreateProfessionMutation = {
+  createProfession?:  {
+    __typename: "Profession",
     id: string,
     name: string,
     description: string,
@@ -1860,6 +2107,9 @@ export type CreateClassMutation = {
       name: string,
       createdAt: string,
       updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
     },
     damageDiceType?:  {
       __typename: "DiceType",
@@ -1867,22 +2117,28 @@ export type CreateClassMutation = {
       name?: string | null,
       createdAt: string,
       updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
     } | null,
     createdAt: string,
     updatedAt: string,
-    classSourceId: string,
-    classDamageDiceTypeId?: string | null,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
+    professionSourceId: string,
+    professionDamageDiceTypeId?: string | null,
   } | null,
 };
 
-export type UpdateClassMutationVariables = {
-  input: UpdateClassInput,
-  condition?: ModelClassConditionInput | null,
+export type UpdateProfessionMutationVariables = {
+  input: UpdateProfessionInput,
+  condition?: ModelProfessionConditionInput | null,
 };
 
-export type UpdateClassMutation = {
-  updateClass?:  {
-    __typename: "Class",
+export type UpdateProfessionMutation = {
+  updateProfession?:  {
+    __typename: "Profession",
     id: string,
     name: string,
     description: string,
@@ -1892,6 +2148,9 @@ export type UpdateClassMutation = {
       name: string,
       createdAt: string,
       updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
     },
     damageDiceType?:  {
       __typename: "DiceType",
@@ -1899,22 +2158,28 @@ export type UpdateClassMutation = {
       name?: string | null,
       createdAt: string,
       updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
     } | null,
     createdAt: string,
     updatedAt: string,
-    classSourceId: string,
-    classDamageDiceTypeId?: string | null,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
+    professionSourceId: string,
+    professionDamageDiceTypeId?: string | null,
   } | null,
 };
 
-export type DeleteClassMutationVariables = {
-  input: DeleteClassInput,
-  condition?: ModelClassConditionInput | null,
+export type DeleteProfessionMutationVariables = {
+  input: DeleteProfessionInput,
+  condition?: ModelProfessionConditionInput | null,
 };
 
-export type DeleteClassMutation = {
-  deleteClass?:  {
-    __typename: "Class",
+export type DeleteProfessionMutation = {
+  deleteProfession?:  {
+    __typename: "Profession",
     id: string,
     name: string,
     description: string,
@@ -1924,6 +2189,9 @@ export type DeleteClassMutation = {
       name: string,
       createdAt: string,
       updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
     },
     damageDiceType?:  {
       __typename: "DiceType",
@@ -1931,11 +2199,17 @@ export type DeleteClassMutation = {
       name?: string | null,
       createdAt: string,
       updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
     } | null,
     createdAt: string,
     updatedAt: string,
-    classSourceId: string,
-    classDamageDiceTypeId?: string | null,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
+    professionSourceId: string,
+    professionDamageDiceTypeId?: string | null,
   } | null,
 };
 
@@ -1959,21 +2233,30 @@ export type CreateSpellMutation = {
       name: string,
       createdAt: string,
       updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
     },
-    class:  {
-      __typename: "Class",
+    profession:  {
+      __typename: "Profession",
       id: string,
       name: string,
       description: string,
       createdAt: string,
       updatedAt: string,
-      classSourceId: string,
-      classDamageDiceTypeId?: string | null,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      professionSourceId: string,
+      professionDamageDiceTypeId?: string | null,
     },
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     spellSourceId: string,
-    spellClassId: string,
+    spellProfessionId: string,
   } | null,
 };
 
@@ -1997,21 +2280,30 @@ export type UpdateSpellMutation = {
       name: string,
       createdAt: string,
       updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
     },
-    class:  {
-      __typename: "Class",
+    profession:  {
+      __typename: "Profession",
       id: string,
       name: string,
       description: string,
       createdAt: string,
       updatedAt: string,
-      classSourceId: string,
-      classDamageDiceTypeId?: string | null,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      professionSourceId: string,
+      professionDamageDiceTypeId?: string | null,
     },
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     spellSourceId: string,
-    spellClassId: string,
+    spellProfessionId: string,
   } | null,
 };
 
@@ -2035,21 +2327,30 @@ export type DeleteSpellMutation = {
       name: string,
       createdAt: string,
       updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
     },
-    class:  {
-      __typename: "Class",
+    profession:  {
+      __typename: "Profession",
       id: string,
       name: string,
       description: string,
       createdAt: string,
       updatedAt: string,
-      classSourceId: string,
-      classDamageDiceTypeId?: string | null,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      professionSourceId: string,
+      professionDamageDiceTypeId?: string | null,
     },
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     spellSourceId: string,
-    spellClassId: string,
+    spellProfessionId: string,
   } | null,
 };
 
@@ -2072,14 +2373,19 @@ export type CreateCharacterSpellMutation = {
       description: string,
       createdAt: string,
       updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
       spellSourceId: string,
-      spellClassId: string,
+      spellProfessionId: string,
     },
     selected?: boolean | null,
     tags?: Array< string | null > | null,
     createdAt: string,
     updatedAt: string,
-    characterSpellsId?: string | null,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     characterSpellSpellId: string,
   } | null,
 };
@@ -2103,14 +2409,19 @@ export type UpdateCharacterSpellMutation = {
       description: string,
       createdAt: string,
       updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
       spellSourceId: string,
-      spellClassId: string,
+      spellProfessionId: string,
     },
     selected?: boolean | null,
     tags?: Array< string | null > | null,
     createdAt: string,
     updatedAt: string,
-    characterSpellsId?: string | null,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     characterSpellSpellId: string,
   } | null,
 };
@@ -2134,14 +2445,19 @@ export type DeleteCharacterSpellMutation = {
       description: string,
       createdAt: string,
       updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
       spellSourceId: string,
-      spellClassId: string,
+      spellProfessionId: string,
     },
     selected?: boolean | null,
     tags?: Array< string | null > | null,
     createdAt: string,
     updatedAt: string,
-    characterSpellsId?: string | null,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     characterSpellSpellId: string,
   } | null,
 };
@@ -2164,13 +2480,19 @@ export type CreateCharacterGearMutation = {
       tags?: Array< string | null > | null,
       createdAt: string,
       updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
       gearSourceId?: string | null,
     },
     uses?: number | null,
     tags?: Array< string | null > | null,
+    characterID: string,
     createdAt: string,
     updatedAt: string,
-    characterGearId?: string | null,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     characterGearGearId: string,
   } | null,
 };
@@ -2193,13 +2515,19 @@ export type UpdateCharacterGearMutation = {
       tags?: Array< string | null > | null,
       createdAt: string,
       updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
       gearSourceId?: string | null,
     },
     uses?: number | null,
     tags?: Array< string | null > | null,
+    characterID: string,
     createdAt: string,
     updatedAt: string,
-    characterGearId?: string | null,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     characterGearGearId: string,
   } | null,
 };
@@ -2222,13 +2550,19 @@ export type DeleteCharacterGearMutation = {
       tags?: Array< string | null > | null,
       createdAt: string,
       updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
       gearSourceId?: string | null,
     },
     uses?: number | null,
     tags?: Array< string | null > | null,
+    characterID: string,
     createdAt: string,
     updatedAt: string,
-    characterGearId?: string | null,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     characterGearGearId: string,
   } | null,
 };
@@ -2252,9 +2586,15 @@ export type CreateGearMutation = {
       name: string,
       createdAt: string,
       updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
     } | null,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     gearSourceId?: string | null,
   } | null,
 };
@@ -2278,9 +2618,15 @@ export type UpdateGearMutation = {
       name: string,
       createdAt: string,
       updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
     } | null,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     gearSourceId?: string | null,
   } | null,
 };
@@ -2304,9 +2650,15 @@ export type DeleteGearMutation = {
       name: string,
       createdAt: string,
       updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
     } | null,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     gearSourceId?: string | null,
   } | null,
 };
@@ -2327,14 +2679,18 @@ export type CreateCharacterMoveMutation = {
       description: string,
       createdAt: string,
       updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
       moveClassId: string,
       moveSourceId?: string | null,
     },
+    characterID: string,
     createdAt: string,
     updatedAt: string,
-    characterSixToTenMovesId?: string | null,
-    characterTwoToTenMovesId?: string | null,
-    characterStartingMovesId?: string | null,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     characterMoveMoveId: string,
   } | null,
 };
@@ -2355,14 +2711,18 @@ export type UpdateCharacterMoveMutation = {
       description: string,
       createdAt: string,
       updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
       moveClassId: string,
       moveSourceId?: string | null,
     },
+    characterID: string,
     createdAt: string,
     updatedAt: string,
-    characterSixToTenMovesId?: string | null,
-    characterTwoToTenMovesId?: string | null,
-    characterStartingMovesId?: string | null,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     characterMoveMoveId: string,
   } | null,
 };
@@ -2383,14 +2743,18 @@ export type DeleteCharacterMoveMutation = {
       description: string,
       createdAt: string,
       updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
       moveClassId: string,
       moveSourceId?: string | null,
     },
+    characterID: string,
     createdAt: string,
     updatedAt: string,
-    characterSixToTenMovesId?: string | null,
-    characterTwoToTenMovesId?: string | null,
-    characterStartingMovesId?: string | null,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     characterMoveMoveId: string,
   } | null,
 };
@@ -2406,14 +2770,17 @@ export type CreateMoveMutation = {
     id: string,
     description: string,
     class:  {
-      __typename: "Class",
+      __typename: "Profession",
       id: string,
       name: string,
       description: string,
       createdAt: string,
       updatedAt: string,
-      classSourceId: string,
-      classDamageDiceTypeId?: string | null,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      professionSourceId: string,
+      professionDamageDiceTypeId?: string | null,
     },
     source?:  {
       __typename: "Source",
@@ -2421,9 +2788,15 @@ export type CreateMoveMutation = {
       name: string,
       createdAt: string,
       updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
     } | null,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     moveClassId: string,
     moveSourceId?: string | null,
   } | null,
@@ -2440,14 +2813,17 @@ export type UpdateMoveMutation = {
     id: string,
     description: string,
     class:  {
-      __typename: "Class",
+      __typename: "Profession",
       id: string,
       name: string,
       description: string,
       createdAt: string,
       updatedAt: string,
-      classSourceId: string,
-      classDamageDiceTypeId?: string | null,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      professionSourceId: string,
+      professionDamageDiceTypeId?: string | null,
     },
     source?:  {
       __typename: "Source",
@@ -2455,9 +2831,15 @@ export type UpdateMoveMutation = {
       name: string,
       createdAt: string,
       updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
     } | null,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     moveClassId: string,
     moveSourceId?: string | null,
   } | null,
@@ -2474,14 +2856,17 @@ export type DeleteMoveMutation = {
     id: string,
     description: string,
     class:  {
-      __typename: "Class",
+      __typename: "Profession",
       id: string,
       name: string,
       description: string,
       createdAt: string,
       updatedAt: string,
-      classSourceId: string,
-      classDamageDiceTypeId?: string | null,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      professionSourceId: string,
+      professionDamageDiceTypeId?: string | null,
     },
     source?:  {
       __typename: "Source",
@@ -2489,9 +2874,15 @@ export type DeleteMoveMutation = {
       name: string,
       createdAt: string,
       updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
     } | null,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     moveClassId: string,
     moveSourceId?: string | null,
   } | null,
@@ -2513,12 +2904,18 @@ export type CreateCharacterBondMutation = {
       description?: string | null,
       createdAt: string,
       updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
       bondClassId: string,
     },
     selected?: boolean | null,
+    characterID: string,
     createdAt: string,
     updatedAt: string,
-    characterBondsId?: string | null,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     characterBondBondId: string,
   } | null,
 };
@@ -2539,12 +2936,18 @@ export type UpdateCharacterBondMutation = {
       description?: string | null,
       createdAt: string,
       updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
       bondClassId: string,
     },
     selected?: boolean | null,
+    characterID: string,
     createdAt: string,
     updatedAt: string,
-    characterBondsId?: string | null,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     characterBondBondId: string,
   } | null,
 };
@@ -2565,12 +2968,18 @@ export type DeleteCharacterBondMutation = {
       description?: string | null,
       createdAt: string,
       updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
       bondClassId: string,
     },
     selected?: boolean | null,
+    characterID: string,
     createdAt: string,
     updatedAt: string,
-    characterBondsId?: string | null,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     characterBondBondId: string,
   } | null,
 };
@@ -2586,17 +2995,23 @@ export type CreateBondMutation = {
     id: string,
     description?: string | null,
     class:  {
-      __typename: "Class",
+      __typename: "Profession",
       id: string,
       name: string,
       description: string,
       createdAt: string,
       updatedAt: string,
-      classSourceId: string,
-      classDamageDiceTypeId?: string | null,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      professionSourceId: string,
+      professionDamageDiceTypeId?: string | null,
     },
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     bondClassId: string,
   } | null,
 };
@@ -2612,17 +3027,23 @@ export type UpdateBondMutation = {
     id: string,
     description?: string | null,
     class:  {
-      __typename: "Class",
+      __typename: "Profession",
       id: string,
       name: string,
       description: string,
       createdAt: string,
       updatedAt: string,
-      classSourceId: string,
-      classDamageDiceTypeId?: string | null,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      professionSourceId: string,
+      professionDamageDiceTypeId?: string | null,
     },
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     bondClassId: string,
   } | null,
 };
@@ -2638,17 +3059,23 @@ export type DeleteBondMutation = {
     id: string,
     description?: string | null,
     class:  {
-      __typename: "Class",
+      __typename: "Profession",
       id: string,
       name: string,
       description: string,
       createdAt: string,
       updatedAt: string,
-      classSourceId: string,
-      classDamageDiceTypeId?: string | null,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      professionSourceId: string,
+      professionDamageDiceTypeId?: string | null,
     },
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     bondClassId: string,
   } | null,
 };
@@ -2670,14 +3097,20 @@ export type CreateCharacterAbilityScoreMutation = {
       debilityPenalty: string,
       createdAt: string,
       updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
     },
     id: string,
     value: string,
     bonus: number,
     tags?: Array< string | null > | null,
+    characterID: string,
     createdAt: string,
     updatedAt: string,
-    characterAbilityscoresId?: string | null,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     characterAbilityScoreAbilityScoreId: string,
   } | null,
 };
@@ -2699,14 +3132,20 @@ export type UpdateCharacterAbilityScoreMutation = {
       debilityPenalty: string,
       createdAt: string,
       updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
     },
     id: string,
     value: string,
     bonus: number,
     tags?: Array< string | null > | null,
+    characterID: string,
     createdAt: string,
     updatedAt: string,
-    characterAbilityscoresId?: string | null,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     characterAbilityScoreAbilityScoreId: string,
   } | null,
 };
@@ -2728,14 +3167,20 @@ export type DeleteCharacterAbilityScoreMutation = {
       debilityPenalty: string,
       createdAt: string,
       updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
     },
     id: string,
     value: string,
     bonus: number,
     tags?: Array< string | null > | null,
+    characterID: string,
     createdAt: string,
     updatedAt: string,
-    characterAbilityscoresId?: string | null,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     characterAbilityScoreAbilityScoreId: string,
   } | null,
 };
@@ -2755,6 +3200,9 @@ export type CreateAbilityScoreMutation = {
     debilityPenalty: string,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
   } | null,
 };
 
@@ -2773,6 +3221,9 @@ export type UpdateAbilityScoreMutation = {
     debilityPenalty: string,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
   } | null,
 };
 
@@ -2791,6 +3242,9 @@ export type DeleteAbilityScoreMutation = {
     debilityPenalty: string,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
   } | null,
 };
 
@@ -2810,11 +3264,17 @@ export type CreateCharacterRaceMutation = {
       description?: string | null,
       createdAt: string,
       updatedAt: string,
-      raceClassId?: string | null,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      raceProfessionId?: string | null,
       raceSourceId: string,
     },
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     characterRaceRaceId: string,
   } | null,
 };
@@ -2835,11 +3295,17 @@ export type UpdateCharacterRaceMutation = {
       description?: string | null,
       createdAt: string,
       updatedAt: string,
-      raceClassId?: string | null,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      raceProfessionId?: string | null,
       raceSourceId: string,
     },
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     characterRaceRaceId: string,
   } | null,
 };
@@ -2860,11 +3326,17 @@ export type DeleteCharacterRaceMutation = {
       description?: string | null,
       createdAt: string,
       updatedAt: string,
-      raceClassId?: string | null,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      raceProfessionId?: string | null,
       raceSourceId: string,
     },
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     characterRaceRaceId: string,
   } | null,
 };
@@ -2880,15 +3352,18 @@ export type CreateRaceMutation = {
     id: string,
     name?: string | null,
     description?: string | null,
-    class?:  {
-      __typename: "Class",
+    profession?:  {
+      __typename: "Profession",
       id: string,
       name: string,
       description: string,
       createdAt: string,
       updatedAt: string,
-      classSourceId: string,
-      classDamageDiceTypeId?: string | null,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      professionSourceId: string,
+      professionDamageDiceTypeId?: string | null,
     } | null,
     source:  {
       __typename: "Source",
@@ -2896,10 +3371,16 @@ export type CreateRaceMutation = {
       name: string,
       createdAt: string,
       updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
     },
     createdAt: string,
     updatedAt: string,
-    raceClassId?: string | null,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
+    raceProfessionId?: string | null,
     raceSourceId: string,
   } | null,
 };
@@ -2915,15 +3396,18 @@ export type UpdateRaceMutation = {
     id: string,
     name?: string | null,
     description?: string | null,
-    class?:  {
-      __typename: "Class",
+    profession?:  {
+      __typename: "Profession",
       id: string,
       name: string,
       description: string,
       createdAt: string,
       updatedAt: string,
-      classSourceId: string,
-      classDamageDiceTypeId?: string | null,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      professionSourceId: string,
+      professionDamageDiceTypeId?: string | null,
     } | null,
     source:  {
       __typename: "Source",
@@ -2931,10 +3415,16 @@ export type UpdateRaceMutation = {
       name: string,
       createdAt: string,
       updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
     },
     createdAt: string,
     updatedAt: string,
-    raceClassId?: string | null,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
+    raceProfessionId?: string | null,
     raceSourceId: string,
   } | null,
 };
@@ -2950,15 +3440,18 @@ export type DeleteRaceMutation = {
     id: string,
     name?: string | null,
     description?: string | null,
-    class?:  {
-      __typename: "Class",
+    profession?:  {
+      __typename: "Profession",
       id: string,
       name: string,
       description: string,
       createdAt: string,
       updatedAt: string,
-      classSourceId: string,
-      classDamageDiceTypeId?: string | null,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      professionSourceId: string,
+      professionDamageDiceTypeId?: string | null,
     } | null,
     source:  {
       __typename: "Source",
@@ -2966,10 +3459,16 @@ export type DeleteRaceMutation = {
       name: string,
       createdAt: string,
       updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
     },
     createdAt: string,
     updatedAt: string,
-    raceClassId?: string | null,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
+    raceProfessionId?: string | null,
     raceSourceId: string,
   } | null,
 };
@@ -2990,11 +3489,17 @@ export type CreateCharacterAlignmentMutation = {
       description?: string | null,
       createdAt: string,
       updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
       alignmentClassId: string,
     },
     selected?: boolean | null,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     characterAlignmentAlignmentId: string,
   } | null,
 };
@@ -3015,11 +3520,17 @@ export type UpdateCharacterAlignmentMutation = {
       description?: string | null,
       createdAt: string,
       updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
       alignmentClassId: string,
     },
     selected?: boolean | null,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     characterAlignmentAlignmentId: string,
   } | null,
 };
@@ -3040,11 +3551,17 @@ export type DeleteCharacterAlignmentMutation = {
       description?: string | null,
       createdAt: string,
       updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
       alignmentClassId: string,
     },
     selected?: boolean | null,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     characterAlignmentAlignmentId: string,
   } | null,
 };
@@ -3061,17 +3578,23 @@ export type CreateAlignmentMutation = {
     name?: string | null,
     description?: string | null,
     class:  {
-      __typename: "Class",
+      __typename: "Profession",
       id: string,
       name: string,
       description: string,
       createdAt: string,
       updatedAt: string,
-      classSourceId: string,
-      classDamageDiceTypeId?: string | null,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      professionSourceId: string,
+      professionDamageDiceTypeId?: string | null,
     },
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     alignmentClassId: string,
   } | null,
 };
@@ -3088,17 +3611,23 @@ export type UpdateAlignmentMutation = {
     name?: string | null,
     description?: string | null,
     class:  {
-      __typename: "Class",
+      __typename: "Profession",
       id: string,
       name: string,
       description: string,
       createdAt: string,
       updatedAt: string,
-      classSourceId: string,
-      classDamageDiceTypeId?: string | null,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      professionSourceId: string,
+      professionDamageDiceTypeId?: string | null,
     },
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     alignmentClassId: string,
   } | null,
 };
@@ -3115,17 +3644,23 @@ export type DeleteAlignmentMutation = {
     name?: string | null,
     description?: string | null,
     class:  {
-      __typename: "Class",
+      __typename: "Profession",
       id: string,
       name: string,
       description: string,
       createdAt: string,
       updatedAt: string,
-      classSourceId: string,
-      classDamageDiceTypeId?: string | null,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      professionSourceId: string,
+      professionDamageDiceTypeId?: string | null,
     },
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     alignmentClassId: string,
   } | null,
 };
@@ -3142,6 +3677,9 @@ export type CreateDiceTypeMutation = {
     name?: string | null,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
   } | null,
 };
 
@@ -3157,6 +3695,9 @@ export type UpdateDiceTypeMutation = {
     name?: string | null,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
   } | null,
 };
 
@@ -3172,6 +3713,9 @@ export type DeleteDiceTypeMutation = {
     name?: string | null,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
   } | null,
 };
 
@@ -3187,9 +3731,13 @@ export type CreateCharacterLookMutation = {
     look?:  {
       __typename: "ModelLookConnection",
       nextToken?: string | null,
+      startedAt?: number | null,
     } | null,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
   } | null,
 };
 
@@ -3205,9 +3753,13 @@ export type UpdateCharacterLookMutation = {
     look?:  {
       __typename: "ModelLookConnection",
       nextToken?: string | null,
+      startedAt?: number | null,
     } | null,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
   } | null,
 };
 
@@ -3223,9 +3775,13 @@ export type DeleteCharacterLookMutation = {
     look?:  {
       __typename: "ModelLookConnection",
       nextToken?: string | null,
+      startedAt?: number | null,
     } | null,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
   } | null,
 };
 
@@ -3240,20 +3796,12 @@ export type CreateLookMutation = {
     id: string,
     name: string,
     description: string,
-    class:  {
-      __typename: "Class",
-      id: string,
-      name: string,
-      description: string,
-      createdAt: string,
-      updatedAt: string,
-      classSourceId: string,
-      classDamageDiceTypeId?: string | null,
-    },
+    characterlookID: string,
     createdAt: string,
     updatedAt: string,
-    characterLookLookId: string,
-    lookClassId: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
   } | null,
 };
 
@@ -3268,20 +3816,12 @@ export type UpdateLookMutation = {
     id: string,
     name: string,
     description: string,
-    class:  {
-      __typename: "Class",
-      id: string,
-      name: string,
-      description: string,
-      createdAt: string,
-      updatedAt: string,
-      classSourceId: string,
-      classDamageDiceTypeId?: string | null,
-    },
+    characterlookID: string,
     createdAt: string,
     updatedAt: string,
-    characterLookLookId: string,
-    lookClassId: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
   } | null,
 };
 
@@ -3296,20 +3836,12 @@ export type DeleteLookMutation = {
     id: string,
     name: string,
     description: string,
-    class:  {
-      __typename: "Class",
-      id: string,
-      name: string,
-      description: string,
-      createdAt: string,
-      updatedAt: string,
-      classSourceId: string,
-      classDamageDiceTypeId?: string | null,
-    },
+    characterlookID: string,
     createdAt: string,
     updatedAt: string,
-    characterLookLookId: string,
-    lookClassId: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
   } | null,
 };
 
@@ -3333,39 +3865,44 @@ export type CreateCharacterMutation = {
     loadMax?: number | null,
     loadCurrent?: number | null,
     isTemplate?: boolean | null,
-    spells?:  {
-      __typename: "ModelCharacterSpellConnection",
-      nextToken?: string | null,
-    } | null,
     gear?:  {
       __typename: "ModelCharacterGearConnection",
       nextToken?: string | null,
+      startedAt?: number | null,
     } | null,
     sixToTenMoves?:  {
       __typename: "ModelCharacterMoveConnection",
       nextToken?: string | null,
+      startedAt?: number | null,
     } | null,
     twoToTenMoves?:  {
       __typename: "ModelCharacterMoveConnection",
       nextToken?: string | null,
+      startedAt?: number | null,
     } | null,
     startingMoves?:  {
       __typename: "ModelCharacterMoveConnection",
       nextToken?: string | null,
+      startedAt?: number | null,
     } | null,
     bonds?:  {
       __typename: "ModelCharacterBondConnection",
       nextToken?: string | null,
+      startedAt?: number | null,
     } | null,
     abilityscores?:  {
       __typename: "ModelCharacterAbilityScoreConnection",
       nextToken?: string | null,
+      startedAt?: number | null,
     } | null,
     race?:  {
       __typename: "CharacterRace",
       id: string,
       createdAt: string,
       updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
       characterRaceRaceId: string,
     } | null,
     alignment?:  {
@@ -3374,6 +3911,9 @@ export type CreateCharacterMutation = {
       selected?: boolean | null,
       createdAt: string,
       updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
       characterAlignmentAlignmentId: string,
     } | null,
     tags?: Array< string | null > | null,
@@ -3382,22 +3922,31 @@ export type CreateCharacterMutation = {
       id: string,
       createdAt: string,
       updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
     } | null,
-    characterClassId?: string | null,
-    class?:  {
-      __typename: "CharacterClass",
+    notes?: string | null,
+    CharacterProfession?:  {
+      __typename: "CharacterProfession",
       id: string,
       createdAt: string,
       updatedAt: string,
-      characterClassClassId: string,
-      characterClassCharacterId: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      characterProfessionProfessionId?: string | null,
+      characterProfessionCharacterId?: string | null,
     } | null,
-    notes?: string | null,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     characterRaceId?: string | null,
     characterAlignmentId?: string | null,
     characterLookId?: string | null,
+    characterCharacterProfessionId?: string | null,
   } | null,
 };
 
@@ -3421,39 +3970,44 @@ export type UpdateCharacterMutation = {
     loadMax?: number | null,
     loadCurrent?: number | null,
     isTemplate?: boolean | null,
-    spells?:  {
-      __typename: "ModelCharacterSpellConnection",
-      nextToken?: string | null,
-    } | null,
     gear?:  {
       __typename: "ModelCharacterGearConnection",
       nextToken?: string | null,
+      startedAt?: number | null,
     } | null,
     sixToTenMoves?:  {
       __typename: "ModelCharacterMoveConnection",
       nextToken?: string | null,
+      startedAt?: number | null,
     } | null,
     twoToTenMoves?:  {
       __typename: "ModelCharacterMoveConnection",
       nextToken?: string | null,
+      startedAt?: number | null,
     } | null,
     startingMoves?:  {
       __typename: "ModelCharacterMoveConnection",
       nextToken?: string | null,
+      startedAt?: number | null,
     } | null,
     bonds?:  {
       __typename: "ModelCharacterBondConnection",
       nextToken?: string | null,
+      startedAt?: number | null,
     } | null,
     abilityscores?:  {
       __typename: "ModelCharacterAbilityScoreConnection",
       nextToken?: string | null,
+      startedAt?: number | null,
     } | null,
     race?:  {
       __typename: "CharacterRace",
       id: string,
       createdAt: string,
       updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
       characterRaceRaceId: string,
     } | null,
     alignment?:  {
@@ -3462,6 +4016,9 @@ export type UpdateCharacterMutation = {
       selected?: boolean | null,
       createdAt: string,
       updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
       characterAlignmentAlignmentId: string,
     } | null,
     tags?: Array< string | null > | null,
@@ -3470,22 +4027,31 @@ export type UpdateCharacterMutation = {
       id: string,
       createdAt: string,
       updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
     } | null,
-    characterClassId?: string | null,
-    class?:  {
-      __typename: "CharacterClass",
+    notes?: string | null,
+    CharacterProfession?:  {
+      __typename: "CharacterProfession",
       id: string,
       createdAt: string,
       updatedAt: string,
-      characterClassClassId: string,
-      characterClassCharacterId: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      characterProfessionProfessionId?: string | null,
+      characterProfessionCharacterId?: string | null,
     } | null,
-    notes?: string | null,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     characterRaceId?: string | null,
     characterAlignmentId?: string | null,
     characterLookId?: string | null,
+    characterCharacterProfessionId?: string | null,
   } | null,
 };
 
@@ -3509,39 +4075,44 @@ export type DeleteCharacterMutation = {
     loadMax?: number | null,
     loadCurrent?: number | null,
     isTemplate?: boolean | null,
-    spells?:  {
-      __typename: "ModelCharacterSpellConnection",
-      nextToken?: string | null,
-    } | null,
     gear?:  {
       __typename: "ModelCharacterGearConnection",
       nextToken?: string | null,
+      startedAt?: number | null,
     } | null,
     sixToTenMoves?:  {
       __typename: "ModelCharacterMoveConnection",
       nextToken?: string | null,
+      startedAt?: number | null,
     } | null,
     twoToTenMoves?:  {
       __typename: "ModelCharacterMoveConnection",
       nextToken?: string | null,
+      startedAt?: number | null,
     } | null,
     startingMoves?:  {
       __typename: "ModelCharacterMoveConnection",
       nextToken?: string | null,
+      startedAt?: number | null,
     } | null,
     bonds?:  {
       __typename: "ModelCharacterBondConnection",
       nextToken?: string | null,
+      startedAt?: number | null,
     } | null,
     abilityscores?:  {
       __typename: "ModelCharacterAbilityScoreConnection",
       nextToken?: string | null,
+      startedAt?: number | null,
     } | null,
     race?:  {
       __typename: "CharacterRace",
       id: string,
       createdAt: string,
       updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
       characterRaceRaceId: string,
     } | null,
     alignment?:  {
@@ -3550,6 +4121,9 @@ export type DeleteCharacterMutation = {
       selected?: boolean | null,
       createdAt: string,
       updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
       characterAlignmentAlignmentId: string,
     } | null,
     tags?: Array< string | null > | null,
@@ -3558,22 +4132,31 @@ export type DeleteCharacterMutation = {
       id: string,
       createdAt: string,
       updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
     } | null,
-    characterClassId?: string | null,
-    class?:  {
-      __typename: "CharacterClass",
+    notes?: string | null,
+    CharacterProfession?:  {
+      __typename: "CharacterProfession",
       id: string,
       createdAt: string,
       updatedAt: string,
-      characterClassClassId: string,
-      characterClassCharacterId: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      characterProfessionProfessionId?: string | null,
+      characterProfessionCharacterId?: string | null,
     } | null,
-    notes?: string | null,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     characterRaceId?: string | null,
     characterAlignmentId?: string | null,
     characterLookId?: string | null,
+    characterCharacterProfessionId?: string | null,
   } | null,
 };
 
@@ -3589,6 +4172,9 @@ export type GetUserQuery = {
     email: string,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
   } | null,
 };
 
@@ -3608,8 +4194,38 @@ export type ListUsersQuery = {
       email: string,
       createdAt: string,
       updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
     } | null >,
     nextToken?: string | null,
+    startedAt?: number | null,
+  } | null,
+};
+
+export type SyncUsersQueryVariables = {
+  filter?: ModelUserFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+  lastSync?: number | null,
+};
+
+export type SyncUsersQuery = {
+  syncUsers?:  {
+    __typename: "ModelUserConnection",
+    items:  Array< {
+      __typename: "User",
+      id: string,
+      name: string,
+      email: string,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+    } | null >,
+    nextToken?: string | null,
+    startedAt?: number | null,
   } | null,
 };
 
@@ -3624,6 +4240,9 @@ export type GetSourceQuery = {
     name: string,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
   } | null,
 };
 
@@ -3642,20 +4261,49 @@ export type ListSourcesQuery = {
       name: string,
       createdAt: string,
       updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
     } | null >,
     nextToken?: string | null,
+    startedAt?: number | null,
   } | null,
 };
 
-export type GetCharacterClassQueryVariables = {
+export type SyncSourcesQueryVariables = {
+  filter?: ModelSourceFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+  lastSync?: number | null,
+};
+
+export type SyncSourcesQuery = {
+  syncSources?:  {
+    __typename: "ModelSourceConnection",
+    items:  Array< {
+      __typename: "Source",
+      id: string,
+      name: string,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+    } | null >,
+    nextToken?: string | null,
+    startedAt?: number | null,
+  } | null,
+};
+
+export type GetCharacterProfessionQueryVariables = {
   id: string,
 };
 
-export type GetCharacterClassQuery = {
-  getCharacterClass?:  {
-    __typename: "CharacterClass",
+export type GetCharacterProfessionQuery = {
+  getCharacterProfession?:  {
+    __typename: "CharacterProfession",
     id: string,
-    character:  {
+    Character?:  {
       __typename: "Character",
       userId: string,
       id: string,
@@ -3670,59 +4318,98 @@ export type GetCharacterClassQuery = {
       loadCurrent?: number | null,
       isTemplate?: boolean | null,
       tags?: Array< string | null > | null,
-      characterClassId?: string | null,
       notes?: string | null,
       createdAt: string,
       updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
       characterRaceId?: string | null,
       characterAlignmentId?: string | null,
       characterLookId?: string | null,
-    },
-    class:  {
-      __typename: "Class",
+      characterCharacterProfessionId?: string | null,
+    } | null,
+    Profession?:  {
+      __typename: "Profession",
       id: string,
       name: string,
       description: string,
       createdAt: string,
       updatedAt: string,
-      classSourceId: string,
-      classDamageDiceTypeId?: string | null,
-    },
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      professionSourceId: string,
+      professionDamageDiceTypeId?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
-    characterClassClassId: string,
-    characterClassCharacterId: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
+    characterProfessionProfessionId?: string | null,
+    characterProfessionCharacterId?: string | null,
   } | null,
 };
 
-export type ListCharacterClassesQueryVariables = {
-  filter?: ModelCharacterClassFilterInput | null,
+export type ListCharacterProfessionsQueryVariables = {
+  filter?: ModelCharacterProfessionFilterInput | null,
   limit?: number | null,
   nextToken?: string | null,
 };
 
-export type ListCharacterClassesQuery = {
-  listCharacterClasses?:  {
-    __typename: "ModelCharacterClassConnection",
+export type ListCharacterProfessionsQuery = {
+  listCharacterProfessions?:  {
+    __typename: "ModelCharacterProfessionConnection",
     items:  Array< {
-      __typename: "CharacterClass",
+      __typename: "CharacterProfession",
       id: string,
       createdAt: string,
       updatedAt: string,
-      characterClassClassId: string,
-      characterClassCharacterId: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      characterProfessionProfessionId?: string | null,
+      characterProfessionCharacterId?: string | null,
     } | null >,
     nextToken?: string | null,
+    startedAt?: number | null,
   } | null,
 };
 
-export type GetClassQueryVariables = {
+export type SyncCharacterProfessionsQueryVariables = {
+  filter?: ModelCharacterProfessionFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+  lastSync?: number | null,
+};
+
+export type SyncCharacterProfessionsQuery = {
+  syncCharacterProfessions?:  {
+    __typename: "ModelCharacterProfessionConnection",
+    items:  Array< {
+      __typename: "CharacterProfession",
+      id: string,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      characterProfessionProfessionId?: string | null,
+      characterProfessionCharacterId?: string | null,
+    } | null >,
+    nextToken?: string | null,
+    startedAt?: number | null,
+  } | null,
+};
+
+export type GetProfessionQueryVariables = {
   id: string,
 };
 
-export type GetClassQuery = {
-  getClass?:  {
-    __typename: "Class",
+export type GetProfessionQuery = {
+  getProfession?:  {
+    __typename: "Profession",
     id: string,
     name: string,
     description: string,
@@ -3732,6 +4419,9 @@ export type GetClassQuery = {
       name: string,
       createdAt: string,
       updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
     },
     damageDiceType?:  {
       __typename: "DiceType",
@@ -3739,34 +4429,72 @@ export type GetClassQuery = {
       name?: string | null,
       createdAt: string,
       updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
     } | null,
     createdAt: string,
     updatedAt: string,
-    classSourceId: string,
-    classDamageDiceTypeId?: string | null,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
+    professionSourceId: string,
+    professionDamageDiceTypeId?: string | null,
   } | null,
 };
 
-export type ListClassesQueryVariables = {
-  filter?: ModelClassFilterInput | null,
+export type ListProfessionsQueryVariables = {
+  filter?: ModelProfessionFilterInput | null,
   limit?: number | null,
   nextToken?: string | null,
 };
 
-export type ListClassesQuery = {
-  listClasses?:  {
-    __typename: "ModelClassConnection",
+export type ListProfessionsQuery = {
+  listProfessions?:  {
+    __typename: "ModelProfessionConnection",
     items:  Array< {
-      __typename: "Class",
+      __typename: "Profession",
       id: string,
       name: string,
       description: string,
       createdAt: string,
       updatedAt: string,
-      classSourceId: string,
-      classDamageDiceTypeId?: string | null,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      professionSourceId: string,
+      professionDamageDiceTypeId?: string | null,
     } | null >,
     nextToken?: string | null,
+    startedAt?: number | null,
+  } | null,
+};
+
+export type SyncProfessionsQueryVariables = {
+  filter?: ModelProfessionFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+  lastSync?: number | null,
+};
+
+export type SyncProfessionsQuery = {
+  syncProfessions?:  {
+    __typename: "ModelProfessionConnection",
+    items:  Array< {
+      __typename: "Profession",
+      id: string,
+      name: string,
+      description: string,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      professionSourceId: string,
+      professionDamageDiceTypeId?: string | null,
+    } | null >,
+    nextToken?: string | null,
+    startedAt?: number | null,
   } | null,
 };
 
@@ -3789,21 +4517,30 @@ export type GetSpellQuery = {
       name: string,
       createdAt: string,
       updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
     },
-    class:  {
-      __typename: "Class",
+    profession:  {
+      __typename: "Profession",
       id: string,
       name: string,
       description: string,
       createdAt: string,
       updatedAt: string,
-      classSourceId: string,
-      classDamageDiceTypeId?: string | null,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      professionSourceId: string,
+      professionDamageDiceTypeId?: string | null,
     },
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     spellSourceId: string,
-    spellClassId: string,
+    spellProfessionId: string,
   } | null,
 };
 
@@ -3826,10 +4563,45 @@ export type ListSpellsQuery = {
       description: string,
       createdAt: string,
       updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
       spellSourceId: string,
-      spellClassId: string,
+      spellProfessionId: string,
     } | null >,
     nextToken?: string | null,
+    startedAt?: number | null,
+  } | null,
+};
+
+export type SyncSpellsQueryVariables = {
+  filter?: ModelSpellFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+  lastSync?: number | null,
+};
+
+export type SyncSpellsQuery = {
+  syncSpells?:  {
+    __typename: "ModelSpellConnection",
+    items:  Array< {
+      __typename: "Spell",
+      id: string,
+      name: string,
+      level: number,
+      type: string,
+      ongoing?: boolean | null,
+      description: string,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      spellSourceId: string,
+      spellProfessionId: string,
+    } | null >,
+    nextToken?: string | null,
+    startedAt?: number | null,
   } | null,
 };
 
@@ -3851,14 +4623,19 @@ export type GetCharacterSpellQuery = {
       description: string,
       createdAt: string,
       updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
       spellSourceId: string,
-      spellClassId: string,
+      spellProfessionId: string,
     },
     selected?: boolean | null,
     tags?: Array< string | null > | null,
     createdAt: string,
     updatedAt: string,
-    characterSpellsId?: string | null,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     characterSpellSpellId: string,
   } | null,
 };
@@ -3879,10 +4656,40 @@ export type ListCharacterSpellsQuery = {
       tags?: Array< string | null > | null,
       createdAt: string,
       updatedAt: string,
-      characterSpellsId?: string | null,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
       characterSpellSpellId: string,
     } | null >,
     nextToken?: string | null,
+    startedAt?: number | null,
+  } | null,
+};
+
+export type SyncCharacterSpellsQueryVariables = {
+  filter?: ModelCharacterSpellFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+  lastSync?: number | null,
+};
+
+export type SyncCharacterSpellsQuery = {
+  syncCharacterSpells?:  {
+    __typename: "ModelCharacterSpellConnection",
+    items:  Array< {
+      __typename: "CharacterSpell",
+      id: string,
+      selected?: boolean | null,
+      tags?: Array< string | null > | null,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      characterSpellSpellId: string,
+    } | null >,
+    nextToken?: string | null,
+    startedAt?: number | null,
   } | null,
 };
 
@@ -3903,13 +4710,19 @@ export type GetCharacterGearQuery = {
       tags?: Array< string | null > | null,
       createdAt: string,
       updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
       gearSourceId?: string | null,
     },
     uses?: number | null,
     tags?: Array< string | null > | null,
+    characterID: string,
     createdAt: string,
     updatedAt: string,
-    characterGearId?: string | null,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     characterGearGearId: string,
   } | null,
 };
@@ -3928,12 +4741,73 @@ export type ListCharacterGearsQuery = {
       id: string,
       uses?: number | null,
       tags?: Array< string | null > | null,
+      characterID: string,
       createdAt: string,
       updatedAt: string,
-      characterGearId?: string | null,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
       characterGearGearId: string,
     } | null >,
     nextToken?: string | null,
+    startedAt?: number | null,
+  } | null,
+};
+
+export type SyncCharacterGearsQueryVariables = {
+  filter?: ModelCharacterGearFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+  lastSync?: number | null,
+};
+
+export type SyncCharacterGearsQuery = {
+  syncCharacterGears?:  {
+    __typename: "ModelCharacterGearConnection",
+    items:  Array< {
+      __typename: "CharacterGear",
+      id: string,
+      uses?: number | null,
+      tags?: Array< string | null > | null,
+      characterID: string,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      characterGearGearId: string,
+    } | null >,
+    nextToken?: string | null,
+    startedAt?: number | null,
+  } | null,
+};
+
+export type CharacterGearsByCharacterIDQueryVariables = {
+  characterID: string,
+  sortDirection?: ModelSortDirection | null,
+  filter?: ModelCharacterGearFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type CharacterGearsByCharacterIDQuery = {
+  characterGearsByCharacterID?:  {
+    __typename: "ModelCharacterGearConnection",
+    items:  Array< {
+      __typename: "CharacterGear",
+      id: string,
+      uses?: number | null,
+      tags?: Array< string | null > | null,
+      characterID: string,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      characterGearGearId: string,
+    } | null >,
+    nextToken?: string | null,
+    startedAt?: number | null,
   } | null,
 };
 
@@ -3955,9 +4829,15 @@ export type GetGearQuery = {
       name: string,
       createdAt: string,
       updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
     } | null,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     gearSourceId?: string | null,
   } | null,
 };
@@ -3980,9 +4860,42 @@ export type ListGearsQuery = {
       tags?: Array< string | null > | null,
       createdAt: string,
       updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
       gearSourceId?: string | null,
     } | null >,
     nextToken?: string | null,
+    startedAt?: number | null,
+  } | null,
+};
+
+export type SyncGearsQueryVariables = {
+  filter?: ModelGearFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+  lastSync?: number | null,
+};
+
+export type SyncGearsQuery = {
+  syncGears?:  {
+    __typename: "ModelGearConnection",
+    items:  Array< {
+      __typename: "Gear",
+      id: string,
+      description: string,
+      weight: number,
+      uses?: number | null,
+      tags?: Array< string | null > | null,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      gearSourceId?: string | null,
+    } | null >,
+    nextToken?: string | null,
+    startedAt?: number | null,
   } | null,
 };
 
@@ -4001,14 +4914,18 @@ export type GetCharacterMoveQuery = {
       description: string,
       createdAt: string,
       updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
       moveClassId: string,
       moveSourceId?: string | null,
     },
+    characterID: string,
     createdAt: string,
     updatedAt: string,
-    characterSixToTenMovesId?: string | null,
-    characterTwoToTenMovesId?: string | null,
-    characterStartingMovesId?: string | null,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     characterMoveMoveId: string,
   } | null,
 };
@@ -4026,14 +4943,71 @@ export type ListCharacterMovesQuery = {
       __typename: "CharacterMove",
       id: string,
       selected?: boolean | null,
+      characterID: string,
       createdAt: string,
       updatedAt: string,
-      characterSixToTenMovesId?: string | null,
-      characterTwoToTenMovesId?: string | null,
-      characterStartingMovesId?: string | null,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
       characterMoveMoveId: string,
     } | null >,
     nextToken?: string | null,
+    startedAt?: number | null,
+  } | null,
+};
+
+export type SyncCharacterMovesQueryVariables = {
+  filter?: ModelCharacterMoveFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+  lastSync?: number | null,
+};
+
+export type SyncCharacterMovesQuery = {
+  syncCharacterMoves?:  {
+    __typename: "ModelCharacterMoveConnection",
+    items:  Array< {
+      __typename: "CharacterMove",
+      id: string,
+      selected?: boolean | null,
+      characterID: string,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      characterMoveMoveId: string,
+    } | null >,
+    nextToken?: string | null,
+    startedAt?: number | null,
+  } | null,
+};
+
+export type CharacterMovesByCharacterIDQueryVariables = {
+  characterID: string,
+  sortDirection?: ModelSortDirection | null,
+  filter?: ModelCharacterMoveFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type CharacterMovesByCharacterIDQuery = {
+  characterMovesByCharacterID?:  {
+    __typename: "ModelCharacterMoveConnection",
+    items:  Array< {
+      __typename: "CharacterMove",
+      id: string,
+      selected?: boolean | null,
+      characterID: string,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      characterMoveMoveId: string,
+    } | null >,
+    nextToken?: string | null,
+    startedAt?: number | null,
   } | null,
 };
 
@@ -4047,14 +5021,17 @@ export type GetMoveQuery = {
     id: string,
     description: string,
     class:  {
-      __typename: "Class",
+      __typename: "Profession",
       id: string,
       name: string,
       description: string,
       createdAt: string,
       updatedAt: string,
-      classSourceId: string,
-      classDamageDiceTypeId?: string | null,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      professionSourceId: string,
+      professionDamageDiceTypeId?: string | null,
     },
     source?:  {
       __typename: "Source",
@@ -4062,9 +5039,15 @@ export type GetMoveQuery = {
       name: string,
       createdAt: string,
       updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
     } | null,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     moveClassId: string,
     moveSourceId?: string | null,
   } | null,
@@ -4085,10 +5068,41 @@ export type ListMovesQuery = {
       description: string,
       createdAt: string,
       updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
       moveClassId: string,
       moveSourceId?: string | null,
     } | null >,
     nextToken?: string | null,
+    startedAt?: number | null,
+  } | null,
+};
+
+export type SyncMovesQueryVariables = {
+  filter?: ModelMoveFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+  lastSync?: number | null,
+};
+
+export type SyncMovesQuery = {
+  syncMoves?:  {
+    __typename: "ModelMoveConnection",
+    items:  Array< {
+      __typename: "Move",
+      id: string,
+      description: string,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      moveClassId: string,
+      moveSourceId?: string | null,
+    } | null >,
+    nextToken?: string | null,
+    startedAt?: number | null,
   } | null,
 };
 
@@ -4107,12 +5121,18 @@ export type GetCharacterBondQuery = {
       description?: string | null,
       createdAt: string,
       updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
       bondClassId: string,
     },
     selected?: boolean | null,
+    characterID: string,
     createdAt: string,
     updatedAt: string,
-    characterBondsId?: string | null,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     characterBondBondId: string,
   } | null,
 };
@@ -4131,12 +5151,73 @@ export type ListCharacterBondsQuery = {
       id: string,
       description?: string | null,
       selected?: boolean | null,
+      characterID: string,
       createdAt: string,
       updatedAt: string,
-      characterBondsId?: string | null,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
       characterBondBondId: string,
     } | null >,
     nextToken?: string | null,
+    startedAt?: number | null,
+  } | null,
+};
+
+export type SyncCharacterBondsQueryVariables = {
+  filter?: ModelCharacterBondFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+  lastSync?: number | null,
+};
+
+export type SyncCharacterBondsQuery = {
+  syncCharacterBonds?:  {
+    __typename: "ModelCharacterBondConnection",
+    items:  Array< {
+      __typename: "CharacterBond",
+      id: string,
+      description?: string | null,
+      selected?: boolean | null,
+      characterID: string,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      characterBondBondId: string,
+    } | null >,
+    nextToken?: string | null,
+    startedAt?: number | null,
+  } | null,
+};
+
+export type CharacterBondsByCharacterIDQueryVariables = {
+  characterID: string,
+  sortDirection?: ModelSortDirection | null,
+  filter?: ModelCharacterBondFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type CharacterBondsByCharacterIDQuery = {
+  characterBondsByCharacterID?:  {
+    __typename: "ModelCharacterBondConnection",
+    items:  Array< {
+      __typename: "CharacterBond",
+      id: string,
+      description?: string | null,
+      selected?: boolean | null,
+      characterID: string,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      characterBondBondId: string,
+    } | null >,
+    nextToken?: string | null,
+    startedAt?: number | null,
   } | null,
 };
 
@@ -4150,17 +5231,23 @@ export type GetBondQuery = {
     id: string,
     description?: string | null,
     class:  {
-      __typename: "Class",
+      __typename: "Profession",
       id: string,
       name: string,
       description: string,
       createdAt: string,
       updatedAt: string,
-      classSourceId: string,
-      classDamageDiceTypeId?: string | null,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      professionSourceId: string,
+      professionDamageDiceTypeId?: string | null,
     },
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     bondClassId: string,
   } | null,
 };
@@ -4180,9 +5267,39 @@ export type ListBondsQuery = {
       description?: string | null,
       createdAt: string,
       updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
       bondClassId: string,
     } | null >,
     nextToken?: string | null,
+    startedAt?: number | null,
+  } | null,
+};
+
+export type SyncBondsQueryVariables = {
+  filter?: ModelBondFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+  lastSync?: number | null,
+};
+
+export type SyncBondsQuery = {
+  syncBonds?:  {
+    __typename: "ModelBondConnection",
+    items:  Array< {
+      __typename: "Bond",
+      id: string,
+      description?: string | null,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      bondClassId: string,
+    } | null >,
+    nextToken?: string | null,
+    startedAt?: number | null,
   } | null,
 };
 
@@ -4202,14 +5319,20 @@ export type GetCharacterAbilityScoreQuery = {
       debilityPenalty: string,
       createdAt: string,
       updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
     },
     id: string,
     value: string,
     bonus: number,
     tags?: Array< string | null > | null,
+    characterID: string,
     createdAt: string,
     updatedAt: string,
-    characterAbilityscoresId?: string | null,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     characterAbilityScoreAbilityScoreId: string,
   } | null,
 };
@@ -4229,12 +5352,75 @@ export type ListCharacterAbilityScoresQuery = {
       value: string,
       bonus: number,
       tags?: Array< string | null > | null,
+      characterID: string,
       createdAt: string,
       updatedAt: string,
-      characterAbilityscoresId?: string | null,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
       characterAbilityScoreAbilityScoreId: string,
     } | null >,
     nextToken?: string | null,
+    startedAt?: number | null,
+  } | null,
+};
+
+export type SyncCharacterAbilityScoresQueryVariables = {
+  filter?: ModelCharacterAbilityScoreFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+  lastSync?: number | null,
+};
+
+export type SyncCharacterAbilityScoresQuery = {
+  syncCharacterAbilityScores?:  {
+    __typename: "ModelCharacterAbilityScoreConnection",
+    items:  Array< {
+      __typename: "CharacterAbilityScore",
+      id: string,
+      value: string,
+      bonus: number,
+      tags?: Array< string | null > | null,
+      characterID: string,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      characterAbilityScoreAbilityScoreId: string,
+    } | null >,
+    nextToken?: string | null,
+    startedAt?: number | null,
+  } | null,
+};
+
+export type CharacterAbilityScoresByCharacterIDQueryVariables = {
+  characterID: string,
+  sortDirection?: ModelSortDirection | null,
+  filter?: ModelCharacterAbilityScoreFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type CharacterAbilityScoresByCharacterIDQuery = {
+  characterAbilityScoresByCharacterID?:  {
+    __typename: "ModelCharacterAbilityScoreConnection",
+    items:  Array< {
+      __typename: "CharacterAbilityScore",
+      id: string,
+      value: string,
+      bonus: number,
+      tags?: Array< string | null > | null,
+      characterID: string,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      characterAbilityScoreAbilityScoreId: string,
+    } | null >,
+    nextToken?: string | null,
+    startedAt?: number | null,
   } | null,
 };
 
@@ -4252,6 +5438,9 @@ export type GetAbilityScoreQuery = {
     debilityPenalty: string,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
   } | null,
 };
 
@@ -4273,8 +5462,40 @@ export type ListAbilityScoresQuery = {
       debilityPenalty: string,
       createdAt: string,
       updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
     } | null >,
     nextToken?: string | null,
+    startedAt?: number | null,
+  } | null,
+};
+
+export type SyncAbilityScoresQueryVariables = {
+  filter?: ModelAbilityScoreFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+  lastSync?: number | null,
+};
+
+export type SyncAbilityScoresQuery = {
+  syncAbilityScores?:  {
+    __typename: "ModelAbilityScoreConnection",
+    items:  Array< {
+      __typename: "AbilityScore",
+      id: string,
+      name: string,
+      shortName: string,
+      debility: string,
+      debilityPenalty: string,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+    } | null >,
+    nextToken?: string | null,
+    startedAt?: number | null,
   } | null,
 };
 
@@ -4293,11 +5514,17 @@ export type GetCharacterRaceQuery = {
       description?: string | null,
       createdAt: string,
       updatedAt: string,
-      raceClassId?: string | null,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      raceProfessionId?: string | null,
       raceSourceId: string,
     },
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     characterRaceRaceId: string,
   } | null,
 };
@@ -4316,9 +5543,38 @@ export type ListCharacterRacesQuery = {
       id: string,
       createdAt: string,
       updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
       characterRaceRaceId: string,
     } | null >,
     nextToken?: string | null,
+    startedAt?: number | null,
+  } | null,
+};
+
+export type SyncCharacterRacesQueryVariables = {
+  filter?: ModelCharacterRaceFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+  lastSync?: number | null,
+};
+
+export type SyncCharacterRacesQuery = {
+  syncCharacterRaces?:  {
+    __typename: "ModelCharacterRaceConnection",
+    items:  Array< {
+      __typename: "CharacterRace",
+      id: string,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      characterRaceRaceId: string,
+    } | null >,
+    nextToken?: string | null,
+    startedAt?: number | null,
   } | null,
 };
 
@@ -4332,15 +5588,18 @@ export type GetRaceQuery = {
     id: string,
     name?: string | null,
     description?: string | null,
-    class?:  {
-      __typename: "Class",
+    profession?:  {
+      __typename: "Profession",
       id: string,
       name: string,
       description: string,
       createdAt: string,
       updatedAt: string,
-      classSourceId: string,
-      classDamageDiceTypeId?: string | null,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      professionSourceId: string,
+      professionDamageDiceTypeId?: string | null,
     } | null,
     source:  {
       __typename: "Source",
@@ -4348,10 +5607,16 @@ export type GetRaceQuery = {
       name: string,
       createdAt: string,
       updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
     },
     createdAt: string,
     updatedAt: string,
-    raceClassId?: string | null,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
+    raceProfessionId?: string | null,
     raceSourceId: string,
   } | null,
 };
@@ -4372,10 +5637,42 @@ export type ListRacesQuery = {
       description?: string | null,
       createdAt: string,
       updatedAt: string,
-      raceClassId?: string | null,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      raceProfessionId?: string | null,
       raceSourceId: string,
     } | null >,
     nextToken?: string | null,
+    startedAt?: number | null,
+  } | null,
+};
+
+export type SyncRacesQueryVariables = {
+  filter?: ModelRaceFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+  lastSync?: number | null,
+};
+
+export type SyncRacesQuery = {
+  syncRaces?:  {
+    __typename: "ModelRaceConnection",
+    items:  Array< {
+      __typename: "Race",
+      id: string,
+      name?: string | null,
+      description?: string | null,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      raceProfessionId?: string | null,
+      raceSourceId: string,
+    } | null >,
+    nextToken?: string | null,
+    startedAt?: number | null,
   } | null,
 };
 
@@ -4394,11 +5691,17 @@ export type GetCharacterAlignmentQuery = {
       description?: string | null,
       createdAt: string,
       updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
       alignmentClassId: string,
     },
     selected?: boolean | null,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     characterAlignmentAlignmentId: string,
   } | null,
 };
@@ -4418,9 +5721,39 @@ export type ListCharacterAlignmentsQuery = {
       selected?: boolean | null,
       createdAt: string,
       updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
       characterAlignmentAlignmentId: string,
     } | null >,
     nextToken?: string | null,
+    startedAt?: number | null,
+  } | null,
+};
+
+export type SyncCharacterAlignmentsQueryVariables = {
+  filter?: ModelCharacterAlignmentFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+  lastSync?: number | null,
+};
+
+export type SyncCharacterAlignmentsQuery = {
+  syncCharacterAlignments?:  {
+    __typename: "ModelCharacterAlignmentConnection",
+    items:  Array< {
+      __typename: "CharacterAlignment",
+      id: string,
+      selected?: boolean | null,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      characterAlignmentAlignmentId: string,
+    } | null >,
+    nextToken?: string | null,
+    startedAt?: number | null,
   } | null,
 };
 
@@ -4435,17 +5768,23 @@ export type GetAlignmentQuery = {
     name?: string | null,
     description?: string | null,
     class:  {
-      __typename: "Class",
+      __typename: "Profession",
       id: string,
       name: string,
       description: string,
       createdAt: string,
       updatedAt: string,
-      classSourceId: string,
-      classDamageDiceTypeId?: string | null,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      professionSourceId: string,
+      professionDamageDiceTypeId?: string | null,
     },
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     alignmentClassId: string,
   } | null,
 };
@@ -4466,9 +5805,40 @@ export type ListAlignmentsQuery = {
       description?: string | null,
       createdAt: string,
       updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
       alignmentClassId: string,
     } | null >,
     nextToken?: string | null,
+    startedAt?: number | null,
+  } | null,
+};
+
+export type SyncAlignmentsQueryVariables = {
+  filter?: ModelAlignmentFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+  lastSync?: number | null,
+};
+
+export type SyncAlignmentsQuery = {
+  syncAlignments?:  {
+    __typename: "ModelAlignmentConnection",
+    items:  Array< {
+      __typename: "Alignment",
+      id: string,
+      name?: string | null,
+      description?: string | null,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      alignmentClassId: string,
+    } | null >,
+    nextToken?: string | null,
+    startedAt?: number | null,
   } | null,
 };
 
@@ -4483,6 +5853,9 @@ export type GetDiceTypeQuery = {
     name?: string | null,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
   } | null,
 };
 
@@ -4501,8 +5874,37 @@ export type ListDiceTypesQuery = {
       name?: string | null,
       createdAt: string,
       updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
     } | null >,
     nextToken?: string | null,
+    startedAt?: number | null,
+  } | null,
+};
+
+export type SyncDiceTypesQueryVariables = {
+  filter?: ModelDiceTypeFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+  lastSync?: number | null,
+};
+
+export type SyncDiceTypesQuery = {
+  syncDiceTypes?:  {
+    __typename: "ModelDiceTypeConnection",
+    items:  Array< {
+      __typename: "DiceType",
+      id: string,
+      name?: string | null,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+    } | null >,
+    nextToken?: string | null,
+    startedAt?: number | null,
   } | null,
 };
 
@@ -4517,9 +5919,13 @@ export type GetCharacterLookQuery = {
     look?:  {
       __typename: "ModelLookConnection",
       nextToken?: string | null,
+      startedAt?: number | null,
     } | null,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
   } | null,
 };
 
@@ -4537,8 +5943,36 @@ export type ListCharacterLooksQuery = {
       id: string,
       createdAt: string,
       updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
     } | null >,
     nextToken?: string | null,
+    startedAt?: number | null,
+  } | null,
+};
+
+export type SyncCharacterLooksQueryVariables = {
+  filter?: ModelCharacterLookFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+  lastSync?: number | null,
+};
+
+export type SyncCharacterLooksQuery = {
+  syncCharacterLooks?:  {
+    __typename: "ModelCharacterLookConnection",
+    items:  Array< {
+      __typename: "CharacterLook",
+      id: string,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+    } | null >,
+    nextToken?: string | null,
+    startedAt?: number | null,
   } | null,
 };
 
@@ -4552,20 +5986,12 @@ export type GetLookQuery = {
     id: string,
     name: string,
     description: string,
-    class:  {
-      __typename: "Class",
-      id: string,
-      name: string,
-      description: string,
-      createdAt: string,
-      updatedAt: string,
-      classSourceId: string,
-      classDamageDiceTypeId?: string | null,
-    },
+    characterlookID: string,
     createdAt: string,
     updatedAt: string,
-    characterLookLookId: string,
-    lookClassId: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
   } | null,
 };
 
@@ -4583,12 +6009,70 @@ export type ListLooksQuery = {
       id: string,
       name: string,
       description: string,
+      characterlookID: string,
       createdAt: string,
       updatedAt: string,
-      characterLookLookId: string,
-      lookClassId: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
     } | null >,
     nextToken?: string | null,
+    startedAt?: number | null,
+  } | null,
+};
+
+export type SyncLooksQueryVariables = {
+  filter?: ModelLookFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+  lastSync?: number | null,
+};
+
+export type SyncLooksQuery = {
+  syncLooks?:  {
+    __typename: "ModelLookConnection",
+    items:  Array< {
+      __typename: "Look",
+      id: string,
+      name: string,
+      description: string,
+      characterlookID: string,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+    } | null >,
+    nextToken?: string | null,
+    startedAt?: number | null,
+  } | null,
+};
+
+export type LooksByCharacterlookIDQueryVariables = {
+  characterlookID: string,
+  sortDirection?: ModelSortDirection | null,
+  filter?: ModelLookFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type LooksByCharacterlookIDQuery = {
+  looksByCharacterlookID?:  {
+    __typename: "ModelLookConnection",
+    items:  Array< {
+      __typename: "Look",
+      id: string,
+      name: string,
+      description: string,
+      characterlookID: string,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+    } | null >,
+    nextToken?: string | null,
+    startedAt?: number | null,
   } | null,
 };
 
@@ -4611,39 +6095,44 @@ export type GetCharacterQuery = {
     loadMax?: number | null,
     loadCurrent?: number | null,
     isTemplate?: boolean | null,
-    spells?:  {
-      __typename: "ModelCharacterSpellConnection",
-      nextToken?: string | null,
-    } | null,
     gear?:  {
       __typename: "ModelCharacterGearConnection",
       nextToken?: string | null,
+      startedAt?: number | null,
     } | null,
     sixToTenMoves?:  {
       __typename: "ModelCharacterMoveConnection",
       nextToken?: string | null,
+      startedAt?: number | null,
     } | null,
     twoToTenMoves?:  {
       __typename: "ModelCharacterMoveConnection",
       nextToken?: string | null,
+      startedAt?: number | null,
     } | null,
     startingMoves?:  {
       __typename: "ModelCharacterMoveConnection",
       nextToken?: string | null,
+      startedAt?: number | null,
     } | null,
     bonds?:  {
       __typename: "ModelCharacterBondConnection",
       nextToken?: string | null,
+      startedAt?: number | null,
     } | null,
     abilityscores?:  {
       __typename: "ModelCharacterAbilityScoreConnection",
       nextToken?: string | null,
+      startedAt?: number | null,
     } | null,
     race?:  {
       __typename: "CharacterRace",
       id: string,
       createdAt: string,
       updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
       characterRaceRaceId: string,
     } | null,
     alignment?:  {
@@ -4652,6 +6141,9 @@ export type GetCharacterQuery = {
       selected?: boolean | null,
       createdAt: string,
       updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
       characterAlignmentAlignmentId: string,
     } | null,
     tags?: Array< string | null > | null,
@@ -4660,22 +6152,31 @@ export type GetCharacterQuery = {
       id: string,
       createdAt: string,
       updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
     } | null,
-    characterClassId?: string | null,
-    class?:  {
-      __typename: "CharacterClass",
+    notes?: string | null,
+    CharacterProfession?:  {
+      __typename: "CharacterProfession",
       id: string,
       createdAt: string,
       updatedAt: string,
-      characterClassClassId: string,
-      characterClassCharacterId: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      characterProfessionProfessionId?: string | null,
+      characterProfessionCharacterId?: string | null,
     } | null,
-    notes?: string | null,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     characterRaceId?: string | null,
     characterAlignmentId?: string | null,
     characterLookId?: string | null,
+    characterCharacterProfessionId?: string | null,
   } | null,
 };
 
@@ -4703,28 +6204,31 @@ export type ListCharactersQuery = {
       loadCurrent?: number | null,
       isTemplate?: boolean | null,
       tags?: Array< string | null > | null,
-      characterClassId?: string | null,
       notes?: string | null,
       createdAt: string,
       updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
       characterRaceId?: string | null,
       characterAlignmentId?: string | null,
       characterLookId?: string | null,
+      characterCharacterProfessionId?: string | null,
     } | null >,
     nextToken?: string | null,
+    startedAt?: number | null,
   } | null,
 };
 
-export type CharactersByClassQueryVariables = {
-  characterClassId: string,
-  sortDirection?: ModelSortDirection | null,
+export type SyncCharactersQueryVariables = {
   filter?: ModelCharacterFilterInput | null,
   limit?: number | null,
   nextToken?: string | null,
+  lastSync?: number | null,
 };
 
-export type CharactersByClassQuery = {
-  charactersByClass?:  {
+export type SyncCharactersQuery = {
+  syncCharacters?:  {
     __typename: "ModelCharacterConnection",
     items:  Array< {
       __typename: "Character",
@@ -4741,15 +6245,19 @@ export type CharactersByClassQuery = {
       loadCurrent?: number | null,
       isTemplate?: boolean | null,
       tags?: Array< string | null > | null,
-      characterClassId?: string | null,
       notes?: string | null,
       createdAt: string,
       updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
       characterRaceId?: string | null,
       characterAlignmentId?: string | null,
       characterLookId?: string | null,
+      characterCharacterProfessionId?: string | null,
     } | null >,
     nextToken?: string | null,
+    startedAt?: number | null,
   } | null,
 };
 
@@ -4765,6 +6273,9 @@ export type OnCreateUserSubscription = {
     email: string,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
   } | null,
 };
 
@@ -4780,6 +6291,9 @@ export type OnUpdateUserSubscription = {
     email: string,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
   } | null,
 };
 
@@ -4795,6 +6309,9 @@ export type OnDeleteUserSubscription = {
     email: string,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
   } | null,
 };
 
@@ -4809,6 +6326,9 @@ export type OnCreateSourceSubscription = {
     name: string,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
   } | null,
 };
 
@@ -4823,6 +6343,9 @@ export type OnUpdateSourceSubscription = {
     name: string,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
   } | null,
 };
 
@@ -4837,18 +6360,21 @@ export type OnDeleteSourceSubscription = {
     name: string,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
   } | null,
 };
 
-export type OnCreateCharacterClassSubscriptionVariables = {
-  filter?: ModelSubscriptionCharacterClassFilterInput | null,
+export type OnCreateCharacterProfessionSubscriptionVariables = {
+  filter?: ModelSubscriptionCharacterProfessionFilterInput | null,
 };
 
-export type OnCreateCharacterClassSubscription = {
-  onCreateCharacterClass?:  {
-    __typename: "CharacterClass",
+export type OnCreateCharacterProfessionSubscription = {
+  onCreateCharacterProfession?:  {
+    __typename: "CharacterProfession",
     id: string,
-    character:  {
+    Character?:  {
       __typename: "Character",
       userId: string,
       id: string,
@@ -4863,40 +6389,49 @@ export type OnCreateCharacterClassSubscription = {
       loadCurrent?: number | null,
       isTemplate?: boolean | null,
       tags?: Array< string | null > | null,
-      characterClassId?: string | null,
       notes?: string | null,
       createdAt: string,
       updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
       characterRaceId?: string | null,
       characterAlignmentId?: string | null,
       characterLookId?: string | null,
-    },
-    class:  {
-      __typename: "Class",
+      characterCharacterProfessionId?: string | null,
+    } | null,
+    Profession?:  {
+      __typename: "Profession",
       id: string,
       name: string,
       description: string,
       createdAt: string,
       updatedAt: string,
-      classSourceId: string,
-      classDamageDiceTypeId?: string | null,
-    },
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      professionSourceId: string,
+      professionDamageDiceTypeId?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
-    characterClassClassId: string,
-    characterClassCharacterId: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
+    characterProfessionProfessionId?: string | null,
+    characterProfessionCharacterId?: string | null,
   } | null,
 };
 
-export type OnUpdateCharacterClassSubscriptionVariables = {
-  filter?: ModelSubscriptionCharacterClassFilterInput | null,
+export type OnUpdateCharacterProfessionSubscriptionVariables = {
+  filter?: ModelSubscriptionCharacterProfessionFilterInput | null,
 };
 
-export type OnUpdateCharacterClassSubscription = {
-  onUpdateCharacterClass?:  {
-    __typename: "CharacterClass",
+export type OnUpdateCharacterProfessionSubscription = {
+  onUpdateCharacterProfession?:  {
+    __typename: "CharacterProfession",
     id: string,
-    character:  {
+    Character?:  {
       __typename: "Character",
       userId: string,
       id: string,
@@ -4911,40 +6446,49 @@ export type OnUpdateCharacterClassSubscription = {
       loadCurrent?: number | null,
       isTemplate?: boolean | null,
       tags?: Array< string | null > | null,
-      characterClassId?: string | null,
       notes?: string | null,
       createdAt: string,
       updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
       characterRaceId?: string | null,
       characterAlignmentId?: string | null,
       characterLookId?: string | null,
-    },
-    class:  {
-      __typename: "Class",
+      characterCharacterProfessionId?: string | null,
+    } | null,
+    Profession?:  {
+      __typename: "Profession",
       id: string,
       name: string,
       description: string,
       createdAt: string,
       updatedAt: string,
-      classSourceId: string,
-      classDamageDiceTypeId?: string | null,
-    },
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      professionSourceId: string,
+      professionDamageDiceTypeId?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
-    characterClassClassId: string,
-    characterClassCharacterId: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
+    characterProfessionProfessionId?: string | null,
+    characterProfessionCharacterId?: string | null,
   } | null,
 };
 
-export type OnDeleteCharacterClassSubscriptionVariables = {
-  filter?: ModelSubscriptionCharacterClassFilterInput | null,
+export type OnDeleteCharacterProfessionSubscriptionVariables = {
+  filter?: ModelSubscriptionCharacterProfessionFilterInput | null,
 };
 
-export type OnDeleteCharacterClassSubscription = {
-  onDeleteCharacterClass?:  {
-    __typename: "CharacterClass",
+export type OnDeleteCharacterProfessionSubscription = {
+  onDeleteCharacterProfession?:  {
+    __typename: "CharacterProfession",
     id: string,
-    character:  {
+    Character?:  {
       __typename: "Character",
       userId: string,
       id: string,
@@ -4959,38 +6503,47 @@ export type OnDeleteCharacterClassSubscription = {
       loadCurrent?: number | null,
       isTemplate?: boolean | null,
       tags?: Array< string | null > | null,
-      characterClassId?: string | null,
       notes?: string | null,
       createdAt: string,
       updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
       characterRaceId?: string | null,
       characterAlignmentId?: string | null,
       characterLookId?: string | null,
-    },
-    class:  {
-      __typename: "Class",
+      characterCharacterProfessionId?: string | null,
+    } | null,
+    Profession?:  {
+      __typename: "Profession",
       id: string,
       name: string,
       description: string,
       createdAt: string,
       updatedAt: string,
-      classSourceId: string,
-      classDamageDiceTypeId?: string | null,
-    },
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      professionSourceId: string,
+      professionDamageDiceTypeId?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
-    characterClassClassId: string,
-    characterClassCharacterId: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
+    characterProfessionProfessionId?: string | null,
+    characterProfessionCharacterId?: string | null,
   } | null,
 };
 
-export type OnCreateClassSubscriptionVariables = {
-  filter?: ModelSubscriptionClassFilterInput | null,
+export type OnCreateProfessionSubscriptionVariables = {
+  filter?: ModelSubscriptionProfessionFilterInput | null,
 };
 
-export type OnCreateClassSubscription = {
-  onCreateClass?:  {
-    __typename: "Class",
+export type OnCreateProfessionSubscription = {
+  onCreateProfession?:  {
+    __typename: "Profession",
     id: string,
     name: string,
     description: string,
@@ -5000,6 +6553,9 @@ export type OnCreateClassSubscription = {
       name: string,
       createdAt: string,
       updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
     },
     damageDiceType?:  {
       __typename: "DiceType",
@@ -5007,21 +6563,27 @@ export type OnCreateClassSubscription = {
       name?: string | null,
       createdAt: string,
       updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
     } | null,
     createdAt: string,
     updatedAt: string,
-    classSourceId: string,
-    classDamageDiceTypeId?: string | null,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
+    professionSourceId: string,
+    professionDamageDiceTypeId?: string | null,
   } | null,
 };
 
-export type OnUpdateClassSubscriptionVariables = {
-  filter?: ModelSubscriptionClassFilterInput | null,
+export type OnUpdateProfessionSubscriptionVariables = {
+  filter?: ModelSubscriptionProfessionFilterInput | null,
 };
 
-export type OnUpdateClassSubscription = {
-  onUpdateClass?:  {
-    __typename: "Class",
+export type OnUpdateProfessionSubscription = {
+  onUpdateProfession?:  {
+    __typename: "Profession",
     id: string,
     name: string,
     description: string,
@@ -5031,6 +6593,9 @@ export type OnUpdateClassSubscription = {
       name: string,
       createdAt: string,
       updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
     },
     damageDiceType?:  {
       __typename: "DiceType",
@@ -5038,21 +6603,27 @@ export type OnUpdateClassSubscription = {
       name?: string | null,
       createdAt: string,
       updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
     } | null,
     createdAt: string,
     updatedAt: string,
-    classSourceId: string,
-    classDamageDiceTypeId?: string | null,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
+    professionSourceId: string,
+    professionDamageDiceTypeId?: string | null,
   } | null,
 };
 
-export type OnDeleteClassSubscriptionVariables = {
-  filter?: ModelSubscriptionClassFilterInput | null,
+export type OnDeleteProfessionSubscriptionVariables = {
+  filter?: ModelSubscriptionProfessionFilterInput | null,
 };
 
-export type OnDeleteClassSubscription = {
-  onDeleteClass?:  {
-    __typename: "Class",
+export type OnDeleteProfessionSubscription = {
+  onDeleteProfession?:  {
+    __typename: "Profession",
     id: string,
     name: string,
     description: string,
@@ -5062,6 +6633,9 @@ export type OnDeleteClassSubscription = {
       name: string,
       createdAt: string,
       updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
     },
     damageDiceType?:  {
       __typename: "DiceType",
@@ -5069,11 +6643,17 @@ export type OnDeleteClassSubscription = {
       name?: string | null,
       createdAt: string,
       updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
     } | null,
     createdAt: string,
     updatedAt: string,
-    classSourceId: string,
-    classDamageDiceTypeId?: string | null,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
+    professionSourceId: string,
+    professionDamageDiceTypeId?: string | null,
   } | null,
 };
 
@@ -5096,21 +6676,30 @@ export type OnCreateSpellSubscription = {
       name: string,
       createdAt: string,
       updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
     },
-    class:  {
-      __typename: "Class",
+    profession:  {
+      __typename: "Profession",
       id: string,
       name: string,
       description: string,
       createdAt: string,
       updatedAt: string,
-      classSourceId: string,
-      classDamageDiceTypeId?: string | null,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      professionSourceId: string,
+      professionDamageDiceTypeId?: string | null,
     },
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     spellSourceId: string,
-    spellClassId: string,
+    spellProfessionId: string,
   } | null,
 };
 
@@ -5133,21 +6722,30 @@ export type OnUpdateSpellSubscription = {
       name: string,
       createdAt: string,
       updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
     },
-    class:  {
-      __typename: "Class",
+    profession:  {
+      __typename: "Profession",
       id: string,
       name: string,
       description: string,
       createdAt: string,
       updatedAt: string,
-      classSourceId: string,
-      classDamageDiceTypeId?: string | null,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      professionSourceId: string,
+      professionDamageDiceTypeId?: string | null,
     },
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     spellSourceId: string,
-    spellClassId: string,
+    spellProfessionId: string,
   } | null,
 };
 
@@ -5170,21 +6768,30 @@ export type OnDeleteSpellSubscription = {
       name: string,
       createdAt: string,
       updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
     },
-    class:  {
-      __typename: "Class",
+    profession:  {
+      __typename: "Profession",
       id: string,
       name: string,
       description: string,
       createdAt: string,
       updatedAt: string,
-      classSourceId: string,
-      classDamageDiceTypeId?: string | null,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      professionSourceId: string,
+      professionDamageDiceTypeId?: string | null,
     },
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     spellSourceId: string,
-    spellClassId: string,
+    spellProfessionId: string,
   } | null,
 };
 
@@ -5206,14 +6813,19 @@ export type OnCreateCharacterSpellSubscription = {
       description: string,
       createdAt: string,
       updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
       spellSourceId: string,
-      spellClassId: string,
+      spellProfessionId: string,
     },
     selected?: boolean | null,
     tags?: Array< string | null > | null,
     createdAt: string,
     updatedAt: string,
-    characterSpellsId?: string | null,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     characterSpellSpellId: string,
   } | null,
 };
@@ -5236,14 +6848,19 @@ export type OnUpdateCharacterSpellSubscription = {
       description: string,
       createdAt: string,
       updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
       spellSourceId: string,
-      spellClassId: string,
+      spellProfessionId: string,
     },
     selected?: boolean | null,
     tags?: Array< string | null > | null,
     createdAt: string,
     updatedAt: string,
-    characterSpellsId?: string | null,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     characterSpellSpellId: string,
   } | null,
 };
@@ -5266,14 +6883,19 @@ export type OnDeleteCharacterSpellSubscription = {
       description: string,
       createdAt: string,
       updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
       spellSourceId: string,
-      spellClassId: string,
+      spellProfessionId: string,
     },
     selected?: boolean | null,
     tags?: Array< string | null > | null,
     createdAt: string,
     updatedAt: string,
-    characterSpellsId?: string | null,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     characterSpellSpellId: string,
   } | null,
 };
@@ -5295,13 +6917,19 @@ export type OnCreateCharacterGearSubscription = {
       tags?: Array< string | null > | null,
       createdAt: string,
       updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
       gearSourceId?: string | null,
     },
     uses?: number | null,
     tags?: Array< string | null > | null,
+    characterID: string,
     createdAt: string,
     updatedAt: string,
-    characterGearId?: string | null,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     characterGearGearId: string,
   } | null,
 };
@@ -5323,13 +6951,19 @@ export type OnUpdateCharacterGearSubscription = {
       tags?: Array< string | null > | null,
       createdAt: string,
       updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
       gearSourceId?: string | null,
     },
     uses?: number | null,
     tags?: Array< string | null > | null,
+    characterID: string,
     createdAt: string,
     updatedAt: string,
-    characterGearId?: string | null,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     characterGearGearId: string,
   } | null,
 };
@@ -5351,13 +6985,19 @@ export type OnDeleteCharacterGearSubscription = {
       tags?: Array< string | null > | null,
       createdAt: string,
       updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
       gearSourceId?: string | null,
     },
     uses?: number | null,
     tags?: Array< string | null > | null,
+    characterID: string,
     createdAt: string,
     updatedAt: string,
-    characterGearId?: string | null,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     characterGearGearId: string,
   } | null,
 };
@@ -5380,9 +7020,15 @@ export type OnCreateGearSubscription = {
       name: string,
       createdAt: string,
       updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
     } | null,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     gearSourceId?: string | null,
   } | null,
 };
@@ -5405,9 +7051,15 @@ export type OnUpdateGearSubscription = {
       name: string,
       createdAt: string,
       updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
     } | null,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     gearSourceId?: string | null,
   } | null,
 };
@@ -5430,9 +7082,15 @@ export type OnDeleteGearSubscription = {
       name: string,
       createdAt: string,
       updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
     } | null,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     gearSourceId?: string | null,
   } | null,
 };
@@ -5452,14 +7110,18 @@ export type OnCreateCharacterMoveSubscription = {
       description: string,
       createdAt: string,
       updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
       moveClassId: string,
       moveSourceId?: string | null,
     },
+    characterID: string,
     createdAt: string,
     updatedAt: string,
-    characterSixToTenMovesId?: string | null,
-    characterTwoToTenMovesId?: string | null,
-    characterStartingMovesId?: string | null,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     characterMoveMoveId: string,
   } | null,
 };
@@ -5479,14 +7141,18 @@ export type OnUpdateCharacterMoveSubscription = {
       description: string,
       createdAt: string,
       updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
       moveClassId: string,
       moveSourceId?: string | null,
     },
+    characterID: string,
     createdAt: string,
     updatedAt: string,
-    characterSixToTenMovesId?: string | null,
-    characterTwoToTenMovesId?: string | null,
-    characterStartingMovesId?: string | null,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     characterMoveMoveId: string,
   } | null,
 };
@@ -5506,14 +7172,18 @@ export type OnDeleteCharacterMoveSubscription = {
       description: string,
       createdAt: string,
       updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
       moveClassId: string,
       moveSourceId?: string | null,
     },
+    characterID: string,
     createdAt: string,
     updatedAt: string,
-    characterSixToTenMovesId?: string | null,
-    characterTwoToTenMovesId?: string | null,
-    characterStartingMovesId?: string | null,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     characterMoveMoveId: string,
   } | null,
 };
@@ -5528,14 +7198,17 @@ export type OnCreateMoveSubscription = {
     id: string,
     description: string,
     class:  {
-      __typename: "Class",
+      __typename: "Profession",
       id: string,
       name: string,
       description: string,
       createdAt: string,
       updatedAt: string,
-      classSourceId: string,
-      classDamageDiceTypeId?: string | null,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      professionSourceId: string,
+      professionDamageDiceTypeId?: string | null,
     },
     source?:  {
       __typename: "Source",
@@ -5543,9 +7216,15 @@ export type OnCreateMoveSubscription = {
       name: string,
       createdAt: string,
       updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
     } | null,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     moveClassId: string,
     moveSourceId?: string | null,
   } | null,
@@ -5561,14 +7240,17 @@ export type OnUpdateMoveSubscription = {
     id: string,
     description: string,
     class:  {
-      __typename: "Class",
+      __typename: "Profession",
       id: string,
       name: string,
       description: string,
       createdAt: string,
       updatedAt: string,
-      classSourceId: string,
-      classDamageDiceTypeId?: string | null,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      professionSourceId: string,
+      professionDamageDiceTypeId?: string | null,
     },
     source?:  {
       __typename: "Source",
@@ -5576,9 +7258,15 @@ export type OnUpdateMoveSubscription = {
       name: string,
       createdAt: string,
       updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
     } | null,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     moveClassId: string,
     moveSourceId?: string | null,
   } | null,
@@ -5594,14 +7282,17 @@ export type OnDeleteMoveSubscription = {
     id: string,
     description: string,
     class:  {
-      __typename: "Class",
+      __typename: "Profession",
       id: string,
       name: string,
       description: string,
       createdAt: string,
       updatedAt: string,
-      classSourceId: string,
-      classDamageDiceTypeId?: string | null,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      professionSourceId: string,
+      professionDamageDiceTypeId?: string | null,
     },
     source?:  {
       __typename: "Source",
@@ -5609,9 +7300,15 @@ export type OnDeleteMoveSubscription = {
       name: string,
       createdAt: string,
       updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
     } | null,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     moveClassId: string,
     moveSourceId?: string | null,
   } | null,
@@ -5632,12 +7329,18 @@ export type OnCreateCharacterBondSubscription = {
       description?: string | null,
       createdAt: string,
       updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
       bondClassId: string,
     },
     selected?: boolean | null,
+    characterID: string,
     createdAt: string,
     updatedAt: string,
-    characterBondsId?: string | null,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     characterBondBondId: string,
   } | null,
 };
@@ -5657,12 +7360,18 @@ export type OnUpdateCharacterBondSubscription = {
       description?: string | null,
       createdAt: string,
       updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
       bondClassId: string,
     },
     selected?: boolean | null,
+    characterID: string,
     createdAt: string,
     updatedAt: string,
-    characterBondsId?: string | null,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     characterBondBondId: string,
   } | null,
 };
@@ -5682,12 +7391,18 @@ export type OnDeleteCharacterBondSubscription = {
       description?: string | null,
       createdAt: string,
       updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
       bondClassId: string,
     },
     selected?: boolean | null,
+    characterID: string,
     createdAt: string,
     updatedAt: string,
-    characterBondsId?: string | null,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     characterBondBondId: string,
   } | null,
 };
@@ -5702,17 +7417,23 @@ export type OnCreateBondSubscription = {
     id: string,
     description?: string | null,
     class:  {
-      __typename: "Class",
+      __typename: "Profession",
       id: string,
       name: string,
       description: string,
       createdAt: string,
       updatedAt: string,
-      classSourceId: string,
-      classDamageDiceTypeId?: string | null,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      professionSourceId: string,
+      professionDamageDiceTypeId?: string | null,
     },
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     bondClassId: string,
   } | null,
 };
@@ -5727,17 +7448,23 @@ export type OnUpdateBondSubscription = {
     id: string,
     description?: string | null,
     class:  {
-      __typename: "Class",
+      __typename: "Profession",
       id: string,
       name: string,
       description: string,
       createdAt: string,
       updatedAt: string,
-      classSourceId: string,
-      classDamageDiceTypeId?: string | null,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      professionSourceId: string,
+      professionDamageDiceTypeId?: string | null,
     },
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     bondClassId: string,
   } | null,
 };
@@ -5752,17 +7479,23 @@ export type OnDeleteBondSubscription = {
     id: string,
     description?: string | null,
     class:  {
-      __typename: "Class",
+      __typename: "Profession",
       id: string,
       name: string,
       description: string,
       createdAt: string,
       updatedAt: string,
-      classSourceId: string,
-      classDamageDiceTypeId?: string | null,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      professionSourceId: string,
+      professionDamageDiceTypeId?: string | null,
     },
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     bondClassId: string,
   } | null,
 };
@@ -5783,14 +7516,20 @@ export type OnCreateCharacterAbilityScoreSubscription = {
       debilityPenalty: string,
       createdAt: string,
       updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
     },
     id: string,
     value: string,
     bonus: number,
     tags?: Array< string | null > | null,
+    characterID: string,
     createdAt: string,
     updatedAt: string,
-    characterAbilityscoresId?: string | null,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     characterAbilityScoreAbilityScoreId: string,
   } | null,
 };
@@ -5811,14 +7550,20 @@ export type OnUpdateCharacterAbilityScoreSubscription = {
       debilityPenalty: string,
       createdAt: string,
       updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
     },
     id: string,
     value: string,
     bonus: number,
     tags?: Array< string | null > | null,
+    characterID: string,
     createdAt: string,
     updatedAt: string,
-    characterAbilityscoresId?: string | null,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     characterAbilityScoreAbilityScoreId: string,
   } | null,
 };
@@ -5839,14 +7584,20 @@ export type OnDeleteCharacterAbilityScoreSubscription = {
       debilityPenalty: string,
       createdAt: string,
       updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
     },
     id: string,
     value: string,
     bonus: number,
     tags?: Array< string | null > | null,
+    characterID: string,
     createdAt: string,
     updatedAt: string,
-    characterAbilityscoresId?: string | null,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     characterAbilityScoreAbilityScoreId: string,
   } | null,
 };
@@ -5865,6 +7616,9 @@ export type OnCreateAbilityScoreSubscription = {
     debilityPenalty: string,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
   } | null,
 };
 
@@ -5882,6 +7636,9 @@ export type OnUpdateAbilityScoreSubscription = {
     debilityPenalty: string,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
   } | null,
 };
 
@@ -5899,6 +7656,9 @@ export type OnDeleteAbilityScoreSubscription = {
     debilityPenalty: string,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
   } | null,
 };
 
@@ -5917,11 +7677,17 @@ export type OnCreateCharacterRaceSubscription = {
       description?: string | null,
       createdAt: string,
       updatedAt: string,
-      raceClassId?: string | null,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      raceProfessionId?: string | null,
       raceSourceId: string,
     },
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     characterRaceRaceId: string,
   } | null,
 };
@@ -5941,11 +7707,17 @@ export type OnUpdateCharacterRaceSubscription = {
       description?: string | null,
       createdAt: string,
       updatedAt: string,
-      raceClassId?: string | null,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      raceProfessionId?: string | null,
       raceSourceId: string,
     },
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     characterRaceRaceId: string,
   } | null,
 };
@@ -5965,11 +7737,17 @@ export type OnDeleteCharacterRaceSubscription = {
       description?: string | null,
       createdAt: string,
       updatedAt: string,
-      raceClassId?: string | null,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      raceProfessionId?: string | null,
       raceSourceId: string,
     },
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     characterRaceRaceId: string,
   } | null,
 };
@@ -5984,15 +7762,18 @@ export type OnCreateRaceSubscription = {
     id: string,
     name?: string | null,
     description?: string | null,
-    class?:  {
-      __typename: "Class",
+    profession?:  {
+      __typename: "Profession",
       id: string,
       name: string,
       description: string,
       createdAt: string,
       updatedAt: string,
-      classSourceId: string,
-      classDamageDiceTypeId?: string | null,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      professionSourceId: string,
+      professionDamageDiceTypeId?: string | null,
     } | null,
     source:  {
       __typename: "Source",
@@ -6000,10 +7781,16 @@ export type OnCreateRaceSubscription = {
       name: string,
       createdAt: string,
       updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
     },
     createdAt: string,
     updatedAt: string,
-    raceClassId?: string | null,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
+    raceProfessionId?: string | null,
     raceSourceId: string,
   } | null,
 };
@@ -6018,15 +7805,18 @@ export type OnUpdateRaceSubscription = {
     id: string,
     name?: string | null,
     description?: string | null,
-    class?:  {
-      __typename: "Class",
+    profession?:  {
+      __typename: "Profession",
       id: string,
       name: string,
       description: string,
       createdAt: string,
       updatedAt: string,
-      classSourceId: string,
-      classDamageDiceTypeId?: string | null,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      professionSourceId: string,
+      professionDamageDiceTypeId?: string | null,
     } | null,
     source:  {
       __typename: "Source",
@@ -6034,10 +7824,16 @@ export type OnUpdateRaceSubscription = {
       name: string,
       createdAt: string,
       updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
     },
     createdAt: string,
     updatedAt: string,
-    raceClassId?: string | null,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
+    raceProfessionId?: string | null,
     raceSourceId: string,
   } | null,
 };
@@ -6052,15 +7848,18 @@ export type OnDeleteRaceSubscription = {
     id: string,
     name?: string | null,
     description?: string | null,
-    class?:  {
-      __typename: "Class",
+    profession?:  {
+      __typename: "Profession",
       id: string,
       name: string,
       description: string,
       createdAt: string,
       updatedAt: string,
-      classSourceId: string,
-      classDamageDiceTypeId?: string | null,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      professionSourceId: string,
+      professionDamageDiceTypeId?: string | null,
     } | null,
     source:  {
       __typename: "Source",
@@ -6068,10 +7867,16 @@ export type OnDeleteRaceSubscription = {
       name: string,
       createdAt: string,
       updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
     },
     createdAt: string,
     updatedAt: string,
-    raceClassId?: string | null,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
+    raceProfessionId?: string | null,
     raceSourceId: string,
   } | null,
 };
@@ -6091,11 +7896,17 @@ export type OnCreateCharacterAlignmentSubscription = {
       description?: string | null,
       createdAt: string,
       updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
       alignmentClassId: string,
     },
     selected?: boolean | null,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     characterAlignmentAlignmentId: string,
   } | null,
 };
@@ -6115,11 +7926,17 @@ export type OnUpdateCharacterAlignmentSubscription = {
       description?: string | null,
       createdAt: string,
       updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
       alignmentClassId: string,
     },
     selected?: boolean | null,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     characterAlignmentAlignmentId: string,
   } | null,
 };
@@ -6139,11 +7956,17 @@ export type OnDeleteCharacterAlignmentSubscription = {
       description?: string | null,
       createdAt: string,
       updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
       alignmentClassId: string,
     },
     selected?: boolean | null,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     characterAlignmentAlignmentId: string,
   } | null,
 };
@@ -6159,17 +7982,23 @@ export type OnCreateAlignmentSubscription = {
     name?: string | null,
     description?: string | null,
     class:  {
-      __typename: "Class",
+      __typename: "Profession",
       id: string,
       name: string,
       description: string,
       createdAt: string,
       updatedAt: string,
-      classSourceId: string,
-      classDamageDiceTypeId?: string | null,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      professionSourceId: string,
+      professionDamageDiceTypeId?: string | null,
     },
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     alignmentClassId: string,
   } | null,
 };
@@ -6185,17 +8014,23 @@ export type OnUpdateAlignmentSubscription = {
     name?: string | null,
     description?: string | null,
     class:  {
-      __typename: "Class",
+      __typename: "Profession",
       id: string,
       name: string,
       description: string,
       createdAt: string,
       updatedAt: string,
-      classSourceId: string,
-      classDamageDiceTypeId?: string | null,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      professionSourceId: string,
+      professionDamageDiceTypeId?: string | null,
     },
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     alignmentClassId: string,
   } | null,
 };
@@ -6211,17 +8046,23 @@ export type OnDeleteAlignmentSubscription = {
     name?: string | null,
     description?: string | null,
     class:  {
-      __typename: "Class",
+      __typename: "Profession",
       id: string,
       name: string,
       description: string,
       createdAt: string,
       updatedAt: string,
-      classSourceId: string,
-      classDamageDiceTypeId?: string | null,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      professionSourceId: string,
+      professionDamageDiceTypeId?: string | null,
     },
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     alignmentClassId: string,
   } | null,
 };
@@ -6237,6 +8078,9 @@ export type OnCreateDiceTypeSubscription = {
     name?: string | null,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
   } | null,
 };
 
@@ -6251,6 +8095,9 @@ export type OnUpdateDiceTypeSubscription = {
     name?: string | null,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
   } | null,
 };
 
@@ -6265,6 +8112,9 @@ export type OnDeleteDiceTypeSubscription = {
     name?: string | null,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
   } | null,
 };
 
@@ -6279,9 +8129,13 @@ export type OnCreateCharacterLookSubscription = {
     look?:  {
       __typename: "ModelLookConnection",
       nextToken?: string | null,
+      startedAt?: number | null,
     } | null,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
   } | null,
 };
 
@@ -6296,9 +8150,13 @@ export type OnUpdateCharacterLookSubscription = {
     look?:  {
       __typename: "ModelLookConnection",
       nextToken?: string | null,
+      startedAt?: number | null,
     } | null,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
   } | null,
 };
 
@@ -6313,9 +8171,13 @@ export type OnDeleteCharacterLookSubscription = {
     look?:  {
       __typename: "ModelLookConnection",
       nextToken?: string | null,
+      startedAt?: number | null,
     } | null,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
   } | null,
 };
 
@@ -6329,20 +8191,12 @@ export type OnCreateLookSubscription = {
     id: string,
     name: string,
     description: string,
-    class:  {
-      __typename: "Class",
-      id: string,
-      name: string,
-      description: string,
-      createdAt: string,
-      updatedAt: string,
-      classSourceId: string,
-      classDamageDiceTypeId?: string | null,
-    },
+    characterlookID: string,
     createdAt: string,
     updatedAt: string,
-    characterLookLookId: string,
-    lookClassId: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
   } | null,
 };
 
@@ -6356,20 +8210,12 @@ export type OnUpdateLookSubscription = {
     id: string,
     name: string,
     description: string,
-    class:  {
-      __typename: "Class",
-      id: string,
-      name: string,
-      description: string,
-      createdAt: string,
-      updatedAt: string,
-      classSourceId: string,
-      classDamageDiceTypeId?: string | null,
-    },
+    characterlookID: string,
     createdAt: string,
     updatedAt: string,
-    characterLookLookId: string,
-    lookClassId: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
   } | null,
 };
 
@@ -6383,20 +8229,12 @@ export type OnDeleteLookSubscription = {
     id: string,
     name: string,
     description: string,
-    class:  {
-      __typename: "Class",
-      id: string,
-      name: string,
-      description: string,
-      createdAt: string,
-      updatedAt: string,
-      classSourceId: string,
-      classDamageDiceTypeId?: string | null,
-    },
+    characterlookID: string,
     createdAt: string,
     updatedAt: string,
-    characterLookLookId: string,
-    lookClassId: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
   } | null,
 };
 
@@ -6419,39 +8257,44 @@ export type OnCreateCharacterSubscription = {
     loadMax?: number | null,
     loadCurrent?: number | null,
     isTemplate?: boolean | null,
-    spells?:  {
-      __typename: "ModelCharacterSpellConnection",
-      nextToken?: string | null,
-    } | null,
     gear?:  {
       __typename: "ModelCharacterGearConnection",
       nextToken?: string | null,
+      startedAt?: number | null,
     } | null,
     sixToTenMoves?:  {
       __typename: "ModelCharacterMoveConnection",
       nextToken?: string | null,
+      startedAt?: number | null,
     } | null,
     twoToTenMoves?:  {
       __typename: "ModelCharacterMoveConnection",
       nextToken?: string | null,
+      startedAt?: number | null,
     } | null,
     startingMoves?:  {
       __typename: "ModelCharacterMoveConnection",
       nextToken?: string | null,
+      startedAt?: number | null,
     } | null,
     bonds?:  {
       __typename: "ModelCharacterBondConnection",
       nextToken?: string | null,
+      startedAt?: number | null,
     } | null,
     abilityscores?:  {
       __typename: "ModelCharacterAbilityScoreConnection",
       nextToken?: string | null,
+      startedAt?: number | null,
     } | null,
     race?:  {
       __typename: "CharacterRace",
       id: string,
       createdAt: string,
       updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
       characterRaceRaceId: string,
     } | null,
     alignment?:  {
@@ -6460,6 +8303,9 @@ export type OnCreateCharacterSubscription = {
       selected?: boolean | null,
       createdAt: string,
       updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
       characterAlignmentAlignmentId: string,
     } | null,
     tags?: Array< string | null > | null,
@@ -6468,22 +8314,31 @@ export type OnCreateCharacterSubscription = {
       id: string,
       createdAt: string,
       updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
     } | null,
-    characterClassId?: string | null,
-    class?:  {
-      __typename: "CharacterClass",
+    notes?: string | null,
+    CharacterProfession?:  {
+      __typename: "CharacterProfession",
       id: string,
       createdAt: string,
       updatedAt: string,
-      characterClassClassId: string,
-      characterClassCharacterId: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      characterProfessionProfessionId?: string | null,
+      characterProfessionCharacterId?: string | null,
     } | null,
-    notes?: string | null,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     characterRaceId?: string | null,
     characterAlignmentId?: string | null,
     characterLookId?: string | null,
+    characterCharacterProfessionId?: string | null,
   } | null,
 };
 
@@ -6506,39 +8361,44 @@ export type OnUpdateCharacterSubscription = {
     loadMax?: number | null,
     loadCurrent?: number | null,
     isTemplate?: boolean | null,
-    spells?:  {
-      __typename: "ModelCharacterSpellConnection",
-      nextToken?: string | null,
-    } | null,
     gear?:  {
       __typename: "ModelCharacterGearConnection",
       nextToken?: string | null,
+      startedAt?: number | null,
     } | null,
     sixToTenMoves?:  {
       __typename: "ModelCharacterMoveConnection",
       nextToken?: string | null,
+      startedAt?: number | null,
     } | null,
     twoToTenMoves?:  {
       __typename: "ModelCharacterMoveConnection",
       nextToken?: string | null,
+      startedAt?: number | null,
     } | null,
     startingMoves?:  {
       __typename: "ModelCharacterMoveConnection",
       nextToken?: string | null,
+      startedAt?: number | null,
     } | null,
     bonds?:  {
       __typename: "ModelCharacterBondConnection",
       nextToken?: string | null,
+      startedAt?: number | null,
     } | null,
     abilityscores?:  {
       __typename: "ModelCharacterAbilityScoreConnection",
       nextToken?: string | null,
+      startedAt?: number | null,
     } | null,
     race?:  {
       __typename: "CharacterRace",
       id: string,
       createdAt: string,
       updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
       characterRaceRaceId: string,
     } | null,
     alignment?:  {
@@ -6547,6 +8407,9 @@ export type OnUpdateCharacterSubscription = {
       selected?: boolean | null,
       createdAt: string,
       updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
       characterAlignmentAlignmentId: string,
     } | null,
     tags?: Array< string | null > | null,
@@ -6555,22 +8418,31 @@ export type OnUpdateCharacterSubscription = {
       id: string,
       createdAt: string,
       updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
     } | null,
-    characterClassId?: string | null,
-    class?:  {
-      __typename: "CharacterClass",
+    notes?: string | null,
+    CharacterProfession?:  {
+      __typename: "CharacterProfession",
       id: string,
       createdAt: string,
       updatedAt: string,
-      characterClassClassId: string,
-      characterClassCharacterId: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      characterProfessionProfessionId?: string | null,
+      characterProfessionCharacterId?: string | null,
     } | null,
-    notes?: string | null,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     characterRaceId?: string | null,
     characterAlignmentId?: string | null,
     characterLookId?: string | null,
+    characterCharacterProfessionId?: string | null,
   } | null,
 };
 
@@ -6593,39 +8465,44 @@ export type OnDeleteCharacterSubscription = {
     loadMax?: number | null,
     loadCurrent?: number | null,
     isTemplate?: boolean | null,
-    spells?:  {
-      __typename: "ModelCharacterSpellConnection",
-      nextToken?: string | null,
-    } | null,
     gear?:  {
       __typename: "ModelCharacterGearConnection",
       nextToken?: string | null,
+      startedAt?: number | null,
     } | null,
     sixToTenMoves?:  {
       __typename: "ModelCharacterMoveConnection",
       nextToken?: string | null,
+      startedAt?: number | null,
     } | null,
     twoToTenMoves?:  {
       __typename: "ModelCharacterMoveConnection",
       nextToken?: string | null,
+      startedAt?: number | null,
     } | null,
     startingMoves?:  {
       __typename: "ModelCharacterMoveConnection",
       nextToken?: string | null,
+      startedAt?: number | null,
     } | null,
     bonds?:  {
       __typename: "ModelCharacterBondConnection",
       nextToken?: string | null,
+      startedAt?: number | null,
     } | null,
     abilityscores?:  {
       __typename: "ModelCharacterAbilityScoreConnection",
       nextToken?: string | null,
+      startedAt?: number | null,
     } | null,
     race?:  {
       __typename: "CharacterRace",
       id: string,
       createdAt: string,
       updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
       characterRaceRaceId: string,
     } | null,
     alignment?:  {
@@ -6634,6 +8511,9 @@ export type OnDeleteCharacterSubscription = {
       selected?: boolean | null,
       createdAt: string,
       updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
       characterAlignmentAlignmentId: string,
     } | null,
     tags?: Array< string | null > | null,
@@ -6642,21 +8522,30 @@ export type OnDeleteCharacterSubscription = {
       id: string,
       createdAt: string,
       updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
     } | null,
-    characterClassId?: string | null,
-    class?:  {
-      __typename: "CharacterClass",
+    notes?: string | null,
+    CharacterProfession?:  {
+      __typename: "CharacterProfession",
       id: string,
       createdAt: string,
       updatedAt: string,
-      characterClassClassId: string,
-      characterClassCharacterId: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      characterProfessionProfessionId?: string | null,
+      characterProfessionCharacterId?: string | null,
     } | null,
-    notes?: string | null,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     characterRaceId?: string | null,
     characterAlignmentId?: string | null,
     characterLookId?: string | null,
+    characterCharacterProfessionId?: string | null,
   } | null,
 };

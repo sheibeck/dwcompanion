@@ -4,13 +4,13 @@ import { schema } from './schema';
 
 
 
-const { User, Source, CharacterClass, Class, Spell, CharacterSpell, CharacterGear, Gear, CharacterMove, Move, CharacterBond, Bond, CharacterAbilityScore, AbilityScore, CharacterRace, Race, CharacterAlignment, Alignment, DiceType, CharacterLook, Look, Character } = initSchema(schema);
+const { User, Source, CharacterProfession, Profession, Spell, CharacterSpell, CharacterGear, Gear, CharacterMove, Move, CharacterBond, Bond, CharacterAbilityScore, AbilityScore, CharacterRace, Race, CharacterAlignment, Alignment, DiceType, CharacterLook, Look, Character } = initSchema(schema);
 
 export {
   User,
   Source,
-  CharacterClass,
-  Class,
+  CharacterProfession,
+  Profession,
   Spell,
   CharacterSpell,
   CharacterGear,

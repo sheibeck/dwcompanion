@@ -1,27 +1,21 @@
-# This "input" configures a global authorization rule to enable public access to
-# all models in this schema. Learn more about authorization rules here: https://docs.amplify.aws/cli/graphql/authorization-rules
-input AMPLIFY { globalAuthRule: AuthRule = { allow: public } } # FOR TESTING ONLY!
-
-type User @model {
+type User @model @auth(rules: [{allow: public}]) {
   id: ID!
   name: String!
   email: String!
-  # Add other user-related fields as needed
 }
 
-# Source book for material. If this is not an official source use Custom
-type Source @model {
+type Source @model @auth(rules: [{allow: public}]) {
   id: ID!
   name: String!
 }
 
-type CharacterClass @model {
+type CharacterProfession @model @auth(rules: [{allow: public}]) {
   id: ID!
-  character: Character! @belongsTo
-  class: Class! @hasOne
+  Character: Character @belongsTo
+  Profession: Profession @hasOne
 }
 
-type Class @model {
+type Profession @model @auth(rules: [{allow: public}]) {
   id: ID!
   name: String!
   description: String!
@@ -29,7 +23,7 @@ type Class @model {
   damageDiceType: DiceType @hasOne
 }
 
-type Spell @model {
+type Spell @model @auth(rules: [{allow: public}]) {
   id: ID!
   name: String!
   level: Int!
@@ -37,24 +31,25 @@ type Spell @model {
   ongoing: Boolean
   description: String!
   source: Source! @hasOne
-  class: Class! @hasOne
+  profession: Profession! @hasOne
 }
 
-type CharacterSpell @model {
+type CharacterSpell @model @auth(rules: [{allow: public}]) {
   id: ID!
   spell: Spell! @hasOne
   selected: Boolean
   tags: [String]
 }
 
-type CharacterGear @model {
+type CharacterGear @model @auth(rules: [{allow: public}]) {
   id: ID!
   gear: Gear! @hasOne
   uses: Int
   tags: [String]
+  characterID: ID! @index(name: "byCharacter")
 }
 
-type Gear @model {
+type Gear @model @auth(rules: [{allow: public}]) {
   id: ID!
   description: String!
   weight: Int!
@@ -63,41 +58,44 @@ type Gear @model {
   source: Source @hasOne
 }
 
-type CharacterMove @model {
+type CharacterMove @model @auth(rules: [{allow: public}]) {
   id: ID!
   selected: Boolean
   move: Move! @hasOne
+  characterID: ID! @index(name: "byCharacter")
 }
 
-type Move @model {
+type Move @model @auth(rules: [{allow: public}]) {
   id: ID!
   description: String!
-  class: Class! @hasOne
+  class: Profession! @hasOne
   source: Source @hasOne
 }
 
-type CharacterBond @model {
+type CharacterBond @model @auth(rules: [{allow: public}]) {
   id: ID!
   description: String
   bond: Bond! @hasOne
   selected: Boolean
+  characterID: ID! @index(name: "byCharacter")
 }
 
-type Bond @model {
+type Bond @model @auth(rules: [{allow: public}]) {
   id: ID!
   description: String
-  class: Class! @hasOne
+  class: Profession! @hasOne
 }
 
-type CharacterAbilityScore @model {
+type CharacterAbilityScore @model @auth(rules: [{allow: public}]) {
   abilityScore: AbilityScore! @hasOne
   id: ID!
   value: String!
   bonus: Int!
   tags: [String]
+  characterID: ID! @index(name: "byCharacter")
 }
 
-type AbilityScore @model {
+type AbilityScore @model @auth(rules: [{allow: public}]) {
   id: ID!
   name: String!
   shortName: String!
@@ -105,50 +103,50 @@ type AbilityScore @model {
   debilityPenalty: String!
 }
 
-type CharacterRace @model {
+type CharacterRace @model @auth(rules: [{allow: public}]) {
   id: ID!
   race: Race! @hasOne
 }
 
-type Race @model {
+type Race @model @auth(rules: [{allow: public}]) {
   id: ID!
   name: String
   description: String
-  class: Class @hasOne
+  profession: Profession @hasOne
   source: Source! @hasOne
 }
 
-type CharacterAlignment @model {
+type CharacterAlignment @model @auth(rules: [{allow: public}]) {
   id: ID!
   alignment: Alignment! @hasOne
   selected: Boolean
 }
 
-type Alignment @model {
+type Alignment @model @auth(rules: [{allow: public}]) {
   id: ID!
   name: String
   description: String
-  class: Class! @hasOne
+  class: Profession! @hasOne
 }
 
-type DiceType @model {
+type DiceType @model @auth(rules: [{allow: public}]) {
   id: ID!
   name: String
 }
 
-type CharacterLook @model {
+type CharacterLook @model @auth(rules: [{allow: public}]) {
   id: ID!
-  look: [Look]! @hasMany
+  look: [Look!] @hasMany(indexName: "byCharacterLook", fields: ["id"])
 }
 
-type Look @model {
+type Look @model @auth(rules: [{allow: public}]) {
   id: ID!
   name: String!
   description: String!
-  class: Class! @hasOne
+  characterlookID: ID! @index(name: "byCharacterLook")
 }
 
-type Character @model {
+type Character @model @auth(rules: [{allow: public}]) {
   userId: ID!
   id: ID!
   name: String!
@@ -160,19 +158,18 @@ type Character @model {
   coin: Int
   loadMax: Int
   loadCurrent: Int
-  isTemplate: Boolean                               #is a template for creating new characters
-  spells: [CharacterSpell] @hasMany
-  gear: [CharacterGear] @hasMany
-  sixToTenMoves: [CharacterMove] @hasMany
-  twoToTenMoves: [CharacterMove] @hasMany
-  startingMoves: [CharacterMove] @hasMany
-  bonds: [CharacterBond] @hasMany
-  abilityscores: [CharacterAbilityScore] @hasMany
+  isTemplate: Boolean
+  gear: [CharacterGear] @hasMany(indexName: "byCharacter", fields: ["id"])
+  sixToTenMoves: [CharacterMove] @hasMany(indexName: "byCharacter", fields: ["id"])
+  twoToTenMoves: [CharacterMove] @hasMany(indexName: "byCharacter", fields: ["id"])
+  startingMoves: [CharacterMove] @hasMany(indexName: "byCharacter", fields: ["id"])
+  bonds: [CharacterBond] @hasMany(indexName: "byCharacter", fields: ["id"])
+  abilityscores: [CharacterAbilityScore] @hasMany(indexName: "byCharacter", fields: ["id"])
   race: CharacterRace @hasOne
   alignment: CharacterAlignment @hasOne
   tags: [String]
   look: CharacterLook @hasOne
-  characterClassId: ID  @index(name: "byClass", queryField: "charactersByClass")
-  class: CharacterClass @hasOne(fields: ["characterClassId"])
   notes: String
+  CharacterProfession: CharacterProfession @hasOne
 }
+ 
