@@ -5,7 +5,7 @@
 
         <div v-if="hasCharacters">
             <div v-for="character in characterList">
-                {{ character.Character.name }} {{ character.Profession.name }}
+                {{ character.name }} ({{ character.profession?.name ?? "Unknown" }})
             </div>
         </div>
 

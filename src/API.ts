@@ -2,17 +2,37 @@
 /* eslint-disable */
 //  This file was automatically generated and should not be edited.
 
-export type ModelUserFilterInput = {
-  id?: ModelIDInput | null,
+export type CreateSpellInput = {
+  id?: string | null,
+  name: string,
+  level: number,
+  type: string,
+  ongoing?: boolean | null,
+  description: string,
+  selected?: boolean | null,
+  tags?: Array< string | null > | null,
+  source: string,
+  profession: string,
+  _version?: number | null,
+};
+
+export type ModelSpellConditionInput = {
   name?: ModelStringInput | null,
-  email?: ModelStringInput | null,
-  and?: Array< ModelUserFilterInput | null > | null,
-  or?: Array< ModelUserFilterInput | null > | null,
-  not?: ModelUserFilterInput | null,
+  level?: ModelIntInput | null,
+  type?: ModelStringInput | null,
+  ongoing?: ModelBooleanInput | null,
+  description?: ModelStringInput | null,
+  selected?: ModelBooleanInput | null,
+  tags?: ModelStringInput | null,
+  source?: ModelStringInput | null,
+  profession?: ModelStringInput | null,
+  and?: Array< ModelSpellConditionInput | null > | null,
+  or?: Array< ModelSpellConditionInput | null > | null,
+  not?: ModelSpellConditionInput | null,
   _deleted?: ModelBooleanInput | null,
 };
 
-export type ModelIDInput = {
+export type ModelStringInput = {
   ne?: string | null,
   eq?: string | null,
   le?: string | null,
@@ -52,564 +72,6 @@ export type ModelSizeInput = {
   between?: Array< number | null > | null,
 };
 
-export type ModelStringInput = {
-  ne?: string | null,
-  eq?: string | null,
-  le?: string | null,
-  lt?: string | null,
-  ge?: string | null,
-  gt?: string | null,
-  contains?: string | null,
-  notContains?: string | null,
-  between?: Array< string | null > | null,
-  beginsWith?: string | null,
-  attributeExists?: boolean | null,
-  attributeType?: ModelAttributeTypes | null,
-  size?: ModelSizeInput | null,
-};
-
-export type ModelBooleanInput = {
-  ne?: boolean | null,
-  eq?: boolean | null,
-  attributeExists?: boolean | null,
-  attributeType?: ModelAttributeTypes | null,
-};
-
-export type ModelUserConnection = {
-  __typename: "ModelUserConnection",
-  items:  Array<User | null >,
-  nextToken?: string | null,
-  startedAt?: number | null,
-};
-
-export type User = {
-  __typename: "User",
-  id: string,
-  name: string,
-  email: string,
-  createdAt: string,
-  updatedAt: string,
-  _version: number,
-  _deleted?: boolean | null,
-  _lastChangedAt: number,
-};
-
-export type CreateUserInput = {
-  id?: string | null,
-  name: string,
-  email: string,
-  _version?: number | null,
-};
-
-export type ModelUserConditionInput = {
-  name?: ModelStringInput | null,
-  email?: ModelStringInput | null,
-  and?: Array< ModelUserConditionInput | null > | null,
-  or?: Array< ModelUserConditionInput | null > | null,
-  not?: ModelUserConditionInput | null,
-  _deleted?: ModelBooleanInput | null,
-};
-
-export type UpdateUserInput = {
-  id: string,
-  name?: string | null,
-  email?: string | null,
-  _version?: number | null,
-};
-
-export type DeleteUserInput = {
-  id: string,
-  _version?: number | null,
-};
-
-export type CreateSourceInput = {
-  id?: string | null,
-  name: string,
-  _version?: number | null,
-};
-
-export type ModelSourceConditionInput = {
-  name?: ModelStringInput | null,
-  and?: Array< ModelSourceConditionInput | null > | null,
-  or?: Array< ModelSourceConditionInput | null > | null,
-  not?: ModelSourceConditionInput | null,
-  _deleted?: ModelBooleanInput | null,
-};
-
-export type Source = {
-  __typename: "Source",
-  id: string,
-  name: string,
-  createdAt: string,
-  updatedAt: string,
-  _version: number,
-  _deleted?: boolean | null,
-  _lastChangedAt: number,
-};
-
-export type UpdateSourceInput = {
-  id: string,
-  name?: string | null,
-  _version?: number | null,
-};
-
-export type DeleteSourceInput = {
-  id: string,
-  _version?: number | null,
-};
-
-export type CreateCharacterProfessionInput = {
-  id?: string | null,
-  _version?: number | null,
-  characterProfessionProfessionId?: string | null,
-  characterProfessionCharacterId?: string | null,
-};
-
-export type ModelCharacterProfessionConditionInput = {
-  and?: Array< ModelCharacterProfessionConditionInput | null > | null,
-  or?: Array< ModelCharacterProfessionConditionInput | null > | null,
-  not?: ModelCharacterProfessionConditionInput | null,
-  _deleted?: ModelBooleanInput | null,
-  characterProfessionProfessionId?: ModelIDInput | null,
-  characterProfessionCharacterId?: ModelIDInput | null,
-};
-
-export type CharacterProfession = {
-  __typename: "CharacterProfession",
-  id: string,
-  Character?: Character | null,
-  Profession?: Profession | null,
-  createdAt: string,
-  updatedAt: string,
-  _version: number,
-  _deleted?: boolean | null,
-  _lastChangedAt: number,
-  characterProfessionProfessionId?: string | null,
-  characterProfessionCharacterId?: string | null,
-};
-
-export type Character = {
-  __typename: "Character",
-  userId: string,
-  id: string,
-  name: string,
-  level?: number | null,
-  xp?: number | null,
-  armor?: number | null,
-  hitPointsMax?: number | null,
-  hitPointsCurrent?: number | null,
-  coin?: number | null,
-  loadMax?: number | null,
-  loadCurrent?: number | null,
-  isTemplate?: boolean | null,
-  tags?: Array< string | null > | null,
-  notes?: string | null,
-  CharacterGear?: ModelCharacterGearConnection | null,
-  MovesStarting?: ModelCharacterMoveConnection | null,
-  MovesTwoToTen?: ModelCharacterMoveConnection | null,
-  MovesSixToTen?: ModelCharacterMoveConnection | null,
-  CharacterBonds?: ModelCharacterBondConnection | null,
-  CharacterAbilityScores?: ModelCharacterAbilityScoreConnection | null,
-  CharacterRace?: CharacterRace | null,
-  CharacterAlignment?: CharacterAlignment | null,
-  CharacterLooks?: ModelCharacterLookConnection | null,
-  CharacterProfession?: CharacterProfession | null,
-  CharacterSpells?: ModelCharacterSpellConnection | null,
-  createdAt: string,
-  updatedAt: string,
-  _version: number,
-  _deleted?: boolean | null,
-  _lastChangedAt: number,
-  characterCharacterRaceId?: string | null,
-  characterCharacterAlignmentId?: string | null,
-  characterCharacterProfessionId?: string | null,
-};
-
-export type ModelCharacterGearConnection = {
-  __typename: "ModelCharacterGearConnection",
-  items:  Array<CharacterGear | null >,
-  nextToken?: string | null,
-  startedAt?: number | null,
-};
-
-export type CharacterGear = {
-  __typename: "CharacterGear",
-  id: string,
-  Gear: Gear,
-  uses?: number | null,
-  tags?: Array< string | null > | null,
-  Character?: Character | null,
-  createdAt: string,
-  updatedAt: string,
-  _version: number,
-  _deleted?: boolean | null,
-  _lastChangedAt: number,
-  characterCharacterGearId?: string | null,
-  characterGearGearId: string,
-};
-
-export type Gear = {
-  __typename: "Gear",
-  id: string,
-  description: string,
-  weight: number,
-  uses?: number | null,
-  tags?: Array< string | null > | null,
-  Source?: Source | null,
-  createdAt: string,
-  updatedAt: string,
-  _version: number,
-  _deleted?: boolean | null,
-  _lastChangedAt: number,
-  gearSourceId?: string | null,
-};
-
-export type ModelCharacterMoveConnection = {
-  __typename: "ModelCharacterMoveConnection",
-  items:  Array<CharacterMove | null >,
-  nextToken?: string | null,
-  startedAt?: number | null,
-};
-
-export type CharacterMove = {
-  __typename: "CharacterMove",
-  id: string,
-  selected?: boolean | null,
-  Move: Move,
-  Character?: Character | null,
-  createdAt: string,
-  updatedAt: string,
-  _version: number,
-  _deleted?: boolean | null,
-  _lastChangedAt: number,
-  characterMovesStartingId?: string | null,
-  characterMovesTwoToTenId?: string | null,
-  characterMovesSixToTenId?: string | null,
-  characterMoveMoveId: string,
-};
-
-export type Move = {
-  __typename: "Move",
-  id: string,
-  description: string,
-  Profession: Profession,
-  Source?: Source | null,
-  createdAt: string,
-  updatedAt: string,
-  _version: number,
-  _deleted?: boolean | null,
-  _lastChangedAt: number,
-  moveProfessionId: string,
-  moveSourceId?: string | null,
-};
-
-export type Profession = {
-  __typename: "Profession",
-  id: string,
-  name: string,
-  description: string,
-  Source: Source,
-  DiceType?: DiceType | null,
-  createdAt: string,
-  updatedAt: string,
-  _version: number,
-  _deleted?: boolean | null,
-  _lastChangedAt: number,
-  professionSourceId: string,
-  professionDiceTypeId?: string | null,
-};
-
-export type DiceType = {
-  __typename: "DiceType",
-  id: string,
-  name?: string | null,
-  createdAt: string,
-  updatedAt: string,
-  _version: number,
-  _deleted?: boolean | null,
-  _lastChangedAt: number,
-};
-
-export type ModelCharacterBondConnection = {
-  __typename: "ModelCharacterBondConnection",
-  items:  Array<CharacterBond | null >,
-  nextToken?: string | null,
-  startedAt?: number | null,
-};
-
-export type CharacterBond = {
-  __typename: "CharacterBond",
-  id: string,
-  description?: string | null,
-  Bond: Bond,
-  selected?: boolean | null,
-  Character?: Character | null,
-  createdAt: string,
-  updatedAt: string,
-  _version: number,
-  _deleted?: boolean | null,
-  _lastChangedAt: number,
-  characterCharacterBondsId?: string | null,
-  characterBondBondId: string,
-};
-
-export type Bond = {
-  __typename: "Bond",
-  id: string,
-  description?: string | null,
-  Profession: Profession,
-  createdAt: string,
-  updatedAt: string,
-  _version: number,
-  _deleted?: boolean | null,
-  _lastChangedAt: number,
-  bondProfessionId: string,
-};
-
-export type ModelCharacterAbilityScoreConnection = {
-  __typename: "ModelCharacterAbilityScoreConnection",
-  items:  Array<CharacterAbilityScore | null >,
-  nextToken?: string | null,
-  startedAt?: number | null,
-};
-
-export type CharacterAbilityScore = {
-  __typename: "CharacterAbilityScore",
-  AbilityScore: AbilityScore,
-  id: string,
-  value: string,
-  bonus: number,
-  tags?: Array< string | null > | null,
-  Character?: Character | null,
-  createdAt: string,
-  updatedAt: string,
-  _version: number,
-  _deleted?: boolean | null,
-  _lastChangedAt: number,
-  characterCharacterAbilityScoresId?: string | null,
-  characterAbilityScoreAbilityScoreId: string,
-};
-
-export type AbilityScore = {
-  __typename: "AbilityScore",
-  id: string,
-  name: string,
-  shortName: string,
-  debility: string,
-  debilityPenalty: string,
-  createdAt: string,
-  updatedAt: string,
-  _version: number,
-  _deleted?: boolean | null,
-  _lastChangedAt: number,
-};
-
-export type CharacterRace = {
-  __typename: "CharacterRace",
-  id: string,
-  Race: Race,
-  Character?: Character | null,
-  createdAt: string,
-  updatedAt: string,
-  _version: number,
-  _deleted?: boolean | null,
-  _lastChangedAt: number,
-  characterRaceRaceId: string,
-  characterRaceCharacterId?: string | null,
-};
-
-export type Race = {
-  __typename: "Race",
-  id: string,
-  name?: string | null,
-  description?: string | null,
-  Profession?: Profession | null,
-  Source: Source,
-  createdAt: string,
-  updatedAt: string,
-  _version: number,
-  _deleted?: boolean | null,
-  _lastChangedAt: number,
-  raceProfessionId?: string | null,
-  raceSourceId: string,
-};
-
-export type CharacterAlignment = {
-  __typename: "CharacterAlignment",
-  id: string,
-  Alignment: Alignment,
-  selected?: boolean | null,
-  Character?: Character | null,
-  createdAt: string,
-  updatedAt: string,
-  _version: number,
-  _deleted?: boolean | null,
-  _lastChangedAt: number,
-  characterAlignmentAlignmentId: string,
-  characterAlignmentCharacterId?: string | null,
-};
-
-export type Alignment = {
-  __typename: "Alignment",
-  id: string,
-  name?: string | null,
-  description?: string | null,
-  Profession: Profession,
-  createdAt: string,
-  updatedAt: string,
-  _version: number,
-  _deleted?: boolean | null,
-  _lastChangedAt: number,
-  alignmentProfessionId: string,
-};
-
-export type ModelCharacterLookConnection = {
-  __typename: "ModelCharacterLookConnection",
-  items:  Array<CharacterLook | null >,
-  nextToken?: string | null,
-  startedAt?: number | null,
-};
-
-export type CharacterLook = {
-  __typename: "CharacterLook",
-  id: string,
-  Look: Look,
-  Character?: Character | null,
-  createdAt: string,
-  updatedAt: string,
-  _version: number,
-  _deleted?: boolean | null,
-  _lastChangedAt: number,
-  characterCharacterLooksId?: string | null,
-  characterLookLookId: string,
-};
-
-export type Look = {
-  __typename: "Look",
-  id: string,
-  name: string,
-  description: string,
-  createdAt: string,
-  updatedAt: string,
-  _version: number,
-  _deleted?: boolean | null,
-  _lastChangedAt: number,
-};
-
-export type ModelCharacterSpellConnection = {
-  __typename: "ModelCharacterSpellConnection",
-  items:  Array<CharacterSpell | null >,
-  nextToken?: string | null,
-  startedAt?: number | null,
-};
-
-export type CharacterSpell = {
-  __typename: "CharacterSpell",
-  id: string,
-  Spell: Spell,
-  selected?: boolean | null,
-  tags?: Array< string | null > | null,
-  Character?: Character | null,
-  createdAt: string,
-  updatedAt: string,
-  _version: number,
-  _deleted?: boolean | null,
-  _lastChangedAt: number,
-  characterCharacterSpellsId?: string | null,
-  characterSpellSpellId: string,
-};
-
-export type Spell = {
-  __typename: "Spell",
-  id: string,
-  name: string,
-  level: number,
-  type: string,
-  ongoing?: boolean | null,
-  description: string,
-  Source: Source,
-  Profession: Profession,
-  createdAt: string,
-  updatedAt: string,
-  _version: number,
-  _deleted?: boolean | null,
-  _lastChangedAt: number,
-  spellSourceId: string,
-  spellProfessionId: string,
-};
-
-export type UpdateCharacterProfessionInput = {
-  id: string,
-  _version?: number | null,
-  characterProfessionProfessionId?: string | null,
-  characterProfessionCharacterId?: string | null,
-};
-
-export type DeleteCharacterProfessionInput = {
-  id: string,
-  _version?: number | null,
-};
-
-export type CreateProfessionInput = {
-  id?: string | null,
-  name: string,
-  description: string,
-  _version?: number | null,
-  professionSourceId: string,
-  professionDiceTypeId?: string | null,
-};
-
-export type ModelProfessionConditionInput = {
-  name?: ModelStringInput | null,
-  description?: ModelStringInput | null,
-  and?: Array< ModelProfessionConditionInput | null > | null,
-  or?: Array< ModelProfessionConditionInput | null > | null,
-  not?: ModelProfessionConditionInput | null,
-  _deleted?: ModelBooleanInput | null,
-  professionSourceId?: ModelIDInput | null,
-  professionDiceTypeId?: ModelIDInput | null,
-};
-
-export type UpdateProfessionInput = {
-  id: string,
-  name?: string | null,
-  description?: string | null,
-  _version?: number | null,
-  professionSourceId?: string | null,
-  professionDiceTypeId?: string | null,
-};
-
-export type DeleteProfessionInput = {
-  id: string,
-  _version?: number | null,
-};
-
-export type CreateSpellInput = {
-  id?: string | null,
-  name: string,
-  level: number,
-  type: string,
-  ongoing?: boolean | null,
-  description: string,
-  _version?: number | null,
-  spellSourceId: string,
-  spellProfessionId: string,
-};
-
-export type ModelSpellConditionInput = {
-  name?: ModelStringInput | null,
-  level?: ModelIntInput | null,
-  type?: ModelStringInput | null,
-  ongoing?: ModelBooleanInput | null,
-  description?: ModelStringInput | null,
-  and?: Array< ModelSpellConditionInput | null > | null,
-  or?: Array< ModelSpellConditionInput | null > | null,
-  not?: ModelSpellConditionInput | null,
-  _deleted?: ModelBooleanInput | null,
-  spellSourceId?: ModelIDInput | null,
-  spellProfessionId?: ModelIDInput | null,
-};
-
 export type ModelIntInput = {
   ne?: number | null,
   eq?: number | null,
@@ -622,6 +84,32 @@ export type ModelIntInput = {
   attributeType?: ModelAttributeTypes | null,
 };
 
+export type ModelBooleanInput = {
+  ne?: boolean | null,
+  eq?: boolean | null,
+  attributeExists?: boolean | null,
+  attributeType?: ModelAttributeTypes | null,
+};
+
+export type Spell = {
+  __typename: "Spell",
+  id: string,
+  name: string,
+  level: number,
+  type: string,
+  ongoing?: boolean | null,
+  description: string,
+  selected?: boolean | null,
+  tags?: Array< string | null > | null,
+  source: string,
+  profession: string,
+  createdAt: string,
+  updatedAt: string,
+  _version: number,
+  _deleted?: boolean | null,
+  _lastChangedAt: number,
+};
+
 export type UpdateSpellInput = {
   id: string,
   name?: string | null,
@@ -629,80 +117,14 @@ export type UpdateSpellInput = {
   type?: string | null,
   ongoing?: boolean | null,
   description?: string | null,
+  selected?: boolean | null,
+  tags?: Array< string | null > | null,
+  source?: string | null,
+  profession?: string | null,
   _version?: number | null,
-  spellSourceId?: string | null,
-  spellProfessionId?: string | null,
 };
 
 export type DeleteSpellInput = {
-  id: string,
-  _version?: number | null,
-};
-
-export type CreateCharacterSpellInput = {
-  id?: string | null,
-  selected?: boolean | null,
-  tags?: Array< string | null > | null,
-  _version?: number | null,
-  characterCharacterSpellsId?: string | null,
-  characterSpellSpellId: string,
-};
-
-export type ModelCharacterSpellConditionInput = {
-  selected?: ModelBooleanInput | null,
-  tags?: ModelStringInput | null,
-  and?: Array< ModelCharacterSpellConditionInput | null > | null,
-  or?: Array< ModelCharacterSpellConditionInput | null > | null,
-  not?: ModelCharacterSpellConditionInput | null,
-  _deleted?: ModelBooleanInput | null,
-  characterCharacterSpellsId?: ModelIDInput | null,
-  characterSpellSpellId?: ModelIDInput | null,
-};
-
-export type UpdateCharacterSpellInput = {
-  id: string,
-  selected?: boolean | null,
-  tags?: Array< string | null > | null,
-  _version?: number | null,
-  characterCharacterSpellsId?: string | null,
-  characterSpellSpellId?: string | null,
-};
-
-export type DeleteCharacterSpellInput = {
-  id: string,
-  _version?: number | null,
-};
-
-export type CreateCharacterGearInput = {
-  id?: string | null,
-  uses?: number | null,
-  tags?: Array< string | null > | null,
-  _version?: number | null,
-  characterCharacterGearId?: string | null,
-  characterGearGearId: string,
-};
-
-export type ModelCharacterGearConditionInput = {
-  uses?: ModelIntInput | null,
-  tags?: ModelStringInput | null,
-  and?: Array< ModelCharacterGearConditionInput | null > | null,
-  or?: Array< ModelCharacterGearConditionInput | null > | null,
-  not?: ModelCharacterGearConditionInput | null,
-  _deleted?: ModelBooleanInput | null,
-  characterCharacterGearId?: ModelIDInput | null,
-  characterGearGearId?: ModelIDInput | null,
-};
-
-export type UpdateCharacterGearInput = {
-  id: string,
-  uses?: number | null,
-  tags?: Array< string | null > | null,
-  _version?: number | null,
-  characterCharacterGearId?: string | null,
-  characterGearGearId?: string | null,
-};
-
-export type DeleteCharacterGearInput = {
   id: string,
   _version?: number | null,
 };
@@ -713,8 +135,8 @@ export type CreateGearInput = {
   weight: number,
   uses?: number | null,
   tags?: Array< string | null > | null,
+  source: string,
   _version?: number | null,
-  gearSourceId?: string | null,
 };
 
 export type ModelGearConditionInput = {
@@ -722,11 +144,26 @@ export type ModelGearConditionInput = {
   weight?: ModelIntInput | null,
   uses?: ModelIntInput | null,
   tags?: ModelStringInput | null,
+  source?: ModelStringInput | null,
   and?: Array< ModelGearConditionInput | null > | null,
   or?: Array< ModelGearConditionInput | null > | null,
   not?: ModelGearConditionInput | null,
   _deleted?: ModelBooleanInput | null,
-  gearSourceId?: ModelIDInput | null,
+};
+
+export type Gear = {
+  __typename: "Gear",
+  id: string,
+  description: string,
+  weight: number,
+  uses?: number | null,
+  tags?: Array< string | null > | null,
+  source: string,
+  createdAt: string,
+  updatedAt: string,
+  _version: number,
+  _deleted?: boolean | null,
+  _lastChangedAt: number,
 };
 
 export type UpdateGearInput = {
@@ -735,8 +172,8 @@ export type UpdateGearInput = {
   weight?: number | null,
   uses?: number | null,
   tags?: Array< string | null > | null,
+  source?: string | null,
   _version?: number | null,
-  gearSourceId?: string | null,
 };
 
 export type DeleteGearInput = {
@@ -744,67 +181,47 @@ export type DeleteGearInput = {
   _version?: number | null,
 };
 
-export type CreateCharacterMoveInput = {
-  id?: string | null,
-  selected?: boolean | null,
-  _version?: number | null,
-  characterMovesStartingId?: string | null,
-  characterMovesTwoToTenId?: string | null,
-  characterMovesSixToTenId?: string | null,
-  characterMoveMoveId: string,
-};
-
-export type ModelCharacterMoveConditionInput = {
-  selected?: ModelBooleanInput | null,
-  and?: Array< ModelCharacterMoveConditionInput | null > | null,
-  or?: Array< ModelCharacterMoveConditionInput | null > | null,
-  not?: ModelCharacterMoveConditionInput | null,
-  _deleted?: ModelBooleanInput | null,
-  characterMovesStartingId?: ModelIDInput | null,
-  characterMovesTwoToTenId?: ModelIDInput | null,
-  characterMovesSixToTenId?: ModelIDInput | null,
-  characterMoveMoveId?: ModelIDInput | null,
-};
-
-export type UpdateCharacterMoveInput = {
-  id: string,
-  selected?: boolean | null,
-  _version?: number | null,
-  characterMovesStartingId?: string | null,
-  characterMovesTwoToTenId?: string | null,
-  characterMovesSixToTenId?: string | null,
-  characterMoveMoveId?: string | null,
-};
-
-export type DeleteCharacterMoveInput = {
-  id: string,
-  _version?: number | null,
-};
-
 export type CreateMoveInput = {
   id?: string | null,
   description: string,
+  selected?: boolean | null,
+  profession: string,
+  source: string,
   _version?: number | null,
-  moveProfessionId: string,
-  moveSourceId?: string | null,
 };
 
 export type ModelMoveConditionInput = {
   description?: ModelStringInput | null,
+  selected?: ModelBooleanInput | null,
+  profession?: ModelStringInput | null,
+  source?: ModelStringInput | null,
   and?: Array< ModelMoveConditionInput | null > | null,
   or?: Array< ModelMoveConditionInput | null > | null,
   not?: ModelMoveConditionInput | null,
   _deleted?: ModelBooleanInput | null,
-  moveProfessionId?: ModelIDInput | null,
-  moveSourceId?: ModelIDInput | null,
+};
+
+export type Move = {
+  __typename: "Move",
+  id: string,
+  description: string,
+  selected?: boolean | null,
+  profession: string,
+  source: string,
+  createdAt: string,
+  updatedAt: string,
+  _version: number,
+  _deleted?: boolean | null,
+  _lastChangedAt: number,
 };
 
 export type UpdateMoveInput = {
   id: string,
   description?: string | null,
+  selected?: boolean | null,
+  profession?: string | null,
+  source?: string | null,
   _version?: number | null,
-  moveProfessionId?: string | null,
-  moveSourceId?: string | null,
 };
 
 export type DeleteMoveInput = {
@@ -812,101 +229,50 @@ export type DeleteMoveInput = {
   _version?: number | null,
 };
 
-export type CreateCharacterBondInput = {
-  id?: string | null,
-  description?: string | null,
-  selected?: boolean | null,
-  _version?: number | null,
-  characterCharacterBondsId?: string | null,
-  characterBondBondId: string,
-};
-
-export type ModelCharacterBondConditionInput = {
-  description?: ModelStringInput | null,
-  selected?: ModelBooleanInput | null,
-  and?: Array< ModelCharacterBondConditionInput | null > | null,
-  or?: Array< ModelCharacterBondConditionInput | null > | null,
-  not?: ModelCharacterBondConditionInput | null,
-  _deleted?: ModelBooleanInput | null,
-  characterCharacterBondsId?: ModelIDInput | null,
-  characterBondBondId?: ModelIDInput | null,
-};
-
-export type UpdateCharacterBondInput = {
-  id: string,
-  description?: string | null,
-  selected?: boolean | null,
-  _version?: number | null,
-  characterCharacterBondsId?: string | null,
-  characterBondBondId?: string | null,
-};
-
-export type DeleteCharacterBondInput = {
-  id: string,
-  _version?: number | null,
-};
-
 export type CreateBondInput = {
   id?: string | null,
   description?: string | null,
+  profession: string,
+  selected?: boolean | null,
+  tags?: Array< string | null > | null,
   _version?: number | null,
-  bondProfessionId: string,
 };
 
 export type ModelBondConditionInput = {
   description?: ModelStringInput | null,
+  profession?: ModelStringInput | null,
+  selected?: ModelBooleanInput | null,
+  tags?: ModelStringInput | null,
   and?: Array< ModelBondConditionInput | null > | null,
   or?: Array< ModelBondConditionInput | null > | null,
   not?: ModelBondConditionInput | null,
   _deleted?: ModelBooleanInput | null,
-  bondProfessionId?: ModelIDInput | null,
+};
+
+export type Bond = {
+  __typename: "Bond",
+  id: string,
+  description?: string | null,
+  profession: string,
+  selected?: boolean | null,
+  tags?: Array< string | null > | null,
+  createdAt: string,
+  updatedAt: string,
+  _version: number,
+  _deleted?: boolean | null,
+  _lastChangedAt: number,
 };
 
 export type UpdateBondInput = {
   id: string,
   description?: string | null,
+  profession?: string | null,
+  selected?: boolean | null,
+  tags?: Array< string | null > | null,
   _version?: number | null,
-  bondProfessionId?: string | null,
 };
 
 export type DeleteBondInput = {
-  id: string,
-  _version?: number | null,
-};
-
-export type CreateCharacterAbilityScoreInput = {
-  id?: string | null,
-  value: string,
-  bonus: number,
-  tags?: Array< string | null > | null,
-  _version?: number | null,
-  characterCharacterAbilityScoresId?: string | null,
-  characterAbilityScoreAbilityScoreId: string,
-};
-
-export type ModelCharacterAbilityScoreConditionInput = {
-  value?: ModelStringInput | null,
-  bonus?: ModelIntInput | null,
-  tags?: ModelStringInput | null,
-  and?: Array< ModelCharacterAbilityScoreConditionInput | null > | null,
-  or?: Array< ModelCharacterAbilityScoreConditionInput | null > | null,
-  not?: ModelCharacterAbilityScoreConditionInput | null,
-  _deleted?: ModelBooleanInput | null,
-  characterCharacterAbilityScoresId?: ModelIDInput | null,
-  characterAbilityScoreAbilityScoreId?: ModelIDInput | null,
-};
-
-export type UpdateCharacterAbilityScoreInput = {
-  id: string,
-  value?: string | null,
-  bonus?: number | null,
-  tags?: Array< string | null > | null,
-  _version?: number | null,
-  characterCharacterAbilityScoresId?: string | null,
-  characterAbilityScoreAbilityScoreId?: string | null,
-};
-
-export type DeleteCharacterAbilityScoreInput = {
   id: string,
   _version?: number | null,
 };
@@ -917,6 +283,9 @@ export type CreateAbilityScoreInput = {
   shortName: string,
   debility: string,
   debilityPenalty: string,
+  value: string,
+  bonus: number,
+  tags?: Array< string | null > | null,
   _version?: number | null,
 };
 
@@ -925,10 +294,30 @@ export type ModelAbilityScoreConditionInput = {
   shortName?: ModelStringInput | null,
   debility?: ModelStringInput | null,
   debilityPenalty?: ModelStringInput | null,
+  value?: ModelStringInput | null,
+  bonus?: ModelIntInput | null,
+  tags?: ModelStringInput | null,
   and?: Array< ModelAbilityScoreConditionInput | null > | null,
   or?: Array< ModelAbilityScoreConditionInput | null > | null,
   not?: ModelAbilityScoreConditionInput | null,
   _deleted?: ModelBooleanInput | null,
+};
+
+export type AbilityScore = {
+  __typename: "AbilityScore",
+  id: string,
+  name: string,
+  shortName: string,
+  debility: string,
+  debilityPenalty: string,
+  value: string,
+  bonus: number,
+  tags?: Array< string | null > | null,
+  createdAt: string,
+  updatedAt: string,
+  _version: number,
+  _deleted?: boolean | null,
+  _lastChangedAt: number,
 };
 
 export type UpdateAbilityScoreInput = {
@@ -937,6 +326,9 @@ export type UpdateAbilityScoreInput = {
   shortName?: string | null,
   debility?: string | null,
   debilityPenalty?: string | null,
+  value?: string | null,
+  bonus?: number | null,
+  tags?: Array< string | null > | null,
   _version?: number | null,
 };
 
@@ -945,95 +337,50 @@ export type DeleteAbilityScoreInput = {
   _version?: number | null,
 };
 
-export type CreateCharacterRaceInput = {
-  id?: string | null,
-  _version?: number | null,
-  characterRaceRaceId: string,
-  characterRaceCharacterId?: string | null,
-};
-
-export type ModelCharacterRaceConditionInput = {
-  and?: Array< ModelCharacterRaceConditionInput | null > | null,
-  or?: Array< ModelCharacterRaceConditionInput | null > | null,
-  not?: ModelCharacterRaceConditionInput | null,
-  _deleted?: ModelBooleanInput | null,
-  characterRaceRaceId?: ModelIDInput | null,
-  characterRaceCharacterId?: ModelIDInput | null,
-};
-
-export type UpdateCharacterRaceInput = {
-  id: string,
-  _version?: number | null,
-  characterRaceRaceId?: string | null,
-  characterRaceCharacterId?: string | null,
-};
-
-export type DeleteCharacterRaceInput = {
-  id: string,
-  _version?: number | null,
-};
-
 export type CreateRaceInput = {
   id?: string | null,
   name?: string | null,
   description?: string | null,
+  profession: string,
+  source: string,
   _version?: number | null,
-  raceProfessionId?: string | null,
-  raceSourceId: string,
 };
 
 export type ModelRaceConditionInput = {
   name?: ModelStringInput | null,
   description?: ModelStringInput | null,
+  profession?: ModelStringInput | null,
+  source?: ModelStringInput | null,
   and?: Array< ModelRaceConditionInput | null > | null,
   or?: Array< ModelRaceConditionInput | null > | null,
   not?: ModelRaceConditionInput | null,
   _deleted?: ModelBooleanInput | null,
-  raceProfessionId?: ModelIDInput | null,
-  raceSourceId?: ModelIDInput | null,
+};
+
+export type Race = {
+  __typename: "Race",
+  id: string,
+  name?: string | null,
+  description?: string | null,
+  profession: string,
+  source: string,
+  createdAt: string,
+  updatedAt: string,
+  _version: number,
+  _deleted?: boolean | null,
+  _lastChangedAt: number,
 };
 
 export type UpdateRaceInput = {
   id: string,
   name?: string | null,
   description?: string | null,
+  profession?: string | null,
+  source?: string | null,
   _version?: number | null,
-  raceProfessionId?: string | null,
-  raceSourceId?: string | null,
 };
 
 export type DeleteRaceInput = {
-  id: string,
-  _version?: number | null,
-};
-
-export type CreateCharacterAlignmentInput = {
-  id?: string | null,
-  selected?: boolean | null,
-  _version?: number | null,
-  characterAlignmentAlignmentId: string,
-  characterAlignmentCharacterId?: string | null,
-};
-
-export type ModelCharacterAlignmentConditionInput = {
-  selected?: ModelBooleanInput | null,
-  and?: Array< ModelCharacterAlignmentConditionInput | null > | null,
-  or?: Array< ModelCharacterAlignmentConditionInput | null > | null,
-  not?: ModelCharacterAlignmentConditionInput | null,
-  _deleted?: ModelBooleanInput | null,
-  characterAlignmentAlignmentId?: ModelIDInput | null,
-  characterAlignmentCharacterId?: ModelIDInput | null,
-};
-
-export type UpdateCharacterAlignmentInput = {
-  id: string,
-  selected?: boolean | null,
-  _version?: number | null,
-  characterAlignmentAlignmentId?: string | null,
-  characterAlignmentCharacterId?: string | null,
-};
-
-export type DeleteCharacterAlignmentInput = {
   id: string,
   _version?: number | null,
 };
@@ -1042,82 +389,46 @@ export type CreateAlignmentInput = {
   id?: string | null,
   name?: string | null,
   description?: string | null,
+  selected?: boolean | null,
+  profession: string,
   _version?: number | null,
-  alignmentProfessionId: string,
 };
 
 export type ModelAlignmentConditionInput = {
   name?: ModelStringInput | null,
   description?: ModelStringInput | null,
+  selected?: ModelBooleanInput | null,
+  profession?: ModelStringInput | null,
   and?: Array< ModelAlignmentConditionInput | null > | null,
   or?: Array< ModelAlignmentConditionInput | null > | null,
   not?: ModelAlignmentConditionInput | null,
   _deleted?: ModelBooleanInput | null,
-  alignmentProfessionId?: ModelIDInput | null,
+};
+
+export type Alignment = {
+  __typename: "Alignment",
+  id: string,
+  name?: string | null,
+  description?: string | null,
+  selected?: boolean | null,
+  profession: string,
+  createdAt: string,
+  updatedAt: string,
+  _version: number,
+  _deleted?: boolean | null,
+  _lastChangedAt: number,
 };
 
 export type UpdateAlignmentInput = {
   id: string,
   name?: string | null,
   description?: string | null,
+  selected?: boolean | null,
+  profession?: string | null,
   _version?: number | null,
-  alignmentProfessionId?: string | null,
 };
 
 export type DeleteAlignmentInput = {
-  id: string,
-  _version?: number | null,
-};
-
-export type CreateDiceTypeInput = {
-  id?: string | null,
-  name?: string | null,
-  _version?: number | null,
-};
-
-export type ModelDiceTypeConditionInput = {
-  name?: ModelStringInput | null,
-  and?: Array< ModelDiceTypeConditionInput | null > | null,
-  or?: Array< ModelDiceTypeConditionInput | null > | null,
-  not?: ModelDiceTypeConditionInput | null,
-  _deleted?: ModelBooleanInput | null,
-};
-
-export type UpdateDiceTypeInput = {
-  id: string,
-  name?: string | null,
-  _version?: number | null,
-};
-
-export type DeleteDiceTypeInput = {
-  id: string,
-  _version?: number | null,
-};
-
-export type CreateCharacterLookInput = {
-  id?: string | null,
-  _version?: number | null,
-  characterCharacterLooksId?: string | null,
-  characterLookLookId: string,
-};
-
-export type ModelCharacterLookConditionInput = {
-  and?: Array< ModelCharacterLookConditionInput | null > | null,
-  or?: Array< ModelCharacterLookConditionInput | null > | null,
-  not?: ModelCharacterLookConditionInput | null,
-  _deleted?: ModelBooleanInput | null,
-  characterCharacterLooksId?: ModelIDInput | null,
-  characterLookLookId?: ModelIDInput | null,
-};
-
-export type UpdateCharacterLookInput = {
-  id: string,
-  _version?: number | null,
-  characterCharacterLooksId?: string | null,
-  characterLookLookId?: string | null,
-};
-
-export type DeleteCharacterLookInput = {
   id: string,
   _version?: number | null,
 };
@@ -1126,22 +437,38 @@ export type CreateLookInput = {
   id?: string | null,
   name: string,
   description: string,
+  selected?: string | null,
   _version?: number | null,
 };
 
 export type ModelLookConditionInput = {
   name?: ModelStringInput | null,
   description?: ModelStringInput | null,
+  selected?: ModelStringInput | null,
   and?: Array< ModelLookConditionInput | null > | null,
   or?: Array< ModelLookConditionInput | null > | null,
   not?: ModelLookConditionInput | null,
   _deleted?: ModelBooleanInput | null,
 };
 
+export type Look = {
+  __typename: "Look",
+  id: string,
+  name: string,
+  description: string,
+  selected?: string | null,
+  createdAt: string,
+  updatedAt: string,
+  _version: number,
+  _deleted?: boolean | null,
+  _lastChangedAt: number,
+};
+
 export type UpdateLookInput = {
   id: string,
   name?: string | null,
   description?: string | null,
+  selected?: string | null,
   _version?: number | null,
 };
 
@@ -1164,11 +491,19 @@ export type CreateCharacterInput = {
   loadCurrent?: number | null,
   isTemplate?: boolean | null,
   tags?: Array< string | null > | null,
-  notes?: string | null,
+  notes?: Array< string | null > | null,
+  gear?: Array< string | null > | null,
+  startingMoves?: Array< string | null > | null,
+  advancedMovesTwoToTen?: Array< string | null > | null,
+  advancedMovesSixToTen?: Array< string | null > | null,
+  bonds?: Array< string | null > | null,
+  abilityScores?: Array< string | null > | null,
+  race?: string | null,
+  alignment?: string | null,
+  look?: Array< string | null > | null,
+  profession?: string | null,
+  spells?: Array< string | null > | null,
   _version?: number | null,
-  characterCharacterRaceId?: string | null,
-  characterCharacterAlignmentId?: string | null,
-  characterCharacterProfessionId?: string | null,
 };
 
 export type ModelCharacterConditionInput = {
@@ -1185,13 +520,71 @@ export type ModelCharacterConditionInput = {
   isTemplate?: ModelBooleanInput | null,
   tags?: ModelStringInput | null,
   notes?: ModelStringInput | null,
+  gear?: ModelStringInput | null,
+  startingMoves?: ModelStringInput | null,
+  advancedMovesTwoToTen?: ModelStringInput | null,
+  advancedMovesSixToTen?: ModelStringInput | null,
+  bonds?: ModelStringInput | null,
+  abilityScores?: ModelStringInput | null,
+  race?: ModelStringInput | null,
+  alignment?: ModelStringInput | null,
+  look?: ModelStringInput | null,
+  profession?: ModelStringInput | null,
+  spells?: ModelStringInput | null,
   and?: Array< ModelCharacterConditionInput | null > | null,
   or?: Array< ModelCharacterConditionInput | null > | null,
   not?: ModelCharacterConditionInput | null,
   _deleted?: ModelBooleanInput | null,
-  characterCharacterRaceId?: ModelIDInput | null,
-  characterCharacterAlignmentId?: ModelIDInput | null,
-  characterCharacterProfessionId?: ModelIDInput | null,
+};
+
+export type ModelIDInput = {
+  ne?: string | null,
+  eq?: string | null,
+  le?: string | null,
+  lt?: string | null,
+  ge?: string | null,
+  gt?: string | null,
+  contains?: string | null,
+  notContains?: string | null,
+  between?: Array< string | null > | null,
+  beginsWith?: string | null,
+  attributeExists?: boolean | null,
+  attributeType?: ModelAttributeTypes | null,
+  size?: ModelSizeInput | null,
+};
+
+export type Character = {
+  __typename: "Character",
+  userId: string,
+  id: string,
+  name: string,
+  level?: number | null,
+  xp?: number | null,
+  armor?: number | null,
+  hitPointsMax?: number | null,
+  hitPointsCurrent?: number | null,
+  coin?: number | null,
+  loadMax?: number | null,
+  loadCurrent?: number | null,
+  isTemplate?: boolean | null,
+  tags?: Array< string | null > | null,
+  notes?: Array< string | null > | null,
+  gear?: Array< string | null > | null,
+  startingMoves?: Array< string | null > | null,
+  advancedMovesTwoToTen?: Array< string | null > | null,
+  advancedMovesSixToTen?: Array< string | null > | null,
+  bonds?: Array< string | null > | null,
+  abilityScores?: Array< string | null > | null,
+  race?: string | null,
+  alignment?: string | null,
+  look?: Array< string | null > | null,
+  profession?: string | null,
+  spells?: Array< string | null > | null,
+  createdAt: string,
+  updatedAt: string,
+  _version: number,
+  _deleted?: boolean | null,
+  _lastChangedAt: number,
 };
 
 export type UpdateCharacterInput = {
@@ -1208,68 +601,24 @@ export type UpdateCharacterInput = {
   loadCurrent?: number | null,
   isTemplate?: boolean | null,
   tags?: Array< string | null > | null,
-  notes?: string | null,
+  notes?: Array< string | null > | null,
+  gear?: Array< string | null > | null,
+  startingMoves?: Array< string | null > | null,
+  advancedMovesTwoToTen?: Array< string | null > | null,
+  advancedMovesSixToTen?: Array< string | null > | null,
+  bonds?: Array< string | null > | null,
+  abilityScores?: Array< string | null > | null,
+  race?: string | null,
+  alignment?: string | null,
+  look?: Array< string | null > | null,
+  profession?: string | null,
+  spells?: Array< string | null > | null,
   _version?: number | null,
-  characterCharacterRaceId?: string | null,
-  characterCharacterAlignmentId?: string | null,
-  characterCharacterProfessionId?: string | null,
 };
 
 export type DeleteCharacterInput = {
   id: string,
   _version?: number | null,
-};
-
-export type ModelSourceFilterInput = {
-  id?: ModelIDInput | null,
-  name?: ModelStringInput | null,
-  and?: Array< ModelSourceFilterInput | null > | null,
-  or?: Array< ModelSourceFilterInput | null > | null,
-  not?: ModelSourceFilterInput | null,
-  _deleted?: ModelBooleanInput | null,
-};
-
-export type ModelSourceConnection = {
-  __typename: "ModelSourceConnection",
-  items:  Array<Source | null >,
-  nextToken?: string | null,
-  startedAt?: number | null,
-};
-
-export type ModelCharacterProfessionFilterInput = {
-  id?: ModelIDInput | null,
-  and?: Array< ModelCharacterProfessionFilterInput | null > | null,
-  or?: Array< ModelCharacterProfessionFilterInput | null > | null,
-  not?: ModelCharacterProfessionFilterInput | null,
-  _deleted?: ModelBooleanInput | null,
-  characterProfessionProfessionId?: ModelIDInput | null,
-  characterProfessionCharacterId?: ModelIDInput | null,
-};
-
-export type ModelCharacterProfessionConnection = {
-  __typename: "ModelCharacterProfessionConnection",
-  items:  Array<CharacterProfession | null >,
-  nextToken?: string | null,
-  startedAt?: number | null,
-};
-
-export type ModelProfessionFilterInput = {
-  id?: ModelIDInput | null,
-  name?: ModelStringInput | null,
-  description?: ModelStringInput | null,
-  and?: Array< ModelProfessionFilterInput | null > | null,
-  or?: Array< ModelProfessionFilterInput | null > | null,
-  not?: ModelProfessionFilterInput | null,
-  _deleted?: ModelBooleanInput | null,
-  professionSourceId?: ModelIDInput | null,
-  professionDiceTypeId?: ModelIDInput | null,
-};
-
-export type ModelProfessionConnection = {
-  __typename: "ModelProfessionConnection",
-  items:  Array<Profession | null >,
-  nextToken?: string | null,
-  startedAt?: number | null,
 };
 
 export type ModelSpellFilterInput = {
@@ -1279,12 +628,14 @@ export type ModelSpellFilterInput = {
   type?: ModelStringInput | null,
   ongoing?: ModelBooleanInput | null,
   description?: ModelStringInput | null,
+  selected?: ModelBooleanInput | null,
+  tags?: ModelStringInput | null,
+  source?: ModelStringInput | null,
+  profession?: ModelStringInput | null,
   and?: Array< ModelSpellFilterInput | null > | null,
   or?: Array< ModelSpellFilterInput | null > | null,
   not?: ModelSpellFilterInput | null,
   _deleted?: ModelBooleanInput | null,
-  spellSourceId?: ModelIDInput | null,
-  spellProfessionId?: ModelIDInput | null,
 };
 
 export type ModelSpellConnection = {
@@ -1294,41 +645,17 @@ export type ModelSpellConnection = {
   startedAt?: number | null,
 };
 
-export type ModelCharacterSpellFilterInput = {
-  id?: ModelIDInput | null,
-  selected?: ModelBooleanInput | null,
-  tags?: ModelStringInput | null,
-  and?: Array< ModelCharacterSpellFilterInput | null > | null,
-  or?: Array< ModelCharacterSpellFilterInput | null > | null,
-  not?: ModelCharacterSpellFilterInput | null,
-  _deleted?: ModelBooleanInput | null,
-  characterCharacterSpellsId?: ModelIDInput | null,
-  characterSpellSpellId?: ModelIDInput | null,
-};
-
-export type ModelCharacterGearFilterInput = {
-  id?: ModelIDInput | null,
-  uses?: ModelIntInput | null,
-  tags?: ModelStringInput | null,
-  and?: Array< ModelCharacterGearFilterInput | null > | null,
-  or?: Array< ModelCharacterGearFilterInput | null > | null,
-  not?: ModelCharacterGearFilterInput | null,
-  _deleted?: ModelBooleanInput | null,
-  characterCharacterGearId?: ModelIDInput | null,
-  characterGearGearId?: ModelIDInput | null,
-};
-
 export type ModelGearFilterInput = {
   id?: ModelIDInput | null,
   description?: ModelStringInput | null,
   weight?: ModelIntInput | null,
   uses?: ModelIntInput | null,
   tags?: ModelStringInput | null,
+  source?: ModelStringInput | null,
   and?: Array< ModelGearFilterInput | null > | null,
   or?: Array< ModelGearFilterInput | null > | null,
   not?: ModelGearFilterInput | null,
   _deleted?: ModelBooleanInput | null,
-  gearSourceId?: ModelIDInput | null,
 };
 
 export type ModelGearConnection = {
@@ -1338,28 +665,16 @@ export type ModelGearConnection = {
   startedAt?: number | null,
 };
 
-export type ModelCharacterMoveFilterInput = {
-  id?: ModelIDInput | null,
-  selected?: ModelBooleanInput | null,
-  and?: Array< ModelCharacterMoveFilterInput | null > | null,
-  or?: Array< ModelCharacterMoveFilterInput | null > | null,
-  not?: ModelCharacterMoveFilterInput | null,
-  _deleted?: ModelBooleanInput | null,
-  characterMovesStartingId?: ModelIDInput | null,
-  characterMovesTwoToTenId?: ModelIDInput | null,
-  characterMovesSixToTenId?: ModelIDInput | null,
-  characterMoveMoveId?: ModelIDInput | null,
-};
-
 export type ModelMoveFilterInput = {
   id?: ModelIDInput | null,
   description?: ModelStringInput | null,
+  selected?: ModelBooleanInput | null,
+  profession?: ModelStringInput | null,
+  source?: ModelStringInput | null,
   and?: Array< ModelMoveFilterInput | null > | null,
   or?: Array< ModelMoveFilterInput | null > | null,
   not?: ModelMoveFilterInput | null,
   _deleted?: ModelBooleanInput | null,
-  moveProfessionId?: ModelIDInput | null,
-  moveSourceId?: ModelIDInput | null,
 };
 
 export type ModelMoveConnection = {
@@ -1369,26 +684,16 @@ export type ModelMoveConnection = {
   startedAt?: number | null,
 };
 
-export type ModelCharacterBondFilterInput = {
-  id?: ModelIDInput | null,
-  description?: ModelStringInput | null,
-  selected?: ModelBooleanInput | null,
-  and?: Array< ModelCharacterBondFilterInput | null > | null,
-  or?: Array< ModelCharacterBondFilterInput | null > | null,
-  not?: ModelCharacterBondFilterInput | null,
-  _deleted?: ModelBooleanInput | null,
-  characterCharacterBondsId?: ModelIDInput | null,
-  characterBondBondId?: ModelIDInput | null,
-};
-
 export type ModelBondFilterInput = {
   id?: ModelIDInput | null,
   description?: ModelStringInput | null,
+  profession?: ModelStringInput | null,
+  selected?: ModelBooleanInput | null,
+  tags?: ModelStringInput | null,
   and?: Array< ModelBondFilterInput | null > | null,
   or?: Array< ModelBondFilterInput | null > | null,
   not?: ModelBondFilterInput | null,
   _deleted?: ModelBooleanInput | null,
-  bondProfessionId?: ModelIDInput | null,
 };
 
 export type ModelBondConnection = {
@@ -1398,25 +703,15 @@ export type ModelBondConnection = {
   startedAt?: number | null,
 };
 
-export type ModelCharacterAbilityScoreFilterInput = {
-  id?: ModelIDInput | null,
-  value?: ModelStringInput | null,
-  bonus?: ModelIntInput | null,
-  tags?: ModelStringInput | null,
-  and?: Array< ModelCharacterAbilityScoreFilterInput | null > | null,
-  or?: Array< ModelCharacterAbilityScoreFilterInput | null > | null,
-  not?: ModelCharacterAbilityScoreFilterInput | null,
-  _deleted?: ModelBooleanInput | null,
-  characterCharacterAbilityScoresId?: ModelIDInput | null,
-  characterAbilityScoreAbilityScoreId?: ModelIDInput | null,
-};
-
 export type ModelAbilityScoreFilterInput = {
   id?: ModelIDInput | null,
   name?: ModelStringInput | null,
   shortName?: ModelStringInput | null,
   debility?: ModelStringInput | null,
   debilityPenalty?: ModelStringInput | null,
+  value?: ModelStringInput | null,
+  bonus?: ModelIntInput | null,
+  tags?: ModelStringInput | null,
   and?: Array< ModelAbilityScoreFilterInput | null > | null,
   or?: Array< ModelAbilityScoreFilterInput | null > | null,
   not?: ModelAbilityScoreFilterInput | null,
@@ -1430,33 +725,16 @@ export type ModelAbilityScoreConnection = {
   startedAt?: number | null,
 };
 
-export type ModelCharacterRaceFilterInput = {
-  id?: ModelIDInput | null,
-  and?: Array< ModelCharacterRaceFilterInput | null > | null,
-  or?: Array< ModelCharacterRaceFilterInput | null > | null,
-  not?: ModelCharacterRaceFilterInput | null,
-  _deleted?: ModelBooleanInput | null,
-  characterRaceRaceId?: ModelIDInput | null,
-  characterRaceCharacterId?: ModelIDInput | null,
-};
-
-export type ModelCharacterRaceConnection = {
-  __typename: "ModelCharacterRaceConnection",
-  items:  Array<CharacterRace | null >,
-  nextToken?: string | null,
-  startedAt?: number | null,
-};
-
 export type ModelRaceFilterInput = {
   id?: ModelIDInput | null,
   name?: ModelStringInput | null,
   description?: ModelStringInput | null,
+  profession?: ModelStringInput | null,
+  source?: ModelStringInput | null,
   and?: Array< ModelRaceFilterInput | null > | null,
   or?: Array< ModelRaceFilterInput | null > | null,
   not?: ModelRaceFilterInput | null,
   _deleted?: ModelBooleanInput | null,
-  raceProfessionId?: ModelIDInput | null,
-  raceSourceId?: ModelIDInput | null,
 };
 
 export type ModelRaceConnection = {
@@ -1466,33 +744,16 @@ export type ModelRaceConnection = {
   startedAt?: number | null,
 };
 
-export type ModelCharacterAlignmentFilterInput = {
-  id?: ModelIDInput | null,
-  selected?: ModelBooleanInput | null,
-  and?: Array< ModelCharacterAlignmentFilterInput | null > | null,
-  or?: Array< ModelCharacterAlignmentFilterInput | null > | null,
-  not?: ModelCharacterAlignmentFilterInput | null,
-  _deleted?: ModelBooleanInput | null,
-  characterAlignmentAlignmentId?: ModelIDInput | null,
-  characterAlignmentCharacterId?: ModelIDInput | null,
-};
-
-export type ModelCharacterAlignmentConnection = {
-  __typename: "ModelCharacterAlignmentConnection",
-  items:  Array<CharacterAlignment | null >,
-  nextToken?: string | null,
-  startedAt?: number | null,
-};
-
 export type ModelAlignmentFilterInput = {
   id?: ModelIDInput | null,
   name?: ModelStringInput | null,
   description?: ModelStringInput | null,
+  selected?: ModelBooleanInput | null,
+  profession?: ModelStringInput | null,
   and?: Array< ModelAlignmentFilterInput | null > | null,
   or?: Array< ModelAlignmentFilterInput | null > | null,
   not?: ModelAlignmentFilterInput | null,
   _deleted?: ModelBooleanInput | null,
-  alignmentProfessionId?: ModelIDInput | null,
 };
 
 export type ModelAlignmentConnection = {
@@ -1502,36 +763,11 @@ export type ModelAlignmentConnection = {
   startedAt?: number | null,
 };
 
-export type ModelDiceTypeFilterInput = {
-  id?: ModelIDInput | null,
-  name?: ModelStringInput | null,
-  and?: Array< ModelDiceTypeFilterInput | null > | null,
-  or?: Array< ModelDiceTypeFilterInput | null > | null,
-  not?: ModelDiceTypeFilterInput | null,
-  _deleted?: ModelBooleanInput | null,
-};
-
-export type ModelDiceTypeConnection = {
-  __typename: "ModelDiceTypeConnection",
-  items:  Array<DiceType | null >,
-  nextToken?: string | null,
-  startedAt?: number | null,
-};
-
-export type ModelCharacterLookFilterInput = {
-  id?: ModelIDInput | null,
-  and?: Array< ModelCharacterLookFilterInput | null > | null,
-  or?: Array< ModelCharacterLookFilterInput | null > | null,
-  not?: ModelCharacterLookFilterInput | null,
-  _deleted?: ModelBooleanInput | null,
-  characterCharacterLooksId?: ModelIDInput | null,
-  characterLookLookId?: ModelIDInput | null,
-};
-
 export type ModelLookFilterInput = {
   id?: ModelIDInput | null,
   name?: ModelStringInput | null,
   description?: ModelStringInput | null,
+  selected?: ModelStringInput | null,
   and?: Array< ModelLookFilterInput | null > | null,
   or?: Array< ModelLookFilterInput | null > | null,
   not?: ModelLookFilterInput | null,
@@ -1560,13 +796,21 @@ export type ModelCharacterFilterInput = {
   isTemplate?: ModelBooleanInput | null,
   tags?: ModelStringInput | null,
   notes?: ModelStringInput | null,
+  gear?: ModelStringInput | null,
+  startingMoves?: ModelStringInput | null,
+  advancedMovesTwoToTen?: ModelStringInput | null,
+  advancedMovesSixToTen?: ModelStringInput | null,
+  bonds?: ModelStringInput | null,
+  abilityScores?: ModelStringInput | null,
+  race?: ModelStringInput | null,
+  alignment?: ModelStringInput | null,
+  look?: ModelStringInput | null,
+  profession?: ModelStringInput | null,
+  spells?: ModelStringInput | null,
   and?: Array< ModelCharacterFilterInput | null > | null,
   or?: Array< ModelCharacterFilterInput | null > | null,
   not?: ModelCharacterFilterInput | null,
   _deleted?: ModelBooleanInput | null,
-  characterCharacterRaceId?: ModelIDInput | null,
-  characterCharacterAlignmentId?: ModelIDInput | null,
-  characterCharacterProfessionId?: ModelIDInput | null,
 };
 
 export type ModelCharacterConnection = {
@@ -1576,12 +820,19 @@ export type ModelCharacterConnection = {
   startedAt?: number | null,
 };
 
-export type ModelSubscriptionUserFilterInput = {
+export type ModelSubscriptionSpellFilterInput = {
   id?: ModelSubscriptionIDInput | null,
   name?: ModelSubscriptionStringInput | null,
-  email?: ModelSubscriptionStringInput | null,
-  and?: Array< ModelSubscriptionUserFilterInput | null > | null,
-  or?: Array< ModelSubscriptionUserFilterInput | null > | null,
+  level?: ModelSubscriptionIntInput | null,
+  type?: ModelSubscriptionStringInput | null,
+  ongoing?: ModelSubscriptionBooleanInput | null,
+  description?: ModelSubscriptionStringInput | null,
+  selected?: ModelSubscriptionBooleanInput | null,
+  tags?: ModelSubscriptionStringInput | null,
+  source?: ModelSubscriptionStringInput | null,
+  profession?: ModelSubscriptionStringInput | null,
+  and?: Array< ModelSubscriptionSpellFilterInput | null > | null,
+  or?: Array< ModelSubscriptionSpellFilterInput | null > | null,
   _deleted?: ModelBooleanInput | null,
 };
 
@@ -1615,42 +866,6 @@ export type ModelSubscriptionStringInput = {
   notIn?: Array< string | null > | null,
 };
 
-export type ModelSubscriptionSourceFilterInput = {
-  id?: ModelSubscriptionIDInput | null,
-  name?: ModelSubscriptionStringInput | null,
-  and?: Array< ModelSubscriptionSourceFilterInput | null > | null,
-  or?: Array< ModelSubscriptionSourceFilterInput | null > | null,
-  _deleted?: ModelBooleanInput | null,
-};
-
-export type ModelSubscriptionCharacterProfessionFilterInput = {
-  id?: ModelSubscriptionIDInput | null,
-  and?: Array< ModelSubscriptionCharacterProfessionFilterInput | null > | null,
-  or?: Array< ModelSubscriptionCharacterProfessionFilterInput | null > | null,
-  _deleted?: ModelBooleanInput | null,
-};
-
-export type ModelSubscriptionProfessionFilterInput = {
-  id?: ModelSubscriptionIDInput | null,
-  name?: ModelSubscriptionStringInput | null,
-  description?: ModelSubscriptionStringInput | null,
-  and?: Array< ModelSubscriptionProfessionFilterInput | null > | null,
-  or?: Array< ModelSubscriptionProfessionFilterInput | null > | null,
-  _deleted?: ModelBooleanInput | null,
-};
-
-export type ModelSubscriptionSpellFilterInput = {
-  id?: ModelSubscriptionIDInput | null,
-  name?: ModelSubscriptionStringInput | null,
-  level?: ModelSubscriptionIntInput | null,
-  type?: ModelSubscriptionStringInput | null,
-  ongoing?: ModelSubscriptionBooleanInput | null,
-  description?: ModelSubscriptionStringInput | null,
-  and?: Array< ModelSubscriptionSpellFilterInput | null > | null,
-  or?: Array< ModelSubscriptionSpellFilterInput | null > | null,
-  _deleted?: ModelBooleanInput | null,
-};
-
 export type ModelSubscriptionIntInput = {
   ne?: number | null,
   eq?: number | null,
@@ -1668,75 +883,37 @@ export type ModelSubscriptionBooleanInput = {
   eq?: boolean | null,
 };
 
-export type ModelSubscriptionCharacterSpellFilterInput = {
-  id?: ModelSubscriptionIDInput | null,
-  selected?: ModelSubscriptionBooleanInput | null,
-  tags?: ModelSubscriptionStringInput | null,
-  and?: Array< ModelSubscriptionCharacterSpellFilterInput | null > | null,
-  or?: Array< ModelSubscriptionCharacterSpellFilterInput | null > | null,
-  _deleted?: ModelBooleanInput | null,
-};
-
-export type ModelSubscriptionCharacterGearFilterInput = {
-  id?: ModelSubscriptionIDInput | null,
-  uses?: ModelSubscriptionIntInput | null,
-  tags?: ModelSubscriptionStringInput | null,
-  and?: Array< ModelSubscriptionCharacterGearFilterInput | null > | null,
-  or?: Array< ModelSubscriptionCharacterGearFilterInput | null > | null,
-  _deleted?: ModelBooleanInput | null,
-};
-
 export type ModelSubscriptionGearFilterInput = {
   id?: ModelSubscriptionIDInput | null,
   description?: ModelSubscriptionStringInput | null,
   weight?: ModelSubscriptionIntInput | null,
   uses?: ModelSubscriptionIntInput | null,
   tags?: ModelSubscriptionStringInput | null,
+  source?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionGearFilterInput | null > | null,
   or?: Array< ModelSubscriptionGearFilterInput | null > | null,
-  _deleted?: ModelBooleanInput | null,
-};
-
-export type ModelSubscriptionCharacterMoveFilterInput = {
-  id?: ModelSubscriptionIDInput | null,
-  selected?: ModelSubscriptionBooleanInput | null,
-  and?: Array< ModelSubscriptionCharacterMoveFilterInput | null > | null,
-  or?: Array< ModelSubscriptionCharacterMoveFilterInput | null > | null,
   _deleted?: ModelBooleanInput | null,
 };
 
 export type ModelSubscriptionMoveFilterInput = {
   id?: ModelSubscriptionIDInput | null,
   description?: ModelSubscriptionStringInput | null,
+  selected?: ModelSubscriptionBooleanInput | null,
+  profession?: ModelSubscriptionStringInput | null,
+  source?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionMoveFilterInput | null > | null,
   or?: Array< ModelSubscriptionMoveFilterInput | null > | null,
-  _deleted?: ModelBooleanInput | null,
-};
-
-export type ModelSubscriptionCharacterBondFilterInput = {
-  id?: ModelSubscriptionIDInput | null,
-  description?: ModelSubscriptionStringInput | null,
-  selected?: ModelSubscriptionBooleanInput | null,
-  and?: Array< ModelSubscriptionCharacterBondFilterInput | null > | null,
-  or?: Array< ModelSubscriptionCharacterBondFilterInput | null > | null,
   _deleted?: ModelBooleanInput | null,
 };
 
 export type ModelSubscriptionBondFilterInput = {
   id?: ModelSubscriptionIDInput | null,
   description?: ModelSubscriptionStringInput | null,
+  profession?: ModelSubscriptionStringInput | null,
+  selected?: ModelSubscriptionBooleanInput | null,
+  tags?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionBondFilterInput | null > | null,
   or?: Array< ModelSubscriptionBondFilterInput | null > | null,
-  _deleted?: ModelBooleanInput | null,
-};
-
-export type ModelSubscriptionCharacterAbilityScoreFilterInput = {
-  id?: ModelSubscriptionIDInput | null,
-  value?: ModelSubscriptionStringInput | null,
-  bonus?: ModelSubscriptionIntInput | null,
-  tags?: ModelSubscriptionStringInput | null,
-  and?: Array< ModelSubscriptionCharacterAbilityScoreFilterInput | null > | null,
-  or?: Array< ModelSubscriptionCharacterAbilityScoreFilterInput | null > | null,
   _deleted?: ModelBooleanInput | null,
 };
 
@@ -1746,15 +923,11 @@ export type ModelSubscriptionAbilityScoreFilterInput = {
   shortName?: ModelSubscriptionStringInput | null,
   debility?: ModelSubscriptionStringInput | null,
   debilityPenalty?: ModelSubscriptionStringInput | null,
+  value?: ModelSubscriptionStringInput | null,
+  bonus?: ModelSubscriptionIntInput | null,
+  tags?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionAbilityScoreFilterInput | null > | null,
   or?: Array< ModelSubscriptionAbilityScoreFilterInput | null > | null,
-  _deleted?: ModelBooleanInput | null,
-};
-
-export type ModelSubscriptionCharacterRaceFilterInput = {
-  id?: ModelSubscriptionIDInput | null,
-  and?: Array< ModelSubscriptionCharacterRaceFilterInput | null > | null,
-  or?: Array< ModelSubscriptionCharacterRaceFilterInput | null > | null,
   _deleted?: ModelBooleanInput | null,
 };
 
@@ -1762,16 +935,10 @@ export type ModelSubscriptionRaceFilterInput = {
   id?: ModelSubscriptionIDInput | null,
   name?: ModelSubscriptionStringInput | null,
   description?: ModelSubscriptionStringInput | null,
+  profession?: ModelSubscriptionStringInput | null,
+  source?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionRaceFilterInput | null > | null,
   or?: Array< ModelSubscriptionRaceFilterInput | null > | null,
-  _deleted?: ModelBooleanInput | null,
-};
-
-export type ModelSubscriptionCharacterAlignmentFilterInput = {
-  id?: ModelSubscriptionIDInput | null,
-  selected?: ModelSubscriptionBooleanInput | null,
-  and?: Array< ModelSubscriptionCharacterAlignmentFilterInput | null > | null,
-  or?: Array< ModelSubscriptionCharacterAlignmentFilterInput | null > | null,
   _deleted?: ModelBooleanInput | null,
 };
 
@@ -1779,23 +946,10 @@ export type ModelSubscriptionAlignmentFilterInput = {
   id?: ModelSubscriptionIDInput | null,
   name?: ModelSubscriptionStringInput | null,
   description?: ModelSubscriptionStringInput | null,
+  selected?: ModelSubscriptionBooleanInput | null,
+  profession?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionAlignmentFilterInput | null > | null,
   or?: Array< ModelSubscriptionAlignmentFilterInput | null > | null,
-  _deleted?: ModelBooleanInput | null,
-};
-
-export type ModelSubscriptionDiceTypeFilterInput = {
-  id?: ModelSubscriptionIDInput | null,
-  name?: ModelSubscriptionStringInput | null,
-  and?: Array< ModelSubscriptionDiceTypeFilterInput | null > | null,
-  or?: Array< ModelSubscriptionDiceTypeFilterInput | null > | null,
-  _deleted?: ModelBooleanInput | null,
-};
-
-export type ModelSubscriptionCharacterLookFilterInput = {
-  id?: ModelSubscriptionIDInput | null,
-  and?: Array< ModelSubscriptionCharacterLookFilterInput | null > | null,
-  or?: Array< ModelSubscriptionCharacterLookFilterInput | null > | null,
   _deleted?: ModelBooleanInput | null,
 };
 
@@ -1803,6 +957,7 @@ export type ModelSubscriptionLookFilterInput = {
   id?: ModelSubscriptionIDInput | null,
   name?: ModelSubscriptionStringInput | null,
   description?: ModelSubscriptionStringInput | null,
+  selected?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionLookFilterInput | null > | null,
   or?: Array< ModelSubscriptionLookFilterInput | null > | null,
   _deleted?: ModelBooleanInput | null,
@@ -1823,439 +978,20 @@ export type ModelSubscriptionCharacterFilterInput = {
   isTemplate?: ModelSubscriptionBooleanInput | null,
   tags?: ModelSubscriptionStringInput | null,
   notes?: ModelSubscriptionStringInput | null,
+  gear?: ModelSubscriptionStringInput | null,
+  startingMoves?: ModelSubscriptionStringInput | null,
+  advancedMovesTwoToTen?: ModelSubscriptionStringInput | null,
+  advancedMovesSixToTen?: ModelSubscriptionStringInput | null,
+  bonds?: ModelSubscriptionStringInput | null,
+  abilityScores?: ModelSubscriptionStringInput | null,
+  race?: ModelSubscriptionStringInput | null,
+  alignment?: ModelSubscriptionStringInput | null,
+  look?: ModelSubscriptionStringInput | null,
+  profession?: ModelSubscriptionStringInput | null,
+  spells?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionCharacterFilterInput | null > | null,
   or?: Array< ModelSubscriptionCharacterFilterInput | null > | null,
   _deleted?: ModelBooleanInput | null,
-};
-
-export type ListCharactersByUserQueryVariables = {
-  filter?: ModelUserFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-};
-
-export type ListCharactersByUserQuery = {
-  listUsers?:  {
-    __typename: "ModelUserConnection",
-    items:  Array< {
-      __typename: "User",
-      id: string,
-      name: string,
-      email: string,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-    } | null >,
-    nextToken?: string | null,
-    startedAt?: number | null,
-  } | null,
-};
-
-export type CreateUserMutationVariables = {
-  input: CreateUserInput,
-  condition?: ModelUserConditionInput | null,
-};
-
-export type CreateUserMutation = {
-  createUser?:  {
-    __typename: "User",
-    id: string,
-    name: string,
-    email: string,
-    createdAt: string,
-    updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
-  } | null,
-};
-
-export type UpdateUserMutationVariables = {
-  input: UpdateUserInput,
-  condition?: ModelUserConditionInput | null,
-};
-
-export type UpdateUserMutation = {
-  updateUser?:  {
-    __typename: "User",
-    id: string,
-    name: string,
-    email: string,
-    createdAt: string,
-    updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
-  } | null,
-};
-
-export type DeleteUserMutationVariables = {
-  input: DeleteUserInput,
-  condition?: ModelUserConditionInput | null,
-};
-
-export type DeleteUserMutation = {
-  deleteUser?:  {
-    __typename: "User",
-    id: string,
-    name: string,
-    email: string,
-    createdAt: string,
-    updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
-  } | null,
-};
-
-export type CreateSourceMutationVariables = {
-  input: CreateSourceInput,
-  condition?: ModelSourceConditionInput | null,
-};
-
-export type CreateSourceMutation = {
-  createSource?:  {
-    __typename: "Source",
-    id: string,
-    name: string,
-    createdAt: string,
-    updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
-  } | null,
-};
-
-export type UpdateSourceMutationVariables = {
-  input: UpdateSourceInput,
-  condition?: ModelSourceConditionInput | null,
-};
-
-export type UpdateSourceMutation = {
-  updateSource?:  {
-    __typename: "Source",
-    id: string,
-    name: string,
-    createdAt: string,
-    updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
-  } | null,
-};
-
-export type DeleteSourceMutationVariables = {
-  input: DeleteSourceInput,
-  condition?: ModelSourceConditionInput | null,
-};
-
-export type DeleteSourceMutation = {
-  deleteSource?:  {
-    __typename: "Source",
-    id: string,
-    name: string,
-    createdAt: string,
-    updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
-  } | null,
-};
-
-export type CreateCharacterProfessionMutationVariables = {
-  input: CreateCharacterProfessionInput,
-  condition?: ModelCharacterProfessionConditionInput | null,
-};
-
-export type CreateCharacterProfessionMutation = {
-  createCharacterProfession?:  {
-    __typename: "CharacterProfession",
-    id: string,
-    Character?:  {
-      __typename: "Character",
-      userId: string,
-      id: string,
-      name: string,
-      level?: number | null,
-      xp?: number | null,
-      armor?: number | null,
-      hitPointsMax?: number | null,
-      hitPointsCurrent?: number | null,
-      coin?: number | null,
-      loadMax?: number | null,
-      loadCurrent?: number | null,
-      isTemplate?: boolean | null,
-      tags?: Array< string | null > | null,
-      notes?: string | null,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      characterCharacterRaceId?: string | null,
-      characterCharacterAlignmentId?: string | null,
-      characterCharacterProfessionId?: string | null,
-    } | null,
-    Profession?:  {
-      __typename: "Profession",
-      id: string,
-      name: string,
-      description: string,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      professionSourceId: string,
-      professionDiceTypeId?: string | null,
-    } | null,
-    createdAt: string,
-    updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
-    characterProfessionProfessionId?: string | null,
-    characterProfessionCharacterId?: string | null,
-  } | null,
-};
-
-export type UpdateCharacterProfessionMutationVariables = {
-  input: UpdateCharacterProfessionInput,
-  condition?: ModelCharacterProfessionConditionInput | null,
-};
-
-export type UpdateCharacterProfessionMutation = {
-  updateCharacterProfession?:  {
-    __typename: "CharacterProfession",
-    id: string,
-    Character?:  {
-      __typename: "Character",
-      userId: string,
-      id: string,
-      name: string,
-      level?: number | null,
-      xp?: number | null,
-      armor?: number | null,
-      hitPointsMax?: number | null,
-      hitPointsCurrent?: number | null,
-      coin?: number | null,
-      loadMax?: number | null,
-      loadCurrent?: number | null,
-      isTemplate?: boolean | null,
-      tags?: Array< string | null > | null,
-      notes?: string | null,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      characterCharacterRaceId?: string | null,
-      characterCharacterAlignmentId?: string | null,
-      characterCharacterProfessionId?: string | null,
-    } | null,
-    Profession?:  {
-      __typename: "Profession",
-      id: string,
-      name: string,
-      description: string,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      professionSourceId: string,
-      professionDiceTypeId?: string | null,
-    } | null,
-    createdAt: string,
-    updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
-    characterProfessionProfessionId?: string | null,
-    characterProfessionCharacterId?: string | null,
-  } | null,
-};
-
-export type DeleteCharacterProfessionMutationVariables = {
-  input: DeleteCharacterProfessionInput,
-  condition?: ModelCharacterProfessionConditionInput | null,
-};
-
-export type DeleteCharacterProfessionMutation = {
-  deleteCharacterProfession?:  {
-    __typename: "CharacterProfession",
-    id: string,
-    Character?:  {
-      __typename: "Character",
-      userId: string,
-      id: string,
-      name: string,
-      level?: number | null,
-      xp?: number | null,
-      armor?: number | null,
-      hitPointsMax?: number | null,
-      hitPointsCurrent?: number | null,
-      coin?: number | null,
-      loadMax?: number | null,
-      loadCurrent?: number | null,
-      isTemplate?: boolean | null,
-      tags?: Array< string | null > | null,
-      notes?: string | null,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      characterCharacterRaceId?: string | null,
-      characterCharacterAlignmentId?: string | null,
-      characterCharacterProfessionId?: string | null,
-    } | null,
-    Profession?:  {
-      __typename: "Profession",
-      id: string,
-      name: string,
-      description: string,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      professionSourceId: string,
-      professionDiceTypeId?: string | null,
-    } | null,
-    createdAt: string,
-    updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
-    characterProfessionProfessionId?: string | null,
-    characterProfessionCharacterId?: string | null,
-  } | null,
-};
-
-export type CreateProfessionMutationVariables = {
-  input: CreateProfessionInput,
-  condition?: ModelProfessionConditionInput | null,
-};
-
-export type CreateProfessionMutation = {
-  createProfession?:  {
-    __typename: "Profession",
-    id: string,
-    name: string,
-    description: string,
-    Source:  {
-      __typename: "Source",
-      id: string,
-      name: string,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-    },
-    DiceType?:  {
-      __typename: "DiceType",
-      id: string,
-      name?: string | null,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-    } | null,
-    createdAt: string,
-    updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
-    professionSourceId: string,
-    professionDiceTypeId?: string | null,
-  } | null,
-};
-
-export type UpdateProfessionMutationVariables = {
-  input: UpdateProfessionInput,
-  condition?: ModelProfessionConditionInput | null,
-};
-
-export type UpdateProfessionMutation = {
-  updateProfession?:  {
-    __typename: "Profession",
-    id: string,
-    name: string,
-    description: string,
-    Source:  {
-      __typename: "Source",
-      id: string,
-      name: string,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-    },
-    DiceType?:  {
-      __typename: "DiceType",
-      id: string,
-      name?: string | null,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-    } | null,
-    createdAt: string,
-    updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
-    professionSourceId: string,
-    professionDiceTypeId?: string | null,
-  } | null,
-};
-
-export type DeleteProfessionMutationVariables = {
-  input: DeleteProfessionInput,
-  condition?: ModelProfessionConditionInput | null,
-};
-
-export type DeleteProfessionMutation = {
-  deleteProfession?:  {
-    __typename: "Profession",
-    id: string,
-    name: string,
-    description: string,
-    Source:  {
-      __typename: "Source",
-      id: string,
-      name: string,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-    },
-    DiceType?:  {
-      __typename: "DiceType",
-      id: string,
-      name?: string | null,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-    } | null,
-    createdAt: string,
-    updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
-    professionSourceId: string,
-    professionDiceTypeId?: string | null,
-  } | null,
 };
 
 export type CreateSpellMutationVariables = {
@@ -2272,36 +1008,15 @@ export type CreateSpellMutation = {
     type: string,
     ongoing?: boolean | null,
     description: string,
-    Source:  {
-      __typename: "Source",
-      id: string,
-      name: string,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-    },
-    Profession:  {
-      __typename: "Profession",
-      id: string,
-      name: string,
-      description: string,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      professionSourceId: string,
-      professionDiceTypeId?: string | null,
-    },
+    selected?: boolean | null,
+    tags?: Array< string | null > | null,
+    source: string,
+    profession: string,
     createdAt: string,
     updatedAt: string,
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
-    spellSourceId: string,
-    spellProfessionId: string,
   } | null,
 };
 
@@ -2319,36 +1034,15 @@ export type UpdateSpellMutation = {
     type: string,
     ongoing?: boolean | null,
     description: string,
-    Source:  {
-      __typename: "Source",
-      id: string,
-      name: string,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-    },
-    Profession:  {
-      __typename: "Profession",
-      id: string,
-      name: string,
-      description: string,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      professionSourceId: string,
-      professionDiceTypeId?: string | null,
-    },
+    selected?: boolean | null,
+    tags?: Array< string | null > | null,
+    source: string,
+    profession: string,
     createdAt: string,
     updatedAt: string,
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
-    spellSourceId: string,
-    spellProfessionId: string,
   } | null,
 };
 
@@ -2366,402 +1060,15 @@ export type DeleteSpellMutation = {
     type: string,
     ongoing?: boolean | null,
     description: string,
-    Source:  {
-      __typename: "Source",
-      id: string,
-      name: string,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-    },
-    Profession:  {
-      __typename: "Profession",
-      id: string,
-      name: string,
-      description: string,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      professionSourceId: string,
-      professionDiceTypeId?: string | null,
-    },
-    createdAt: string,
-    updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
-    spellSourceId: string,
-    spellProfessionId: string,
-  } | null,
-};
-
-export type CreateCharacterSpellMutationVariables = {
-  input: CreateCharacterSpellInput,
-  condition?: ModelCharacterSpellConditionInput | null,
-};
-
-export type CreateCharacterSpellMutation = {
-  createCharacterSpell?:  {
-    __typename: "CharacterSpell",
-    id: string,
-    Spell:  {
-      __typename: "Spell",
-      id: string,
-      name: string,
-      level: number,
-      type: string,
-      ongoing?: boolean | null,
-      description: string,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      spellSourceId: string,
-      spellProfessionId: string,
-    },
     selected?: boolean | null,
     tags?: Array< string | null > | null,
-    Character?:  {
-      __typename: "Character",
-      userId: string,
-      id: string,
-      name: string,
-      level?: number | null,
-      xp?: number | null,
-      armor?: number | null,
-      hitPointsMax?: number | null,
-      hitPointsCurrent?: number | null,
-      coin?: number | null,
-      loadMax?: number | null,
-      loadCurrent?: number | null,
-      isTemplate?: boolean | null,
-      tags?: Array< string | null > | null,
-      notes?: string | null,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      characterCharacterRaceId?: string | null,
-      characterCharacterAlignmentId?: string | null,
-      characterCharacterProfessionId?: string | null,
-    } | null,
+    source: string,
+    profession: string,
     createdAt: string,
     updatedAt: string,
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
-    characterCharacterSpellsId?: string | null,
-    characterSpellSpellId: string,
-  } | null,
-};
-
-export type UpdateCharacterSpellMutationVariables = {
-  input: UpdateCharacterSpellInput,
-  condition?: ModelCharacterSpellConditionInput | null,
-};
-
-export type UpdateCharacterSpellMutation = {
-  updateCharacterSpell?:  {
-    __typename: "CharacterSpell",
-    id: string,
-    Spell:  {
-      __typename: "Spell",
-      id: string,
-      name: string,
-      level: number,
-      type: string,
-      ongoing?: boolean | null,
-      description: string,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      spellSourceId: string,
-      spellProfessionId: string,
-    },
-    selected?: boolean | null,
-    tags?: Array< string | null > | null,
-    Character?:  {
-      __typename: "Character",
-      userId: string,
-      id: string,
-      name: string,
-      level?: number | null,
-      xp?: number | null,
-      armor?: number | null,
-      hitPointsMax?: number | null,
-      hitPointsCurrent?: number | null,
-      coin?: number | null,
-      loadMax?: number | null,
-      loadCurrent?: number | null,
-      isTemplate?: boolean | null,
-      tags?: Array< string | null > | null,
-      notes?: string | null,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      characterCharacterRaceId?: string | null,
-      characterCharacterAlignmentId?: string | null,
-      characterCharacterProfessionId?: string | null,
-    } | null,
-    createdAt: string,
-    updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
-    characterCharacterSpellsId?: string | null,
-    characterSpellSpellId: string,
-  } | null,
-};
-
-export type DeleteCharacterSpellMutationVariables = {
-  input: DeleteCharacterSpellInput,
-  condition?: ModelCharacterSpellConditionInput | null,
-};
-
-export type DeleteCharacterSpellMutation = {
-  deleteCharacterSpell?:  {
-    __typename: "CharacterSpell",
-    id: string,
-    Spell:  {
-      __typename: "Spell",
-      id: string,
-      name: string,
-      level: number,
-      type: string,
-      ongoing?: boolean | null,
-      description: string,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      spellSourceId: string,
-      spellProfessionId: string,
-    },
-    selected?: boolean | null,
-    tags?: Array< string | null > | null,
-    Character?:  {
-      __typename: "Character",
-      userId: string,
-      id: string,
-      name: string,
-      level?: number | null,
-      xp?: number | null,
-      armor?: number | null,
-      hitPointsMax?: number | null,
-      hitPointsCurrent?: number | null,
-      coin?: number | null,
-      loadMax?: number | null,
-      loadCurrent?: number | null,
-      isTemplate?: boolean | null,
-      tags?: Array< string | null > | null,
-      notes?: string | null,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      characterCharacterRaceId?: string | null,
-      characterCharacterAlignmentId?: string | null,
-      characterCharacterProfessionId?: string | null,
-    } | null,
-    createdAt: string,
-    updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
-    characterCharacterSpellsId?: string | null,
-    characterSpellSpellId: string,
-  } | null,
-};
-
-export type CreateCharacterGearMutationVariables = {
-  input: CreateCharacterGearInput,
-  condition?: ModelCharacterGearConditionInput | null,
-};
-
-export type CreateCharacterGearMutation = {
-  createCharacterGear?:  {
-    __typename: "CharacterGear",
-    id: string,
-    Gear:  {
-      __typename: "Gear",
-      id: string,
-      description: string,
-      weight: number,
-      uses?: number | null,
-      tags?: Array< string | null > | null,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      gearSourceId?: string | null,
-    },
-    uses?: number | null,
-    tags?: Array< string | null > | null,
-    Character?:  {
-      __typename: "Character",
-      userId: string,
-      id: string,
-      name: string,
-      level?: number | null,
-      xp?: number | null,
-      armor?: number | null,
-      hitPointsMax?: number | null,
-      hitPointsCurrent?: number | null,
-      coin?: number | null,
-      loadMax?: number | null,
-      loadCurrent?: number | null,
-      isTemplate?: boolean | null,
-      tags?: Array< string | null > | null,
-      notes?: string | null,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      characterCharacterRaceId?: string | null,
-      characterCharacterAlignmentId?: string | null,
-      characterCharacterProfessionId?: string | null,
-    } | null,
-    createdAt: string,
-    updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
-    characterCharacterGearId?: string | null,
-    characterGearGearId: string,
-  } | null,
-};
-
-export type UpdateCharacterGearMutationVariables = {
-  input: UpdateCharacterGearInput,
-  condition?: ModelCharacterGearConditionInput | null,
-};
-
-export type UpdateCharacterGearMutation = {
-  updateCharacterGear?:  {
-    __typename: "CharacterGear",
-    id: string,
-    Gear:  {
-      __typename: "Gear",
-      id: string,
-      description: string,
-      weight: number,
-      uses?: number | null,
-      tags?: Array< string | null > | null,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      gearSourceId?: string | null,
-    },
-    uses?: number | null,
-    tags?: Array< string | null > | null,
-    Character?:  {
-      __typename: "Character",
-      userId: string,
-      id: string,
-      name: string,
-      level?: number | null,
-      xp?: number | null,
-      armor?: number | null,
-      hitPointsMax?: number | null,
-      hitPointsCurrent?: number | null,
-      coin?: number | null,
-      loadMax?: number | null,
-      loadCurrent?: number | null,
-      isTemplate?: boolean | null,
-      tags?: Array< string | null > | null,
-      notes?: string | null,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      characterCharacterRaceId?: string | null,
-      characterCharacterAlignmentId?: string | null,
-      characterCharacterProfessionId?: string | null,
-    } | null,
-    createdAt: string,
-    updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
-    characterCharacterGearId?: string | null,
-    characterGearGearId: string,
-  } | null,
-};
-
-export type DeleteCharacterGearMutationVariables = {
-  input: DeleteCharacterGearInput,
-  condition?: ModelCharacterGearConditionInput | null,
-};
-
-export type DeleteCharacterGearMutation = {
-  deleteCharacterGear?:  {
-    __typename: "CharacterGear",
-    id: string,
-    Gear:  {
-      __typename: "Gear",
-      id: string,
-      description: string,
-      weight: number,
-      uses?: number | null,
-      tags?: Array< string | null > | null,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      gearSourceId?: string | null,
-    },
-    uses?: number | null,
-    tags?: Array< string | null > | null,
-    Character?:  {
-      __typename: "Character",
-      userId: string,
-      id: string,
-      name: string,
-      level?: number | null,
-      xp?: number | null,
-      armor?: number | null,
-      hitPointsMax?: number | null,
-      hitPointsCurrent?: number | null,
-      coin?: number | null,
-      loadMax?: number | null,
-      loadCurrent?: number | null,
-      isTemplate?: boolean | null,
-      tags?: Array< string | null > | null,
-      notes?: string | null,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      characterCharacterRaceId?: string | null,
-      characterCharacterAlignmentId?: string | null,
-      characterCharacterProfessionId?: string | null,
-    } | null,
-    createdAt: string,
-    updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
-    characterCharacterGearId?: string | null,
-    characterGearGearId: string,
   } | null,
 };
 
@@ -2778,22 +1085,12 @@ export type CreateGearMutation = {
     weight: number,
     uses?: number | null,
     tags?: Array< string | null > | null,
-    Source?:  {
-      __typename: "Source",
-      id: string,
-      name: string,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-    } | null,
+    source: string,
     createdAt: string,
     updatedAt: string,
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
-    gearSourceId?: string | null,
   } | null,
 };
 
@@ -2810,22 +1107,12 @@ export type UpdateGearMutation = {
     weight: number,
     uses?: number | null,
     tags?: Array< string | null > | null,
-    Source?:  {
-      __typename: "Source",
-      id: string,
-      name: string,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-    } | null,
+    source: string,
     createdAt: string,
     updatedAt: string,
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
-    gearSourceId?: string | null,
   } | null,
 };
 
@@ -2842,199 +1129,12 @@ export type DeleteGearMutation = {
     weight: number,
     uses?: number | null,
     tags?: Array< string | null > | null,
-    Source?:  {
-      __typename: "Source",
-      id: string,
-      name: string,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-    } | null,
+    source: string,
     createdAt: string,
     updatedAt: string,
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
-    gearSourceId?: string | null,
-  } | null,
-};
-
-export type CreateCharacterMoveMutationVariables = {
-  input: CreateCharacterMoveInput,
-  condition?: ModelCharacterMoveConditionInput | null,
-};
-
-export type CreateCharacterMoveMutation = {
-  createCharacterMove?:  {
-    __typename: "CharacterMove",
-    id: string,
-    selected?: boolean | null,
-    Move:  {
-      __typename: "Move",
-      id: string,
-      description: string,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      moveProfessionId: string,
-      moveSourceId?: string | null,
-    },
-    Character?:  {
-      __typename: "Character",
-      userId: string,
-      id: string,
-      name: string,
-      level?: number | null,
-      xp?: number | null,
-      armor?: number | null,
-      hitPointsMax?: number | null,
-      hitPointsCurrent?: number | null,
-      coin?: number | null,
-      loadMax?: number | null,
-      loadCurrent?: number | null,
-      isTemplate?: boolean | null,
-      tags?: Array< string | null > | null,
-      notes?: string | null,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      characterCharacterRaceId?: string | null,
-      characterCharacterAlignmentId?: string | null,
-      characterCharacterProfessionId?: string | null,
-    } | null,
-    createdAt: string,
-    updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
-    characterMovesStartingId?: string | null,
-    characterMovesTwoToTenId?: string | null,
-    characterMovesSixToTenId?: string | null,
-    characterMoveMoveId: string,
-  } | null,
-};
-
-export type UpdateCharacterMoveMutationVariables = {
-  input: UpdateCharacterMoveInput,
-  condition?: ModelCharacterMoveConditionInput | null,
-};
-
-export type UpdateCharacterMoveMutation = {
-  updateCharacterMove?:  {
-    __typename: "CharacterMove",
-    id: string,
-    selected?: boolean | null,
-    Move:  {
-      __typename: "Move",
-      id: string,
-      description: string,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      moveProfessionId: string,
-      moveSourceId?: string | null,
-    },
-    Character?:  {
-      __typename: "Character",
-      userId: string,
-      id: string,
-      name: string,
-      level?: number | null,
-      xp?: number | null,
-      armor?: number | null,
-      hitPointsMax?: number | null,
-      hitPointsCurrent?: number | null,
-      coin?: number | null,
-      loadMax?: number | null,
-      loadCurrent?: number | null,
-      isTemplate?: boolean | null,
-      tags?: Array< string | null > | null,
-      notes?: string | null,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      characterCharacterRaceId?: string | null,
-      characterCharacterAlignmentId?: string | null,
-      characterCharacterProfessionId?: string | null,
-    } | null,
-    createdAt: string,
-    updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
-    characterMovesStartingId?: string | null,
-    characterMovesTwoToTenId?: string | null,
-    characterMovesSixToTenId?: string | null,
-    characterMoveMoveId: string,
-  } | null,
-};
-
-export type DeleteCharacterMoveMutationVariables = {
-  input: DeleteCharacterMoveInput,
-  condition?: ModelCharacterMoveConditionInput | null,
-};
-
-export type DeleteCharacterMoveMutation = {
-  deleteCharacterMove?:  {
-    __typename: "CharacterMove",
-    id: string,
-    selected?: boolean | null,
-    Move:  {
-      __typename: "Move",
-      id: string,
-      description: string,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      moveProfessionId: string,
-      moveSourceId?: string | null,
-    },
-    Character?:  {
-      __typename: "Character",
-      userId: string,
-      id: string,
-      name: string,
-      level?: number | null,
-      xp?: number | null,
-      armor?: number | null,
-      hitPointsMax?: number | null,
-      hitPointsCurrent?: number | null,
-      coin?: number | null,
-      loadMax?: number | null,
-      loadCurrent?: number | null,
-      isTemplate?: boolean | null,
-      tags?: Array< string | null > | null,
-      notes?: string | null,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      characterCharacterRaceId?: string | null,
-      characterCharacterAlignmentId?: string | null,
-      characterCharacterProfessionId?: string | null,
-    } | null,
-    createdAt: string,
-    updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
-    characterMovesStartingId?: string | null,
-    characterMovesTwoToTenId?: string | null,
-    characterMovesSixToTenId?: string | null,
-    characterMoveMoveId: string,
   } | null,
 };
 
@@ -3048,36 +1148,14 @@ export type CreateMoveMutation = {
     __typename: "Move",
     id: string,
     description: string,
-    Profession:  {
-      __typename: "Profession",
-      id: string,
-      name: string,
-      description: string,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      professionSourceId: string,
-      professionDiceTypeId?: string | null,
-    },
-    Source?:  {
-      __typename: "Source",
-      id: string,
-      name: string,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-    } | null,
+    selected?: boolean | null,
+    profession: string,
+    source: string,
     createdAt: string,
     updatedAt: string,
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
-    moveProfessionId: string,
-    moveSourceId?: string | null,
   } | null,
 };
 
@@ -3091,36 +1169,14 @@ export type UpdateMoveMutation = {
     __typename: "Move",
     id: string,
     description: string,
-    Profession:  {
-      __typename: "Profession",
-      id: string,
-      name: string,
-      description: string,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      professionSourceId: string,
-      professionDiceTypeId?: string | null,
-    },
-    Source?:  {
-      __typename: "Source",
-      id: string,
-      name: string,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-    } | null,
+    selected?: boolean | null,
+    profession: string,
+    source: string,
     createdAt: string,
     updatedAt: string,
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
-    moveProfessionId: string,
-    moveSourceId?: string | null,
   } | null,
 };
 
@@ -3134,207 +1190,14 @@ export type DeleteMoveMutation = {
     __typename: "Move",
     id: string,
     description: string,
-    Profession:  {
-      __typename: "Profession",
-      id: string,
-      name: string,
-      description: string,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      professionSourceId: string,
-      professionDiceTypeId?: string | null,
-    },
-    Source?:  {
-      __typename: "Source",
-      id: string,
-      name: string,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-    } | null,
-    createdAt: string,
-    updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
-    moveProfessionId: string,
-    moveSourceId?: string | null,
-  } | null,
-};
-
-export type CreateCharacterBondMutationVariables = {
-  input: CreateCharacterBondInput,
-  condition?: ModelCharacterBondConditionInput | null,
-};
-
-export type CreateCharacterBondMutation = {
-  createCharacterBond?:  {
-    __typename: "CharacterBond",
-    id: string,
-    description?: string | null,
-    Bond:  {
-      __typename: "Bond",
-      id: string,
-      description?: string | null,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      bondProfessionId: string,
-    },
     selected?: boolean | null,
-    Character?:  {
-      __typename: "Character",
-      userId: string,
-      id: string,
-      name: string,
-      level?: number | null,
-      xp?: number | null,
-      armor?: number | null,
-      hitPointsMax?: number | null,
-      hitPointsCurrent?: number | null,
-      coin?: number | null,
-      loadMax?: number | null,
-      loadCurrent?: number | null,
-      isTemplate?: boolean | null,
-      tags?: Array< string | null > | null,
-      notes?: string | null,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      characterCharacterRaceId?: string | null,
-      characterCharacterAlignmentId?: string | null,
-      characterCharacterProfessionId?: string | null,
-    } | null,
+    profession: string,
+    source: string,
     createdAt: string,
     updatedAt: string,
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
-    characterCharacterBondsId?: string | null,
-    characterBondBondId: string,
-  } | null,
-};
-
-export type UpdateCharacterBondMutationVariables = {
-  input: UpdateCharacterBondInput,
-  condition?: ModelCharacterBondConditionInput | null,
-};
-
-export type UpdateCharacterBondMutation = {
-  updateCharacterBond?:  {
-    __typename: "CharacterBond",
-    id: string,
-    description?: string | null,
-    Bond:  {
-      __typename: "Bond",
-      id: string,
-      description?: string | null,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      bondProfessionId: string,
-    },
-    selected?: boolean | null,
-    Character?:  {
-      __typename: "Character",
-      userId: string,
-      id: string,
-      name: string,
-      level?: number | null,
-      xp?: number | null,
-      armor?: number | null,
-      hitPointsMax?: number | null,
-      hitPointsCurrent?: number | null,
-      coin?: number | null,
-      loadMax?: number | null,
-      loadCurrent?: number | null,
-      isTemplate?: boolean | null,
-      tags?: Array< string | null > | null,
-      notes?: string | null,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      characterCharacterRaceId?: string | null,
-      characterCharacterAlignmentId?: string | null,
-      characterCharacterProfessionId?: string | null,
-    } | null,
-    createdAt: string,
-    updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
-    characterCharacterBondsId?: string | null,
-    characterBondBondId: string,
-  } | null,
-};
-
-export type DeleteCharacterBondMutationVariables = {
-  input: DeleteCharacterBondInput,
-  condition?: ModelCharacterBondConditionInput | null,
-};
-
-export type DeleteCharacterBondMutation = {
-  deleteCharacterBond?:  {
-    __typename: "CharacterBond",
-    id: string,
-    description?: string | null,
-    Bond:  {
-      __typename: "Bond",
-      id: string,
-      description?: string | null,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      bondProfessionId: string,
-    },
-    selected?: boolean | null,
-    Character?:  {
-      __typename: "Character",
-      userId: string,
-      id: string,
-      name: string,
-      level?: number | null,
-      xp?: number | null,
-      armor?: number | null,
-      hitPointsMax?: number | null,
-      hitPointsCurrent?: number | null,
-      coin?: number | null,
-      loadMax?: number | null,
-      loadCurrent?: number | null,
-      isTemplate?: boolean | null,
-      tags?: Array< string | null > | null,
-      notes?: string | null,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      characterCharacterRaceId?: string | null,
-      characterCharacterAlignmentId?: string | null,
-      characterCharacterProfessionId?: string | null,
-    } | null,
-    createdAt: string,
-    updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
-    characterCharacterBondsId?: string | null,
-    characterBondBondId: string,
   } | null,
 };
 
@@ -3348,25 +1211,14 @@ export type CreateBondMutation = {
     __typename: "Bond",
     id: string,
     description?: string | null,
-    Profession:  {
-      __typename: "Profession",
-      id: string,
-      name: string,
-      description: string,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      professionSourceId: string,
-      professionDiceTypeId?: string | null,
-    },
+    profession: string,
+    selected?: boolean | null,
+    tags?: Array< string | null > | null,
     createdAt: string,
     updatedAt: string,
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
-    bondProfessionId: string,
   } | null,
 };
 
@@ -3380,25 +1232,14 @@ export type UpdateBondMutation = {
     __typename: "Bond",
     id: string,
     description?: string | null,
-    Profession:  {
-      __typename: "Profession",
-      id: string,
-      name: string,
-      description: string,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      professionSourceId: string,
-      professionDiceTypeId?: string | null,
-    },
+    profession: string,
+    selected?: boolean | null,
+    tags?: Array< string | null > | null,
     createdAt: string,
     updatedAt: string,
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
-    bondProfessionId: string,
   } | null,
 };
 
@@ -3412,205 +1253,14 @@ export type DeleteBondMutation = {
     __typename: "Bond",
     id: string,
     description?: string | null,
-    Profession:  {
-      __typename: "Profession",
-      id: string,
-      name: string,
-      description: string,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      professionSourceId: string,
-      professionDiceTypeId?: string | null,
-    },
-    createdAt: string,
-    updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
-    bondProfessionId: string,
-  } | null,
-};
-
-export type CreateCharacterAbilityScoreMutationVariables = {
-  input: CreateCharacterAbilityScoreInput,
-  condition?: ModelCharacterAbilityScoreConditionInput | null,
-};
-
-export type CreateCharacterAbilityScoreMutation = {
-  createCharacterAbilityScore?:  {
-    __typename: "CharacterAbilityScore",
-    AbilityScore:  {
-      __typename: "AbilityScore",
-      id: string,
-      name: string,
-      shortName: string,
-      debility: string,
-      debilityPenalty: string,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-    },
-    id: string,
-    value: string,
-    bonus: number,
+    profession: string,
+    selected?: boolean | null,
     tags?: Array< string | null > | null,
-    Character?:  {
-      __typename: "Character",
-      userId: string,
-      id: string,
-      name: string,
-      level?: number | null,
-      xp?: number | null,
-      armor?: number | null,
-      hitPointsMax?: number | null,
-      hitPointsCurrent?: number | null,
-      coin?: number | null,
-      loadMax?: number | null,
-      loadCurrent?: number | null,
-      isTemplate?: boolean | null,
-      tags?: Array< string | null > | null,
-      notes?: string | null,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      characterCharacterRaceId?: string | null,
-      characterCharacterAlignmentId?: string | null,
-      characterCharacterProfessionId?: string | null,
-    } | null,
     createdAt: string,
     updatedAt: string,
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
-    characterCharacterAbilityScoresId?: string | null,
-    characterAbilityScoreAbilityScoreId: string,
-  } | null,
-};
-
-export type UpdateCharacterAbilityScoreMutationVariables = {
-  input: UpdateCharacterAbilityScoreInput,
-  condition?: ModelCharacterAbilityScoreConditionInput | null,
-};
-
-export type UpdateCharacterAbilityScoreMutation = {
-  updateCharacterAbilityScore?:  {
-    __typename: "CharacterAbilityScore",
-    AbilityScore:  {
-      __typename: "AbilityScore",
-      id: string,
-      name: string,
-      shortName: string,
-      debility: string,
-      debilityPenalty: string,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-    },
-    id: string,
-    value: string,
-    bonus: number,
-    tags?: Array< string | null > | null,
-    Character?:  {
-      __typename: "Character",
-      userId: string,
-      id: string,
-      name: string,
-      level?: number | null,
-      xp?: number | null,
-      armor?: number | null,
-      hitPointsMax?: number | null,
-      hitPointsCurrent?: number | null,
-      coin?: number | null,
-      loadMax?: number | null,
-      loadCurrent?: number | null,
-      isTemplate?: boolean | null,
-      tags?: Array< string | null > | null,
-      notes?: string | null,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      characterCharacterRaceId?: string | null,
-      characterCharacterAlignmentId?: string | null,
-      characterCharacterProfessionId?: string | null,
-    } | null,
-    createdAt: string,
-    updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
-    characterCharacterAbilityScoresId?: string | null,
-    characterAbilityScoreAbilityScoreId: string,
-  } | null,
-};
-
-export type DeleteCharacterAbilityScoreMutationVariables = {
-  input: DeleteCharacterAbilityScoreInput,
-  condition?: ModelCharacterAbilityScoreConditionInput | null,
-};
-
-export type DeleteCharacterAbilityScoreMutation = {
-  deleteCharacterAbilityScore?:  {
-    __typename: "CharacterAbilityScore",
-    AbilityScore:  {
-      __typename: "AbilityScore",
-      id: string,
-      name: string,
-      shortName: string,
-      debility: string,
-      debilityPenalty: string,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-    },
-    id: string,
-    value: string,
-    bonus: number,
-    tags?: Array< string | null > | null,
-    Character?:  {
-      __typename: "Character",
-      userId: string,
-      id: string,
-      name: string,
-      level?: number | null,
-      xp?: number | null,
-      armor?: number | null,
-      hitPointsMax?: number | null,
-      hitPointsCurrent?: number | null,
-      coin?: number | null,
-      loadMax?: number | null,
-      loadCurrent?: number | null,
-      isTemplate?: boolean | null,
-      tags?: Array< string | null > | null,
-      notes?: string | null,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      characterCharacterRaceId?: string | null,
-      characterCharacterAlignmentId?: string | null,
-      characterCharacterProfessionId?: string | null,
-    } | null,
-    createdAt: string,
-    updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
-    characterCharacterAbilityScoresId?: string | null,
-    characterAbilityScoreAbilityScoreId: string,
   } | null,
 };
 
@@ -3627,6 +1277,9 @@ export type CreateAbilityScoreMutation = {
     shortName: string,
     debility: string,
     debilityPenalty: string,
+    value: string,
+    bonus: number,
+    tags?: Array< string | null > | null,
     createdAt: string,
     updatedAt: string,
     _version: number,
@@ -3648,6 +1301,9 @@ export type UpdateAbilityScoreMutation = {
     shortName: string,
     debility: string,
     debilityPenalty: string,
+    value: string,
+    bonus: number,
+    tags?: Array< string | null > | null,
     createdAt: string,
     updatedAt: string,
     _version: number,
@@ -3669,182 +1325,14 @@ export type DeleteAbilityScoreMutation = {
     shortName: string,
     debility: string,
     debilityPenalty: string,
+    value: string,
+    bonus: number,
+    tags?: Array< string | null > | null,
     createdAt: string,
     updatedAt: string,
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
-  } | null,
-};
-
-export type CreateCharacterRaceMutationVariables = {
-  input: CreateCharacterRaceInput,
-  condition?: ModelCharacterRaceConditionInput | null,
-};
-
-export type CreateCharacterRaceMutation = {
-  createCharacterRace?:  {
-    __typename: "CharacterRace",
-    id: string,
-    Race:  {
-      __typename: "Race",
-      id: string,
-      name?: string | null,
-      description?: string | null,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      raceProfessionId?: string | null,
-      raceSourceId: string,
-    },
-    Character?:  {
-      __typename: "Character",
-      userId: string,
-      id: string,
-      name: string,
-      level?: number | null,
-      xp?: number | null,
-      armor?: number | null,
-      hitPointsMax?: number | null,
-      hitPointsCurrent?: number | null,
-      coin?: number | null,
-      loadMax?: number | null,
-      loadCurrent?: number | null,
-      isTemplate?: boolean | null,
-      tags?: Array< string | null > | null,
-      notes?: string | null,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      characterCharacterRaceId?: string | null,
-      characterCharacterAlignmentId?: string | null,
-      characterCharacterProfessionId?: string | null,
-    } | null,
-    createdAt: string,
-    updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
-    characterRaceRaceId: string,
-    characterRaceCharacterId?: string | null,
-  } | null,
-};
-
-export type UpdateCharacterRaceMutationVariables = {
-  input: UpdateCharacterRaceInput,
-  condition?: ModelCharacterRaceConditionInput | null,
-};
-
-export type UpdateCharacterRaceMutation = {
-  updateCharacterRace?:  {
-    __typename: "CharacterRace",
-    id: string,
-    Race:  {
-      __typename: "Race",
-      id: string,
-      name?: string | null,
-      description?: string | null,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      raceProfessionId?: string | null,
-      raceSourceId: string,
-    },
-    Character?:  {
-      __typename: "Character",
-      userId: string,
-      id: string,
-      name: string,
-      level?: number | null,
-      xp?: number | null,
-      armor?: number | null,
-      hitPointsMax?: number | null,
-      hitPointsCurrent?: number | null,
-      coin?: number | null,
-      loadMax?: number | null,
-      loadCurrent?: number | null,
-      isTemplate?: boolean | null,
-      tags?: Array< string | null > | null,
-      notes?: string | null,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      characterCharacterRaceId?: string | null,
-      characterCharacterAlignmentId?: string | null,
-      characterCharacterProfessionId?: string | null,
-    } | null,
-    createdAt: string,
-    updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
-    characterRaceRaceId: string,
-    characterRaceCharacterId?: string | null,
-  } | null,
-};
-
-export type DeleteCharacterRaceMutationVariables = {
-  input: DeleteCharacterRaceInput,
-  condition?: ModelCharacterRaceConditionInput | null,
-};
-
-export type DeleteCharacterRaceMutation = {
-  deleteCharacterRace?:  {
-    __typename: "CharacterRace",
-    id: string,
-    Race:  {
-      __typename: "Race",
-      id: string,
-      name?: string | null,
-      description?: string | null,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      raceProfessionId?: string | null,
-      raceSourceId: string,
-    },
-    Character?:  {
-      __typename: "Character",
-      userId: string,
-      id: string,
-      name: string,
-      level?: number | null,
-      xp?: number | null,
-      armor?: number | null,
-      hitPointsMax?: number | null,
-      hitPointsCurrent?: number | null,
-      coin?: number | null,
-      loadMax?: number | null,
-      loadCurrent?: number | null,
-      isTemplate?: boolean | null,
-      tags?: Array< string | null > | null,
-      notes?: string | null,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      characterCharacterRaceId?: string | null,
-      characterCharacterAlignmentId?: string | null,
-      characterCharacterProfessionId?: string | null,
-    } | null,
-    createdAt: string,
-    updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
-    characterRaceRaceId: string,
-    characterRaceCharacterId?: string | null,
   } | null,
 };
 
@@ -3859,36 +1347,13 @@ export type CreateRaceMutation = {
     id: string,
     name?: string | null,
     description?: string | null,
-    Profession?:  {
-      __typename: "Profession",
-      id: string,
-      name: string,
-      description: string,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      professionSourceId: string,
-      professionDiceTypeId?: string | null,
-    } | null,
-    Source:  {
-      __typename: "Source",
-      id: string,
-      name: string,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-    },
+    profession: string,
+    source: string,
     createdAt: string,
     updatedAt: string,
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
-    raceProfessionId?: string | null,
-    raceSourceId: string,
   } | null,
 };
 
@@ -3903,36 +1368,13 @@ export type UpdateRaceMutation = {
     id: string,
     name?: string | null,
     description?: string | null,
-    Profession?:  {
-      __typename: "Profession",
-      id: string,
-      name: string,
-      description: string,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      professionSourceId: string,
-      professionDiceTypeId?: string | null,
-    } | null,
-    Source:  {
-      __typename: "Source",
-      id: string,
-      name: string,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-    },
+    profession: string,
+    source: string,
     createdAt: string,
     updatedAt: string,
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
-    raceProfessionId?: string | null,
-    raceSourceId: string,
   } | null,
 };
 
@@ -3947,207 +1389,13 @@ export type DeleteRaceMutation = {
     id: string,
     name?: string | null,
     description?: string | null,
-    Profession?:  {
-      __typename: "Profession",
-      id: string,
-      name: string,
-      description: string,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      professionSourceId: string,
-      professionDiceTypeId?: string | null,
-    } | null,
-    Source:  {
-      __typename: "Source",
-      id: string,
-      name: string,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-    },
+    profession: string,
+    source: string,
     createdAt: string,
     updatedAt: string,
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
-    raceProfessionId?: string | null,
-    raceSourceId: string,
-  } | null,
-};
-
-export type CreateCharacterAlignmentMutationVariables = {
-  input: CreateCharacterAlignmentInput,
-  condition?: ModelCharacterAlignmentConditionInput | null,
-};
-
-export type CreateCharacterAlignmentMutation = {
-  createCharacterAlignment?:  {
-    __typename: "CharacterAlignment",
-    id: string,
-    Alignment:  {
-      __typename: "Alignment",
-      id: string,
-      name?: string | null,
-      description?: string | null,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      alignmentProfessionId: string,
-    },
-    selected?: boolean | null,
-    Character?:  {
-      __typename: "Character",
-      userId: string,
-      id: string,
-      name: string,
-      level?: number | null,
-      xp?: number | null,
-      armor?: number | null,
-      hitPointsMax?: number | null,
-      hitPointsCurrent?: number | null,
-      coin?: number | null,
-      loadMax?: number | null,
-      loadCurrent?: number | null,
-      isTemplate?: boolean | null,
-      tags?: Array< string | null > | null,
-      notes?: string | null,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      characterCharacterRaceId?: string | null,
-      characterCharacterAlignmentId?: string | null,
-      characterCharacterProfessionId?: string | null,
-    } | null,
-    createdAt: string,
-    updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
-    characterAlignmentAlignmentId: string,
-    characterAlignmentCharacterId?: string | null,
-  } | null,
-};
-
-export type UpdateCharacterAlignmentMutationVariables = {
-  input: UpdateCharacterAlignmentInput,
-  condition?: ModelCharacterAlignmentConditionInput | null,
-};
-
-export type UpdateCharacterAlignmentMutation = {
-  updateCharacterAlignment?:  {
-    __typename: "CharacterAlignment",
-    id: string,
-    Alignment:  {
-      __typename: "Alignment",
-      id: string,
-      name?: string | null,
-      description?: string | null,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      alignmentProfessionId: string,
-    },
-    selected?: boolean | null,
-    Character?:  {
-      __typename: "Character",
-      userId: string,
-      id: string,
-      name: string,
-      level?: number | null,
-      xp?: number | null,
-      armor?: number | null,
-      hitPointsMax?: number | null,
-      hitPointsCurrent?: number | null,
-      coin?: number | null,
-      loadMax?: number | null,
-      loadCurrent?: number | null,
-      isTemplate?: boolean | null,
-      tags?: Array< string | null > | null,
-      notes?: string | null,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      characterCharacterRaceId?: string | null,
-      characterCharacterAlignmentId?: string | null,
-      characterCharacterProfessionId?: string | null,
-    } | null,
-    createdAt: string,
-    updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
-    characterAlignmentAlignmentId: string,
-    characterAlignmentCharacterId?: string | null,
-  } | null,
-};
-
-export type DeleteCharacterAlignmentMutationVariables = {
-  input: DeleteCharacterAlignmentInput,
-  condition?: ModelCharacterAlignmentConditionInput | null,
-};
-
-export type DeleteCharacterAlignmentMutation = {
-  deleteCharacterAlignment?:  {
-    __typename: "CharacterAlignment",
-    id: string,
-    Alignment:  {
-      __typename: "Alignment",
-      id: string,
-      name?: string | null,
-      description?: string | null,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      alignmentProfessionId: string,
-    },
-    selected?: boolean | null,
-    Character?:  {
-      __typename: "Character",
-      userId: string,
-      id: string,
-      name: string,
-      level?: number | null,
-      xp?: number | null,
-      armor?: number | null,
-      hitPointsMax?: number | null,
-      hitPointsCurrent?: number | null,
-      coin?: number | null,
-      loadMax?: number | null,
-      loadCurrent?: number | null,
-      isTemplate?: boolean | null,
-      tags?: Array< string | null > | null,
-      notes?: string | null,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      characterCharacterRaceId?: string | null,
-      characterCharacterAlignmentId?: string | null,
-      characterCharacterProfessionId?: string | null,
-    } | null,
-    createdAt: string,
-    updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
-    characterAlignmentAlignmentId: string,
-    characterAlignmentCharacterId?: string | null,
   } | null,
 };
 
@@ -4162,25 +1410,13 @@ export type CreateAlignmentMutation = {
     id: string,
     name?: string | null,
     description?: string | null,
-    Profession:  {
-      __typename: "Profession",
-      id: string,
-      name: string,
-      description: string,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      professionSourceId: string,
-      professionDiceTypeId?: string | null,
-    },
+    selected?: boolean | null,
+    profession: string,
     createdAt: string,
     updatedAt: string,
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
-    alignmentProfessionId: string,
   } | null,
 };
 
@@ -4195,25 +1431,13 @@ export type UpdateAlignmentMutation = {
     id: string,
     name?: string | null,
     description?: string | null,
-    Profession:  {
-      __typename: "Profession",
-      id: string,
-      name: string,
-      description: string,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      professionSourceId: string,
-      professionDiceTypeId?: string | null,
-    },
+    selected?: boolean | null,
+    profession: string,
     createdAt: string,
     updatedAt: string,
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
-    alignmentProfessionId: string,
   } | null,
 };
 
@@ -4228,244 +1452,13 @@ export type DeleteAlignmentMutation = {
     id: string,
     name?: string | null,
     description?: string | null,
-    Profession:  {
-      __typename: "Profession",
-      id: string,
-      name: string,
-      description: string,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      professionSourceId: string,
-      professionDiceTypeId?: string | null,
-    },
+    selected?: boolean | null,
+    profession: string,
     createdAt: string,
     updatedAt: string,
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
-    alignmentProfessionId: string,
-  } | null,
-};
-
-export type CreateDiceTypeMutationVariables = {
-  input: CreateDiceTypeInput,
-  condition?: ModelDiceTypeConditionInput | null,
-};
-
-export type CreateDiceTypeMutation = {
-  createDiceType?:  {
-    __typename: "DiceType",
-    id: string,
-    name?: string | null,
-    createdAt: string,
-    updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
-  } | null,
-};
-
-export type UpdateDiceTypeMutationVariables = {
-  input: UpdateDiceTypeInput,
-  condition?: ModelDiceTypeConditionInput | null,
-};
-
-export type UpdateDiceTypeMutation = {
-  updateDiceType?:  {
-    __typename: "DiceType",
-    id: string,
-    name?: string | null,
-    createdAt: string,
-    updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
-  } | null,
-};
-
-export type DeleteDiceTypeMutationVariables = {
-  input: DeleteDiceTypeInput,
-  condition?: ModelDiceTypeConditionInput | null,
-};
-
-export type DeleteDiceTypeMutation = {
-  deleteDiceType?:  {
-    __typename: "DiceType",
-    id: string,
-    name?: string | null,
-    createdAt: string,
-    updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
-  } | null,
-};
-
-export type CreateCharacterLookMutationVariables = {
-  input: CreateCharacterLookInput,
-  condition?: ModelCharacterLookConditionInput | null,
-};
-
-export type CreateCharacterLookMutation = {
-  createCharacterLook?:  {
-    __typename: "CharacterLook",
-    id: string,
-    Look:  {
-      __typename: "Look",
-      id: string,
-      name: string,
-      description: string,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-    },
-    Character?:  {
-      __typename: "Character",
-      userId: string,
-      id: string,
-      name: string,
-      level?: number | null,
-      xp?: number | null,
-      armor?: number | null,
-      hitPointsMax?: number | null,
-      hitPointsCurrent?: number | null,
-      coin?: number | null,
-      loadMax?: number | null,
-      loadCurrent?: number | null,
-      isTemplate?: boolean | null,
-      tags?: Array< string | null > | null,
-      notes?: string | null,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      characterCharacterRaceId?: string | null,
-      characterCharacterAlignmentId?: string | null,
-      characterCharacterProfessionId?: string | null,
-    } | null,
-    createdAt: string,
-    updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
-    characterCharacterLooksId?: string | null,
-    characterLookLookId: string,
-  } | null,
-};
-
-export type UpdateCharacterLookMutationVariables = {
-  input: UpdateCharacterLookInput,
-  condition?: ModelCharacterLookConditionInput | null,
-};
-
-export type UpdateCharacterLookMutation = {
-  updateCharacterLook?:  {
-    __typename: "CharacterLook",
-    id: string,
-    Look:  {
-      __typename: "Look",
-      id: string,
-      name: string,
-      description: string,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-    },
-    Character?:  {
-      __typename: "Character",
-      userId: string,
-      id: string,
-      name: string,
-      level?: number | null,
-      xp?: number | null,
-      armor?: number | null,
-      hitPointsMax?: number | null,
-      hitPointsCurrent?: number | null,
-      coin?: number | null,
-      loadMax?: number | null,
-      loadCurrent?: number | null,
-      isTemplate?: boolean | null,
-      tags?: Array< string | null > | null,
-      notes?: string | null,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      characterCharacterRaceId?: string | null,
-      characterCharacterAlignmentId?: string | null,
-      characterCharacterProfessionId?: string | null,
-    } | null,
-    createdAt: string,
-    updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
-    characterCharacterLooksId?: string | null,
-    characterLookLookId: string,
-  } | null,
-};
-
-export type DeleteCharacterLookMutationVariables = {
-  input: DeleteCharacterLookInput,
-  condition?: ModelCharacterLookConditionInput | null,
-};
-
-export type DeleteCharacterLookMutation = {
-  deleteCharacterLook?:  {
-    __typename: "CharacterLook",
-    id: string,
-    Look:  {
-      __typename: "Look",
-      id: string,
-      name: string,
-      description: string,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-    },
-    Character?:  {
-      __typename: "Character",
-      userId: string,
-      id: string,
-      name: string,
-      level?: number | null,
-      xp?: number | null,
-      armor?: number | null,
-      hitPointsMax?: number | null,
-      hitPointsCurrent?: number | null,
-      coin?: number | null,
-      loadMax?: number | null,
-      loadCurrent?: number | null,
-      isTemplate?: boolean | null,
-      tags?: Array< string | null > | null,
-      notes?: string | null,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      characterCharacterRaceId?: string | null,
-      characterCharacterAlignmentId?: string | null,
-      characterCharacterProfessionId?: string | null,
-    } | null,
-    createdAt: string,
-    updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
-    characterCharacterLooksId?: string | null,
-    characterLookLookId: string,
   } | null,
 };
 
@@ -4480,6 +1473,7 @@ export type CreateLookMutation = {
     id: string,
     name: string,
     description: string,
+    selected?: string | null,
     createdAt: string,
     updatedAt: string,
     _version: number,
@@ -4499,6 +1493,7 @@ export type UpdateLookMutation = {
     id: string,
     name: string,
     description: string,
+    selected?: string | null,
     createdAt: string,
     updatedAt: string,
     _version: number,
@@ -4518,6 +1513,7 @@ export type DeleteLookMutation = {
     id: string,
     name: string,
     description: string,
+    selected?: string | null,
     createdAt: string,
     updatedAt: string,
     _version: number,
@@ -4547,89 +1543,23 @@ export type CreateCharacterMutation = {
     loadCurrent?: number | null,
     isTemplate?: boolean | null,
     tags?: Array< string | null > | null,
-    notes?: string | null,
-    CharacterGear?:  {
-      __typename: "ModelCharacterGearConnection",
-      nextToken?: string | null,
-      startedAt?: number | null,
-    } | null,
-    MovesStarting?:  {
-      __typename: "ModelCharacterMoveConnection",
-      nextToken?: string | null,
-      startedAt?: number | null,
-    } | null,
-    MovesTwoToTen?:  {
-      __typename: "ModelCharacterMoveConnection",
-      nextToken?: string | null,
-      startedAt?: number | null,
-    } | null,
-    MovesSixToTen?:  {
-      __typename: "ModelCharacterMoveConnection",
-      nextToken?: string | null,
-      startedAt?: number | null,
-    } | null,
-    CharacterBonds?:  {
-      __typename: "ModelCharacterBondConnection",
-      nextToken?: string | null,
-      startedAt?: number | null,
-    } | null,
-    CharacterAbilityScores?:  {
-      __typename: "ModelCharacterAbilityScoreConnection",
-      nextToken?: string | null,
-      startedAt?: number | null,
-    } | null,
-    CharacterRace?:  {
-      __typename: "CharacterRace",
-      id: string,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      characterRaceRaceId: string,
-      characterRaceCharacterId?: string | null,
-    } | null,
-    CharacterAlignment?:  {
-      __typename: "CharacterAlignment",
-      id: string,
-      selected?: boolean | null,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      characterAlignmentAlignmentId: string,
-      characterAlignmentCharacterId?: string | null,
-    } | null,
-    CharacterLooks?:  {
-      __typename: "ModelCharacterLookConnection",
-      nextToken?: string | null,
-      startedAt?: number | null,
-    } | null,
-    CharacterProfession?:  {
-      __typename: "CharacterProfession",
-      id: string,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      characterProfessionProfessionId?: string | null,
-      characterProfessionCharacterId?: string | null,
-    } | null,
-    CharacterSpells?:  {
-      __typename: "ModelCharacterSpellConnection",
-      nextToken?: string | null,
-      startedAt?: number | null,
-    } | null,
+    notes?: Array< string | null > | null,
+    gear?: Array< string | null > | null,
+    startingMoves?: Array< string | null > | null,
+    advancedMovesTwoToTen?: Array< string | null > | null,
+    advancedMovesSixToTen?: Array< string | null > | null,
+    bonds?: Array< string | null > | null,
+    abilityScores?: Array< string | null > | null,
+    race?: string | null,
+    alignment?: string | null,
+    look?: Array< string | null > | null,
+    profession?: string | null,
+    spells?: Array< string | null > | null,
     createdAt: string,
     updatedAt: string,
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
-    characterCharacterRaceId?: string | null,
-    characterCharacterAlignmentId?: string | null,
-    characterCharacterProfessionId?: string | null,
   } | null,
 };
 
@@ -4654,89 +1584,23 @@ export type UpdateCharacterMutation = {
     loadCurrent?: number | null,
     isTemplate?: boolean | null,
     tags?: Array< string | null > | null,
-    notes?: string | null,
-    CharacterGear?:  {
-      __typename: "ModelCharacterGearConnection",
-      nextToken?: string | null,
-      startedAt?: number | null,
-    } | null,
-    MovesStarting?:  {
-      __typename: "ModelCharacterMoveConnection",
-      nextToken?: string | null,
-      startedAt?: number | null,
-    } | null,
-    MovesTwoToTen?:  {
-      __typename: "ModelCharacterMoveConnection",
-      nextToken?: string | null,
-      startedAt?: number | null,
-    } | null,
-    MovesSixToTen?:  {
-      __typename: "ModelCharacterMoveConnection",
-      nextToken?: string | null,
-      startedAt?: number | null,
-    } | null,
-    CharacterBonds?:  {
-      __typename: "ModelCharacterBondConnection",
-      nextToken?: string | null,
-      startedAt?: number | null,
-    } | null,
-    CharacterAbilityScores?:  {
-      __typename: "ModelCharacterAbilityScoreConnection",
-      nextToken?: string | null,
-      startedAt?: number | null,
-    } | null,
-    CharacterRace?:  {
-      __typename: "CharacterRace",
-      id: string,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      characterRaceRaceId: string,
-      characterRaceCharacterId?: string | null,
-    } | null,
-    CharacterAlignment?:  {
-      __typename: "CharacterAlignment",
-      id: string,
-      selected?: boolean | null,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      characterAlignmentAlignmentId: string,
-      characterAlignmentCharacterId?: string | null,
-    } | null,
-    CharacterLooks?:  {
-      __typename: "ModelCharacterLookConnection",
-      nextToken?: string | null,
-      startedAt?: number | null,
-    } | null,
-    CharacterProfession?:  {
-      __typename: "CharacterProfession",
-      id: string,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      characterProfessionProfessionId?: string | null,
-      characterProfessionCharacterId?: string | null,
-    } | null,
-    CharacterSpells?:  {
-      __typename: "ModelCharacterSpellConnection",
-      nextToken?: string | null,
-      startedAt?: number | null,
-    } | null,
+    notes?: Array< string | null > | null,
+    gear?: Array< string | null > | null,
+    startingMoves?: Array< string | null > | null,
+    advancedMovesTwoToTen?: Array< string | null > | null,
+    advancedMovesSixToTen?: Array< string | null > | null,
+    bonds?: Array< string | null > | null,
+    abilityScores?: Array< string | null > | null,
+    race?: string | null,
+    alignment?: string | null,
+    look?: Array< string | null > | null,
+    profession?: string | null,
+    spells?: Array< string | null > | null,
     createdAt: string,
     updatedAt: string,
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
-    characterCharacterRaceId?: string | null,
-    characterCharacterAlignmentId?: string | null,
-    characterCharacterProfessionId?: string | null,
   } | null,
 };
 
@@ -4761,426 +1625,23 @@ export type DeleteCharacterMutation = {
     loadCurrent?: number | null,
     isTemplate?: boolean | null,
     tags?: Array< string | null > | null,
-    notes?: string | null,
-    CharacterGear?:  {
-      __typename: "ModelCharacterGearConnection",
-      nextToken?: string | null,
-      startedAt?: number | null,
-    } | null,
-    MovesStarting?:  {
-      __typename: "ModelCharacterMoveConnection",
-      nextToken?: string | null,
-      startedAt?: number | null,
-    } | null,
-    MovesTwoToTen?:  {
-      __typename: "ModelCharacterMoveConnection",
-      nextToken?: string | null,
-      startedAt?: number | null,
-    } | null,
-    MovesSixToTen?:  {
-      __typename: "ModelCharacterMoveConnection",
-      nextToken?: string | null,
-      startedAt?: number | null,
-    } | null,
-    CharacterBonds?:  {
-      __typename: "ModelCharacterBondConnection",
-      nextToken?: string | null,
-      startedAt?: number | null,
-    } | null,
-    CharacterAbilityScores?:  {
-      __typename: "ModelCharacterAbilityScoreConnection",
-      nextToken?: string | null,
-      startedAt?: number | null,
-    } | null,
-    CharacterRace?:  {
-      __typename: "CharacterRace",
-      id: string,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      characterRaceRaceId: string,
-      characterRaceCharacterId?: string | null,
-    } | null,
-    CharacterAlignment?:  {
-      __typename: "CharacterAlignment",
-      id: string,
-      selected?: boolean | null,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      characterAlignmentAlignmentId: string,
-      characterAlignmentCharacterId?: string | null,
-    } | null,
-    CharacterLooks?:  {
-      __typename: "ModelCharacterLookConnection",
-      nextToken?: string | null,
-      startedAt?: number | null,
-    } | null,
-    CharacterProfession?:  {
-      __typename: "CharacterProfession",
-      id: string,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      characterProfessionProfessionId?: string | null,
-      characterProfessionCharacterId?: string | null,
-    } | null,
-    CharacterSpells?:  {
-      __typename: "ModelCharacterSpellConnection",
-      nextToken?: string | null,
-      startedAt?: number | null,
-    } | null,
+    notes?: Array< string | null > | null,
+    gear?: Array< string | null > | null,
+    startingMoves?: Array< string | null > | null,
+    advancedMovesTwoToTen?: Array< string | null > | null,
+    advancedMovesSixToTen?: Array< string | null > | null,
+    bonds?: Array< string | null > | null,
+    abilityScores?: Array< string | null > | null,
+    race?: string | null,
+    alignment?: string | null,
+    look?: Array< string | null > | null,
+    profession?: string | null,
+    spells?: Array< string | null > | null,
     createdAt: string,
     updatedAt: string,
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
-    characterCharacterRaceId?: string | null,
-    characterCharacterAlignmentId?: string | null,
-    characterCharacterProfessionId?: string | null,
-  } | null,
-};
-
-export type GetUserQueryVariables = {
-  id: string,
-};
-
-export type GetUserQuery = {
-  getUser?:  {
-    __typename: "User",
-    id: string,
-    name: string,
-    email: string,
-    createdAt: string,
-    updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
-  } | null,
-};
-
-export type ListUsersQueryVariables = {
-  filter?: ModelUserFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-};
-
-export type ListUsersQuery = {
-  listUsers?:  {
-    __typename: "ModelUserConnection",
-    items:  Array< {
-      __typename: "User",
-      id: string,
-      name: string,
-      email: string,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-    } | null >,
-    nextToken?: string | null,
-    startedAt?: number | null,
-  } | null,
-};
-
-export type SyncUsersQueryVariables = {
-  filter?: ModelUserFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-  lastSync?: number | null,
-};
-
-export type SyncUsersQuery = {
-  syncUsers?:  {
-    __typename: "ModelUserConnection",
-    items:  Array< {
-      __typename: "User",
-      id: string,
-      name: string,
-      email: string,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-    } | null >,
-    nextToken?: string | null,
-    startedAt?: number | null,
-  } | null,
-};
-
-export type GetSourceQueryVariables = {
-  id: string,
-};
-
-export type GetSourceQuery = {
-  getSource?:  {
-    __typename: "Source",
-    id: string,
-    name: string,
-    createdAt: string,
-    updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
-  } | null,
-};
-
-export type ListSourcesQueryVariables = {
-  filter?: ModelSourceFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-};
-
-export type ListSourcesQuery = {
-  listSources?:  {
-    __typename: "ModelSourceConnection",
-    items:  Array< {
-      __typename: "Source",
-      id: string,
-      name: string,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-    } | null >,
-    nextToken?: string | null,
-    startedAt?: number | null,
-  } | null,
-};
-
-export type SyncSourcesQueryVariables = {
-  filter?: ModelSourceFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-  lastSync?: number | null,
-};
-
-export type SyncSourcesQuery = {
-  syncSources?:  {
-    __typename: "ModelSourceConnection",
-    items:  Array< {
-      __typename: "Source",
-      id: string,
-      name: string,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-    } | null >,
-    nextToken?: string | null,
-    startedAt?: number | null,
-  } | null,
-};
-
-export type GetCharacterProfessionQueryVariables = {
-  id: string,
-};
-
-export type GetCharacterProfessionQuery = {
-  getCharacterProfession?:  {
-    __typename: "CharacterProfession",
-    id: string,
-    Character?:  {
-      __typename: "Character",
-      userId: string,
-      id: string,
-      name: string,
-      level?: number | null,
-      xp?: number | null,
-      armor?: number | null,
-      hitPointsMax?: number | null,
-      hitPointsCurrent?: number | null,
-      coin?: number | null,
-      loadMax?: number | null,
-      loadCurrent?: number | null,
-      isTemplate?: boolean | null,
-      tags?: Array< string | null > | null,
-      notes?: string | null,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      characterCharacterRaceId?: string | null,
-      characterCharacterAlignmentId?: string | null,
-      characterCharacterProfessionId?: string | null,
-    } | null,
-    Profession?:  {
-      __typename: "Profession",
-      id: string,
-      name: string,
-      description: string,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      professionSourceId: string,
-      professionDiceTypeId?: string | null,
-    } | null,
-    createdAt: string,
-    updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
-    characterProfessionProfessionId?: string | null,
-    characterProfessionCharacterId?: string | null,
-  } | null,
-};
-
-export type ListCharacterProfessionsQueryVariables = {
-  filter?: ModelCharacterProfessionFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-};
-
-export type ListCharacterProfessionsQuery = {
-  listCharacterProfessions?:  {
-    __typename: "ModelCharacterProfessionConnection",
-    items:  Array< {
-      __typename: "CharacterProfession",
-      id: string,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      characterProfessionProfessionId?: string | null,
-      characterProfessionCharacterId?: string | null,
-    } | null >,
-    nextToken?: string | null,
-    startedAt?: number | null,
-  } | null,
-};
-
-export type SyncCharacterProfessionsQueryVariables = {
-  filter?: ModelCharacterProfessionFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-  lastSync?: number | null,
-};
-
-export type SyncCharacterProfessionsQuery = {
-  syncCharacterProfessions?:  {
-    __typename: "ModelCharacterProfessionConnection",
-    items:  Array< {
-      __typename: "CharacterProfession",
-      id: string,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      characterProfessionProfessionId?: string | null,
-      characterProfessionCharacterId?: string | null,
-    } | null >,
-    nextToken?: string | null,
-    startedAt?: number | null,
-  } | null,
-};
-
-export type GetProfessionQueryVariables = {
-  id: string,
-};
-
-export type GetProfessionQuery = {
-  getProfession?:  {
-    __typename: "Profession",
-    id: string,
-    name: string,
-    description: string,
-    Source:  {
-      __typename: "Source",
-      id: string,
-      name: string,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-    },
-    DiceType?:  {
-      __typename: "DiceType",
-      id: string,
-      name?: string | null,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-    } | null,
-    createdAt: string,
-    updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
-    professionSourceId: string,
-    professionDiceTypeId?: string | null,
-  } | null,
-};
-
-export type ListProfessionsQueryVariables = {
-  filter?: ModelProfessionFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-};
-
-export type ListProfessionsQuery = {
-  listProfessions?:  {
-    __typename: "ModelProfessionConnection",
-    items:  Array< {
-      __typename: "Profession",
-      id: string,
-      name: string,
-      description: string,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      professionSourceId: string,
-      professionDiceTypeId?: string | null,
-    } | null >,
-    nextToken?: string | null,
-    startedAt?: number | null,
-  } | null,
-};
-
-export type SyncProfessionsQueryVariables = {
-  filter?: ModelProfessionFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-  lastSync?: number | null,
-};
-
-export type SyncProfessionsQuery = {
-  syncProfessions?:  {
-    __typename: "ModelProfessionConnection",
-    items:  Array< {
-      __typename: "Profession",
-      id: string,
-      name: string,
-      description: string,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      professionSourceId: string,
-      professionDiceTypeId?: string | null,
-    } | null >,
-    nextToken?: string | null,
-    startedAt?: number | null,
   } | null,
 };
 
@@ -5197,36 +1658,15 @@ export type GetSpellQuery = {
     type: string,
     ongoing?: boolean | null,
     description: string,
-    Source:  {
-      __typename: "Source",
-      id: string,
-      name: string,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-    },
-    Profession:  {
-      __typename: "Profession",
-      id: string,
-      name: string,
-      description: string,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      professionSourceId: string,
-      professionDiceTypeId?: string | null,
-    },
+    selected?: boolean | null,
+    tags?: Array< string | null > | null,
+    source: string,
+    profession: string,
     createdAt: string,
     updatedAt: string,
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
-    spellSourceId: string,
-    spellProfessionId: string,
   } | null,
 };
 
@@ -5247,13 +1687,15 @@ export type ListSpellsQuery = {
       type: string,
       ongoing?: boolean | null,
       description: string,
+      selected?: boolean | null,
+      tags?: Array< string | null > | null,
+      source: string,
+      profession: string,
       createdAt: string,
       updatedAt: string,
       _version: number,
       _deleted?: boolean | null,
       _lastChangedAt: number,
-      spellSourceId: string,
-      spellProfessionId: string,
     } | null >,
     nextToken?: string | null,
     startedAt?: number | null,
@@ -5278,243 +1720,15 @@ export type SyncSpellsQuery = {
       type: string,
       ongoing?: boolean | null,
       description: string,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      spellSourceId: string,
-      spellProfessionId: string,
-    } | null >,
-    nextToken?: string | null,
-    startedAt?: number | null,
-  } | null,
-};
-
-export type GetCharacterSpellQueryVariables = {
-  id: string,
-};
-
-export type GetCharacterSpellQuery = {
-  getCharacterSpell?:  {
-    __typename: "CharacterSpell",
-    id: string,
-    Spell:  {
-      __typename: "Spell",
-      id: string,
-      name: string,
-      level: number,
-      type: string,
-      ongoing?: boolean | null,
-      description: string,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      spellSourceId: string,
-      spellProfessionId: string,
-    },
-    selected?: boolean | null,
-    tags?: Array< string | null > | null,
-    Character?:  {
-      __typename: "Character",
-      userId: string,
-      id: string,
-      name: string,
-      level?: number | null,
-      xp?: number | null,
-      armor?: number | null,
-      hitPointsMax?: number | null,
-      hitPointsCurrent?: number | null,
-      coin?: number | null,
-      loadMax?: number | null,
-      loadCurrent?: number | null,
-      isTemplate?: boolean | null,
-      tags?: Array< string | null > | null,
-      notes?: string | null,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      characterCharacterRaceId?: string | null,
-      characterCharacterAlignmentId?: string | null,
-      characterCharacterProfessionId?: string | null,
-    } | null,
-    createdAt: string,
-    updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
-    characterCharacterSpellsId?: string | null,
-    characterSpellSpellId: string,
-  } | null,
-};
-
-export type ListCharacterSpellsQueryVariables = {
-  filter?: ModelCharacterSpellFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-};
-
-export type ListCharacterSpellsQuery = {
-  listCharacterSpells?:  {
-    __typename: "ModelCharacterSpellConnection",
-    items:  Array< {
-      __typename: "CharacterSpell",
-      id: string,
       selected?: boolean | null,
       tags?: Array< string | null > | null,
+      source: string,
+      profession: string,
       createdAt: string,
       updatedAt: string,
       _version: number,
       _deleted?: boolean | null,
       _lastChangedAt: number,
-      characterCharacterSpellsId?: string | null,
-      characterSpellSpellId: string,
-    } | null >,
-    nextToken?: string | null,
-    startedAt?: number | null,
-  } | null,
-};
-
-export type SyncCharacterSpellsQueryVariables = {
-  filter?: ModelCharacterSpellFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-  lastSync?: number | null,
-};
-
-export type SyncCharacterSpellsQuery = {
-  syncCharacterSpells?:  {
-    __typename: "ModelCharacterSpellConnection",
-    items:  Array< {
-      __typename: "CharacterSpell",
-      id: string,
-      selected?: boolean | null,
-      tags?: Array< string | null > | null,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      characterCharacterSpellsId?: string | null,
-      characterSpellSpellId: string,
-    } | null >,
-    nextToken?: string | null,
-    startedAt?: number | null,
-  } | null,
-};
-
-export type GetCharacterGearQueryVariables = {
-  id: string,
-};
-
-export type GetCharacterGearQuery = {
-  getCharacterGear?:  {
-    __typename: "CharacterGear",
-    id: string,
-    Gear:  {
-      __typename: "Gear",
-      id: string,
-      description: string,
-      weight: number,
-      uses?: number | null,
-      tags?: Array< string | null > | null,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      gearSourceId?: string | null,
-    },
-    uses?: number | null,
-    tags?: Array< string | null > | null,
-    Character?:  {
-      __typename: "Character",
-      userId: string,
-      id: string,
-      name: string,
-      level?: number | null,
-      xp?: number | null,
-      armor?: number | null,
-      hitPointsMax?: number | null,
-      hitPointsCurrent?: number | null,
-      coin?: number | null,
-      loadMax?: number | null,
-      loadCurrent?: number | null,
-      isTemplate?: boolean | null,
-      tags?: Array< string | null > | null,
-      notes?: string | null,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      characterCharacterRaceId?: string | null,
-      characterCharacterAlignmentId?: string | null,
-      characterCharacterProfessionId?: string | null,
-    } | null,
-    createdAt: string,
-    updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
-    characterCharacterGearId?: string | null,
-    characterGearGearId: string,
-  } | null,
-};
-
-export type ListCharacterGearsQueryVariables = {
-  filter?: ModelCharacterGearFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-};
-
-export type ListCharacterGearsQuery = {
-  listCharacterGears?:  {
-    __typename: "ModelCharacterGearConnection",
-    items:  Array< {
-      __typename: "CharacterGear",
-      id: string,
-      uses?: number | null,
-      tags?: Array< string | null > | null,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      characterCharacterGearId?: string | null,
-      characterGearGearId: string,
-    } | null >,
-    nextToken?: string | null,
-    startedAt?: number | null,
-  } | null,
-};
-
-export type SyncCharacterGearsQueryVariables = {
-  filter?: ModelCharacterGearFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-  lastSync?: number | null,
-};
-
-export type SyncCharacterGearsQuery = {
-  syncCharacterGears?:  {
-    __typename: "ModelCharacterGearConnection",
-    items:  Array< {
-      __typename: "CharacterGear",
-      id: string,
-      uses?: number | null,
-      tags?: Array< string | null > | null,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      characterCharacterGearId?: string | null,
-      characterGearGearId: string,
     } | null >,
     nextToken?: string | null,
     startedAt?: number | null,
@@ -5533,22 +1747,12 @@ export type GetGearQuery = {
     weight: number,
     uses?: number | null,
     tags?: Array< string | null > | null,
-    Source?:  {
-      __typename: "Source",
-      id: string,
-      name: string,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-    } | null,
+    source: string,
     createdAt: string,
     updatedAt: string,
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
-    gearSourceId?: string | null,
   } | null,
 };
 
@@ -5568,12 +1772,12 @@ export type ListGearsQuery = {
       weight: number,
       uses?: number | null,
       tags?: Array< string | null > | null,
+      source: string,
       createdAt: string,
       updatedAt: string,
       _version: number,
       _deleted?: boolean | null,
       _lastChangedAt: number,
-      gearSourceId?: string | null,
     } | null >,
     nextToken?: string | null,
     startedAt?: number | null,
@@ -5597,127 +1801,12 @@ export type SyncGearsQuery = {
       weight: number,
       uses?: number | null,
       tags?: Array< string | null > | null,
+      source: string,
       createdAt: string,
       updatedAt: string,
       _version: number,
       _deleted?: boolean | null,
       _lastChangedAt: number,
-      gearSourceId?: string | null,
-    } | null >,
-    nextToken?: string | null,
-    startedAt?: number | null,
-  } | null,
-};
-
-export type GetCharacterMoveQueryVariables = {
-  id: string,
-};
-
-export type GetCharacterMoveQuery = {
-  getCharacterMove?:  {
-    __typename: "CharacterMove",
-    id: string,
-    selected?: boolean | null,
-    Move:  {
-      __typename: "Move",
-      id: string,
-      description: string,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      moveProfessionId: string,
-      moveSourceId?: string | null,
-    },
-    Character?:  {
-      __typename: "Character",
-      userId: string,
-      id: string,
-      name: string,
-      level?: number | null,
-      xp?: number | null,
-      armor?: number | null,
-      hitPointsMax?: number | null,
-      hitPointsCurrent?: number | null,
-      coin?: number | null,
-      loadMax?: number | null,
-      loadCurrent?: number | null,
-      isTemplate?: boolean | null,
-      tags?: Array< string | null > | null,
-      notes?: string | null,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      characterCharacterRaceId?: string | null,
-      characterCharacterAlignmentId?: string | null,
-      characterCharacterProfessionId?: string | null,
-    } | null,
-    createdAt: string,
-    updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
-    characterMovesStartingId?: string | null,
-    characterMovesTwoToTenId?: string | null,
-    characterMovesSixToTenId?: string | null,
-    characterMoveMoveId: string,
-  } | null,
-};
-
-export type ListCharacterMovesQueryVariables = {
-  filter?: ModelCharacterMoveFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-};
-
-export type ListCharacterMovesQuery = {
-  listCharacterMoves?:  {
-    __typename: "ModelCharacterMoveConnection",
-    items:  Array< {
-      __typename: "CharacterMove",
-      id: string,
-      selected?: boolean | null,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      characterMovesStartingId?: string | null,
-      characterMovesTwoToTenId?: string | null,
-      characterMovesSixToTenId?: string | null,
-      characterMoveMoveId: string,
-    } | null >,
-    nextToken?: string | null,
-    startedAt?: number | null,
-  } | null,
-};
-
-export type SyncCharacterMovesQueryVariables = {
-  filter?: ModelCharacterMoveFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-  lastSync?: number | null,
-};
-
-export type SyncCharacterMovesQuery = {
-  syncCharacterMoves?:  {
-    __typename: "ModelCharacterMoveConnection",
-    items:  Array< {
-      __typename: "CharacterMove",
-      id: string,
-      selected?: boolean | null,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      characterMovesStartingId?: string | null,
-      characterMovesTwoToTenId?: string | null,
-      characterMovesSixToTenId?: string | null,
-      characterMoveMoveId: string,
     } | null >,
     nextToken?: string | null,
     startedAt?: number | null,
@@ -5733,36 +1822,14 @@ export type GetMoveQuery = {
     __typename: "Move",
     id: string,
     description: string,
-    Profession:  {
-      __typename: "Profession",
-      id: string,
-      name: string,
-      description: string,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      professionSourceId: string,
-      professionDiceTypeId?: string | null,
-    },
-    Source?:  {
-      __typename: "Source",
-      id: string,
-      name: string,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-    } | null,
+    selected?: boolean | null,
+    profession: string,
+    source: string,
     createdAt: string,
     updatedAt: string,
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
-    moveProfessionId: string,
-    moveSourceId?: string | null,
   } | null,
 };
 
@@ -5779,13 +1846,14 @@ export type ListMovesQuery = {
       __typename: "Move",
       id: string,
       description: string,
+      selected?: boolean | null,
+      profession: string,
+      source: string,
       createdAt: string,
       updatedAt: string,
       _version: number,
       _deleted?: boolean | null,
       _lastChangedAt: number,
-      moveProfessionId: string,
-      moveSourceId?: string | null,
     } | null >,
     nextToken?: string | null,
     startedAt?: number | null,
@@ -5806,124 +1874,14 @@ export type SyncMovesQuery = {
       __typename: "Move",
       id: string,
       description: string,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      moveProfessionId: string,
-      moveSourceId?: string | null,
-    } | null >,
-    nextToken?: string | null,
-    startedAt?: number | null,
-  } | null,
-};
-
-export type GetCharacterBondQueryVariables = {
-  id: string,
-};
-
-export type GetCharacterBondQuery = {
-  getCharacterBond?:  {
-    __typename: "CharacterBond",
-    id: string,
-    description?: string | null,
-    Bond:  {
-      __typename: "Bond",
-      id: string,
-      description?: string | null,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      bondProfessionId: string,
-    },
-    selected?: boolean | null,
-    Character?:  {
-      __typename: "Character",
-      userId: string,
-      id: string,
-      name: string,
-      level?: number | null,
-      xp?: number | null,
-      armor?: number | null,
-      hitPointsMax?: number | null,
-      hitPointsCurrent?: number | null,
-      coin?: number | null,
-      loadMax?: number | null,
-      loadCurrent?: number | null,
-      isTemplate?: boolean | null,
-      tags?: Array< string | null > | null,
-      notes?: string | null,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      characterCharacterRaceId?: string | null,
-      characterCharacterAlignmentId?: string | null,
-      characterCharacterProfessionId?: string | null,
-    } | null,
-    createdAt: string,
-    updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
-    characterCharacterBondsId?: string | null,
-    characterBondBondId: string,
-  } | null,
-};
-
-export type ListCharacterBondsQueryVariables = {
-  filter?: ModelCharacterBondFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-};
-
-export type ListCharacterBondsQuery = {
-  listCharacterBonds?:  {
-    __typename: "ModelCharacterBondConnection",
-    items:  Array< {
-      __typename: "CharacterBond",
-      id: string,
-      description?: string | null,
       selected?: boolean | null,
+      profession: string,
+      source: string,
       createdAt: string,
       updatedAt: string,
       _version: number,
       _deleted?: boolean | null,
       _lastChangedAt: number,
-      characterCharacterBondsId?: string | null,
-      characterBondBondId: string,
-    } | null >,
-    nextToken?: string | null,
-    startedAt?: number | null,
-  } | null,
-};
-
-export type SyncCharacterBondsQueryVariables = {
-  filter?: ModelCharacterBondFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-  lastSync?: number | null,
-};
-
-export type SyncCharacterBondsQuery = {
-  syncCharacterBonds?:  {
-    __typename: "ModelCharacterBondConnection",
-    items:  Array< {
-      __typename: "CharacterBond",
-      id: string,
-      description?: string | null,
-      selected?: boolean | null,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      characterCharacterBondsId?: string | null,
-      characterBondBondId: string,
     } | null >,
     nextToken?: string | null,
     startedAt?: number | null,
@@ -5939,25 +1897,14 @@ export type GetBondQuery = {
     __typename: "Bond",
     id: string,
     description?: string | null,
-    Profession:  {
-      __typename: "Profession",
-      id: string,
-      name: string,
-      description: string,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      professionSourceId: string,
-      professionDiceTypeId?: string | null,
-    },
+    profession: string,
+    selected?: boolean | null,
+    tags?: Array< string | null > | null,
     createdAt: string,
     updatedAt: string,
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
-    bondProfessionId: string,
   } | null,
 };
 
@@ -5974,12 +1921,14 @@ export type ListBondsQuery = {
       __typename: "Bond",
       id: string,
       description?: string | null,
+      profession: string,
+      selected?: boolean | null,
+      tags?: Array< string | null > | null,
       createdAt: string,
       updatedAt: string,
       _version: number,
       _deleted?: boolean | null,
       _lastChangedAt: number,
-      bondProfessionId: string,
     } | null >,
     nextToken?: string | null,
     startedAt?: number | null,
@@ -6000,128 +1949,14 @@ export type SyncBondsQuery = {
       __typename: "Bond",
       id: string,
       description?: string | null,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      bondProfessionId: string,
-    } | null >,
-    nextToken?: string | null,
-    startedAt?: number | null,
-  } | null,
-};
-
-export type GetCharacterAbilityScoreQueryVariables = {
-  id: string,
-};
-
-export type GetCharacterAbilityScoreQuery = {
-  getCharacterAbilityScore?:  {
-    __typename: "CharacterAbilityScore",
-    AbilityScore:  {
-      __typename: "AbilityScore",
-      id: string,
-      name: string,
-      shortName: string,
-      debility: string,
-      debilityPenalty: string,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-    },
-    id: string,
-    value: string,
-    bonus: number,
-    tags?: Array< string | null > | null,
-    Character?:  {
-      __typename: "Character",
-      userId: string,
-      id: string,
-      name: string,
-      level?: number | null,
-      xp?: number | null,
-      armor?: number | null,
-      hitPointsMax?: number | null,
-      hitPointsCurrent?: number | null,
-      coin?: number | null,
-      loadMax?: number | null,
-      loadCurrent?: number | null,
-      isTemplate?: boolean | null,
-      tags?: Array< string | null > | null,
-      notes?: string | null,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      characterCharacterRaceId?: string | null,
-      characterCharacterAlignmentId?: string | null,
-      characterCharacterProfessionId?: string | null,
-    } | null,
-    createdAt: string,
-    updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
-    characterCharacterAbilityScoresId?: string | null,
-    characterAbilityScoreAbilityScoreId: string,
-  } | null,
-};
-
-export type ListCharacterAbilityScoresQueryVariables = {
-  filter?: ModelCharacterAbilityScoreFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-};
-
-export type ListCharacterAbilityScoresQuery = {
-  listCharacterAbilityScores?:  {
-    __typename: "ModelCharacterAbilityScoreConnection",
-    items:  Array< {
-      __typename: "CharacterAbilityScore",
-      id: string,
-      value: string,
-      bonus: number,
+      profession: string,
+      selected?: boolean | null,
       tags?: Array< string | null > | null,
       createdAt: string,
       updatedAt: string,
       _version: number,
       _deleted?: boolean | null,
       _lastChangedAt: number,
-      characterCharacterAbilityScoresId?: string | null,
-      characterAbilityScoreAbilityScoreId: string,
-    } | null >,
-    nextToken?: string | null,
-    startedAt?: number | null,
-  } | null,
-};
-
-export type SyncCharacterAbilityScoresQueryVariables = {
-  filter?: ModelCharacterAbilityScoreFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-  lastSync?: number | null,
-};
-
-export type SyncCharacterAbilityScoresQuery = {
-  syncCharacterAbilityScores?:  {
-    __typename: "ModelCharacterAbilityScoreConnection",
-    items:  Array< {
-      __typename: "CharacterAbilityScore",
-      id: string,
-      value: string,
-      bonus: number,
-      tags?: Array< string | null > | null,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      characterCharacterAbilityScoresId?: string | null,
-      characterAbilityScoreAbilityScoreId: string,
     } | null >,
     nextToken?: string | null,
     startedAt?: number | null,
@@ -6140,6 +1975,9 @@ export type GetAbilityScoreQuery = {
     shortName: string,
     debility: string,
     debilityPenalty: string,
+    value: string,
+    bonus: number,
+    tags?: Array< string | null > | null,
     createdAt: string,
     updatedAt: string,
     _version: number,
@@ -6164,6 +2002,9 @@ export type ListAbilityScoresQuery = {
       shortName: string,
       debility: string,
       debilityPenalty: string,
+      value: string,
+      bonus: number,
+      tags?: Array< string | null > | null,
       createdAt: string,
       updatedAt: string,
       _version: number,
@@ -6192,118 +2033,14 @@ export type SyncAbilityScoresQuery = {
       shortName: string,
       debility: string,
       debilityPenalty: string,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-    } | null >,
-    nextToken?: string | null,
-    startedAt?: number | null,
-  } | null,
-};
-
-export type GetCharacterRaceQueryVariables = {
-  id: string,
-};
-
-export type GetCharacterRaceQuery = {
-  getCharacterRace?:  {
-    __typename: "CharacterRace",
-    id: string,
-    Race:  {
-      __typename: "Race",
-      id: string,
-      name?: string | null,
-      description?: string | null,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      raceProfessionId?: string | null,
-      raceSourceId: string,
-    },
-    Character?:  {
-      __typename: "Character",
-      userId: string,
-      id: string,
-      name: string,
-      level?: number | null,
-      xp?: number | null,
-      armor?: number | null,
-      hitPointsMax?: number | null,
-      hitPointsCurrent?: number | null,
-      coin?: number | null,
-      loadMax?: number | null,
-      loadCurrent?: number | null,
-      isTemplate?: boolean | null,
+      value: string,
+      bonus: number,
       tags?: Array< string | null > | null,
-      notes?: string | null,
       createdAt: string,
       updatedAt: string,
       _version: number,
       _deleted?: boolean | null,
       _lastChangedAt: number,
-      characterCharacterRaceId?: string | null,
-      characterCharacterAlignmentId?: string | null,
-      characterCharacterProfessionId?: string | null,
-    } | null,
-    createdAt: string,
-    updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
-    characterRaceRaceId: string,
-    characterRaceCharacterId?: string | null,
-  } | null,
-};
-
-export type ListCharacterRacesQueryVariables = {
-  filter?: ModelCharacterRaceFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-};
-
-export type ListCharacterRacesQuery = {
-  listCharacterRaces?:  {
-    __typename: "ModelCharacterRaceConnection",
-    items:  Array< {
-      __typename: "CharacterRace",
-      id: string,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      characterRaceRaceId: string,
-      characterRaceCharacterId?: string | null,
-    } | null >,
-    nextToken?: string | null,
-    startedAt?: number | null,
-  } | null,
-};
-
-export type SyncCharacterRacesQueryVariables = {
-  filter?: ModelCharacterRaceFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-  lastSync?: number | null,
-};
-
-export type SyncCharacterRacesQuery = {
-  syncCharacterRaces?:  {
-    __typename: "ModelCharacterRaceConnection",
-    items:  Array< {
-      __typename: "CharacterRace",
-      id: string,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      characterRaceRaceId: string,
-      characterRaceCharacterId?: string | null,
     } | null >,
     nextToken?: string | null,
     startedAt?: number | null,
@@ -6320,36 +2057,13 @@ export type GetRaceQuery = {
     id: string,
     name?: string | null,
     description?: string | null,
-    Profession?:  {
-      __typename: "Profession",
-      id: string,
-      name: string,
-      description: string,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      professionSourceId: string,
-      professionDiceTypeId?: string | null,
-    } | null,
-    Source:  {
-      __typename: "Source",
-      id: string,
-      name: string,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-    },
+    profession: string,
+    source: string,
     createdAt: string,
     updatedAt: string,
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
-    raceProfessionId?: string | null,
-    raceSourceId: string,
   } | null,
 };
 
@@ -6367,13 +2081,13 @@ export type ListRacesQuery = {
       id: string,
       name?: string | null,
       description?: string | null,
+      profession: string,
+      source: string,
       createdAt: string,
       updatedAt: string,
       _version: number,
       _deleted?: boolean | null,
       _lastChangedAt: number,
-      raceProfessionId?: string | null,
-      raceSourceId: string,
     } | null >,
     nextToken?: string | null,
     startedAt?: number | null,
@@ -6395,122 +2109,13 @@ export type SyncRacesQuery = {
       id: string,
       name?: string | null,
       description?: string | null,
+      profession: string,
+      source: string,
       createdAt: string,
       updatedAt: string,
       _version: number,
       _deleted?: boolean | null,
       _lastChangedAt: number,
-      raceProfessionId?: string | null,
-      raceSourceId: string,
-    } | null >,
-    nextToken?: string | null,
-    startedAt?: number | null,
-  } | null,
-};
-
-export type GetCharacterAlignmentQueryVariables = {
-  id: string,
-};
-
-export type GetCharacterAlignmentQuery = {
-  getCharacterAlignment?:  {
-    __typename: "CharacterAlignment",
-    id: string,
-    Alignment:  {
-      __typename: "Alignment",
-      id: string,
-      name?: string | null,
-      description?: string | null,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      alignmentProfessionId: string,
-    },
-    selected?: boolean | null,
-    Character?:  {
-      __typename: "Character",
-      userId: string,
-      id: string,
-      name: string,
-      level?: number | null,
-      xp?: number | null,
-      armor?: number | null,
-      hitPointsMax?: number | null,
-      hitPointsCurrent?: number | null,
-      coin?: number | null,
-      loadMax?: number | null,
-      loadCurrent?: number | null,
-      isTemplate?: boolean | null,
-      tags?: Array< string | null > | null,
-      notes?: string | null,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      characterCharacterRaceId?: string | null,
-      characterCharacterAlignmentId?: string | null,
-      characterCharacterProfessionId?: string | null,
-    } | null,
-    createdAt: string,
-    updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
-    characterAlignmentAlignmentId: string,
-    characterAlignmentCharacterId?: string | null,
-  } | null,
-};
-
-export type ListCharacterAlignmentsQueryVariables = {
-  filter?: ModelCharacterAlignmentFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-};
-
-export type ListCharacterAlignmentsQuery = {
-  listCharacterAlignments?:  {
-    __typename: "ModelCharacterAlignmentConnection",
-    items:  Array< {
-      __typename: "CharacterAlignment",
-      id: string,
-      selected?: boolean | null,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      characterAlignmentAlignmentId: string,
-      characterAlignmentCharacterId?: string | null,
-    } | null >,
-    nextToken?: string | null,
-    startedAt?: number | null,
-  } | null,
-};
-
-export type SyncCharacterAlignmentsQueryVariables = {
-  filter?: ModelCharacterAlignmentFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-  lastSync?: number | null,
-};
-
-export type SyncCharacterAlignmentsQuery = {
-  syncCharacterAlignments?:  {
-    __typename: "ModelCharacterAlignmentConnection",
-    items:  Array< {
-      __typename: "CharacterAlignment",
-      id: string,
-      selected?: boolean | null,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      characterAlignmentAlignmentId: string,
-      characterAlignmentCharacterId?: string | null,
     } | null >,
     nextToken?: string | null,
     startedAt?: number | null,
@@ -6527,25 +2132,13 @@ export type GetAlignmentQuery = {
     id: string,
     name?: string | null,
     description?: string | null,
-    Profession:  {
-      __typename: "Profession",
-      id: string,
-      name: string,
-      description: string,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      professionSourceId: string,
-      professionDiceTypeId?: string | null,
-    },
+    selected?: boolean | null,
+    profession: string,
     createdAt: string,
     updatedAt: string,
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
-    alignmentProfessionId: string,
   } | null,
 };
 
@@ -6563,12 +2156,13 @@ export type ListAlignmentsQuery = {
       id: string,
       name?: string | null,
       description?: string | null,
+      selected?: boolean | null,
+      profession: string,
       createdAt: string,
       updatedAt: string,
       _version: number,
       _deleted?: boolean | null,
       _lastChangedAt: number,
-      alignmentProfessionId: string,
     } | null >,
     nextToken?: string | null,
     startedAt?: number | null,
@@ -6590,183 +2184,13 @@ export type SyncAlignmentsQuery = {
       id: string,
       name?: string | null,
       description?: string | null,
+      selected?: boolean | null,
+      profession: string,
       createdAt: string,
       updatedAt: string,
       _version: number,
       _deleted?: boolean | null,
       _lastChangedAt: number,
-      alignmentProfessionId: string,
-    } | null >,
-    nextToken?: string | null,
-    startedAt?: number | null,
-  } | null,
-};
-
-export type GetDiceTypeQueryVariables = {
-  id: string,
-};
-
-export type GetDiceTypeQuery = {
-  getDiceType?:  {
-    __typename: "DiceType",
-    id: string,
-    name?: string | null,
-    createdAt: string,
-    updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
-  } | null,
-};
-
-export type ListDiceTypesQueryVariables = {
-  filter?: ModelDiceTypeFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-};
-
-export type ListDiceTypesQuery = {
-  listDiceTypes?:  {
-    __typename: "ModelDiceTypeConnection",
-    items:  Array< {
-      __typename: "DiceType",
-      id: string,
-      name?: string | null,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-    } | null >,
-    nextToken?: string | null,
-    startedAt?: number | null,
-  } | null,
-};
-
-export type SyncDiceTypesQueryVariables = {
-  filter?: ModelDiceTypeFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-  lastSync?: number | null,
-};
-
-export type SyncDiceTypesQuery = {
-  syncDiceTypes?:  {
-    __typename: "ModelDiceTypeConnection",
-    items:  Array< {
-      __typename: "DiceType",
-      id: string,
-      name?: string | null,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-    } | null >,
-    nextToken?: string | null,
-    startedAt?: number | null,
-  } | null,
-};
-
-export type GetCharacterLookQueryVariables = {
-  id: string,
-};
-
-export type GetCharacterLookQuery = {
-  getCharacterLook?:  {
-    __typename: "CharacterLook",
-    id: string,
-    Look:  {
-      __typename: "Look",
-      id: string,
-      name: string,
-      description: string,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-    },
-    Character?:  {
-      __typename: "Character",
-      userId: string,
-      id: string,
-      name: string,
-      level?: number | null,
-      xp?: number | null,
-      armor?: number | null,
-      hitPointsMax?: number | null,
-      hitPointsCurrent?: number | null,
-      coin?: number | null,
-      loadMax?: number | null,
-      loadCurrent?: number | null,
-      isTemplate?: boolean | null,
-      tags?: Array< string | null > | null,
-      notes?: string | null,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      characterCharacterRaceId?: string | null,
-      characterCharacterAlignmentId?: string | null,
-      characterCharacterProfessionId?: string | null,
-    } | null,
-    createdAt: string,
-    updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
-    characterCharacterLooksId?: string | null,
-    characterLookLookId: string,
-  } | null,
-};
-
-export type ListCharacterLooksQueryVariables = {
-  filter?: ModelCharacterLookFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-};
-
-export type ListCharacterLooksQuery = {
-  listCharacterLooks?:  {
-    __typename: "ModelCharacterLookConnection",
-    items:  Array< {
-      __typename: "CharacterLook",
-      id: string,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      characterCharacterLooksId?: string | null,
-      characterLookLookId: string,
-    } | null >,
-    nextToken?: string | null,
-    startedAt?: number | null,
-  } | null,
-};
-
-export type SyncCharacterLooksQueryVariables = {
-  filter?: ModelCharacterLookFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-  lastSync?: number | null,
-};
-
-export type SyncCharacterLooksQuery = {
-  syncCharacterLooks?:  {
-    __typename: "ModelCharacterLookConnection",
-    items:  Array< {
-      __typename: "CharacterLook",
-      id: string,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      characterCharacterLooksId?: string | null,
-      characterLookLookId: string,
     } | null >,
     nextToken?: string | null,
     startedAt?: number | null,
@@ -6783,6 +2207,7 @@ export type GetLookQuery = {
     id: string,
     name: string,
     description: string,
+    selected?: string | null,
     createdAt: string,
     updatedAt: string,
     _version: number,
@@ -6805,6 +2230,7 @@ export type ListLooksQuery = {
       id: string,
       name: string,
       description: string,
+      selected?: string | null,
       createdAt: string,
       updatedAt: string,
       _version: number,
@@ -6831,6 +2257,7 @@ export type SyncLooksQuery = {
       id: string,
       name: string,
       description: string,
+      selected?: string | null,
       createdAt: string,
       updatedAt: string,
       _version: number,
@@ -6862,89 +2289,23 @@ export type GetCharacterQuery = {
     loadCurrent?: number | null,
     isTemplate?: boolean | null,
     tags?: Array< string | null > | null,
-    notes?: string | null,
-    CharacterGear?:  {
-      __typename: "ModelCharacterGearConnection",
-      nextToken?: string | null,
-      startedAt?: number | null,
-    } | null,
-    MovesStarting?:  {
-      __typename: "ModelCharacterMoveConnection",
-      nextToken?: string | null,
-      startedAt?: number | null,
-    } | null,
-    MovesTwoToTen?:  {
-      __typename: "ModelCharacterMoveConnection",
-      nextToken?: string | null,
-      startedAt?: number | null,
-    } | null,
-    MovesSixToTen?:  {
-      __typename: "ModelCharacterMoveConnection",
-      nextToken?: string | null,
-      startedAt?: number | null,
-    } | null,
-    CharacterBonds?:  {
-      __typename: "ModelCharacterBondConnection",
-      nextToken?: string | null,
-      startedAt?: number | null,
-    } | null,
-    CharacterAbilityScores?:  {
-      __typename: "ModelCharacterAbilityScoreConnection",
-      nextToken?: string | null,
-      startedAt?: number | null,
-    } | null,
-    CharacterRace?:  {
-      __typename: "CharacterRace",
-      id: string,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      characterRaceRaceId: string,
-      characterRaceCharacterId?: string | null,
-    } | null,
-    CharacterAlignment?:  {
-      __typename: "CharacterAlignment",
-      id: string,
-      selected?: boolean | null,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      characterAlignmentAlignmentId: string,
-      characterAlignmentCharacterId?: string | null,
-    } | null,
-    CharacterLooks?:  {
-      __typename: "ModelCharacterLookConnection",
-      nextToken?: string | null,
-      startedAt?: number | null,
-    } | null,
-    CharacterProfession?:  {
-      __typename: "CharacterProfession",
-      id: string,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      characterProfessionProfessionId?: string | null,
-      characterProfessionCharacterId?: string | null,
-    } | null,
-    CharacterSpells?:  {
-      __typename: "ModelCharacterSpellConnection",
-      nextToken?: string | null,
-      startedAt?: number | null,
-    } | null,
+    notes?: Array< string | null > | null,
+    gear?: Array< string | null > | null,
+    startingMoves?: Array< string | null > | null,
+    advancedMovesTwoToTen?: Array< string | null > | null,
+    advancedMovesSixToTen?: Array< string | null > | null,
+    bonds?: Array< string | null > | null,
+    abilityScores?: Array< string | null > | null,
+    race?: string | null,
+    alignment?: string | null,
+    look?: Array< string | null > | null,
+    profession?: string | null,
+    spells?: Array< string | null > | null,
     createdAt: string,
     updatedAt: string,
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
-    characterCharacterRaceId?: string | null,
-    characterCharacterAlignmentId?: string | null,
-    characterCharacterProfessionId?: string | null,
   } | null,
 };
 
@@ -6972,15 +2333,23 @@ export type ListCharactersQuery = {
       loadCurrent?: number | null,
       isTemplate?: boolean | null,
       tags?: Array< string | null > | null,
-      notes?: string | null,
+      notes?: Array< string | null > | null,
+      gear?: Array< string | null > | null,
+      startingMoves?: Array< string | null > | null,
+      advancedMovesTwoToTen?: Array< string | null > | null,
+      advancedMovesSixToTen?: Array< string | null > | null,
+      bonds?: Array< string | null > | null,
+      abilityScores?: Array< string | null > | null,
+      race?: string | null,
+      alignment?: string | null,
+      look?: Array< string | null > | null,
+      profession?: string | null,
+      spells?: Array< string | null > | null,
       createdAt: string,
       updatedAt: string,
       _version: number,
       _deleted?: boolean | null,
       _lastChangedAt: number,
-      characterCharacterRaceId?: string | null,
-      characterCharacterAlignmentId?: string | null,
-      characterCharacterProfessionId?: string | null,
     } | null >,
     nextToken?: string | null,
     startedAt?: number | null,
@@ -7012,411 +2381,26 @@ export type SyncCharactersQuery = {
       loadCurrent?: number | null,
       isTemplate?: boolean | null,
       tags?: Array< string | null > | null,
-      notes?: string | null,
+      notes?: Array< string | null > | null,
+      gear?: Array< string | null > | null,
+      startingMoves?: Array< string | null > | null,
+      advancedMovesTwoToTen?: Array< string | null > | null,
+      advancedMovesSixToTen?: Array< string | null > | null,
+      bonds?: Array< string | null > | null,
+      abilityScores?: Array< string | null > | null,
+      race?: string | null,
+      alignment?: string | null,
+      look?: Array< string | null > | null,
+      profession?: string | null,
+      spells?: Array< string | null > | null,
       createdAt: string,
       updatedAt: string,
       _version: number,
       _deleted?: boolean | null,
       _lastChangedAt: number,
-      characterCharacterRaceId?: string | null,
-      characterCharacterAlignmentId?: string | null,
-      characterCharacterProfessionId?: string | null,
     } | null >,
     nextToken?: string | null,
     startedAt?: number | null,
-  } | null,
-};
-
-export type OnCreateUserSubscriptionVariables = {
-  filter?: ModelSubscriptionUserFilterInput | null,
-};
-
-export type OnCreateUserSubscription = {
-  onCreateUser?:  {
-    __typename: "User",
-    id: string,
-    name: string,
-    email: string,
-    createdAt: string,
-    updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
-  } | null,
-};
-
-export type OnUpdateUserSubscriptionVariables = {
-  filter?: ModelSubscriptionUserFilterInput | null,
-};
-
-export type OnUpdateUserSubscription = {
-  onUpdateUser?:  {
-    __typename: "User",
-    id: string,
-    name: string,
-    email: string,
-    createdAt: string,
-    updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
-  } | null,
-};
-
-export type OnDeleteUserSubscriptionVariables = {
-  filter?: ModelSubscriptionUserFilterInput | null,
-};
-
-export type OnDeleteUserSubscription = {
-  onDeleteUser?:  {
-    __typename: "User",
-    id: string,
-    name: string,
-    email: string,
-    createdAt: string,
-    updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
-  } | null,
-};
-
-export type OnCreateSourceSubscriptionVariables = {
-  filter?: ModelSubscriptionSourceFilterInput | null,
-};
-
-export type OnCreateSourceSubscription = {
-  onCreateSource?:  {
-    __typename: "Source",
-    id: string,
-    name: string,
-    createdAt: string,
-    updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
-  } | null,
-};
-
-export type OnUpdateSourceSubscriptionVariables = {
-  filter?: ModelSubscriptionSourceFilterInput | null,
-};
-
-export type OnUpdateSourceSubscription = {
-  onUpdateSource?:  {
-    __typename: "Source",
-    id: string,
-    name: string,
-    createdAt: string,
-    updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
-  } | null,
-};
-
-export type OnDeleteSourceSubscriptionVariables = {
-  filter?: ModelSubscriptionSourceFilterInput | null,
-};
-
-export type OnDeleteSourceSubscription = {
-  onDeleteSource?:  {
-    __typename: "Source",
-    id: string,
-    name: string,
-    createdAt: string,
-    updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
-  } | null,
-};
-
-export type OnCreateCharacterProfessionSubscriptionVariables = {
-  filter?: ModelSubscriptionCharacterProfessionFilterInput | null,
-};
-
-export type OnCreateCharacterProfessionSubscription = {
-  onCreateCharacterProfession?:  {
-    __typename: "CharacterProfession",
-    id: string,
-    Character?:  {
-      __typename: "Character",
-      userId: string,
-      id: string,
-      name: string,
-      level?: number | null,
-      xp?: number | null,
-      armor?: number | null,
-      hitPointsMax?: number | null,
-      hitPointsCurrent?: number | null,
-      coin?: number | null,
-      loadMax?: number | null,
-      loadCurrent?: number | null,
-      isTemplate?: boolean | null,
-      tags?: Array< string | null > | null,
-      notes?: string | null,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      characterCharacterRaceId?: string | null,
-      characterCharacterAlignmentId?: string | null,
-      characterCharacterProfessionId?: string | null,
-    } | null,
-    Profession?:  {
-      __typename: "Profession",
-      id: string,
-      name: string,
-      description: string,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      professionSourceId: string,
-      professionDiceTypeId?: string | null,
-    } | null,
-    createdAt: string,
-    updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
-    characterProfessionProfessionId?: string | null,
-    characterProfessionCharacterId?: string | null,
-  } | null,
-};
-
-export type OnUpdateCharacterProfessionSubscriptionVariables = {
-  filter?: ModelSubscriptionCharacterProfessionFilterInput | null,
-};
-
-export type OnUpdateCharacterProfessionSubscription = {
-  onUpdateCharacterProfession?:  {
-    __typename: "CharacterProfession",
-    id: string,
-    Character?:  {
-      __typename: "Character",
-      userId: string,
-      id: string,
-      name: string,
-      level?: number | null,
-      xp?: number | null,
-      armor?: number | null,
-      hitPointsMax?: number | null,
-      hitPointsCurrent?: number | null,
-      coin?: number | null,
-      loadMax?: number | null,
-      loadCurrent?: number | null,
-      isTemplate?: boolean | null,
-      tags?: Array< string | null > | null,
-      notes?: string | null,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      characterCharacterRaceId?: string | null,
-      characterCharacterAlignmentId?: string | null,
-      characterCharacterProfessionId?: string | null,
-    } | null,
-    Profession?:  {
-      __typename: "Profession",
-      id: string,
-      name: string,
-      description: string,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      professionSourceId: string,
-      professionDiceTypeId?: string | null,
-    } | null,
-    createdAt: string,
-    updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
-    characterProfessionProfessionId?: string | null,
-    characterProfessionCharacterId?: string | null,
-  } | null,
-};
-
-export type OnDeleteCharacterProfessionSubscriptionVariables = {
-  filter?: ModelSubscriptionCharacterProfessionFilterInput | null,
-};
-
-export type OnDeleteCharacterProfessionSubscription = {
-  onDeleteCharacterProfession?:  {
-    __typename: "CharacterProfession",
-    id: string,
-    Character?:  {
-      __typename: "Character",
-      userId: string,
-      id: string,
-      name: string,
-      level?: number | null,
-      xp?: number | null,
-      armor?: number | null,
-      hitPointsMax?: number | null,
-      hitPointsCurrent?: number | null,
-      coin?: number | null,
-      loadMax?: number | null,
-      loadCurrent?: number | null,
-      isTemplate?: boolean | null,
-      tags?: Array< string | null > | null,
-      notes?: string | null,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      characterCharacterRaceId?: string | null,
-      characterCharacterAlignmentId?: string | null,
-      characterCharacterProfessionId?: string | null,
-    } | null,
-    Profession?:  {
-      __typename: "Profession",
-      id: string,
-      name: string,
-      description: string,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      professionSourceId: string,
-      professionDiceTypeId?: string | null,
-    } | null,
-    createdAt: string,
-    updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
-    characterProfessionProfessionId?: string | null,
-    characterProfessionCharacterId?: string | null,
-  } | null,
-};
-
-export type OnCreateProfessionSubscriptionVariables = {
-  filter?: ModelSubscriptionProfessionFilterInput | null,
-};
-
-export type OnCreateProfessionSubscription = {
-  onCreateProfession?:  {
-    __typename: "Profession",
-    id: string,
-    name: string,
-    description: string,
-    Source:  {
-      __typename: "Source",
-      id: string,
-      name: string,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-    },
-    DiceType?:  {
-      __typename: "DiceType",
-      id: string,
-      name?: string | null,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-    } | null,
-    createdAt: string,
-    updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
-    professionSourceId: string,
-    professionDiceTypeId?: string | null,
-  } | null,
-};
-
-export type OnUpdateProfessionSubscriptionVariables = {
-  filter?: ModelSubscriptionProfessionFilterInput | null,
-};
-
-export type OnUpdateProfessionSubscription = {
-  onUpdateProfession?:  {
-    __typename: "Profession",
-    id: string,
-    name: string,
-    description: string,
-    Source:  {
-      __typename: "Source",
-      id: string,
-      name: string,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-    },
-    DiceType?:  {
-      __typename: "DiceType",
-      id: string,
-      name?: string | null,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-    } | null,
-    createdAt: string,
-    updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
-    professionSourceId: string,
-    professionDiceTypeId?: string | null,
-  } | null,
-};
-
-export type OnDeleteProfessionSubscriptionVariables = {
-  filter?: ModelSubscriptionProfessionFilterInput | null,
-};
-
-export type OnDeleteProfessionSubscription = {
-  onDeleteProfession?:  {
-    __typename: "Profession",
-    id: string,
-    name: string,
-    description: string,
-    Source:  {
-      __typename: "Source",
-      id: string,
-      name: string,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-    },
-    DiceType?:  {
-      __typename: "DiceType",
-      id: string,
-      name?: string | null,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-    } | null,
-    createdAt: string,
-    updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
-    professionSourceId: string,
-    professionDiceTypeId?: string | null,
   } | null,
 };
 
@@ -7433,36 +2417,15 @@ export type OnCreateSpellSubscription = {
     type: string,
     ongoing?: boolean | null,
     description: string,
-    Source:  {
-      __typename: "Source",
-      id: string,
-      name: string,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-    },
-    Profession:  {
-      __typename: "Profession",
-      id: string,
-      name: string,
-      description: string,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      professionSourceId: string,
-      professionDiceTypeId?: string | null,
-    },
+    selected?: boolean | null,
+    tags?: Array< string | null > | null,
+    source: string,
+    profession: string,
     createdAt: string,
     updatedAt: string,
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
-    spellSourceId: string,
-    spellProfessionId: string,
   } | null,
 };
 
@@ -7479,36 +2442,15 @@ export type OnUpdateSpellSubscription = {
     type: string,
     ongoing?: boolean | null,
     description: string,
-    Source:  {
-      __typename: "Source",
-      id: string,
-      name: string,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-    },
-    Profession:  {
-      __typename: "Profession",
-      id: string,
-      name: string,
-      description: string,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      professionSourceId: string,
-      professionDiceTypeId?: string | null,
-    },
+    selected?: boolean | null,
+    tags?: Array< string | null > | null,
+    source: string,
+    profession: string,
     createdAt: string,
     updatedAt: string,
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
-    spellSourceId: string,
-    spellProfessionId: string,
   } | null,
 };
 
@@ -7525,396 +2467,15 @@ export type OnDeleteSpellSubscription = {
     type: string,
     ongoing?: boolean | null,
     description: string,
-    Source:  {
-      __typename: "Source",
-      id: string,
-      name: string,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-    },
-    Profession:  {
-      __typename: "Profession",
-      id: string,
-      name: string,
-      description: string,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      professionSourceId: string,
-      professionDiceTypeId?: string | null,
-    },
-    createdAt: string,
-    updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
-    spellSourceId: string,
-    spellProfessionId: string,
-  } | null,
-};
-
-export type OnCreateCharacterSpellSubscriptionVariables = {
-  filter?: ModelSubscriptionCharacterSpellFilterInput | null,
-};
-
-export type OnCreateCharacterSpellSubscription = {
-  onCreateCharacterSpell?:  {
-    __typename: "CharacterSpell",
-    id: string,
-    Spell:  {
-      __typename: "Spell",
-      id: string,
-      name: string,
-      level: number,
-      type: string,
-      ongoing?: boolean | null,
-      description: string,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      spellSourceId: string,
-      spellProfessionId: string,
-    },
     selected?: boolean | null,
     tags?: Array< string | null > | null,
-    Character?:  {
-      __typename: "Character",
-      userId: string,
-      id: string,
-      name: string,
-      level?: number | null,
-      xp?: number | null,
-      armor?: number | null,
-      hitPointsMax?: number | null,
-      hitPointsCurrent?: number | null,
-      coin?: number | null,
-      loadMax?: number | null,
-      loadCurrent?: number | null,
-      isTemplate?: boolean | null,
-      tags?: Array< string | null > | null,
-      notes?: string | null,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      characterCharacterRaceId?: string | null,
-      characterCharacterAlignmentId?: string | null,
-      characterCharacterProfessionId?: string | null,
-    } | null,
+    source: string,
+    profession: string,
     createdAt: string,
     updatedAt: string,
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
-    characterCharacterSpellsId?: string | null,
-    characterSpellSpellId: string,
-  } | null,
-};
-
-export type OnUpdateCharacterSpellSubscriptionVariables = {
-  filter?: ModelSubscriptionCharacterSpellFilterInput | null,
-};
-
-export type OnUpdateCharacterSpellSubscription = {
-  onUpdateCharacterSpell?:  {
-    __typename: "CharacterSpell",
-    id: string,
-    Spell:  {
-      __typename: "Spell",
-      id: string,
-      name: string,
-      level: number,
-      type: string,
-      ongoing?: boolean | null,
-      description: string,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      spellSourceId: string,
-      spellProfessionId: string,
-    },
-    selected?: boolean | null,
-    tags?: Array< string | null > | null,
-    Character?:  {
-      __typename: "Character",
-      userId: string,
-      id: string,
-      name: string,
-      level?: number | null,
-      xp?: number | null,
-      armor?: number | null,
-      hitPointsMax?: number | null,
-      hitPointsCurrent?: number | null,
-      coin?: number | null,
-      loadMax?: number | null,
-      loadCurrent?: number | null,
-      isTemplate?: boolean | null,
-      tags?: Array< string | null > | null,
-      notes?: string | null,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      characterCharacterRaceId?: string | null,
-      characterCharacterAlignmentId?: string | null,
-      characterCharacterProfessionId?: string | null,
-    } | null,
-    createdAt: string,
-    updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
-    characterCharacterSpellsId?: string | null,
-    characterSpellSpellId: string,
-  } | null,
-};
-
-export type OnDeleteCharacterSpellSubscriptionVariables = {
-  filter?: ModelSubscriptionCharacterSpellFilterInput | null,
-};
-
-export type OnDeleteCharacterSpellSubscription = {
-  onDeleteCharacterSpell?:  {
-    __typename: "CharacterSpell",
-    id: string,
-    Spell:  {
-      __typename: "Spell",
-      id: string,
-      name: string,
-      level: number,
-      type: string,
-      ongoing?: boolean | null,
-      description: string,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      spellSourceId: string,
-      spellProfessionId: string,
-    },
-    selected?: boolean | null,
-    tags?: Array< string | null > | null,
-    Character?:  {
-      __typename: "Character",
-      userId: string,
-      id: string,
-      name: string,
-      level?: number | null,
-      xp?: number | null,
-      armor?: number | null,
-      hitPointsMax?: number | null,
-      hitPointsCurrent?: number | null,
-      coin?: number | null,
-      loadMax?: number | null,
-      loadCurrent?: number | null,
-      isTemplate?: boolean | null,
-      tags?: Array< string | null > | null,
-      notes?: string | null,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      characterCharacterRaceId?: string | null,
-      characterCharacterAlignmentId?: string | null,
-      characterCharacterProfessionId?: string | null,
-    } | null,
-    createdAt: string,
-    updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
-    characterCharacterSpellsId?: string | null,
-    characterSpellSpellId: string,
-  } | null,
-};
-
-export type OnCreateCharacterGearSubscriptionVariables = {
-  filter?: ModelSubscriptionCharacterGearFilterInput | null,
-};
-
-export type OnCreateCharacterGearSubscription = {
-  onCreateCharacterGear?:  {
-    __typename: "CharacterGear",
-    id: string,
-    Gear:  {
-      __typename: "Gear",
-      id: string,
-      description: string,
-      weight: number,
-      uses?: number | null,
-      tags?: Array< string | null > | null,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      gearSourceId?: string | null,
-    },
-    uses?: number | null,
-    tags?: Array< string | null > | null,
-    Character?:  {
-      __typename: "Character",
-      userId: string,
-      id: string,
-      name: string,
-      level?: number | null,
-      xp?: number | null,
-      armor?: number | null,
-      hitPointsMax?: number | null,
-      hitPointsCurrent?: number | null,
-      coin?: number | null,
-      loadMax?: number | null,
-      loadCurrent?: number | null,
-      isTemplate?: boolean | null,
-      tags?: Array< string | null > | null,
-      notes?: string | null,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      characterCharacterRaceId?: string | null,
-      characterCharacterAlignmentId?: string | null,
-      characterCharacterProfessionId?: string | null,
-    } | null,
-    createdAt: string,
-    updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
-    characterCharacterGearId?: string | null,
-    characterGearGearId: string,
-  } | null,
-};
-
-export type OnUpdateCharacterGearSubscriptionVariables = {
-  filter?: ModelSubscriptionCharacterGearFilterInput | null,
-};
-
-export type OnUpdateCharacterGearSubscription = {
-  onUpdateCharacterGear?:  {
-    __typename: "CharacterGear",
-    id: string,
-    Gear:  {
-      __typename: "Gear",
-      id: string,
-      description: string,
-      weight: number,
-      uses?: number | null,
-      tags?: Array< string | null > | null,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      gearSourceId?: string | null,
-    },
-    uses?: number | null,
-    tags?: Array< string | null > | null,
-    Character?:  {
-      __typename: "Character",
-      userId: string,
-      id: string,
-      name: string,
-      level?: number | null,
-      xp?: number | null,
-      armor?: number | null,
-      hitPointsMax?: number | null,
-      hitPointsCurrent?: number | null,
-      coin?: number | null,
-      loadMax?: number | null,
-      loadCurrent?: number | null,
-      isTemplate?: boolean | null,
-      tags?: Array< string | null > | null,
-      notes?: string | null,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      characterCharacterRaceId?: string | null,
-      characterCharacterAlignmentId?: string | null,
-      characterCharacterProfessionId?: string | null,
-    } | null,
-    createdAt: string,
-    updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
-    characterCharacterGearId?: string | null,
-    characterGearGearId: string,
-  } | null,
-};
-
-export type OnDeleteCharacterGearSubscriptionVariables = {
-  filter?: ModelSubscriptionCharacterGearFilterInput | null,
-};
-
-export type OnDeleteCharacterGearSubscription = {
-  onDeleteCharacterGear?:  {
-    __typename: "CharacterGear",
-    id: string,
-    Gear:  {
-      __typename: "Gear",
-      id: string,
-      description: string,
-      weight: number,
-      uses?: number | null,
-      tags?: Array< string | null > | null,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      gearSourceId?: string | null,
-    },
-    uses?: number | null,
-    tags?: Array< string | null > | null,
-    Character?:  {
-      __typename: "Character",
-      userId: string,
-      id: string,
-      name: string,
-      level?: number | null,
-      xp?: number | null,
-      armor?: number | null,
-      hitPointsMax?: number | null,
-      hitPointsCurrent?: number | null,
-      coin?: number | null,
-      loadMax?: number | null,
-      loadCurrent?: number | null,
-      isTemplate?: boolean | null,
-      tags?: Array< string | null > | null,
-      notes?: string | null,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      characterCharacterRaceId?: string | null,
-      characterCharacterAlignmentId?: string | null,
-      characterCharacterProfessionId?: string | null,
-    } | null,
-    createdAt: string,
-    updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
-    characterCharacterGearId?: string | null,
-    characterGearGearId: string,
   } | null,
 };
 
@@ -7930,22 +2491,12 @@ export type OnCreateGearSubscription = {
     weight: number,
     uses?: number | null,
     tags?: Array< string | null > | null,
-    Source?:  {
-      __typename: "Source",
-      id: string,
-      name: string,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-    } | null,
+    source: string,
     createdAt: string,
     updatedAt: string,
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
-    gearSourceId?: string | null,
   } | null,
 };
 
@@ -7961,22 +2512,12 @@ export type OnUpdateGearSubscription = {
     weight: number,
     uses?: number | null,
     tags?: Array< string | null > | null,
-    Source?:  {
-      __typename: "Source",
-      id: string,
-      name: string,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-    } | null,
+    source: string,
     createdAt: string,
     updatedAt: string,
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
-    gearSourceId?: string | null,
   } | null,
 };
 
@@ -7992,196 +2533,12 @@ export type OnDeleteGearSubscription = {
     weight: number,
     uses?: number | null,
     tags?: Array< string | null > | null,
-    Source?:  {
-      __typename: "Source",
-      id: string,
-      name: string,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-    } | null,
+    source: string,
     createdAt: string,
     updatedAt: string,
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
-    gearSourceId?: string | null,
-  } | null,
-};
-
-export type OnCreateCharacterMoveSubscriptionVariables = {
-  filter?: ModelSubscriptionCharacterMoveFilterInput | null,
-};
-
-export type OnCreateCharacterMoveSubscription = {
-  onCreateCharacterMove?:  {
-    __typename: "CharacterMove",
-    id: string,
-    selected?: boolean | null,
-    Move:  {
-      __typename: "Move",
-      id: string,
-      description: string,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      moveProfessionId: string,
-      moveSourceId?: string | null,
-    },
-    Character?:  {
-      __typename: "Character",
-      userId: string,
-      id: string,
-      name: string,
-      level?: number | null,
-      xp?: number | null,
-      armor?: number | null,
-      hitPointsMax?: number | null,
-      hitPointsCurrent?: number | null,
-      coin?: number | null,
-      loadMax?: number | null,
-      loadCurrent?: number | null,
-      isTemplate?: boolean | null,
-      tags?: Array< string | null > | null,
-      notes?: string | null,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      characterCharacterRaceId?: string | null,
-      characterCharacterAlignmentId?: string | null,
-      characterCharacterProfessionId?: string | null,
-    } | null,
-    createdAt: string,
-    updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
-    characterMovesStartingId?: string | null,
-    characterMovesTwoToTenId?: string | null,
-    characterMovesSixToTenId?: string | null,
-    characterMoveMoveId: string,
-  } | null,
-};
-
-export type OnUpdateCharacterMoveSubscriptionVariables = {
-  filter?: ModelSubscriptionCharacterMoveFilterInput | null,
-};
-
-export type OnUpdateCharacterMoveSubscription = {
-  onUpdateCharacterMove?:  {
-    __typename: "CharacterMove",
-    id: string,
-    selected?: boolean | null,
-    Move:  {
-      __typename: "Move",
-      id: string,
-      description: string,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      moveProfessionId: string,
-      moveSourceId?: string | null,
-    },
-    Character?:  {
-      __typename: "Character",
-      userId: string,
-      id: string,
-      name: string,
-      level?: number | null,
-      xp?: number | null,
-      armor?: number | null,
-      hitPointsMax?: number | null,
-      hitPointsCurrent?: number | null,
-      coin?: number | null,
-      loadMax?: number | null,
-      loadCurrent?: number | null,
-      isTemplate?: boolean | null,
-      tags?: Array< string | null > | null,
-      notes?: string | null,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      characterCharacterRaceId?: string | null,
-      characterCharacterAlignmentId?: string | null,
-      characterCharacterProfessionId?: string | null,
-    } | null,
-    createdAt: string,
-    updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
-    characterMovesStartingId?: string | null,
-    characterMovesTwoToTenId?: string | null,
-    characterMovesSixToTenId?: string | null,
-    characterMoveMoveId: string,
-  } | null,
-};
-
-export type OnDeleteCharacterMoveSubscriptionVariables = {
-  filter?: ModelSubscriptionCharacterMoveFilterInput | null,
-};
-
-export type OnDeleteCharacterMoveSubscription = {
-  onDeleteCharacterMove?:  {
-    __typename: "CharacterMove",
-    id: string,
-    selected?: boolean | null,
-    Move:  {
-      __typename: "Move",
-      id: string,
-      description: string,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      moveProfessionId: string,
-      moveSourceId?: string | null,
-    },
-    Character?:  {
-      __typename: "Character",
-      userId: string,
-      id: string,
-      name: string,
-      level?: number | null,
-      xp?: number | null,
-      armor?: number | null,
-      hitPointsMax?: number | null,
-      hitPointsCurrent?: number | null,
-      coin?: number | null,
-      loadMax?: number | null,
-      loadCurrent?: number | null,
-      isTemplate?: boolean | null,
-      tags?: Array< string | null > | null,
-      notes?: string | null,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      characterCharacterRaceId?: string | null,
-      characterCharacterAlignmentId?: string | null,
-      characterCharacterProfessionId?: string | null,
-    } | null,
-    createdAt: string,
-    updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
-    characterMovesStartingId?: string | null,
-    characterMovesTwoToTenId?: string | null,
-    characterMovesSixToTenId?: string | null,
-    characterMoveMoveId: string,
   } | null,
 };
 
@@ -8194,36 +2551,14 @@ export type OnCreateMoveSubscription = {
     __typename: "Move",
     id: string,
     description: string,
-    Profession:  {
-      __typename: "Profession",
-      id: string,
-      name: string,
-      description: string,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      professionSourceId: string,
-      professionDiceTypeId?: string | null,
-    },
-    Source?:  {
-      __typename: "Source",
-      id: string,
-      name: string,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-    } | null,
+    selected?: boolean | null,
+    profession: string,
+    source: string,
     createdAt: string,
     updatedAt: string,
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
-    moveProfessionId: string,
-    moveSourceId?: string | null,
   } | null,
 };
 
@@ -8236,36 +2571,14 @@ export type OnUpdateMoveSubscription = {
     __typename: "Move",
     id: string,
     description: string,
-    Profession:  {
-      __typename: "Profession",
-      id: string,
-      name: string,
-      description: string,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      professionSourceId: string,
-      professionDiceTypeId?: string | null,
-    },
-    Source?:  {
-      __typename: "Source",
-      id: string,
-      name: string,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-    } | null,
+    selected?: boolean | null,
+    profession: string,
+    source: string,
     createdAt: string,
     updatedAt: string,
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
-    moveProfessionId: string,
-    moveSourceId?: string | null,
   } | null,
 };
 
@@ -8278,204 +2591,14 @@ export type OnDeleteMoveSubscription = {
     __typename: "Move",
     id: string,
     description: string,
-    Profession:  {
-      __typename: "Profession",
-      id: string,
-      name: string,
-      description: string,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      professionSourceId: string,
-      professionDiceTypeId?: string | null,
-    },
-    Source?:  {
-      __typename: "Source",
-      id: string,
-      name: string,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-    } | null,
-    createdAt: string,
-    updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
-    moveProfessionId: string,
-    moveSourceId?: string | null,
-  } | null,
-};
-
-export type OnCreateCharacterBondSubscriptionVariables = {
-  filter?: ModelSubscriptionCharacterBondFilterInput | null,
-};
-
-export type OnCreateCharacterBondSubscription = {
-  onCreateCharacterBond?:  {
-    __typename: "CharacterBond",
-    id: string,
-    description?: string | null,
-    Bond:  {
-      __typename: "Bond",
-      id: string,
-      description?: string | null,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      bondProfessionId: string,
-    },
     selected?: boolean | null,
-    Character?:  {
-      __typename: "Character",
-      userId: string,
-      id: string,
-      name: string,
-      level?: number | null,
-      xp?: number | null,
-      armor?: number | null,
-      hitPointsMax?: number | null,
-      hitPointsCurrent?: number | null,
-      coin?: number | null,
-      loadMax?: number | null,
-      loadCurrent?: number | null,
-      isTemplate?: boolean | null,
-      tags?: Array< string | null > | null,
-      notes?: string | null,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      characterCharacterRaceId?: string | null,
-      characterCharacterAlignmentId?: string | null,
-      characterCharacterProfessionId?: string | null,
-    } | null,
+    profession: string,
+    source: string,
     createdAt: string,
     updatedAt: string,
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
-    characterCharacterBondsId?: string | null,
-    characterBondBondId: string,
-  } | null,
-};
-
-export type OnUpdateCharacterBondSubscriptionVariables = {
-  filter?: ModelSubscriptionCharacterBondFilterInput | null,
-};
-
-export type OnUpdateCharacterBondSubscription = {
-  onUpdateCharacterBond?:  {
-    __typename: "CharacterBond",
-    id: string,
-    description?: string | null,
-    Bond:  {
-      __typename: "Bond",
-      id: string,
-      description?: string | null,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      bondProfessionId: string,
-    },
-    selected?: boolean | null,
-    Character?:  {
-      __typename: "Character",
-      userId: string,
-      id: string,
-      name: string,
-      level?: number | null,
-      xp?: number | null,
-      armor?: number | null,
-      hitPointsMax?: number | null,
-      hitPointsCurrent?: number | null,
-      coin?: number | null,
-      loadMax?: number | null,
-      loadCurrent?: number | null,
-      isTemplate?: boolean | null,
-      tags?: Array< string | null > | null,
-      notes?: string | null,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      characterCharacterRaceId?: string | null,
-      characterCharacterAlignmentId?: string | null,
-      characterCharacterProfessionId?: string | null,
-    } | null,
-    createdAt: string,
-    updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
-    characterCharacterBondsId?: string | null,
-    characterBondBondId: string,
-  } | null,
-};
-
-export type OnDeleteCharacterBondSubscriptionVariables = {
-  filter?: ModelSubscriptionCharacterBondFilterInput | null,
-};
-
-export type OnDeleteCharacterBondSubscription = {
-  onDeleteCharacterBond?:  {
-    __typename: "CharacterBond",
-    id: string,
-    description?: string | null,
-    Bond:  {
-      __typename: "Bond",
-      id: string,
-      description?: string | null,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      bondProfessionId: string,
-    },
-    selected?: boolean | null,
-    Character?:  {
-      __typename: "Character",
-      userId: string,
-      id: string,
-      name: string,
-      level?: number | null,
-      xp?: number | null,
-      armor?: number | null,
-      hitPointsMax?: number | null,
-      hitPointsCurrent?: number | null,
-      coin?: number | null,
-      loadMax?: number | null,
-      loadCurrent?: number | null,
-      isTemplate?: boolean | null,
-      tags?: Array< string | null > | null,
-      notes?: string | null,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      characterCharacterRaceId?: string | null,
-      characterCharacterAlignmentId?: string | null,
-      characterCharacterProfessionId?: string | null,
-    } | null,
-    createdAt: string,
-    updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
-    characterCharacterBondsId?: string | null,
-    characterBondBondId: string,
   } | null,
 };
 
@@ -8488,25 +2611,14 @@ export type OnCreateBondSubscription = {
     __typename: "Bond",
     id: string,
     description?: string | null,
-    Profession:  {
-      __typename: "Profession",
-      id: string,
-      name: string,
-      description: string,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      professionSourceId: string,
-      professionDiceTypeId?: string | null,
-    },
+    profession: string,
+    selected?: boolean | null,
+    tags?: Array< string | null > | null,
     createdAt: string,
     updatedAt: string,
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
-    bondProfessionId: string,
   } | null,
 };
 
@@ -8519,25 +2631,14 @@ export type OnUpdateBondSubscription = {
     __typename: "Bond",
     id: string,
     description?: string | null,
-    Profession:  {
-      __typename: "Profession",
-      id: string,
-      name: string,
-      description: string,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      professionSourceId: string,
-      professionDiceTypeId?: string | null,
-    },
+    profession: string,
+    selected?: boolean | null,
+    tags?: Array< string | null > | null,
     createdAt: string,
     updatedAt: string,
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
-    bondProfessionId: string,
   } | null,
 };
 
@@ -8550,202 +2651,14 @@ export type OnDeleteBondSubscription = {
     __typename: "Bond",
     id: string,
     description?: string | null,
-    Profession:  {
-      __typename: "Profession",
-      id: string,
-      name: string,
-      description: string,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      professionSourceId: string,
-      professionDiceTypeId?: string | null,
-    },
-    createdAt: string,
-    updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
-    bondProfessionId: string,
-  } | null,
-};
-
-export type OnCreateCharacterAbilityScoreSubscriptionVariables = {
-  filter?: ModelSubscriptionCharacterAbilityScoreFilterInput | null,
-};
-
-export type OnCreateCharacterAbilityScoreSubscription = {
-  onCreateCharacterAbilityScore?:  {
-    __typename: "CharacterAbilityScore",
-    AbilityScore:  {
-      __typename: "AbilityScore",
-      id: string,
-      name: string,
-      shortName: string,
-      debility: string,
-      debilityPenalty: string,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-    },
-    id: string,
-    value: string,
-    bonus: number,
+    profession: string,
+    selected?: boolean | null,
     tags?: Array< string | null > | null,
-    Character?:  {
-      __typename: "Character",
-      userId: string,
-      id: string,
-      name: string,
-      level?: number | null,
-      xp?: number | null,
-      armor?: number | null,
-      hitPointsMax?: number | null,
-      hitPointsCurrent?: number | null,
-      coin?: number | null,
-      loadMax?: number | null,
-      loadCurrent?: number | null,
-      isTemplate?: boolean | null,
-      tags?: Array< string | null > | null,
-      notes?: string | null,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      characterCharacterRaceId?: string | null,
-      characterCharacterAlignmentId?: string | null,
-      characterCharacterProfessionId?: string | null,
-    } | null,
     createdAt: string,
     updatedAt: string,
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
-    characterCharacterAbilityScoresId?: string | null,
-    characterAbilityScoreAbilityScoreId: string,
-  } | null,
-};
-
-export type OnUpdateCharacterAbilityScoreSubscriptionVariables = {
-  filter?: ModelSubscriptionCharacterAbilityScoreFilterInput | null,
-};
-
-export type OnUpdateCharacterAbilityScoreSubscription = {
-  onUpdateCharacterAbilityScore?:  {
-    __typename: "CharacterAbilityScore",
-    AbilityScore:  {
-      __typename: "AbilityScore",
-      id: string,
-      name: string,
-      shortName: string,
-      debility: string,
-      debilityPenalty: string,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-    },
-    id: string,
-    value: string,
-    bonus: number,
-    tags?: Array< string | null > | null,
-    Character?:  {
-      __typename: "Character",
-      userId: string,
-      id: string,
-      name: string,
-      level?: number | null,
-      xp?: number | null,
-      armor?: number | null,
-      hitPointsMax?: number | null,
-      hitPointsCurrent?: number | null,
-      coin?: number | null,
-      loadMax?: number | null,
-      loadCurrent?: number | null,
-      isTemplate?: boolean | null,
-      tags?: Array< string | null > | null,
-      notes?: string | null,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      characterCharacterRaceId?: string | null,
-      characterCharacterAlignmentId?: string | null,
-      characterCharacterProfessionId?: string | null,
-    } | null,
-    createdAt: string,
-    updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
-    characterCharacterAbilityScoresId?: string | null,
-    characterAbilityScoreAbilityScoreId: string,
-  } | null,
-};
-
-export type OnDeleteCharacterAbilityScoreSubscriptionVariables = {
-  filter?: ModelSubscriptionCharacterAbilityScoreFilterInput | null,
-};
-
-export type OnDeleteCharacterAbilityScoreSubscription = {
-  onDeleteCharacterAbilityScore?:  {
-    __typename: "CharacterAbilityScore",
-    AbilityScore:  {
-      __typename: "AbilityScore",
-      id: string,
-      name: string,
-      shortName: string,
-      debility: string,
-      debilityPenalty: string,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-    },
-    id: string,
-    value: string,
-    bonus: number,
-    tags?: Array< string | null > | null,
-    Character?:  {
-      __typename: "Character",
-      userId: string,
-      id: string,
-      name: string,
-      level?: number | null,
-      xp?: number | null,
-      armor?: number | null,
-      hitPointsMax?: number | null,
-      hitPointsCurrent?: number | null,
-      coin?: number | null,
-      loadMax?: number | null,
-      loadCurrent?: number | null,
-      isTemplate?: boolean | null,
-      tags?: Array< string | null > | null,
-      notes?: string | null,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      characterCharacterRaceId?: string | null,
-      characterCharacterAlignmentId?: string | null,
-      characterCharacterProfessionId?: string | null,
-    } | null,
-    createdAt: string,
-    updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
-    characterCharacterAbilityScoresId?: string | null,
-    characterAbilityScoreAbilityScoreId: string,
   } | null,
 };
 
@@ -8761,6 +2674,9 @@ export type OnCreateAbilityScoreSubscription = {
     shortName: string,
     debility: string,
     debilityPenalty: string,
+    value: string,
+    bonus: number,
+    tags?: Array< string | null > | null,
     createdAt: string,
     updatedAt: string,
     _version: number,
@@ -8781,6 +2697,9 @@ export type OnUpdateAbilityScoreSubscription = {
     shortName: string,
     debility: string,
     debilityPenalty: string,
+    value: string,
+    bonus: number,
+    tags?: Array< string | null > | null,
     createdAt: string,
     updatedAt: string,
     _version: number,
@@ -8801,179 +2720,14 @@ export type OnDeleteAbilityScoreSubscription = {
     shortName: string,
     debility: string,
     debilityPenalty: string,
+    value: string,
+    bonus: number,
+    tags?: Array< string | null > | null,
     createdAt: string,
     updatedAt: string,
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
-  } | null,
-};
-
-export type OnCreateCharacterRaceSubscriptionVariables = {
-  filter?: ModelSubscriptionCharacterRaceFilterInput | null,
-};
-
-export type OnCreateCharacterRaceSubscription = {
-  onCreateCharacterRace?:  {
-    __typename: "CharacterRace",
-    id: string,
-    Race:  {
-      __typename: "Race",
-      id: string,
-      name?: string | null,
-      description?: string | null,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      raceProfessionId?: string | null,
-      raceSourceId: string,
-    },
-    Character?:  {
-      __typename: "Character",
-      userId: string,
-      id: string,
-      name: string,
-      level?: number | null,
-      xp?: number | null,
-      armor?: number | null,
-      hitPointsMax?: number | null,
-      hitPointsCurrent?: number | null,
-      coin?: number | null,
-      loadMax?: number | null,
-      loadCurrent?: number | null,
-      isTemplate?: boolean | null,
-      tags?: Array< string | null > | null,
-      notes?: string | null,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      characterCharacterRaceId?: string | null,
-      characterCharacterAlignmentId?: string | null,
-      characterCharacterProfessionId?: string | null,
-    } | null,
-    createdAt: string,
-    updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
-    characterRaceRaceId: string,
-    characterRaceCharacterId?: string | null,
-  } | null,
-};
-
-export type OnUpdateCharacterRaceSubscriptionVariables = {
-  filter?: ModelSubscriptionCharacterRaceFilterInput | null,
-};
-
-export type OnUpdateCharacterRaceSubscription = {
-  onUpdateCharacterRace?:  {
-    __typename: "CharacterRace",
-    id: string,
-    Race:  {
-      __typename: "Race",
-      id: string,
-      name?: string | null,
-      description?: string | null,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      raceProfessionId?: string | null,
-      raceSourceId: string,
-    },
-    Character?:  {
-      __typename: "Character",
-      userId: string,
-      id: string,
-      name: string,
-      level?: number | null,
-      xp?: number | null,
-      armor?: number | null,
-      hitPointsMax?: number | null,
-      hitPointsCurrent?: number | null,
-      coin?: number | null,
-      loadMax?: number | null,
-      loadCurrent?: number | null,
-      isTemplate?: boolean | null,
-      tags?: Array< string | null > | null,
-      notes?: string | null,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      characterCharacterRaceId?: string | null,
-      characterCharacterAlignmentId?: string | null,
-      characterCharacterProfessionId?: string | null,
-    } | null,
-    createdAt: string,
-    updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
-    characterRaceRaceId: string,
-    characterRaceCharacterId?: string | null,
-  } | null,
-};
-
-export type OnDeleteCharacterRaceSubscriptionVariables = {
-  filter?: ModelSubscriptionCharacterRaceFilterInput | null,
-};
-
-export type OnDeleteCharacterRaceSubscription = {
-  onDeleteCharacterRace?:  {
-    __typename: "CharacterRace",
-    id: string,
-    Race:  {
-      __typename: "Race",
-      id: string,
-      name?: string | null,
-      description?: string | null,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      raceProfessionId?: string | null,
-      raceSourceId: string,
-    },
-    Character?:  {
-      __typename: "Character",
-      userId: string,
-      id: string,
-      name: string,
-      level?: number | null,
-      xp?: number | null,
-      armor?: number | null,
-      hitPointsMax?: number | null,
-      hitPointsCurrent?: number | null,
-      coin?: number | null,
-      loadMax?: number | null,
-      loadCurrent?: number | null,
-      isTemplate?: boolean | null,
-      tags?: Array< string | null > | null,
-      notes?: string | null,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      characterCharacterRaceId?: string | null,
-      characterCharacterAlignmentId?: string | null,
-      characterCharacterProfessionId?: string | null,
-    } | null,
-    createdAt: string,
-    updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
-    characterRaceRaceId: string,
-    characterRaceCharacterId?: string | null,
   } | null,
 };
 
@@ -8987,36 +2741,13 @@ export type OnCreateRaceSubscription = {
     id: string,
     name?: string | null,
     description?: string | null,
-    Profession?:  {
-      __typename: "Profession",
-      id: string,
-      name: string,
-      description: string,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      professionSourceId: string,
-      professionDiceTypeId?: string | null,
-    } | null,
-    Source:  {
-      __typename: "Source",
-      id: string,
-      name: string,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-    },
+    profession: string,
+    source: string,
     createdAt: string,
     updatedAt: string,
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
-    raceProfessionId?: string | null,
-    raceSourceId: string,
   } | null,
 };
 
@@ -9030,36 +2761,13 @@ export type OnUpdateRaceSubscription = {
     id: string,
     name?: string | null,
     description?: string | null,
-    Profession?:  {
-      __typename: "Profession",
-      id: string,
-      name: string,
-      description: string,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      professionSourceId: string,
-      professionDiceTypeId?: string | null,
-    } | null,
-    Source:  {
-      __typename: "Source",
-      id: string,
-      name: string,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-    },
+    profession: string,
+    source: string,
     createdAt: string,
     updatedAt: string,
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
-    raceProfessionId?: string | null,
-    raceSourceId: string,
   } | null,
 };
 
@@ -9073,204 +2781,13 @@ export type OnDeleteRaceSubscription = {
     id: string,
     name?: string | null,
     description?: string | null,
-    Profession?:  {
-      __typename: "Profession",
-      id: string,
-      name: string,
-      description: string,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      professionSourceId: string,
-      professionDiceTypeId?: string | null,
-    } | null,
-    Source:  {
-      __typename: "Source",
-      id: string,
-      name: string,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-    },
+    profession: string,
+    source: string,
     createdAt: string,
     updatedAt: string,
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
-    raceProfessionId?: string | null,
-    raceSourceId: string,
-  } | null,
-};
-
-export type OnCreateCharacterAlignmentSubscriptionVariables = {
-  filter?: ModelSubscriptionCharacterAlignmentFilterInput | null,
-};
-
-export type OnCreateCharacterAlignmentSubscription = {
-  onCreateCharacterAlignment?:  {
-    __typename: "CharacterAlignment",
-    id: string,
-    Alignment:  {
-      __typename: "Alignment",
-      id: string,
-      name?: string | null,
-      description?: string | null,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      alignmentProfessionId: string,
-    },
-    selected?: boolean | null,
-    Character?:  {
-      __typename: "Character",
-      userId: string,
-      id: string,
-      name: string,
-      level?: number | null,
-      xp?: number | null,
-      armor?: number | null,
-      hitPointsMax?: number | null,
-      hitPointsCurrent?: number | null,
-      coin?: number | null,
-      loadMax?: number | null,
-      loadCurrent?: number | null,
-      isTemplate?: boolean | null,
-      tags?: Array< string | null > | null,
-      notes?: string | null,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      characterCharacterRaceId?: string | null,
-      characterCharacterAlignmentId?: string | null,
-      characterCharacterProfessionId?: string | null,
-    } | null,
-    createdAt: string,
-    updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
-    characterAlignmentAlignmentId: string,
-    characterAlignmentCharacterId?: string | null,
-  } | null,
-};
-
-export type OnUpdateCharacterAlignmentSubscriptionVariables = {
-  filter?: ModelSubscriptionCharacterAlignmentFilterInput | null,
-};
-
-export type OnUpdateCharacterAlignmentSubscription = {
-  onUpdateCharacterAlignment?:  {
-    __typename: "CharacterAlignment",
-    id: string,
-    Alignment:  {
-      __typename: "Alignment",
-      id: string,
-      name?: string | null,
-      description?: string | null,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      alignmentProfessionId: string,
-    },
-    selected?: boolean | null,
-    Character?:  {
-      __typename: "Character",
-      userId: string,
-      id: string,
-      name: string,
-      level?: number | null,
-      xp?: number | null,
-      armor?: number | null,
-      hitPointsMax?: number | null,
-      hitPointsCurrent?: number | null,
-      coin?: number | null,
-      loadMax?: number | null,
-      loadCurrent?: number | null,
-      isTemplate?: boolean | null,
-      tags?: Array< string | null > | null,
-      notes?: string | null,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      characterCharacterRaceId?: string | null,
-      characterCharacterAlignmentId?: string | null,
-      characterCharacterProfessionId?: string | null,
-    } | null,
-    createdAt: string,
-    updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
-    characterAlignmentAlignmentId: string,
-    characterAlignmentCharacterId?: string | null,
-  } | null,
-};
-
-export type OnDeleteCharacterAlignmentSubscriptionVariables = {
-  filter?: ModelSubscriptionCharacterAlignmentFilterInput | null,
-};
-
-export type OnDeleteCharacterAlignmentSubscription = {
-  onDeleteCharacterAlignment?:  {
-    __typename: "CharacterAlignment",
-    id: string,
-    Alignment:  {
-      __typename: "Alignment",
-      id: string,
-      name?: string | null,
-      description?: string | null,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      alignmentProfessionId: string,
-    },
-    selected?: boolean | null,
-    Character?:  {
-      __typename: "Character",
-      userId: string,
-      id: string,
-      name: string,
-      level?: number | null,
-      xp?: number | null,
-      armor?: number | null,
-      hitPointsMax?: number | null,
-      hitPointsCurrent?: number | null,
-      coin?: number | null,
-      loadMax?: number | null,
-      loadCurrent?: number | null,
-      isTemplate?: boolean | null,
-      tags?: Array< string | null > | null,
-      notes?: string | null,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      characterCharacterRaceId?: string | null,
-      characterCharacterAlignmentId?: string | null,
-      characterCharacterProfessionId?: string | null,
-    } | null,
-    createdAt: string,
-    updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
-    characterAlignmentAlignmentId: string,
-    characterAlignmentCharacterId?: string | null,
   } | null,
 };
 
@@ -9284,25 +2801,13 @@ export type OnCreateAlignmentSubscription = {
     id: string,
     name?: string | null,
     description?: string | null,
-    Profession:  {
-      __typename: "Profession",
-      id: string,
-      name: string,
-      description: string,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      professionSourceId: string,
-      professionDiceTypeId?: string | null,
-    },
+    selected?: boolean | null,
+    profession: string,
     createdAt: string,
     updatedAt: string,
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
-    alignmentProfessionId: string,
   } | null,
 };
 
@@ -9316,25 +2821,13 @@ export type OnUpdateAlignmentSubscription = {
     id: string,
     name?: string | null,
     description?: string | null,
-    Profession:  {
-      __typename: "Profession",
-      id: string,
-      name: string,
-      description: string,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      professionSourceId: string,
-      professionDiceTypeId?: string | null,
-    },
+    selected?: boolean | null,
+    profession: string,
     createdAt: string,
     updatedAt: string,
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
-    alignmentProfessionId: string,
   } | null,
 };
 
@@ -9348,238 +2841,13 @@ export type OnDeleteAlignmentSubscription = {
     id: string,
     name?: string | null,
     description?: string | null,
-    Profession:  {
-      __typename: "Profession",
-      id: string,
-      name: string,
-      description: string,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      professionSourceId: string,
-      professionDiceTypeId?: string | null,
-    },
+    selected?: boolean | null,
+    profession: string,
     createdAt: string,
     updatedAt: string,
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
-    alignmentProfessionId: string,
-  } | null,
-};
-
-export type OnCreateDiceTypeSubscriptionVariables = {
-  filter?: ModelSubscriptionDiceTypeFilterInput | null,
-};
-
-export type OnCreateDiceTypeSubscription = {
-  onCreateDiceType?:  {
-    __typename: "DiceType",
-    id: string,
-    name?: string | null,
-    createdAt: string,
-    updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
-  } | null,
-};
-
-export type OnUpdateDiceTypeSubscriptionVariables = {
-  filter?: ModelSubscriptionDiceTypeFilterInput | null,
-};
-
-export type OnUpdateDiceTypeSubscription = {
-  onUpdateDiceType?:  {
-    __typename: "DiceType",
-    id: string,
-    name?: string | null,
-    createdAt: string,
-    updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
-  } | null,
-};
-
-export type OnDeleteDiceTypeSubscriptionVariables = {
-  filter?: ModelSubscriptionDiceTypeFilterInput | null,
-};
-
-export type OnDeleteDiceTypeSubscription = {
-  onDeleteDiceType?:  {
-    __typename: "DiceType",
-    id: string,
-    name?: string | null,
-    createdAt: string,
-    updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
-  } | null,
-};
-
-export type OnCreateCharacterLookSubscriptionVariables = {
-  filter?: ModelSubscriptionCharacterLookFilterInput | null,
-};
-
-export type OnCreateCharacterLookSubscription = {
-  onCreateCharacterLook?:  {
-    __typename: "CharacterLook",
-    id: string,
-    Look:  {
-      __typename: "Look",
-      id: string,
-      name: string,
-      description: string,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-    },
-    Character?:  {
-      __typename: "Character",
-      userId: string,
-      id: string,
-      name: string,
-      level?: number | null,
-      xp?: number | null,
-      armor?: number | null,
-      hitPointsMax?: number | null,
-      hitPointsCurrent?: number | null,
-      coin?: number | null,
-      loadMax?: number | null,
-      loadCurrent?: number | null,
-      isTemplate?: boolean | null,
-      tags?: Array< string | null > | null,
-      notes?: string | null,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      characterCharacterRaceId?: string | null,
-      characterCharacterAlignmentId?: string | null,
-      characterCharacterProfessionId?: string | null,
-    } | null,
-    createdAt: string,
-    updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
-    characterCharacterLooksId?: string | null,
-    characterLookLookId: string,
-  } | null,
-};
-
-export type OnUpdateCharacterLookSubscriptionVariables = {
-  filter?: ModelSubscriptionCharacterLookFilterInput | null,
-};
-
-export type OnUpdateCharacterLookSubscription = {
-  onUpdateCharacterLook?:  {
-    __typename: "CharacterLook",
-    id: string,
-    Look:  {
-      __typename: "Look",
-      id: string,
-      name: string,
-      description: string,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-    },
-    Character?:  {
-      __typename: "Character",
-      userId: string,
-      id: string,
-      name: string,
-      level?: number | null,
-      xp?: number | null,
-      armor?: number | null,
-      hitPointsMax?: number | null,
-      hitPointsCurrent?: number | null,
-      coin?: number | null,
-      loadMax?: number | null,
-      loadCurrent?: number | null,
-      isTemplate?: boolean | null,
-      tags?: Array< string | null > | null,
-      notes?: string | null,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      characterCharacterRaceId?: string | null,
-      characterCharacterAlignmentId?: string | null,
-      characterCharacterProfessionId?: string | null,
-    } | null,
-    createdAt: string,
-    updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
-    characterCharacterLooksId?: string | null,
-    characterLookLookId: string,
-  } | null,
-};
-
-export type OnDeleteCharacterLookSubscriptionVariables = {
-  filter?: ModelSubscriptionCharacterLookFilterInput | null,
-};
-
-export type OnDeleteCharacterLookSubscription = {
-  onDeleteCharacterLook?:  {
-    __typename: "CharacterLook",
-    id: string,
-    Look:  {
-      __typename: "Look",
-      id: string,
-      name: string,
-      description: string,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-    },
-    Character?:  {
-      __typename: "Character",
-      userId: string,
-      id: string,
-      name: string,
-      level?: number | null,
-      xp?: number | null,
-      armor?: number | null,
-      hitPointsMax?: number | null,
-      hitPointsCurrent?: number | null,
-      coin?: number | null,
-      loadMax?: number | null,
-      loadCurrent?: number | null,
-      isTemplate?: boolean | null,
-      tags?: Array< string | null > | null,
-      notes?: string | null,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      characterCharacterRaceId?: string | null,
-      characterCharacterAlignmentId?: string | null,
-      characterCharacterProfessionId?: string | null,
-    } | null,
-    createdAt: string,
-    updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
-    characterCharacterLooksId?: string | null,
-    characterLookLookId: string,
   } | null,
 };
 
@@ -9593,6 +2861,7 @@ export type OnCreateLookSubscription = {
     id: string,
     name: string,
     description: string,
+    selected?: string | null,
     createdAt: string,
     updatedAt: string,
     _version: number,
@@ -9611,6 +2880,7 @@ export type OnUpdateLookSubscription = {
     id: string,
     name: string,
     description: string,
+    selected?: string | null,
     createdAt: string,
     updatedAt: string,
     _version: number,
@@ -9629,6 +2899,7 @@ export type OnDeleteLookSubscription = {
     id: string,
     name: string,
     description: string,
+    selected?: string | null,
     createdAt: string,
     updatedAt: string,
     _version: number,
@@ -9657,89 +2928,23 @@ export type OnCreateCharacterSubscription = {
     loadCurrent?: number | null,
     isTemplate?: boolean | null,
     tags?: Array< string | null > | null,
-    notes?: string | null,
-    CharacterGear?:  {
-      __typename: "ModelCharacterGearConnection",
-      nextToken?: string | null,
-      startedAt?: number | null,
-    } | null,
-    MovesStarting?:  {
-      __typename: "ModelCharacterMoveConnection",
-      nextToken?: string | null,
-      startedAt?: number | null,
-    } | null,
-    MovesTwoToTen?:  {
-      __typename: "ModelCharacterMoveConnection",
-      nextToken?: string | null,
-      startedAt?: number | null,
-    } | null,
-    MovesSixToTen?:  {
-      __typename: "ModelCharacterMoveConnection",
-      nextToken?: string | null,
-      startedAt?: number | null,
-    } | null,
-    CharacterBonds?:  {
-      __typename: "ModelCharacterBondConnection",
-      nextToken?: string | null,
-      startedAt?: number | null,
-    } | null,
-    CharacterAbilityScores?:  {
-      __typename: "ModelCharacterAbilityScoreConnection",
-      nextToken?: string | null,
-      startedAt?: number | null,
-    } | null,
-    CharacterRace?:  {
-      __typename: "CharacterRace",
-      id: string,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      characterRaceRaceId: string,
-      characterRaceCharacterId?: string | null,
-    } | null,
-    CharacterAlignment?:  {
-      __typename: "CharacterAlignment",
-      id: string,
-      selected?: boolean | null,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      characterAlignmentAlignmentId: string,
-      characterAlignmentCharacterId?: string | null,
-    } | null,
-    CharacterLooks?:  {
-      __typename: "ModelCharacterLookConnection",
-      nextToken?: string | null,
-      startedAt?: number | null,
-    } | null,
-    CharacterProfession?:  {
-      __typename: "CharacterProfession",
-      id: string,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      characterProfessionProfessionId?: string | null,
-      characterProfessionCharacterId?: string | null,
-    } | null,
-    CharacterSpells?:  {
-      __typename: "ModelCharacterSpellConnection",
-      nextToken?: string | null,
-      startedAt?: number | null,
-    } | null,
+    notes?: Array< string | null > | null,
+    gear?: Array< string | null > | null,
+    startingMoves?: Array< string | null > | null,
+    advancedMovesTwoToTen?: Array< string | null > | null,
+    advancedMovesSixToTen?: Array< string | null > | null,
+    bonds?: Array< string | null > | null,
+    abilityScores?: Array< string | null > | null,
+    race?: string | null,
+    alignment?: string | null,
+    look?: Array< string | null > | null,
+    profession?: string | null,
+    spells?: Array< string | null > | null,
     createdAt: string,
     updatedAt: string,
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
-    characterCharacterRaceId?: string | null,
-    characterCharacterAlignmentId?: string | null,
-    characterCharacterProfessionId?: string | null,
   } | null,
 };
 
@@ -9763,89 +2968,23 @@ export type OnUpdateCharacterSubscription = {
     loadCurrent?: number | null,
     isTemplate?: boolean | null,
     tags?: Array< string | null > | null,
-    notes?: string | null,
-    CharacterGear?:  {
-      __typename: "ModelCharacterGearConnection",
-      nextToken?: string | null,
-      startedAt?: number | null,
-    } | null,
-    MovesStarting?:  {
-      __typename: "ModelCharacterMoveConnection",
-      nextToken?: string | null,
-      startedAt?: number | null,
-    } | null,
-    MovesTwoToTen?:  {
-      __typename: "ModelCharacterMoveConnection",
-      nextToken?: string | null,
-      startedAt?: number | null,
-    } | null,
-    MovesSixToTen?:  {
-      __typename: "ModelCharacterMoveConnection",
-      nextToken?: string | null,
-      startedAt?: number | null,
-    } | null,
-    CharacterBonds?:  {
-      __typename: "ModelCharacterBondConnection",
-      nextToken?: string | null,
-      startedAt?: number | null,
-    } | null,
-    CharacterAbilityScores?:  {
-      __typename: "ModelCharacterAbilityScoreConnection",
-      nextToken?: string | null,
-      startedAt?: number | null,
-    } | null,
-    CharacterRace?:  {
-      __typename: "CharacterRace",
-      id: string,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      characterRaceRaceId: string,
-      characterRaceCharacterId?: string | null,
-    } | null,
-    CharacterAlignment?:  {
-      __typename: "CharacterAlignment",
-      id: string,
-      selected?: boolean | null,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      characterAlignmentAlignmentId: string,
-      characterAlignmentCharacterId?: string | null,
-    } | null,
-    CharacterLooks?:  {
-      __typename: "ModelCharacterLookConnection",
-      nextToken?: string | null,
-      startedAt?: number | null,
-    } | null,
-    CharacterProfession?:  {
-      __typename: "CharacterProfession",
-      id: string,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      characterProfessionProfessionId?: string | null,
-      characterProfessionCharacterId?: string | null,
-    } | null,
-    CharacterSpells?:  {
-      __typename: "ModelCharacterSpellConnection",
-      nextToken?: string | null,
-      startedAt?: number | null,
-    } | null,
+    notes?: Array< string | null > | null,
+    gear?: Array< string | null > | null,
+    startingMoves?: Array< string | null > | null,
+    advancedMovesTwoToTen?: Array< string | null > | null,
+    advancedMovesSixToTen?: Array< string | null > | null,
+    bonds?: Array< string | null > | null,
+    abilityScores?: Array< string | null > | null,
+    race?: string | null,
+    alignment?: string | null,
+    look?: Array< string | null > | null,
+    profession?: string | null,
+    spells?: Array< string | null > | null,
     createdAt: string,
     updatedAt: string,
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
-    characterCharacterRaceId?: string | null,
-    characterCharacterAlignmentId?: string | null,
-    characterCharacterProfessionId?: string | null,
   } | null,
 };
 
@@ -9869,88 +3008,22 @@ export type OnDeleteCharacterSubscription = {
     loadCurrent?: number | null,
     isTemplate?: boolean | null,
     tags?: Array< string | null > | null,
-    notes?: string | null,
-    CharacterGear?:  {
-      __typename: "ModelCharacterGearConnection",
-      nextToken?: string | null,
-      startedAt?: number | null,
-    } | null,
-    MovesStarting?:  {
-      __typename: "ModelCharacterMoveConnection",
-      nextToken?: string | null,
-      startedAt?: number | null,
-    } | null,
-    MovesTwoToTen?:  {
-      __typename: "ModelCharacterMoveConnection",
-      nextToken?: string | null,
-      startedAt?: number | null,
-    } | null,
-    MovesSixToTen?:  {
-      __typename: "ModelCharacterMoveConnection",
-      nextToken?: string | null,
-      startedAt?: number | null,
-    } | null,
-    CharacterBonds?:  {
-      __typename: "ModelCharacterBondConnection",
-      nextToken?: string | null,
-      startedAt?: number | null,
-    } | null,
-    CharacterAbilityScores?:  {
-      __typename: "ModelCharacterAbilityScoreConnection",
-      nextToken?: string | null,
-      startedAt?: number | null,
-    } | null,
-    CharacterRace?:  {
-      __typename: "CharacterRace",
-      id: string,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      characterRaceRaceId: string,
-      characterRaceCharacterId?: string | null,
-    } | null,
-    CharacterAlignment?:  {
-      __typename: "CharacterAlignment",
-      id: string,
-      selected?: boolean | null,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      characterAlignmentAlignmentId: string,
-      characterAlignmentCharacterId?: string | null,
-    } | null,
-    CharacterLooks?:  {
-      __typename: "ModelCharacterLookConnection",
-      nextToken?: string | null,
-      startedAt?: number | null,
-    } | null,
-    CharacterProfession?:  {
-      __typename: "CharacterProfession",
-      id: string,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-      characterProfessionProfessionId?: string | null,
-      characterProfessionCharacterId?: string | null,
-    } | null,
-    CharacterSpells?:  {
-      __typename: "ModelCharacterSpellConnection",
-      nextToken?: string | null,
-      startedAt?: number | null,
-    } | null,
+    notes?: Array< string | null > | null,
+    gear?: Array< string | null > | null,
+    startingMoves?: Array< string | null > | null,
+    advancedMovesTwoToTen?: Array< string | null > | null,
+    advancedMovesSixToTen?: Array< string | null > | null,
+    bonds?: Array< string | null > | null,
+    abilityScores?: Array< string | null > | null,
+    race?: string | null,
+    alignment?: string | null,
+    look?: Array< string | null > | null,
+    profession?: string | null,
+    spells?: Array< string | null > | null,
     createdAt: string,
     updatedAt: string,
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
-    characterCharacterRaceId?: string | null,
-    characterCharacterAlignmentId?: string | null,
-    characterCharacterProfessionId?: string | null,
   } | null,
 };

@@ -1,7 +1,5 @@
 
 import { generateClient } from 'aws-amplify/api';
-import { DataStore } from 'aws-amplify/datastore';
-import { Character } from '@/models';
 import * as queries from '@/graphql/queries';
 
 const client = generateClient();
@@ -18,18 +16,14 @@ export const getCharactersWithProfessions = async(userId: string) => {
                 } 
             } 
         });
-    
-        for await (const character of characters.data.listCharacters.items) {
-            const charProfession = await client.graphql({
-                query: queries.getCharacterProfession,
-                variables: {
-                    id: character.characterCharacterProfessionId ?? ""
-                }
-            });
 
-            const item = await charProfession.data.getCharacterProfession
-            result.push(item);
-        };
+        const charList: any = characters.data.listCharacters.items;
+
+        charList.forEach((item: any) => {
+            item.profession = JSON.parse(item.profession);
+        });
+
+        return charList;
     }
     catch(ex) {
         console.error(ex);
