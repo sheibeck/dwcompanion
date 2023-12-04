@@ -53,44 +53,13 @@
       "service": "Cognito"
     }
   },
-  "function": {
-    "AdminQueries93882c08": {
-      "build": true,
-      "dependsOn": [
-        {
-          "attributes": [
-            "UserPoolId"
-          ],
-          "category": "auth",
-          "resourceName": "dungeonworldcompf878a003"
-        }
-      ],
-      "providerPlugin": "awscloudformation",
-      "service": "Lambda"
-    }
-  },
+  "function": {},
   "parameters": {
     "AMPLIFY_auth_dungeonworldcompf878a003_googleClientId": {
       "usedBy": [
         {
           "category": "auth",
           "resourceName": "dungeonworldcompf878a003"
-        }
-      ]
-    },
-    "AMPLIFY_function_AdminQueries93882c08_deploymentBucketName": {
-      "usedBy": [
-        {
-          "category": "function",
-          "resourceName": "AdminQueries93882c08"
-        }
-      ]
-    },
-    "AMPLIFY_function_AdminQueries93882c08_s3Key": {
-      "usedBy": [
-        {
-          "category": "function",
-          "resourceName": "AdminQueries93882c08"
         }
       ]
     }

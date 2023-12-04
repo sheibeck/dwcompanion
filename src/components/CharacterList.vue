@@ -24,7 +24,8 @@ const characterList = ref<any>([]);
 const hasCharacters = computed(() => characterList.value?.length > 0);
 
 onMounted(async () => {
-    characterList.value = await getCharactersWithProfessions(globalStore.getUserId);
+    const items = await getCharactersWithProfessions(globalStore.getUserId);
+    characterList.value = items;
 });
 
 </script>

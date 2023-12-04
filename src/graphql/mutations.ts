@@ -151,9 +151,8 @@ export const createCharacterProfession = /* GraphQL */ `mutation CreateCharacter
       _version
       _deleted
       _lastChangedAt
-      characterRaceId
-      characterAlignmentId
-      characterLookId
+      characterCharacterRaceId
+      characterCharacterAlignmentId
       characterCharacterProfessionId
       __typename
     }
@@ -167,7 +166,7 @@ export const createCharacterProfession = /* GraphQL */ `mutation CreateCharacter
       _deleted
       _lastChangedAt
       professionSourceId
-      professionDamageDiceTypeId
+      professionDiceTypeId
       __typename
     }
     createdAt
@@ -210,9 +209,8 @@ export const updateCharacterProfession = /* GraphQL */ `mutation UpdateCharacter
       _version
       _deleted
       _lastChangedAt
-      characterRaceId
-      characterAlignmentId
-      characterLookId
+      characterCharacterRaceId
+      characterCharacterAlignmentId
       characterCharacterProfessionId
       __typename
     }
@@ -226,7 +224,7 @@ export const updateCharacterProfession = /* GraphQL */ `mutation UpdateCharacter
       _deleted
       _lastChangedAt
       professionSourceId
-      professionDamageDiceTypeId
+      professionDiceTypeId
       __typename
     }
     createdAt
@@ -269,9 +267,8 @@ export const deleteCharacterProfession = /* GraphQL */ `mutation DeleteCharacter
       _version
       _deleted
       _lastChangedAt
-      characterRaceId
-      characterAlignmentId
-      characterLookId
+      characterCharacterRaceId
+      characterCharacterAlignmentId
       characterCharacterProfessionId
       __typename
     }
@@ -285,7 +282,7 @@ export const deleteCharacterProfession = /* GraphQL */ `mutation DeleteCharacter
       _deleted
       _lastChangedAt
       professionSourceId
-      professionDamageDiceTypeId
+      professionDiceTypeId
       __typename
     }
     createdAt
@@ -310,7 +307,7 @@ export const createProfession = /* GraphQL */ `mutation CreateProfession(
     id
     name
     description
-    source {
+    Source {
       id
       name
       createdAt
@@ -320,7 +317,7 @@ export const createProfession = /* GraphQL */ `mutation CreateProfession(
       _lastChangedAt
       __typename
     }
-    damageDiceType {
+    DiceType {
       id
       name
       createdAt
@@ -336,7 +333,7 @@ export const createProfession = /* GraphQL */ `mutation CreateProfession(
     _deleted
     _lastChangedAt
     professionSourceId
-    professionDamageDiceTypeId
+    professionDiceTypeId
     __typename
   }
 }
@@ -352,7 +349,7 @@ export const updateProfession = /* GraphQL */ `mutation UpdateProfession(
     id
     name
     description
-    source {
+    Source {
       id
       name
       createdAt
@@ -362,7 +359,7 @@ export const updateProfession = /* GraphQL */ `mutation UpdateProfession(
       _lastChangedAt
       __typename
     }
-    damageDiceType {
+    DiceType {
       id
       name
       createdAt
@@ -378,7 +375,7 @@ export const updateProfession = /* GraphQL */ `mutation UpdateProfession(
     _deleted
     _lastChangedAt
     professionSourceId
-    professionDamageDiceTypeId
+    professionDiceTypeId
     __typename
   }
 }
@@ -394,7 +391,7 @@ export const deleteProfession = /* GraphQL */ `mutation DeleteProfession(
     id
     name
     description
-    source {
+    Source {
       id
       name
       createdAt
@@ -404,7 +401,7 @@ export const deleteProfession = /* GraphQL */ `mutation DeleteProfession(
       _lastChangedAt
       __typename
     }
-    damageDiceType {
+    DiceType {
       id
       name
       createdAt
@@ -420,7 +417,7 @@ export const deleteProfession = /* GraphQL */ `mutation DeleteProfession(
     _deleted
     _lastChangedAt
     professionSourceId
-    professionDamageDiceTypeId
+    professionDiceTypeId
     __typename
   }
 }
@@ -439,7 +436,7 @@ export const createSpell = /* GraphQL */ `mutation CreateSpell(
     type
     ongoing
     description
-    source {
+    Source {
       id
       name
       createdAt
@@ -449,7 +446,7 @@ export const createSpell = /* GraphQL */ `mutation CreateSpell(
       _lastChangedAt
       __typename
     }
-    profession {
+    Profession {
       id
       name
       description
@@ -459,7 +456,7 @@ export const createSpell = /* GraphQL */ `mutation CreateSpell(
       _deleted
       _lastChangedAt
       professionSourceId
-      professionDamageDiceTypeId
+      professionDiceTypeId
       __typename
     }
     createdAt
@@ -487,7 +484,7 @@ export const updateSpell = /* GraphQL */ `mutation UpdateSpell(
     type
     ongoing
     description
-    source {
+    Source {
       id
       name
       createdAt
@@ -497,7 +494,7 @@ export const updateSpell = /* GraphQL */ `mutation UpdateSpell(
       _lastChangedAt
       __typename
     }
-    profession {
+    Profession {
       id
       name
       description
@@ -507,7 +504,7 @@ export const updateSpell = /* GraphQL */ `mutation UpdateSpell(
       _deleted
       _lastChangedAt
       professionSourceId
-      professionDamageDiceTypeId
+      professionDiceTypeId
       __typename
     }
     createdAt
@@ -535,7 +532,7 @@ export const deleteSpell = /* GraphQL */ `mutation DeleteSpell(
     type
     ongoing
     description
-    source {
+    Source {
       id
       name
       createdAt
@@ -545,7 +542,7 @@ export const deleteSpell = /* GraphQL */ `mutation DeleteSpell(
       _lastChangedAt
       __typename
     }
-    profession {
+    Profession {
       id
       name
       description
@@ -555,7 +552,7 @@ export const deleteSpell = /* GraphQL */ `mutation DeleteSpell(
       _deleted
       _lastChangedAt
       professionSourceId
-      professionDamageDiceTypeId
+      professionDiceTypeId
       __typename
     }
     createdAt
@@ -578,7 +575,7 @@ export const createCharacterSpell = /* GraphQL */ `mutation CreateCharacterSpell
 ) {
   createCharacterSpell(input: $input, condition: $condition) {
     id
-    spell {
+    Spell {
       id
       name
       level
@@ -596,11 +593,37 @@ export const createCharacterSpell = /* GraphQL */ `mutation CreateCharacterSpell
     }
     selected
     tags
+    Character {
+      userId
+      id
+      name
+      level
+      xp
+      armor
+      hitPointsMax
+      hitPointsCurrent
+      coin
+      loadMax
+      loadCurrent
+      isTemplate
+      tags
+      notes
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      characterCharacterRaceId
+      characterCharacterAlignmentId
+      characterCharacterProfessionId
+      __typename
+    }
     createdAt
     updatedAt
     _version
     _deleted
     _lastChangedAt
+    characterCharacterSpellsId
     characterSpellSpellId
     __typename
   }
@@ -615,7 +638,7 @@ export const updateCharacterSpell = /* GraphQL */ `mutation UpdateCharacterSpell
 ) {
   updateCharacterSpell(input: $input, condition: $condition) {
     id
-    spell {
+    Spell {
       id
       name
       level
@@ -633,11 +656,37 @@ export const updateCharacterSpell = /* GraphQL */ `mutation UpdateCharacterSpell
     }
     selected
     tags
+    Character {
+      userId
+      id
+      name
+      level
+      xp
+      armor
+      hitPointsMax
+      hitPointsCurrent
+      coin
+      loadMax
+      loadCurrent
+      isTemplate
+      tags
+      notes
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      characterCharacterRaceId
+      characterCharacterAlignmentId
+      characterCharacterProfessionId
+      __typename
+    }
     createdAt
     updatedAt
     _version
     _deleted
     _lastChangedAt
+    characterCharacterSpellsId
     characterSpellSpellId
     __typename
   }
@@ -652,7 +701,7 @@ export const deleteCharacterSpell = /* GraphQL */ `mutation DeleteCharacterSpell
 ) {
   deleteCharacterSpell(input: $input, condition: $condition) {
     id
-    spell {
+    Spell {
       id
       name
       level
@@ -670,11 +719,37 @@ export const deleteCharacterSpell = /* GraphQL */ `mutation DeleteCharacterSpell
     }
     selected
     tags
+    Character {
+      userId
+      id
+      name
+      level
+      xp
+      armor
+      hitPointsMax
+      hitPointsCurrent
+      coin
+      loadMax
+      loadCurrent
+      isTemplate
+      tags
+      notes
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      characterCharacterRaceId
+      characterCharacterAlignmentId
+      characterCharacterProfessionId
+      __typename
+    }
     createdAt
     updatedAt
     _version
     _deleted
     _lastChangedAt
+    characterCharacterSpellsId
     characterSpellSpellId
     __typename
   }
@@ -689,7 +764,7 @@ export const createCharacterGear = /* GraphQL */ `mutation CreateCharacterGear(
 ) {
   createCharacterGear(input: $input, condition: $condition) {
     id
-    gear {
+    Gear {
       id
       description
       weight
@@ -705,12 +780,37 @@ export const createCharacterGear = /* GraphQL */ `mutation CreateCharacterGear(
     }
     uses
     tags
-    characterID
+    Character {
+      userId
+      id
+      name
+      level
+      xp
+      armor
+      hitPointsMax
+      hitPointsCurrent
+      coin
+      loadMax
+      loadCurrent
+      isTemplate
+      tags
+      notes
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      characterCharacterRaceId
+      characterCharacterAlignmentId
+      characterCharacterProfessionId
+      __typename
+    }
     createdAt
     updatedAt
     _version
     _deleted
     _lastChangedAt
+    characterCharacterGearId
     characterGearGearId
     __typename
   }
@@ -725,7 +825,7 @@ export const updateCharacterGear = /* GraphQL */ `mutation UpdateCharacterGear(
 ) {
   updateCharacterGear(input: $input, condition: $condition) {
     id
-    gear {
+    Gear {
       id
       description
       weight
@@ -741,12 +841,37 @@ export const updateCharacterGear = /* GraphQL */ `mutation UpdateCharacterGear(
     }
     uses
     tags
-    characterID
+    Character {
+      userId
+      id
+      name
+      level
+      xp
+      armor
+      hitPointsMax
+      hitPointsCurrent
+      coin
+      loadMax
+      loadCurrent
+      isTemplate
+      tags
+      notes
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      characterCharacterRaceId
+      characterCharacterAlignmentId
+      characterCharacterProfessionId
+      __typename
+    }
     createdAt
     updatedAt
     _version
     _deleted
     _lastChangedAt
+    characterCharacterGearId
     characterGearGearId
     __typename
   }
@@ -761,7 +886,7 @@ export const deleteCharacterGear = /* GraphQL */ `mutation DeleteCharacterGear(
 ) {
   deleteCharacterGear(input: $input, condition: $condition) {
     id
-    gear {
+    Gear {
       id
       description
       weight
@@ -777,12 +902,37 @@ export const deleteCharacterGear = /* GraphQL */ `mutation DeleteCharacterGear(
     }
     uses
     tags
-    characterID
+    Character {
+      userId
+      id
+      name
+      level
+      xp
+      armor
+      hitPointsMax
+      hitPointsCurrent
+      coin
+      loadMax
+      loadCurrent
+      isTemplate
+      tags
+      notes
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      characterCharacterRaceId
+      characterCharacterAlignmentId
+      characterCharacterProfessionId
+      __typename
+    }
     createdAt
     updatedAt
     _version
     _deleted
     _lastChangedAt
+    characterCharacterGearId
     characterGearGearId
     __typename
   }
@@ -801,7 +951,7 @@ export const createGear = /* GraphQL */ `mutation CreateGear(
     weight
     uses
     tags
-    source {
+    Source {
       id
       name
       createdAt
@@ -834,7 +984,7 @@ export const updateGear = /* GraphQL */ `mutation UpdateGear(
     weight
     uses
     tags
-    source {
+    Source {
       id
       name
       createdAt
@@ -867,7 +1017,7 @@ export const deleteGear = /* GraphQL */ `mutation DeleteGear(
     weight
     uses
     tags
-    source {
+    Source {
       id
       name
       createdAt
@@ -897,7 +1047,7 @@ export const createCharacterMove = /* GraphQL */ `mutation CreateCharacterMove(
   createCharacterMove(input: $input, condition: $condition) {
     id
     selected
-    move {
+    Move {
       id
       description
       createdAt
@@ -905,16 +1055,43 @@ export const createCharacterMove = /* GraphQL */ `mutation CreateCharacterMove(
       _version
       _deleted
       _lastChangedAt
-      moveClassId
+      moveProfessionId
       moveSourceId
       __typename
     }
-    characterID
+    Character {
+      userId
+      id
+      name
+      level
+      xp
+      armor
+      hitPointsMax
+      hitPointsCurrent
+      coin
+      loadMax
+      loadCurrent
+      isTemplate
+      tags
+      notes
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      characterCharacterRaceId
+      characterCharacterAlignmentId
+      characterCharacterProfessionId
+      __typename
+    }
     createdAt
     updatedAt
     _version
     _deleted
     _lastChangedAt
+    characterMovesStartingId
+    characterMovesTwoToTenId
+    characterMovesSixToTenId
     characterMoveMoveId
     __typename
   }
@@ -930,7 +1107,7 @@ export const updateCharacterMove = /* GraphQL */ `mutation UpdateCharacterMove(
   updateCharacterMove(input: $input, condition: $condition) {
     id
     selected
-    move {
+    Move {
       id
       description
       createdAt
@@ -938,16 +1115,43 @@ export const updateCharacterMove = /* GraphQL */ `mutation UpdateCharacterMove(
       _version
       _deleted
       _lastChangedAt
-      moveClassId
+      moveProfessionId
       moveSourceId
       __typename
     }
-    characterID
+    Character {
+      userId
+      id
+      name
+      level
+      xp
+      armor
+      hitPointsMax
+      hitPointsCurrent
+      coin
+      loadMax
+      loadCurrent
+      isTemplate
+      tags
+      notes
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      characterCharacterRaceId
+      characterCharacterAlignmentId
+      characterCharacterProfessionId
+      __typename
+    }
     createdAt
     updatedAt
     _version
     _deleted
     _lastChangedAt
+    characterMovesStartingId
+    characterMovesTwoToTenId
+    characterMovesSixToTenId
     characterMoveMoveId
     __typename
   }
@@ -963,7 +1167,7 @@ export const deleteCharacterMove = /* GraphQL */ `mutation DeleteCharacterMove(
   deleteCharacterMove(input: $input, condition: $condition) {
     id
     selected
-    move {
+    Move {
       id
       description
       createdAt
@@ -971,16 +1175,43 @@ export const deleteCharacterMove = /* GraphQL */ `mutation DeleteCharacterMove(
       _version
       _deleted
       _lastChangedAt
-      moveClassId
+      moveProfessionId
       moveSourceId
       __typename
     }
-    characterID
+    Character {
+      userId
+      id
+      name
+      level
+      xp
+      armor
+      hitPointsMax
+      hitPointsCurrent
+      coin
+      loadMax
+      loadCurrent
+      isTemplate
+      tags
+      notes
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      characterCharacterRaceId
+      characterCharacterAlignmentId
+      characterCharacterProfessionId
+      __typename
+    }
     createdAt
     updatedAt
     _version
     _deleted
     _lastChangedAt
+    characterMovesStartingId
+    characterMovesTwoToTenId
+    characterMovesSixToTenId
     characterMoveMoveId
     __typename
   }
@@ -996,7 +1227,7 @@ export const createMove = /* GraphQL */ `mutation CreateMove(
   createMove(input: $input, condition: $condition) {
     id
     description
-    class {
+    Profession {
       id
       name
       description
@@ -1006,10 +1237,10 @@ export const createMove = /* GraphQL */ `mutation CreateMove(
       _deleted
       _lastChangedAt
       professionSourceId
-      professionDamageDiceTypeId
+      professionDiceTypeId
       __typename
     }
-    source {
+    Source {
       id
       name
       createdAt
@@ -1024,7 +1255,7 @@ export const createMove = /* GraphQL */ `mutation CreateMove(
     _version
     _deleted
     _lastChangedAt
-    moveClassId
+    moveProfessionId
     moveSourceId
     __typename
   }
@@ -1040,7 +1271,7 @@ export const updateMove = /* GraphQL */ `mutation UpdateMove(
   updateMove(input: $input, condition: $condition) {
     id
     description
-    class {
+    Profession {
       id
       name
       description
@@ -1050,10 +1281,10 @@ export const updateMove = /* GraphQL */ `mutation UpdateMove(
       _deleted
       _lastChangedAt
       professionSourceId
-      professionDamageDiceTypeId
+      professionDiceTypeId
       __typename
     }
-    source {
+    Source {
       id
       name
       createdAt
@@ -1068,7 +1299,7 @@ export const updateMove = /* GraphQL */ `mutation UpdateMove(
     _version
     _deleted
     _lastChangedAt
-    moveClassId
+    moveProfessionId
     moveSourceId
     __typename
   }
@@ -1084,7 +1315,7 @@ export const deleteMove = /* GraphQL */ `mutation DeleteMove(
   deleteMove(input: $input, condition: $condition) {
     id
     description
-    class {
+    Profession {
       id
       name
       description
@@ -1094,10 +1325,10 @@ export const deleteMove = /* GraphQL */ `mutation DeleteMove(
       _deleted
       _lastChangedAt
       professionSourceId
-      professionDamageDiceTypeId
+      professionDiceTypeId
       __typename
     }
-    source {
+    Source {
       id
       name
       createdAt
@@ -1112,7 +1343,7 @@ export const deleteMove = /* GraphQL */ `mutation DeleteMove(
     _version
     _deleted
     _lastChangedAt
-    moveClassId
+    moveProfessionId
     moveSourceId
     __typename
   }
@@ -1128,7 +1359,7 @@ export const createCharacterBond = /* GraphQL */ `mutation CreateCharacterBond(
   createCharacterBond(input: $input, condition: $condition) {
     id
     description
-    bond {
+    Bond {
       id
       description
       createdAt
@@ -1136,16 +1367,41 @@ export const createCharacterBond = /* GraphQL */ `mutation CreateCharacterBond(
       _version
       _deleted
       _lastChangedAt
-      bondClassId
+      bondProfessionId
       __typename
     }
     selected
-    characterID
+    Character {
+      userId
+      id
+      name
+      level
+      xp
+      armor
+      hitPointsMax
+      hitPointsCurrent
+      coin
+      loadMax
+      loadCurrent
+      isTemplate
+      tags
+      notes
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      characterCharacterRaceId
+      characterCharacterAlignmentId
+      characterCharacterProfessionId
+      __typename
+    }
     createdAt
     updatedAt
     _version
     _deleted
     _lastChangedAt
+    characterCharacterBondsId
     characterBondBondId
     __typename
   }
@@ -1161,7 +1417,7 @@ export const updateCharacterBond = /* GraphQL */ `mutation UpdateCharacterBond(
   updateCharacterBond(input: $input, condition: $condition) {
     id
     description
-    bond {
+    Bond {
       id
       description
       createdAt
@@ -1169,16 +1425,41 @@ export const updateCharacterBond = /* GraphQL */ `mutation UpdateCharacterBond(
       _version
       _deleted
       _lastChangedAt
-      bondClassId
+      bondProfessionId
       __typename
     }
     selected
-    characterID
+    Character {
+      userId
+      id
+      name
+      level
+      xp
+      armor
+      hitPointsMax
+      hitPointsCurrent
+      coin
+      loadMax
+      loadCurrent
+      isTemplate
+      tags
+      notes
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      characterCharacterRaceId
+      characterCharacterAlignmentId
+      characterCharacterProfessionId
+      __typename
+    }
     createdAt
     updatedAt
     _version
     _deleted
     _lastChangedAt
+    characterCharacterBondsId
     characterBondBondId
     __typename
   }
@@ -1194,7 +1475,7 @@ export const deleteCharacterBond = /* GraphQL */ `mutation DeleteCharacterBond(
   deleteCharacterBond(input: $input, condition: $condition) {
     id
     description
-    bond {
+    Bond {
       id
       description
       createdAt
@@ -1202,16 +1483,41 @@ export const deleteCharacterBond = /* GraphQL */ `mutation DeleteCharacterBond(
       _version
       _deleted
       _lastChangedAt
-      bondClassId
+      bondProfessionId
       __typename
     }
     selected
-    characterID
+    Character {
+      userId
+      id
+      name
+      level
+      xp
+      armor
+      hitPointsMax
+      hitPointsCurrent
+      coin
+      loadMax
+      loadCurrent
+      isTemplate
+      tags
+      notes
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      characterCharacterRaceId
+      characterCharacterAlignmentId
+      characterCharacterProfessionId
+      __typename
+    }
     createdAt
     updatedAt
     _version
     _deleted
     _lastChangedAt
+    characterCharacterBondsId
     characterBondBondId
     __typename
   }
@@ -1227,7 +1533,7 @@ export const createBond = /* GraphQL */ `mutation CreateBond(
   createBond(input: $input, condition: $condition) {
     id
     description
-    class {
+    Profession {
       id
       name
       description
@@ -1237,7 +1543,7 @@ export const createBond = /* GraphQL */ `mutation CreateBond(
       _deleted
       _lastChangedAt
       professionSourceId
-      professionDamageDiceTypeId
+      professionDiceTypeId
       __typename
     }
     createdAt
@@ -1245,7 +1551,7 @@ export const createBond = /* GraphQL */ `mutation CreateBond(
     _version
     _deleted
     _lastChangedAt
-    bondClassId
+    bondProfessionId
     __typename
   }
 }
@@ -1260,7 +1566,7 @@ export const updateBond = /* GraphQL */ `mutation UpdateBond(
   updateBond(input: $input, condition: $condition) {
     id
     description
-    class {
+    Profession {
       id
       name
       description
@@ -1270,7 +1576,7 @@ export const updateBond = /* GraphQL */ `mutation UpdateBond(
       _deleted
       _lastChangedAt
       professionSourceId
-      professionDamageDiceTypeId
+      professionDiceTypeId
       __typename
     }
     createdAt
@@ -1278,7 +1584,7 @@ export const updateBond = /* GraphQL */ `mutation UpdateBond(
     _version
     _deleted
     _lastChangedAt
-    bondClassId
+    bondProfessionId
     __typename
   }
 }
@@ -1293,7 +1599,7 @@ export const deleteBond = /* GraphQL */ `mutation DeleteBond(
   deleteBond(input: $input, condition: $condition) {
     id
     description
-    class {
+    Profession {
       id
       name
       description
@@ -1303,7 +1609,7 @@ export const deleteBond = /* GraphQL */ `mutation DeleteBond(
       _deleted
       _lastChangedAt
       professionSourceId
-      professionDamageDiceTypeId
+      professionDiceTypeId
       __typename
     }
     createdAt
@@ -1311,7 +1617,7 @@ export const deleteBond = /* GraphQL */ `mutation DeleteBond(
     _version
     _deleted
     _lastChangedAt
-    bondClassId
+    bondProfessionId
     __typename
   }
 }
@@ -1324,7 +1630,7 @@ export const createCharacterAbilityScore = /* GraphQL */ `mutation CreateCharact
   $condition: ModelCharacterAbilityScoreConditionInput
 ) {
   createCharacterAbilityScore(input: $input, condition: $condition) {
-    abilityScore {
+    AbilityScore {
       id
       name
       shortName
@@ -1341,12 +1647,37 @@ export const createCharacterAbilityScore = /* GraphQL */ `mutation CreateCharact
     value
     bonus
     tags
-    characterID
+    Character {
+      userId
+      id
+      name
+      level
+      xp
+      armor
+      hitPointsMax
+      hitPointsCurrent
+      coin
+      loadMax
+      loadCurrent
+      isTemplate
+      tags
+      notes
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      characterCharacterRaceId
+      characterCharacterAlignmentId
+      characterCharacterProfessionId
+      __typename
+    }
     createdAt
     updatedAt
     _version
     _deleted
     _lastChangedAt
+    characterCharacterAbilityScoresId
     characterAbilityScoreAbilityScoreId
     __typename
   }
@@ -1360,7 +1691,7 @@ export const updateCharacterAbilityScore = /* GraphQL */ `mutation UpdateCharact
   $condition: ModelCharacterAbilityScoreConditionInput
 ) {
   updateCharacterAbilityScore(input: $input, condition: $condition) {
-    abilityScore {
+    AbilityScore {
       id
       name
       shortName
@@ -1377,12 +1708,37 @@ export const updateCharacterAbilityScore = /* GraphQL */ `mutation UpdateCharact
     value
     bonus
     tags
-    characterID
+    Character {
+      userId
+      id
+      name
+      level
+      xp
+      armor
+      hitPointsMax
+      hitPointsCurrent
+      coin
+      loadMax
+      loadCurrent
+      isTemplate
+      tags
+      notes
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      characterCharacterRaceId
+      characterCharacterAlignmentId
+      characterCharacterProfessionId
+      __typename
+    }
     createdAt
     updatedAt
     _version
     _deleted
     _lastChangedAt
+    characterCharacterAbilityScoresId
     characterAbilityScoreAbilityScoreId
     __typename
   }
@@ -1396,7 +1752,7 @@ export const deleteCharacterAbilityScore = /* GraphQL */ `mutation DeleteCharact
   $condition: ModelCharacterAbilityScoreConditionInput
 ) {
   deleteCharacterAbilityScore(input: $input, condition: $condition) {
-    abilityScore {
+    AbilityScore {
       id
       name
       shortName
@@ -1413,12 +1769,37 @@ export const deleteCharacterAbilityScore = /* GraphQL */ `mutation DeleteCharact
     value
     bonus
     tags
-    characterID
+    Character {
+      userId
+      id
+      name
+      level
+      xp
+      armor
+      hitPointsMax
+      hitPointsCurrent
+      coin
+      loadMax
+      loadCurrent
+      isTemplate
+      tags
+      notes
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      characterCharacterRaceId
+      characterCharacterAlignmentId
+      characterCharacterProfessionId
+      __typename
+    }
     createdAt
     updatedAt
     _version
     _deleted
     _lastChangedAt
+    characterCharacterAbilityScoresId
     characterAbilityScoreAbilityScoreId
     __typename
   }
@@ -1499,7 +1880,7 @@ export const createCharacterRace = /* GraphQL */ `mutation CreateCharacterRace(
 ) {
   createCharacterRace(input: $input, condition: $condition) {
     id
-    race {
+    Race {
       id
       name
       description
@@ -1512,12 +1893,38 @@ export const createCharacterRace = /* GraphQL */ `mutation CreateCharacterRace(
       raceSourceId
       __typename
     }
+    Character {
+      userId
+      id
+      name
+      level
+      xp
+      armor
+      hitPointsMax
+      hitPointsCurrent
+      coin
+      loadMax
+      loadCurrent
+      isTemplate
+      tags
+      notes
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      characterCharacterRaceId
+      characterCharacterAlignmentId
+      characterCharacterProfessionId
+      __typename
+    }
     createdAt
     updatedAt
     _version
     _deleted
     _lastChangedAt
     characterRaceRaceId
+    characterRaceCharacterId
     __typename
   }
 }
@@ -1531,7 +1938,7 @@ export const updateCharacterRace = /* GraphQL */ `mutation UpdateCharacterRace(
 ) {
   updateCharacterRace(input: $input, condition: $condition) {
     id
-    race {
+    Race {
       id
       name
       description
@@ -1544,12 +1951,38 @@ export const updateCharacterRace = /* GraphQL */ `mutation UpdateCharacterRace(
       raceSourceId
       __typename
     }
+    Character {
+      userId
+      id
+      name
+      level
+      xp
+      armor
+      hitPointsMax
+      hitPointsCurrent
+      coin
+      loadMax
+      loadCurrent
+      isTemplate
+      tags
+      notes
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      characterCharacterRaceId
+      characterCharacterAlignmentId
+      characterCharacterProfessionId
+      __typename
+    }
     createdAt
     updatedAt
     _version
     _deleted
     _lastChangedAt
     characterRaceRaceId
+    characterRaceCharacterId
     __typename
   }
 }
@@ -1563,7 +1996,7 @@ export const deleteCharacterRace = /* GraphQL */ `mutation DeleteCharacterRace(
 ) {
   deleteCharacterRace(input: $input, condition: $condition) {
     id
-    race {
+    Race {
       id
       name
       description
@@ -1576,12 +2009,38 @@ export const deleteCharacterRace = /* GraphQL */ `mutation DeleteCharacterRace(
       raceSourceId
       __typename
     }
+    Character {
+      userId
+      id
+      name
+      level
+      xp
+      armor
+      hitPointsMax
+      hitPointsCurrent
+      coin
+      loadMax
+      loadCurrent
+      isTemplate
+      tags
+      notes
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      characterCharacterRaceId
+      characterCharacterAlignmentId
+      characterCharacterProfessionId
+      __typename
+    }
     createdAt
     updatedAt
     _version
     _deleted
     _lastChangedAt
     characterRaceRaceId
+    characterRaceCharacterId
     __typename
   }
 }
@@ -1597,7 +2056,7 @@ export const createRace = /* GraphQL */ `mutation CreateRace(
     id
     name
     description
-    profession {
+    Profession {
       id
       name
       description
@@ -1607,10 +2066,10 @@ export const createRace = /* GraphQL */ `mutation CreateRace(
       _deleted
       _lastChangedAt
       professionSourceId
-      professionDamageDiceTypeId
+      professionDiceTypeId
       __typename
     }
-    source {
+    Source {
       id
       name
       createdAt
@@ -1642,7 +2101,7 @@ export const updateRace = /* GraphQL */ `mutation UpdateRace(
     id
     name
     description
-    profession {
+    Profession {
       id
       name
       description
@@ -1652,10 +2111,10 @@ export const updateRace = /* GraphQL */ `mutation UpdateRace(
       _deleted
       _lastChangedAt
       professionSourceId
-      professionDamageDiceTypeId
+      professionDiceTypeId
       __typename
     }
-    source {
+    Source {
       id
       name
       createdAt
@@ -1687,7 +2146,7 @@ export const deleteRace = /* GraphQL */ `mutation DeleteRace(
     id
     name
     description
-    profession {
+    Profession {
       id
       name
       description
@@ -1697,10 +2156,10 @@ export const deleteRace = /* GraphQL */ `mutation DeleteRace(
       _deleted
       _lastChangedAt
       professionSourceId
-      professionDamageDiceTypeId
+      professionDiceTypeId
       __typename
     }
-    source {
+    Source {
       id
       name
       createdAt
@@ -1730,7 +2189,7 @@ export const createCharacterAlignment = /* GraphQL */ `mutation CreateCharacterA
 ) {
   createCharacterAlignment(input: $input, condition: $condition) {
     id
-    alignment {
+    Alignment {
       id
       name
       description
@@ -1739,16 +2198,42 @@ export const createCharacterAlignment = /* GraphQL */ `mutation CreateCharacterA
       _version
       _deleted
       _lastChangedAt
-      alignmentClassId
+      alignmentProfessionId
       __typename
     }
     selected
+    Character {
+      userId
+      id
+      name
+      level
+      xp
+      armor
+      hitPointsMax
+      hitPointsCurrent
+      coin
+      loadMax
+      loadCurrent
+      isTemplate
+      tags
+      notes
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      characterCharacterRaceId
+      characterCharacterAlignmentId
+      characterCharacterProfessionId
+      __typename
+    }
     createdAt
     updatedAt
     _version
     _deleted
     _lastChangedAt
     characterAlignmentAlignmentId
+    characterAlignmentCharacterId
     __typename
   }
 }
@@ -1762,7 +2247,7 @@ export const updateCharacterAlignment = /* GraphQL */ `mutation UpdateCharacterA
 ) {
   updateCharacterAlignment(input: $input, condition: $condition) {
     id
-    alignment {
+    Alignment {
       id
       name
       description
@@ -1771,16 +2256,42 @@ export const updateCharacterAlignment = /* GraphQL */ `mutation UpdateCharacterA
       _version
       _deleted
       _lastChangedAt
-      alignmentClassId
+      alignmentProfessionId
       __typename
     }
     selected
+    Character {
+      userId
+      id
+      name
+      level
+      xp
+      armor
+      hitPointsMax
+      hitPointsCurrent
+      coin
+      loadMax
+      loadCurrent
+      isTemplate
+      tags
+      notes
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      characterCharacterRaceId
+      characterCharacterAlignmentId
+      characterCharacterProfessionId
+      __typename
+    }
     createdAt
     updatedAt
     _version
     _deleted
     _lastChangedAt
     characterAlignmentAlignmentId
+    characterAlignmentCharacterId
     __typename
   }
 }
@@ -1794,7 +2305,7 @@ export const deleteCharacterAlignment = /* GraphQL */ `mutation DeleteCharacterA
 ) {
   deleteCharacterAlignment(input: $input, condition: $condition) {
     id
-    alignment {
+    Alignment {
       id
       name
       description
@@ -1803,16 +2314,42 @@ export const deleteCharacterAlignment = /* GraphQL */ `mutation DeleteCharacterA
       _version
       _deleted
       _lastChangedAt
-      alignmentClassId
+      alignmentProfessionId
       __typename
     }
     selected
+    Character {
+      userId
+      id
+      name
+      level
+      xp
+      armor
+      hitPointsMax
+      hitPointsCurrent
+      coin
+      loadMax
+      loadCurrent
+      isTemplate
+      tags
+      notes
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      characterCharacterRaceId
+      characterCharacterAlignmentId
+      characterCharacterProfessionId
+      __typename
+    }
     createdAt
     updatedAt
     _version
     _deleted
     _lastChangedAt
     characterAlignmentAlignmentId
+    characterAlignmentCharacterId
     __typename
   }
 }
@@ -1828,7 +2365,7 @@ export const createAlignment = /* GraphQL */ `mutation CreateAlignment(
     id
     name
     description
-    class {
+    Profession {
       id
       name
       description
@@ -1838,7 +2375,7 @@ export const createAlignment = /* GraphQL */ `mutation CreateAlignment(
       _deleted
       _lastChangedAt
       professionSourceId
-      professionDamageDiceTypeId
+      professionDiceTypeId
       __typename
     }
     createdAt
@@ -1846,7 +2383,7 @@ export const createAlignment = /* GraphQL */ `mutation CreateAlignment(
     _version
     _deleted
     _lastChangedAt
-    alignmentClassId
+    alignmentProfessionId
     __typename
   }
 }
@@ -1862,7 +2399,7 @@ export const updateAlignment = /* GraphQL */ `mutation UpdateAlignment(
     id
     name
     description
-    class {
+    Profession {
       id
       name
       description
@@ -1872,7 +2409,7 @@ export const updateAlignment = /* GraphQL */ `mutation UpdateAlignment(
       _deleted
       _lastChangedAt
       professionSourceId
-      professionDamageDiceTypeId
+      professionDiceTypeId
       __typename
     }
     createdAt
@@ -1880,7 +2417,7 @@ export const updateAlignment = /* GraphQL */ `mutation UpdateAlignment(
     _version
     _deleted
     _lastChangedAt
-    alignmentClassId
+    alignmentProfessionId
     __typename
   }
 }
@@ -1896,7 +2433,7 @@ export const deleteAlignment = /* GraphQL */ `mutation DeleteAlignment(
     id
     name
     description
-    class {
+    Profession {
       id
       name
       description
@@ -1906,7 +2443,7 @@ export const deleteAlignment = /* GraphQL */ `mutation DeleteAlignment(
       _deleted
       _lastChangedAt
       professionSourceId
-      professionDamageDiceTypeId
+      professionDiceTypeId
       __typename
     }
     createdAt
@@ -1914,7 +2451,7 @@ export const deleteAlignment = /* GraphQL */ `mutation DeleteAlignment(
     _version
     _deleted
     _lastChangedAt
-    alignmentClassId
+    alignmentProfessionId
     __typename
   }
 }
@@ -1985,9 +2522,40 @@ export const createCharacterLook = /* GraphQL */ `mutation CreateCharacterLook(
 ) {
   createCharacterLook(input: $input, condition: $condition) {
     id
-    look {
-      nextToken
-      startedAt
+    Look {
+      id
+      name
+      description
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      __typename
+    }
+    Character {
+      userId
+      id
+      name
+      level
+      xp
+      armor
+      hitPointsMax
+      hitPointsCurrent
+      coin
+      loadMax
+      loadCurrent
+      isTemplate
+      tags
+      notes
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      characterCharacterRaceId
+      characterCharacterAlignmentId
+      characterCharacterProfessionId
       __typename
     }
     createdAt
@@ -1995,6 +2563,8 @@ export const createCharacterLook = /* GraphQL */ `mutation CreateCharacterLook(
     _version
     _deleted
     _lastChangedAt
+    characterCharacterLooksId
+    characterLookLookId
     __typename
   }
 }
@@ -2008,9 +2578,40 @@ export const updateCharacterLook = /* GraphQL */ `mutation UpdateCharacterLook(
 ) {
   updateCharacterLook(input: $input, condition: $condition) {
     id
-    look {
-      nextToken
-      startedAt
+    Look {
+      id
+      name
+      description
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      __typename
+    }
+    Character {
+      userId
+      id
+      name
+      level
+      xp
+      armor
+      hitPointsMax
+      hitPointsCurrent
+      coin
+      loadMax
+      loadCurrent
+      isTemplate
+      tags
+      notes
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      characterCharacterRaceId
+      characterCharacterAlignmentId
+      characterCharacterProfessionId
       __typename
     }
     createdAt
@@ -2018,6 +2619,8 @@ export const updateCharacterLook = /* GraphQL */ `mutation UpdateCharacterLook(
     _version
     _deleted
     _lastChangedAt
+    characterCharacterLooksId
+    characterLookLookId
     __typename
   }
 }
@@ -2031,9 +2634,40 @@ export const deleteCharacterLook = /* GraphQL */ `mutation DeleteCharacterLook(
 ) {
   deleteCharacterLook(input: $input, condition: $condition) {
     id
-    look {
-      nextToken
-      startedAt
+    Look {
+      id
+      name
+      description
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      __typename
+    }
+    Character {
+      userId
+      id
+      name
+      level
+      xp
+      armor
+      hitPointsMax
+      hitPointsCurrent
+      coin
+      loadMax
+      loadCurrent
+      isTemplate
+      tags
+      notes
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      characterCharacterRaceId
+      characterCharacterAlignmentId
+      characterCharacterProfessionId
       __typename
     }
     createdAt
@@ -2041,6 +2675,8 @@ export const deleteCharacterLook = /* GraphQL */ `mutation DeleteCharacterLook(
     _version
     _deleted
     _lastChangedAt
+    characterCharacterLooksId
+    characterLookLookId
     __typename
   }
 }
@@ -2056,7 +2692,6 @@ export const createLook = /* GraphQL */ `mutation CreateLook(
     id
     name
     description
-    characterlookID
     createdAt
     updatedAt
     _version
@@ -2077,7 +2712,6 @@ export const updateLook = /* GraphQL */ `mutation UpdateLook(
     id
     name
     description
-    characterlookID
     createdAt
     updatedAt
     _version
@@ -2098,7 +2732,6 @@ export const deleteLook = /* GraphQL */ `mutation DeleteLook(
     id
     name
     description
-    characterlookID
     createdAt
     updatedAt
     _version
@@ -2128,37 +2761,39 @@ export const createCharacter = /* GraphQL */ `mutation CreateCharacter(
     loadMax
     loadCurrent
     isTemplate
-    gear {
+    tags
+    notes
+    CharacterGear {
       nextToken
       startedAt
       __typename
     }
-    sixToTenMoves {
+    MovesStarting {
       nextToken
       startedAt
       __typename
     }
-    twoToTenMoves {
+    MovesTwoToTen {
       nextToken
       startedAt
       __typename
     }
-    startingMoves {
+    MovesSixToTen {
       nextToken
       startedAt
       __typename
     }
-    bonds {
+    CharacterBonds {
       nextToken
       startedAt
       __typename
     }
-    abilityscores {
+    CharacterAbilityScores {
       nextToken
       startedAt
       __typename
     }
-    race {
+    CharacterRace {
       id
       createdAt
       updatedAt
@@ -2166,9 +2801,10 @@ export const createCharacter = /* GraphQL */ `mutation CreateCharacter(
       _deleted
       _lastChangedAt
       characterRaceRaceId
+      characterRaceCharacterId
       __typename
     }
-    alignment {
+    CharacterAlignment {
       id
       selected
       createdAt
@@ -2177,19 +2813,14 @@ export const createCharacter = /* GraphQL */ `mutation CreateCharacter(
       _deleted
       _lastChangedAt
       characterAlignmentAlignmentId
+      characterAlignmentCharacterId
       __typename
     }
-    tags
-    look {
-      id
-      createdAt
-      updatedAt
-      _version
-      _deleted
-      _lastChangedAt
+    CharacterLooks {
+      nextToken
+      startedAt
       __typename
     }
-    notes
     CharacterProfession {
       id
       createdAt
@@ -2201,14 +2832,18 @@ export const createCharacter = /* GraphQL */ `mutation CreateCharacter(
       characterProfessionCharacterId
       __typename
     }
+    CharacterSpells {
+      nextToken
+      startedAt
+      __typename
+    }
     createdAt
     updatedAt
     _version
     _deleted
     _lastChangedAt
-    characterRaceId
-    characterAlignmentId
-    characterLookId
+    characterCharacterRaceId
+    characterCharacterAlignmentId
     characterCharacterProfessionId
     __typename
   }
@@ -2234,37 +2869,39 @@ export const updateCharacter = /* GraphQL */ `mutation UpdateCharacter(
     loadMax
     loadCurrent
     isTemplate
-    gear {
+    tags
+    notes
+    CharacterGear {
       nextToken
       startedAt
       __typename
     }
-    sixToTenMoves {
+    MovesStarting {
       nextToken
       startedAt
       __typename
     }
-    twoToTenMoves {
+    MovesTwoToTen {
       nextToken
       startedAt
       __typename
     }
-    startingMoves {
+    MovesSixToTen {
       nextToken
       startedAt
       __typename
     }
-    bonds {
+    CharacterBonds {
       nextToken
       startedAt
       __typename
     }
-    abilityscores {
+    CharacterAbilityScores {
       nextToken
       startedAt
       __typename
     }
-    race {
+    CharacterRace {
       id
       createdAt
       updatedAt
@@ -2272,9 +2909,10 @@ export const updateCharacter = /* GraphQL */ `mutation UpdateCharacter(
       _deleted
       _lastChangedAt
       characterRaceRaceId
+      characterRaceCharacterId
       __typename
     }
-    alignment {
+    CharacterAlignment {
       id
       selected
       createdAt
@@ -2283,19 +2921,14 @@ export const updateCharacter = /* GraphQL */ `mutation UpdateCharacter(
       _deleted
       _lastChangedAt
       characterAlignmentAlignmentId
+      characterAlignmentCharacterId
       __typename
     }
-    tags
-    look {
-      id
-      createdAt
-      updatedAt
-      _version
-      _deleted
-      _lastChangedAt
+    CharacterLooks {
+      nextToken
+      startedAt
       __typename
     }
-    notes
     CharacterProfession {
       id
       createdAt
@@ -2307,14 +2940,18 @@ export const updateCharacter = /* GraphQL */ `mutation UpdateCharacter(
       characterProfessionCharacterId
       __typename
     }
+    CharacterSpells {
+      nextToken
+      startedAt
+      __typename
+    }
     createdAt
     updatedAt
     _version
     _deleted
     _lastChangedAt
-    characterRaceId
-    characterAlignmentId
-    characterLookId
+    characterCharacterRaceId
+    characterCharacterAlignmentId
     characterCharacterProfessionId
     __typename
   }
@@ -2340,37 +2977,39 @@ export const deleteCharacter = /* GraphQL */ `mutation DeleteCharacter(
     loadMax
     loadCurrent
     isTemplate
-    gear {
+    tags
+    notes
+    CharacterGear {
       nextToken
       startedAt
       __typename
     }
-    sixToTenMoves {
+    MovesStarting {
       nextToken
       startedAt
       __typename
     }
-    twoToTenMoves {
+    MovesTwoToTen {
       nextToken
       startedAt
       __typename
     }
-    startingMoves {
+    MovesSixToTen {
       nextToken
       startedAt
       __typename
     }
-    bonds {
+    CharacterBonds {
       nextToken
       startedAt
       __typename
     }
-    abilityscores {
+    CharacterAbilityScores {
       nextToken
       startedAt
       __typename
     }
-    race {
+    CharacterRace {
       id
       createdAt
       updatedAt
@@ -2378,9 +3017,10 @@ export const deleteCharacter = /* GraphQL */ `mutation DeleteCharacter(
       _deleted
       _lastChangedAt
       characterRaceRaceId
+      characterRaceCharacterId
       __typename
     }
-    alignment {
+    CharacterAlignment {
       id
       selected
       createdAt
@@ -2389,19 +3029,14 @@ export const deleteCharacter = /* GraphQL */ `mutation DeleteCharacter(
       _deleted
       _lastChangedAt
       characterAlignmentAlignmentId
+      characterAlignmentCharacterId
       __typename
     }
-    tags
-    look {
-      id
-      createdAt
-      updatedAt
-      _version
-      _deleted
-      _lastChangedAt
+    CharacterLooks {
+      nextToken
+      startedAt
       __typename
     }
-    notes
     CharacterProfession {
       id
       createdAt
@@ -2413,14 +3048,18 @@ export const deleteCharacter = /* GraphQL */ `mutation DeleteCharacter(
       characterProfessionCharacterId
       __typename
     }
+    CharacterSpells {
+      nextToken
+      startedAt
+      __typename
+    }
     createdAt
     updatedAt
     _version
     _deleted
     _lastChangedAt
-    characterRaceId
-    characterAlignmentId
-    characterLookId
+    characterCharacterRaceId
+    characterCharacterAlignmentId
     characterCharacterProfessionId
     __typename
   }

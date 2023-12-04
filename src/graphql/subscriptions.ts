@@ -132,9 +132,8 @@ export const onCreateCharacterProfession = /* GraphQL */ `subscription OnCreateC
       _version
       _deleted
       _lastChangedAt
-      characterRaceId
-      characterAlignmentId
-      characterLookId
+      characterCharacterRaceId
+      characterCharacterAlignmentId
       characterCharacterProfessionId
       __typename
     }
@@ -148,7 +147,7 @@ export const onCreateCharacterProfession = /* GraphQL */ `subscription OnCreateC
       _deleted
       _lastChangedAt
       professionSourceId
-      professionDamageDiceTypeId
+      professionDiceTypeId
       __typename
     }
     createdAt
@@ -190,9 +189,8 @@ export const onUpdateCharacterProfession = /* GraphQL */ `subscription OnUpdateC
       _version
       _deleted
       _lastChangedAt
-      characterRaceId
-      characterAlignmentId
-      characterLookId
+      characterCharacterRaceId
+      characterCharacterAlignmentId
       characterCharacterProfessionId
       __typename
     }
@@ -206,7 +204,7 @@ export const onUpdateCharacterProfession = /* GraphQL */ `subscription OnUpdateC
       _deleted
       _lastChangedAt
       professionSourceId
-      professionDamageDiceTypeId
+      professionDiceTypeId
       __typename
     }
     createdAt
@@ -248,9 +246,8 @@ export const onDeleteCharacterProfession = /* GraphQL */ `subscription OnDeleteC
       _version
       _deleted
       _lastChangedAt
-      characterRaceId
-      characterAlignmentId
-      characterLookId
+      characterCharacterRaceId
+      characterCharacterAlignmentId
       characterCharacterProfessionId
       __typename
     }
@@ -264,7 +261,7 @@ export const onDeleteCharacterProfession = /* GraphQL */ `subscription OnDeleteC
       _deleted
       _lastChangedAt
       professionSourceId
-      professionDamageDiceTypeId
+      professionDiceTypeId
       __typename
     }
     createdAt
@@ -288,7 +285,7 @@ export const onCreateProfession = /* GraphQL */ `subscription OnCreateProfession
     id
     name
     description
-    source {
+    Source {
       id
       name
       createdAt
@@ -298,7 +295,7 @@ export const onCreateProfession = /* GraphQL */ `subscription OnCreateProfession
       _lastChangedAt
       __typename
     }
-    damageDiceType {
+    DiceType {
       id
       name
       createdAt
@@ -314,7 +311,7 @@ export const onCreateProfession = /* GraphQL */ `subscription OnCreateProfession
     _deleted
     _lastChangedAt
     professionSourceId
-    professionDamageDiceTypeId
+    professionDiceTypeId
     __typename
   }
 }
@@ -329,7 +326,7 @@ export const onUpdateProfession = /* GraphQL */ `subscription OnUpdateProfession
     id
     name
     description
-    source {
+    Source {
       id
       name
       createdAt
@@ -339,7 +336,7 @@ export const onUpdateProfession = /* GraphQL */ `subscription OnUpdateProfession
       _lastChangedAt
       __typename
     }
-    damageDiceType {
+    DiceType {
       id
       name
       createdAt
@@ -355,7 +352,7 @@ export const onUpdateProfession = /* GraphQL */ `subscription OnUpdateProfession
     _deleted
     _lastChangedAt
     professionSourceId
-    professionDamageDiceTypeId
+    professionDiceTypeId
     __typename
   }
 }
@@ -370,7 +367,7 @@ export const onDeleteProfession = /* GraphQL */ `subscription OnDeleteProfession
     id
     name
     description
-    source {
+    Source {
       id
       name
       createdAt
@@ -380,7 +377,7 @@ export const onDeleteProfession = /* GraphQL */ `subscription OnDeleteProfession
       _lastChangedAt
       __typename
     }
-    damageDiceType {
+    DiceType {
       id
       name
       createdAt
@@ -396,7 +393,7 @@ export const onDeleteProfession = /* GraphQL */ `subscription OnDeleteProfession
     _deleted
     _lastChangedAt
     professionSourceId
-    professionDamageDiceTypeId
+    professionDiceTypeId
     __typename
   }
 }
@@ -412,7 +409,7 @@ export const onCreateSpell = /* GraphQL */ `subscription OnCreateSpell($filter: 
     type
     ongoing
     description
-    source {
+    Source {
       id
       name
       createdAt
@@ -422,7 +419,7 @@ export const onCreateSpell = /* GraphQL */ `subscription OnCreateSpell($filter: 
       _lastChangedAt
       __typename
     }
-    profession {
+    Profession {
       id
       name
       description
@@ -432,7 +429,7 @@ export const onCreateSpell = /* GraphQL */ `subscription OnCreateSpell($filter: 
       _deleted
       _lastChangedAt
       professionSourceId
-      professionDamageDiceTypeId
+      professionDiceTypeId
       __typename
     }
     createdAt
@@ -457,7 +454,7 @@ export const onUpdateSpell = /* GraphQL */ `subscription OnUpdateSpell($filter: 
     type
     ongoing
     description
-    source {
+    Source {
       id
       name
       createdAt
@@ -467,7 +464,7 @@ export const onUpdateSpell = /* GraphQL */ `subscription OnUpdateSpell($filter: 
       _lastChangedAt
       __typename
     }
-    profession {
+    Profession {
       id
       name
       description
@@ -477,7 +474,7 @@ export const onUpdateSpell = /* GraphQL */ `subscription OnUpdateSpell($filter: 
       _deleted
       _lastChangedAt
       professionSourceId
-      professionDamageDiceTypeId
+      professionDiceTypeId
       __typename
     }
     createdAt
@@ -502,7 +499,7 @@ export const onDeleteSpell = /* GraphQL */ `subscription OnDeleteSpell($filter: 
     type
     ongoing
     description
-    source {
+    Source {
       id
       name
       createdAt
@@ -512,7 +509,7 @@ export const onDeleteSpell = /* GraphQL */ `subscription OnDeleteSpell($filter: 
       _lastChangedAt
       __typename
     }
-    profession {
+    Profession {
       id
       name
       description
@@ -522,7 +519,7 @@ export const onDeleteSpell = /* GraphQL */ `subscription OnDeleteSpell($filter: 
       _deleted
       _lastChangedAt
       professionSourceId
-      professionDamageDiceTypeId
+      professionDiceTypeId
       __typename
     }
     createdAt
@@ -544,7 +541,7 @@ export const onCreateCharacterSpell = /* GraphQL */ `subscription OnCreateCharac
 ) {
   onCreateCharacterSpell(filter: $filter) {
     id
-    spell {
+    Spell {
       id
       name
       level
@@ -562,11 +559,37 @@ export const onCreateCharacterSpell = /* GraphQL */ `subscription OnCreateCharac
     }
     selected
     tags
+    Character {
+      userId
+      id
+      name
+      level
+      xp
+      armor
+      hitPointsMax
+      hitPointsCurrent
+      coin
+      loadMax
+      loadCurrent
+      isTemplate
+      tags
+      notes
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      characterCharacterRaceId
+      characterCharacterAlignmentId
+      characterCharacterProfessionId
+      __typename
+    }
     createdAt
     updatedAt
     _version
     _deleted
     _lastChangedAt
+    characterCharacterSpellsId
     characterSpellSpellId
     __typename
   }
@@ -580,7 +603,7 @@ export const onUpdateCharacterSpell = /* GraphQL */ `subscription OnUpdateCharac
 ) {
   onUpdateCharacterSpell(filter: $filter) {
     id
-    spell {
+    Spell {
       id
       name
       level
@@ -598,11 +621,37 @@ export const onUpdateCharacterSpell = /* GraphQL */ `subscription OnUpdateCharac
     }
     selected
     tags
+    Character {
+      userId
+      id
+      name
+      level
+      xp
+      armor
+      hitPointsMax
+      hitPointsCurrent
+      coin
+      loadMax
+      loadCurrent
+      isTemplate
+      tags
+      notes
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      characterCharacterRaceId
+      characterCharacterAlignmentId
+      characterCharacterProfessionId
+      __typename
+    }
     createdAt
     updatedAt
     _version
     _deleted
     _lastChangedAt
+    characterCharacterSpellsId
     characterSpellSpellId
     __typename
   }
@@ -616,7 +665,7 @@ export const onDeleteCharacterSpell = /* GraphQL */ `subscription OnDeleteCharac
 ) {
   onDeleteCharacterSpell(filter: $filter) {
     id
-    spell {
+    Spell {
       id
       name
       level
@@ -634,11 +683,37 @@ export const onDeleteCharacterSpell = /* GraphQL */ `subscription OnDeleteCharac
     }
     selected
     tags
+    Character {
+      userId
+      id
+      name
+      level
+      xp
+      armor
+      hitPointsMax
+      hitPointsCurrent
+      coin
+      loadMax
+      loadCurrent
+      isTemplate
+      tags
+      notes
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      characterCharacterRaceId
+      characterCharacterAlignmentId
+      characterCharacterProfessionId
+      __typename
+    }
     createdAt
     updatedAt
     _version
     _deleted
     _lastChangedAt
+    characterCharacterSpellsId
     characterSpellSpellId
     __typename
   }
@@ -652,7 +727,7 @@ export const onCreateCharacterGear = /* GraphQL */ `subscription OnCreateCharact
 ) {
   onCreateCharacterGear(filter: $filter) {
     id
-    gear {
+    Gear {
       id
       description
       weight
@@ -668,12 +743,37 @@ export const onCreateCharacterGear = /* GraphQL */ `subscription OnCreateCharact
     }
     uses
     tags
-    characterID
+    Character {
+      userId
+      id
+      name
+      level
+      xp
+      armor
+      hitPointsMax
+      hitPointsCurrent
+      coin
+      loadMax
+      loadCurrent
+      isTemplate
+      tags
+      notes
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      characterCharacterRaceId
+      characterCharacterAlignmentId
+      characterCharacterProfessionId
+      __typename
+    }
     createdAt
     updatedAt
     _version
     _deleted
     _lastChangedAt
+    characterCharacterGearId
     characterGearGearId
     __typename
   }
@@ -687,7 +787,7 @@ export const onUpdateCharacterGear = /* GraphQL */ `subscription OnUpdateCharact
 ) {
   onUpdateCharacterGear(filter: $filter) {
     id
-    gear {
+    Gear {
       id
       description
       weight
@@ -703,12 +803,37 @@ export const onUpdateCharacterGear = /* GraphQL */ `subscription OnUpdateCharact
     }
     uses
     tags
-    characterID
+    Character {
+      userId
+      id
+      name
+      level
+      xp
+      armor
+      hitPointsMax
+      hitPointsCurrent
+      coin
+      loadMax
+      loadCurrent
+      isTemplate
+      tags
+      notes
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      characterCharacterRaceId
+      characterCharacterAlignmentId
+      characterCharacterProfessionId
+      __typename
+    }
     createdAt
     updatedAt
     _version
     _deleted
     _lastChangedAt
+    characterCharacterGearId
     characterGearGearId
     __typename
   }
@@ -722,7 +847,7 @@ export const onDeleteCharacterGear = /* GraphQL */ `subscription OnDeleteCharact
 ) {
   onDeleteCharacterGear(filter: $filter) {
     id
-    gear {
+    Gear {
       id
       description
       weight
@@ -738,12 +863,37 @@ export const onDeleteCharacterGear = /* GraphQL */ `subscription OnDeleteCharact
     }
     uses
     tags
-    characterID
+    Character {
+      userId
+      id
+      name
+      level
+      xp
+      armor
+      hitPointsMax
+      hitPointsCurrent
+      coin
+      loadMax
+      loadCurrent
+      isTemplate
+      tags
+      notes
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      characterCharacterRaceId
+      characterCharacterAlignmentId
+      characterCharacterProfessionId
+      __typename
+    }
     createdAt
     updatedAt
     _version
     _deleted
     _lastChangedAt
+    characterCharacterGearId
     characterGearGearId
     __typename
   }
@@ -759,7 +909,7 @@ export const onCreateGear = /* GraphQL */ `subscription OnCreateGear($filter: Mo
     weight
     uses
     tags
-    source {
+    Source {
       id
       name
       createdAt
@@ -789,7 +939,7 @@ export const onUpdateGear = /* GraphQL */ `subscription OnUpdateGear($filter: Mo
     weight
     uses
     tags
-    source {
+    Source {
       id
       name
       createdAt
@@ -819,7 +969,7 @@ export const onDeleteGear = /* GraphQL */ `subscription OnDeleteGear($filter: Mo
     weight
     uses
     tags
-    source {
+    Source {
       id
       name
       createdAt
@@ -848,7 +998,7 @@ export const onCreateCharacterMove = /* GraphQL */ `subscription OnCreateCharact
   onCreateCharacterMove(filter: $filter) {
     id
     selected
-    move {
+    Move {
       id
       description
       createdAt
@@ -856,16 +1006,43 @@ export const onCreateCharacterMove = /* GraphQL */ `subscription OnCreateCharact
       _version
       _deleted
       _lastChangedAt
-      moveClassId
+      moveProfessionId
       moveSourceId
       __typename
     }
-    characterID
+    Character {
+      userId
+      id
+      name
+      level
+      xp
+      armor
+      hitPointsMax
+      hitPointsCurrent
+      coin
+      loadMax
+      loadCurrent
+      isTemplate
+      tags
+      notes
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      characterCharacterRaceId
+      characterCharacterAlignmentId
+      characterCharacterProfessionId
+      __typename
+    }
     createdAt
     updatedAt
     _version
     _deleted
     _lastChangedAt
+    characterMovesStartingId
+    characterMovesTwoToTenId
+    characterMovesSixToTenId
     characterMoveMoveId
     __typename
   }
@@ -880,7 +1057,7 @@ export const onUpdateCharacterMove = /* GraphQL */ `subscription OnUpdateCharact
   onUpdateCharacterMove(filter: $filter) {
     id
     selected
-    move {
+    Move {
       id
       description
       createdAt
@@ -888,16 +1065,43 @@ export const onUpdateCharacterMove = /* GraphQL */ `subscription OnUpdateCharact
       _version
       _deleted
       _lastChangedAt
-      moveClassId
+      moveProfessionId
       moveSourceId
       __typename
     }
-    characterID
+    Character {
+      userId
+      id
+      name
+      level
+      xp
+      armor
+      hitPointsMax
+      hitPointsCurrent
+      coin
+      loadMax
+      loadCurrent
+      isTemplate
+      tags
+      notes
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      characterCharacterRaceId
+      characterCharacterAlignmentId
+      characterCharacterProfessionId
+      __typename
+    }
     createdAt
     updatedAt
     _version
     _deleted
     _lastChangedAt
+    characterMovesStartingId
+    characterMovesTwoToTenId
+    characterMovesSixToTenId
     characterMoveMoveId
     __typename
   }
@@ -912,7 +1116,7 @@ export const onDeleteCharacterMove = /* GraphQL */ `subscription OnDeleteCharact
   onDeleteCharacterMove(filter: $filter) {
     id
     selected
-    move {
+    Move {
       id
       description
       createdAt
@@ -920,16 +1124,43 @@ export const onDeleteCharacterMove = /* GraphQL */ `subscription OnDeleteCharact
       _version
       _deleted
       _lastChangedAt
-      moveClassId
+      moveProfessionId
       moveSourceId
       __typename
     }
-    characterID
+    Character {
+      userId
+      id
+      name
+      level
+      xp
+      armor
+      hitPointsMax
+      hitPointsCurrent
+      coin
+      loadMax
+      loadCurrent
+      isTemplate
+      tags
+      notes
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      characterCharacterRaceId
+      characterCharacterAlignmentId
+      characterCharacterProfessionId
+      __typename
+    }
     createdAt
     updatedAt
     _version
     _deleted
     _lastChangedAt
+    characterMovesStartingId
+    characterMovesTwoToTenId
+    characterMovesSixToTenId
     characterMoveMoveId
     __typename
   }
@@ -942,7 +1173,7 @@ export const onCreateMove = /* GraphQL */ `subscription OnCreateMove($filter: Mo
   onCreateMove(filter: $filter) {
     id
     description
-    class {
+    Profession {
       id
       name
       description
@@ -952,10 +1183,10 @@ export const onCreateMove = /* GraphQL */ `subscription OnCreateMove($filter: Mo
       _deleted
       _lastChangedAt
       professionSourceId
-      professionDamageDiceTypeId
+      professionDiceTypeId
       __typename
     }
-    source {
+    Source {
       id
       name
       createdAt
@@ -970,7 +1201,7 @@ export const onCreateMove = /* GraphQL */ `subscription OnCreateMove($filter: Mo
     _version
     _deleted
     _lastChangedAt
-    moveClassId
+    moveProfessionId
     moveSourceId
     __typename
   }
@@ -983,7 +1214,7 @@ export const onUpdateMove = /* GraphQL */ `subscription OnUpdateMove($filter: Mo
   onUpdateMove(filter: $filter) {
     id
     description
-    class {
+    Profession {
       id
       name
       description
@@ -993,10 +1224,10 @@ export const onUpdateMove = /* GraphQL */ `subscription OnUpdateMove($filter: Mo
       _deleted
       _lastChangedAt
       professionSourceId
-      professionDamageDiceTypeId
+      professionDiceTypeId
       __typename
     }
-    source {
+    Source {
       id
       name
       createdAt
@@ -1011,7 +1242,7 @@ export const onUpdateMove = /* GraphQL */ `subscription OnUpdateMove($filter: Mo
     _version
     _deleted
     _lastChangedAt
-    moveClassId
+    moveProfessionId
     moveSourceId
     __typename
   }
@@ -1024,7 +1255,7 @@ export const onDeleteMove = /* GraphQL */ `subscription OnDeleteMove($filter: Mo
   onDeleteMove(filter: $filter) {
     id
     description
-    class {
+    Profession {
       id
       name
       description
@@ -1034,10 +1265,10 @@ export const onDeleteMove = /* GraphQL */ `subscription OnDeleteMove($filter: Mo
       _deleted
       _lastChangedAt
       professionSourceId
-      professionDamageDiceTypeId
+      professionDiceTypeId
       __typename
     }
-    source {
+    Source {
       id
       name
       createdAt
@@ -1052,7 +1283,7 @@ export const onDeleteMove = /* GraphQL */ `subscription OnDeleteMove($filter: Mo
     _version
     _deleted
     _lastChangedAt
-    moveClassId
+    moveProfessionId
     moveSourceId
     __typename
   }
@@ -1067,7 +1298,7 @@ export const onCreateCharacterBond = /* GraphQL */ `subscription OnCreateCharact
   onCreateCharacterBond(filter: $filter) {
     id
     description
-    bond {
+    Bond {
       id
       description
       createdAt
@@ -1075,16 +1306,41 @@ export const onCreateCharacterBond = /* GraphQL */ `subscription OnCreateCharact
       _version
       _deleted
       _lastChangedAt
-      bondClassId
+      bondProfessionId
       __typename
     }
     selected
-    characterID
+    Character {
+      userId
+      id
+      name
+      level
+      xp
+      armor
+      hitPointsMax
+      hitPointsCurrent
+      coin
+      loadMax
+      loadCurrent
+      isTemplate
+      tags
+      notes
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      characterCharacterRaceId
+      characterCharacterAlignmentId
+      characterCharacterProfessionId
+      __typename
+    }
     createdAt
     updatedAt
     _version
     _deleted
     _lastChangedAt
+    characterCharacterBondsId
     characterBondBondId
     __typename
   }
@@ -1099,7 +1355,7 @@ export const onUpdateCharacterBond = /* GraphQL */ `subscription OnUpdateCharact
   onUpdateCharacterBond(filter: $filter) {
     id
     description
-    bond {
+    Bond {
       id
       description
       createdAt
@@ -1107,16 +1363,41 @@ export const onUpdateCharacterBond = /* GraphQL */ `subscription OnUpdateCharact
       _version
       _deleted
       _lastChangedAt
-      bondClassId
+      bondProfessionId
       __typename
     }
     selected
-    characterID
+    Character {
+      userId
+      id
+      name
+      level
+      xp
+      armor
+      hitPointsMax
+      hitPointsCurrent
+      coin
+      loadMax
+      loadCurrent
+      isTemplate
+      tags
+      notes
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      characterCharacterRaceId
+      characterCharacterAlignmentId
+      characterCharacterProfessionId
+      __typename
+    }
     createdAt
     updatedAt
     _version
     _deleted
     _lastChangedAt
+    characterCharacterBondsId
     characterBondBondId
     __typename
   }
@@ -1131,7 +1412,7 @@ export const onDeleteCharacterBond = /* GraphQL */ `subscription OnDeleteCharact
   onDeleteCharacterBond(filter: $filter) {
     id
     description
-    bond {
+    Bond {
       id
       description
       createdAt
@@ -1139,16 +1420,41 @@ export const onDeleteCharacterBond = /* GraphQL */ `subscription OnDeleteCharact
       _version
       _deleted
       _lastChangedAt
-      bondClassId
+      bondProfessionId
       __typename
     }
     selected
-    characterID
+    Character {
+      userId
+      id
+      name
+      level
+      xp
+      armor
+      hitPointsMax
+      hitPointsCurrent
+      coin
+      loadMax
+      loadCurrent
+      isTemplate
+      tags
+      notes
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      characterCharacterRaceId
+      characterCharacterAlignmentId
+      characterCharacterProfessionId
+      __typename
+    }
     createdAt
     updatedAt
     _version
     _deleted
     _lastChangedAt
+    characterCharacterBondsId
     characterBondBondId
     __typename
   }
@@ -1161,7 +1467,7 @@ export const onCreateBond = /* GraphQL */ `subscription OnCreateBond($filter: Mo
   onCreateBond(filter: $filter) {
     id
     description
-    class {
+    Profession {
       id
       name
       description
@@ -1171,7 +1477,7 @@ export const onCreateBond = /* GraphQL */ `subscription OnCreateBond($filter: Mo
       _deleted
       _lastChangedAt
       professionSourceId
-      professionDamageDiceTypeId
+      professionDiceTypeId
       __typename
     }
     createdAt
@@ -1179,7 +1485,7 @@ export const onCreateBond = /* GraphQL */ `subscription OnCreateBond($filter: Mo
     _version
     _deleted
     _lastChangedAt
-    bondClassId
+    bondProfessionId
     __typename
   }
 }
@@ -1191,7 +1497,7 @@ export const onUpdateBond = /* GraphQL */ `subscription OnUpdateBond($filter: Mo
   onUpdateBond(filter: $filter) {
     id
     description
-    class {
+    Profession {
       id
       name
       description
@@ -1201,7 +1507,7 @@ export const onUpdateBond = /* GraphQL */ `subscription OnUpdateBond($filter: Mo
       _deleted
       _lastChangedAt
       professionSourceId
-      professionDamageDiceTypeId
+      professionDiceTypeId
       __typename
     }
     createdAt
@@ -1209,7 +1515,7 @@ export const onUpdateBond = /* GraphQL */ `subscription OnUpdateBond($filter: Mo
     _version
     _deleted
     _lastChangedAt
-    bondClassId
+    bondProfessionId
     __typename
   }
 }
@@ -1221,7 +1527,7 @@ export const onDeleteBond = /* GraphQL */ `subscription OnDeleteBond($filter: Mo
   onDeleteBond(filter: $filter) {
     id
     description
-    class {
+    Profession {
       id
       name
       description
@@ -1231,7 +1537,7 @@ export const onDeleteBond = /* GraphQL */ `subscription OnDeleteBond($filter: Mo
       _deleted
       _lastChangedAt
       professionSourceId
-      professionDamageDiceTypeId
+      professionDiceTypeId
       __typename
     }
     createdAt
@@ -1239,7 +1545,7 @@ export const onDeleteBond = /* GraphQL */ `subscription OnDeleteBond($filter: Mo
     _version
     _deleted
     _lastChangedAt
-    bondClassId
+    bondProfessionId
     __typename
   }
 }
@@ -1251,7 +1557,7 @@ export const onCreateCharacterAbilityScore = /* GraphQL */ `subscription OnCreat
   $filter: ModelSubscriptionCharacterAbilityScoreFilterInput
 ) {
   onCreateCharacterAbilityScore(filter: $filter) {
-    abilityScore {
+    AbilityScore {
       id
       name
       shortName
@@ -1268,12 +1574,37 @@ export const onCreateCharacterAbilityScore = /* GraphQL */ `subscription OnCreat
     value
     bonus
     tags
-    characterID
+    Character {
+      userId
+      id
+      name
+      level
+      xp
+      armor
+      hitPointsMax
+      hitPointsCurrent
+      coin
+      loadMax
+      loadCurrent
+      isTemplate
+      tags
+      notes
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      characterCharacterRaceId
+      characterCharacterAlignmentId
+      characterCharacterProfessionId
+      __typename
+    }
     createdAt
     updatedAt
     _version
     _deleted
     _lastChangedAt
+    characterCharacterAbilityScoresId
     characterAbilityScoreAbilityScoreId
     __typename
   }
@@ -1286,7 +1617,7 @@ export const onUpdateCharacterAbilityScore = /* GraphQL */ `subscription OnUpdat
   $filter: ModelSubscriptionCharacterAbilityScoreFilterInput
 ) {
   onUpdateCharacterAbilityScore(filter: $filter) {
-    abilityScore {
+    AbilityScore {
       id
       name
       shortName
@@ -1303,12 +1634,37 @@ export const onUpdateCharacterAbilityScore = /* GraphQL */ `subscription OnUpdat
     value
     bonus
     tags
-    characterID
+    Character {
+      userId
+      id
+      name
+      level
+      xp
+      armor
+      hitPointsMax
+      hitPointsCurrent
+      coin
+      loadMax
+      loadCurrent
+      isTemplate
+      tags
+      notes
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      characterCharacterRaceId
+      characterCharacterAlignmentId
+      characterCharacterProfessionId
+      __typename
+    }
     createdAt
     updatedAt
     _version
     _deleted
     _lastChangedAt
+    characterCharacterAbilityScoresId
     characterAbilityScoreAbilityScoreId
     __typename
   }
@@ -1321,7 +1677,7 @@ export const onDeleteCharacterAbilityScore = /* GraphQL */ `subscription OnDelet
   $filter: ModelSubscriptionCharacterAbilityScoreFilterInput
 ) {
   onDeleteCharacterAbilityScore(filter: $filter) {
-    abilityScore {
+    AbilityScore {
       id
       name
       shortName
@@ -1338,12 +1694,37 @@ export const onDeleteCharacterAbilityScore = /* GraphQL */ `subscription OnDelet
     value
     bonus
     tags
-    characterID
+    Character {
+      userId
+      id
+      name
+      level
+      xp
+      armor
+      hitPointsMax
+      hitPointsCurrent
+      coin
+      loadMax
+      loadCurrent
+      isTemplate
+      tags
+      notes
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      characterCharacterRaceId
+      characterCharacterAlignmentId
+      characterCharacterProfessionId
+      __typename
+    }
     createdAt
     updatedAt
     _version
     _deleted
     _lastChangedAt
+    characterCharacterAbilityScoresId
     characterAbilityScoreAbilityScoreId
     __typename
   }
@@ -1420,7 +1801,7 @@ export const onCreateCharacterRace = /* GraphQL */ `subscription OnCreateCharact
 ) {
   onCreateCharacterRace(filter: $filter) {
     id
-    race {
+    Race {
       id
       name
       description
@@ -1433,12 +1814,38 @@ export const onCreateCharacterRace = /* GraphQL */ `subscription OnCreateCharact
       raceSourceId
       __typename
     }
+    Character {
+      userId
+      id
+      name
+      level
+      xp
+      armor
+      hitPointsMax
+      hitPointsCurrent
+      coin
+      loadMax
+      loadCurrent
+      isTemplate
+      tags
+      notes
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      characterCharacterRaceId
+      characterCharacterAlignmentId
+      characterCharacterProfessionId
+      __typename
+    }
     createdAt
     updatedAt
     _version
     _deleted
     _lastChangedAt
     characterRaceRaceId
+    characterRaceCharacterId
     __typename
   }
 }
@@ -1451,7 +1858,7 @@ export const onUpdateCharacterRace = /* GraphQL */ `subscription OnUpdateCharact
 ) {
   onUpdateCharacterRace(filter: $filter) {
     id
-    race {
+    Race {
       id
       name
       description
@@ -1464,12 +1871,38 @@ export const onUpdateCharacterRace = /* GraphQL */ `subscription OnUpdateCharact
       raceSourceId
       __typename
     }
+    Character {
+      userId
+      id
+      name
+      level
+      xp
+      armor
+      hitPointsMax
+      hitPointsCurrent
+      coin
+      loadMax
+      loadCurrent
+      isTemplate
+      tags
+      notes
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      characterCharacterRaceId
+      characterCharacterAlignmentId
+      characterCharacterProfessionId
+      __typename
+    }
     createdAt
     updatedAt
     _version
     _deleted
     _lastChangedAt
     characterRaceRaceId
+    characterRaceCharacterId
     __typename
   }
 }
@@ -1482,7 +1915,7 @@ export const onDeleteCharacterRace = /* GraphQL */ `subscription OnDeleteCharact
 ) {
   onDeleteCharacterRace(filter: $filter) {
     id
-    race {
+    Race {
       id
       name
       description
@@ -1495,12 +1928,38 @@ export const onDeleteCharacterRace = /* GraphQL */ `subscription OnDeleteCharact
       raceSourceId
       __typename
     }
+    Character {
+      userId
+      id
+      name
+      level
+      xp
+      armor
+      hitPointsMax
+      hitPointsCurrent
+      coin
+      loadMax
+      loadCurrent
+      isTemplate
+      tags
+      notes
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      characterCharacterRaceId
+      characterCharacterAlignmentId
+      characterCharacterProfessionId
+      __typename
+    }
     createdAt
     updatedAt
     _version
     _deleted
     _lastChangedAt
     characterRaceRaceId
+    characterRaceCharacterId
     __typename
   }
 }
@@ -1513,7 +1972,7 @@ export const onCreateRace = /* GraphQL */ `subscription OnCreateRace($filter: Mo
     id
     name
     description
-    profession {
+    Profession {
       id
       name
       description
@@ -1523,10 +1982,10 @@ export const onCreateRace = /* GraphQL */ `subscription OnCreateRace($filter: Mo
       _deleted
       _lastChangedAt
       professionSourceId
-      professionDamageDiceTypeId
+      professionDiceTypeId
       __typename
     }
-    source {
+    Source {
       id
       name
       createdAt
@@ -1555,7 +2014,7 @@ export const onUpdateRace = /* GraphQL */ `subscription OnUpdateRace($filter: Mo
     id
     name
     description
-    profession {
+    Profession {
       id
       name
       description
@@ -1565,10 +2024,10 @@ export const onUpdateRace = /* GraphQL */ `subscription OnUpdateRace($filter: Mo
       _deleted
       _lastChangedAt
       professionSourceId
-      professionDamageDiceTypeId
+      professionDiceTypeId
       __typename
     }
-    source {
+    Source {
       id
       name
       createdAt
@@ -1597,7 +2056,7 @@ export const onDeleteRace = /* GraphQL */ `subscription OnDeleteRace($filter: Mo
     id
     name
     description
-    profession {
+    Profession {
       id
       name
       description
@@ -1607,10 +2066,10 @@ export const onDeleteRace = /* GraphQL */ `subscription OnDeleteRace($filter: Mo
       _deleted
       _lastChangedAt
       professionSourceId
-      professionDamageDiceTypeId
+      professionDiceTypeId
       __typename
     }
-    source {
+    Source {
       id
       name
       createdAt
@@ -1639,7 +2098,7 @@ export const onCreateCharacterAlignment = /* GraphQL */ `subscription OnCreateCh
 ) {
   onCreateCharacterAlignment(filter: $filter) {
     id
-    alignment {
+    Alignment {
       id
       name
       description
@@ -1648,16 +2107,42 @@ export const onCreateCharacterAlignment = /* GraphQL */ `subscription OnCreateCh
       _version
       _deleted
       _lastChangedAt
-      alignmentClassId
+      alignmentProfessionId
       __typename
     }
     selected
+    Character {
+      userId
+      id
+      name
+      level
+      xp
+      armor
+      hitPointsMax
+      hitPointsCurrent
+      coin
+      loadMax
+      loadCurrent
+      isTemplate
+      tags
+      notes
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      characterCharacterRaceId
+      characterCharacterAlignmentId
+      characterCharacterProfessionId
+      __typename
+    }
     createdAt
     updatedAt
     _version
     _deleted
     _lastChangedAt
     characterAlignmentAlignmentId
+    characterAlignmentCharacterId
     __typename
   }
 }
@@ -1670,7 +2155,7 @@ export const onUpdateCharacterAlignment = /* GraphQL */ `subscription OnUpdateCh
 ) {
   onUpdateCharacterAlignment(filter: $filter) {
     id
-    alignment {
+    Alignment {
       id
       name
       description
@@ -1679,16 +2164,42 @@ export const onUpdateCharacterAlignment = /* GraphQL */ `subscription OnUpdateCh
       _version
       _deleted
       _lastChangedAt
-      alignmentClassId
+      alignmentProfessionId
       __typename
     }
     selected
+    Character {
+      userId
+      id
+      name
+      level
+      xp
+      armor
+      hitPointsMax
+      hitPointsCurrent
+      coin
+      loadMax
+      loadCurrent
+      isTemplate
+      tags
+      notes
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      characterCharacterRaceId
+      characterCharacterAlignmentId
+      characterCharacterProfessionId
+      __typename
+    }
     createdAt
     updatedAt
     _version
     _deleted
     _lastChangedAt
     characterAlignmentAlignmentId
+    characterAlignmentCharacterId
     __typename
   }
 }
@@ -1701,7 +2212,7 @@ export const onDeleteCharacterAlignment = /* GraphQL */ `subscription OnDeleteCh
 ) {
   onDeleteCharacterAlignment(filter: $filter) {
     id
-    alignment {
+    Alignment {
       id
       name
       description
@@ -1710,16 +2221,42 @@ export const onDeleteCharacterAlignment = /* GraphQL */ `subscription OnDeleteCh
       _version
       _deleted
       _lastChangedAt
-      alignmentClassId
+      alignmentProfessionId
       __typename
     }
     selected
+    Character {
+      userId
+      id
+      name
+      level
+      xp
+      armor
+      hitPointsMax
+      hitPointsCurrent
+      coin
+      loadMax
+      loadCurrent
+      isTemplate
+      tags
+      notes
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      characterCharacterRaceId
+      characterCharacterAlignmentId
+      characterCharacterProfessionId
+      __typename
+    }
     createdAt
     updatedAt
     _version
     _deleted
     _lastChangedAt
     characterAlignmentAlignmentId
+    characterAlignmentCharacterId
     __typename
   }
 }
@@ -1732,7 +2269,7 @@ export const onCreateAlignment = /* GraphQL */ `subscription OnCreateAlignment($
     id
     name
     description
-    class {
+    Profession {
       id
       name
       description
@@ -1742,7 +2279,7 @@ export const onCreateAlignment = /* GraphQL */ `subscription OnCreateAlignment($
       _deleted
       _lastChangedAt
       professionSourceId
-      professionDamageDiceTypeId
+      professionDiceTypeId
       __typename
     }
     createdAt
@@ -1750,7 +2287,7 @@ export const onCreateAlignment = /* GraphQL */ `subscription OnCreateAlignment($
     _version
     _deleted
     _lastChangedAt
-    alignmentClassId
+    alignmentProfessionId
     __typename
   }
 }
@@ -1763,7 +2300,7 @@ export const onUpdateAlignment = /* GraphQL */ `subscription OnUpdateAlignment($
     id
     name
     description
-    class {
+    Profession {
       id
       name
       description
@@ -1773,7 +2310,7 @@ export const onUpdateAlignment = /* GraphQL */ `subscription OnUpdateAlignment($
       _deleted
       _lastChangedAt
       professionSourceId
-      professionDamageDiceTypeId
+      professionDiceTypeId
       __typename
     }
     createdAt
@@ -1781,7 +2318,7 @@ export const onUpdateAlignment = /* GraphQL */ `subscription OnUpdateAlignment($
     _version
     _deleted
     _lastChangedAt
-    alignmentClassId
+    alignmentProfessionId
     __typename
   }
 }
@@ -1794,7 +2331,7 @@ export const onDeleteAlignment = /* GraphQL */ `subscription OnDeleteAlignment($
     id
     name
     description
-    class {
+    Profession {
       id
       name
       description
@@ -1804,7 +2341,7 @@ export const onDeleteAlignment = /* GraphQL */ `subscription OnDeleteAlignment($
       _deleted
       _lastChangedAt
       professionSourceId
-      professionDamageDiceTypeId
+      professionDiceTypeId
       __typename
     }
     createdAt
@@ -1812,7 +2349,7 @@ export const onDeleteAlignment = /* GraphQL */ `subscription OnDeleteAlignment($
     _version
     _deleted
     _lastChangedAt
-    alignmentClassId
+    alignmentProfessionId
     __typename
   }
 }
@@ -1873,9 +2410,40 @@ export const onCreateCharacterLook = /* GraphQL */ `subscription OnCreateCharact
 ) {
   onCreateCharacterLook(filter: $filter) {
     id
-    look {
-      nextToken
-      startedAt
+    Look {
+      id
+      name
+      description
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      __typename
+    }
+    Character {
+      userId
+      id
+      name
+      level
+      xp
+      armor
+      hitPointsMax
+      hitPointsCurrent
+      coin
+      loadMax
+      loadCurrent
+      isTemplate
+      tags
+      notes
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      characterCharacterRaceId
+      characterCharacterAlignmentId
+      characterCharacterProfessionId
       __typename
     }
     createdAt
@@ -1883,6 +2451,8 @@ export const onCreateCharacterLook = /* GraphQL */ `subscription OnCreateCharact
     _version
     _deleted
     _lastChangedAt
+    characterCharacterLooksId
+    characterLookLookId
     __typename
   }
 }
@@ -1895,9 +2465,40 @@ export const onUpdateCharacterLook = /* GraphQL */ `subscription OnUpdateCharact
 ) {
   onUpdateCharacterLook(filter: $filter) {
     id
-    look {
-      nextToken
-      startedAt
+    Look {
+      id
+      name
+      description
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      __typename
+    }
+    Character {
+      userId
+      id
+      name
+      level
+      xp
+      armor
+      hitPointsMax
+      hitPointsCurrent
+      coin
+      loadMax
+      loadCurrent
+      isTemplate
+      tags
+      notes
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      characterCharacterRaceId
+      characterCharacterAlignmentId
+      characterCharacterProfessionId
       __typename
     }
     createdAt
@@ -1905,6 +2506,8 @@ export const onUpdateCharacterLook = /* GraphQL */ `subscription OnUpdateCharact
     _version
     _deleted
     _lastChangedAt
+    characterCharacterLooksId
+    characterLookLookId
     __typename
   }
 }
@@ -1917,9 +2520,40 @@ export const onDeleteCharacterLook = /* GraphQL */ `subscription OnDeleteCharact
 ) {
   onDeleteCharacterLook(filter: $filter) {
     id
-    look {
-      nextToken
-      startedAt
+    Look {
+      id
+      name
+      description
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      __typename
+    }
+    Character {
+      userId
+      id
+      name
+      level
+      xp
+      armor
+      hitPointsMax
+      hitPointsCurrent
+      coin
+      loadMax
+      loadCurrent
+      isTemplate
+      tags
+      notes
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      characterCharacterRaceId
+      characterCharacterAlignmentId
+      characterCharacterProfessionId
       __typename
     }
     createdAt
@@ -1927,6 +2561,8 @@ export const onDeleteCharacterLook = /* GraphQL */ `subscription OnDeleteCharact
     _version
     _deleted
     _lastChangedAt
+    characterCharacterLooksId
+    characterLookLookId
     __typename
   }
 }
@@ -1939,7 +2575,6 @@ export const onCreateLook = /* GraphQL */ `subscription OnCreateLook($filter: Mo
     id
     name
     description
-    characterlookID
     createdAt
     updatedAt
     _version
@@ -1957,7 +2592,6 @@ export const onUpdateLook = /* GraphQL */ `subscription OnUpdateLook($filter: Mo
     id
     name
     description
-    characterlookID
     createdAt
     updatedAt
     _version
@@ -1975,7 +2609,6 @@ export const onDeleteLook = /* GraphQL */ `subscription OnDeleteLook($filter: Mo
     id
     name
     description
-    characterlookID
     createdAt
     updatedAt
     _version
@@ -2002,37 +2635,39 @@ export const onCreateCharacter = /* GraphQL */ `subscription OnCreateCharacter($
     loadMax
     loadCurrent
     isTemplate
-    gear {
+    tags
+    notes
+    CharacterGear {
       nextToken
       startedAt
       __typename
     }
-    sixToTenMoves {
+    MovesStarting {
       nextToken
       startedAt
       __typename
     }
-    twoToTenMoves {
+    MovesTwoToTen {
       nextToken
       startedAt
       __typename
     }
-    startingMoves {
+    MovesSixToTen {
       nextToken
       startedAt
       __typename
     }
-    bonds {
+    CharacterBonds {
       nextToken
       startedAt
       __typename
     }
-    abilityscores {
+    CharacterAbilityScores {
       nextToken
       startedAt
       __typename
     }
-    race {
+    CharacterRace {
       id
       createdAt
       updatedAt
@@ -2040,9 +2675,10 @@ export const onCreateCharacter = /* GraphQL */ `subscription OnCreateCharacter($
       _deleted
       _lastChangedAt
       characterRaceRaceId
+      characterRaceCharacterId
       __typename
     }
-    alignment {
+    CharacterAlignment {
       id
       selected
       createdAt
@@ -2051,19 +2687,14 @@ export const onCreateCharacter = /* GraphQL */ `subscription OnCreateCharacter($
       _deleted
       _lastChangedAt
       characterAlignmentAlignmentId
+      characterAlignmentCharacterId
       __typename
     }
-    tags
-    look {
-      id
-      createdAt
-      updatedAt
-      _version
-      _deleted
-      _lastChangedAt
+    CharacterLooks {
+      nextToken
+      startedAt
       __typename
     }
-    notes
     CharacterProfession {
       id
       createdAt
@@ -2075,14 +2706,18 @@ export const onCreateCharacter = /* GraphQL */ `subscription OnCreateCharacter($
       characterProfessionCharacterId
       __typename
     }
+    CharacterSpells {
+      nextToken
+      startedAt
+      __typename
+    }
     createdAt
     updatedAt
     _version
     _deleted
     _lastChangedAt
-    characterRaceId
-    characterAlignmentId
-    characterLookId
+    characterCharacterRaceId
+    characterCharacterAlignmentId
     characterCharacterProfessionId
     __typename
   }
@@ -2105,37 +2740,39 @@ export const onUpdateCharacter = /* GraphQL */ `subscription OnUpdateCharacter($
     loadMax
     loadCurrent
     isTemplate
-    gear {
+    tags
+    notes
+    CharacterGear {
       nextToken
       startedAt
       __typename
     }
-    sixToTenMoves {
+    MovesStarting {
       nextToken
       startedAt
       __typename
     }
-    twoToTenMoves {
+    MovesTwoToTen {
       nextToken
       startedAt
       __typename
     }
-    startingMoves {
+    MovesSixToTen {
       nextToken
       startedAt
       __typename
     }
-    bonds {
+    CharacterBonds {
       nextToken
       startedAt
       __typename
     }
-    abilityscores {
+    CharacterAbilityScores {
       nextToken
       startedAt
       __typename
     }
-    race {
+    CharacterRace {
       id
       createdAt
       updatedAt
@@ -2143,9 +2780,10 @@ export const onUpdateCharacter = /* GraphQL */ `subscription OnUpdateCharacter($
       _deleted
       _lastChangedAt
       characterRaceRaceId
+      characterRaceCharacterId
       __typename
     }
-    alignment {
+    CharacterAlignment {
       id
       selected
       createdAt
@@ -2154,19 +2792,14 @@ export const onUpdateCharacter = /* GraphQL */ `subscription OnUpdateCharacter($
       _deleted
       _lastChangedAt
       characterAlignmentAlignmentId
+      characterAlignmentCharacterId
       __typename
     }
-    tags
-    look {
-      id
-      createdAt
-      updatedAt
-      _version
-      _deleted
-      _lastChangedAt
+    CharacterLooks {
+      nextToken
+      startedAt
       __typename
     }
-    notes
     CharacterProfession {
       id
       createdAt
@@ -2178,14 +2811,18 @@ export const onUpdateCharacter = /* GraphQL */ `subscription OnUpdateCharacter($
       characterProfessionCharacterId
       __typename
     }
+    CharacterSpells {
+      nextToken
+      startedAt
+      __typename
+    }
     createdAt
     updatedAt
     _version
     _deleted
     _lastChangedAt
-    characterRaceId
-    characterAlignmentId
-    characterLookId
+    characterCharacterRaceId
+    characterCharacterAlignmentId
     characterCharacterProfessionId
     __typename
   }
@@ -2208,37 +2845,39 @@ export const onDeleteCharacter = /* GraphQL */ `subscription OnDeleteCharacter($
     loadMax
     loadCurrent
     isTemplate
-    gear {
+    tags
+    notes
+    CharacterGear {
       nextToken
       startedAt
       __typename
     }
-    sixToTenMoves {
+    MovesStarting {
       nextToken
       startedAt
       __typename
     }
-    twoToTenMoves {
+    MovesTwoToTen {
       nextToken
       startedAt
       __typename
     }
-    startingMoves {
+    MovesSixToTen {
       nextToken
       startedAt
       __typename
     }
-    bonds {
+    CharacterBonds {
       nextToken
       startedAt
       __typename
     }
-    abilityscores {
+    CharacterAbilityScores {
       nextToken
       startedAt
       __typename
     }
-    race {
+    CharacterRace {
       id
       createdAt
       updatedAt
@@ -2246,9 +2885,10 @@ export const onDeleteCharacter = /* GraphQL */ `subscription OnDeleteCharacter($
       _deleted
       _lastChangedAt
       characterRaceRaceId
+      characterRaceCharacterId
       __typename
     }
-    alignment {
+    CharacterAlignment {
       id
       selected
       createdAt
@@ -2257,19 +2897,14 @@ export const onDeleteCharacter = /* GraphQL */ `subscription OnDeleteCharacter($
       _deleted
       _lastChangedAt
       characterAlignmentAlignmentId
+      characterAlignmentCharacterId
       __typename
     }
-    tags
-    look {
-      id
-      createdAt
-      updatedAt
-      _version
-      _deleted
-      _lastChangedAt
+    CharacterLooks {
+      nextToken
+      startedAt
       __typename
     }
-    notes
     CharacterProfession {
       id
       createdAt
@@ -2281,14 +2916,18 @@ export const onDeleteCharacter = /* GraphQL */ `subscription OnDeleteCharacter($
       characterProfessionCharacterId
       __typename
     }
+    CharacterSpells {
+      nextToken
+      startedAt
+      __typename
+    }
     createdAt
     updatedAt
     _version
     _deleted
     _lastChangedAt
-    characterRaceId
-    characterAlignmentId
-    characterLookId
+    characterCharacterRaceId
+    characterCharacterAlignmentId
     characterCharacterProfessionId
     __typename
   }

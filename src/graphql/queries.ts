@@ -166,9 +166,8 @@ export const getCharacterProfession = /* GraphQL */ `query GetCharacterProfessio
       _version
       _deleted
       _lastChangedAt
-      characterRaceId
-      characterAlignmentId
-      characterLookId
+      characterCharacterRaceId
+      characterCharacterAlignmentId
       characterCharacterProfessionId
       __typename
     }
@@ -182,7 +181,7 @@ export const getCharacterProfession = /* GraphQL */ `query GetCharacterProfessio
       _deleted
       _lastChangedAt
       professionSourceId
-      professionDamageDiceTypeId
+      professionDiceTypeId
       __typename
     }
     createdAt
@@ -266,7 +265,7 @@ export const getProfession = /* GraphQL */ `query GetProfession($id: ID!) {
     id
     name
     description
-    source {
+    Source {
       id
       name
       createdAt
@@ -276,7 +275,7 @@ export const getProfession = /* GraphQL */ `query GetProfession($id: ID!) {
       _lastChangedAt
       __typename
     }
-    damageDiceType {
+    DiceType {
       id
       name
       createdAt
@@ -292,7 +291,7 @@ export const getProfession = /* GraphQL */ `query GetProfession($id: ID!) {
     _deleted
     _lastChangedAt
     professionSourceId
-    professionDamageDiceTypeId
+    professionDiceTypeId
     __typename
   }
 }
@@ -316,7 +315,7 @@ export const listProfessions = /* GraphQL */ `query ListProfessions(
       _deleted
       _lastChangedAt
       professionSourceId
-      professionDamageDiceTypeId
+      professionDiceTypeId
       __typename
     }
     nextToken
@@ -350,7 +349,7 @@ export const syncProfessions = /* GraphQL */ `query SyncProfessions(
       _deleted
       _lastChangedAt
       professionSourceId
-      professionDamageDiceTypeId
+      professionDiceTypeId
       __typename
     }
     nextToken
@@ -370,7 +369,7 @@ export const getSpell = /* GraphQL */ `query GetSpell($id: ID!) {
     type
     ongoing
     description
-    source {
+    Source {
       id
       name
       createdAt
@@ -380,7 +379,7 @@ export const getSpell = /* GraphQL */ `query GetSpell($id: ID!) {
       _lastChangedAt
       __typename
     }
-    profession {
+    Profession {
       id
       name
       description
@@ -390,7 +389,7 @@ export const getSpell = /* GraphQL */ `query GetSpell($id: ID!) {
       _deleted
       _lastChangedAt
       professionSourceId
-      professionDamageDiceTypeId
+      professionDiceTypeId
       __typename
     }
     createdAt
@@ -475,7 +474,7 @@ export const syncSpells = /* GraphQL */ `query SyncSpells(
 export const getCharacterSpell = /* GraphQL */ `query GetCharacterSpell($id: ID!) {
   getCharacterSpell(id: $id) {
     id
-    spell {
+    Spell {
       id
       name
       level
@@ -493,11 +492,37 @@ export const getCharacterSpell = /* GraphQL */ `query GetCharacterSpell($id: ID!
     }
     selected
     tags
+    Character {
+      userId
+      id
+      name
+      level
+      xp
+      armor
+      hitPointsMax
+      hitPointsCurrent
+      coin
+      loadMax
+      loadCurrent
+      isTemplate
+      tags
+      notes
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      characterCharacterRaceId
+      characterCharacterAlignmentId
+      characterCharacterProfessionId
+      __typename
+    }
     createdAt
     updatedAt
     _version
     _deleted
     _lastChangedAt
+    characterCharacterSpellsId
     characterSpellSpellId
     __typename
   }
@@ -521,6 +546,7 @@ export const listCharacterSpells = /* GraphQL */ `query ListCharacterSpells(
       _version
       _deleted
       _lastChangedAt
+      characterCharacterSpellsId
       characterSpellSpellId
       __typename
     }
@@ -554,6 +580,7 @@ export const syncCharacterSpells = /* GraphQL */ `query SyncCharacterSpells(
       _version
       _deleted
       _lastChangedAt
+      characterCharacterSpellsId
       characterSpellSpellId
       __typename
     }
@@ -569,7 +596,7 @@ export const syncCharacterSpells = /* GraphQL */ `query SyncCharacterSpells(
 export const getCharacterGear = /* GraphQL */ `query GetCharacterGear($id: ID!) {
   getCharacterGear(id: $id) {
     id
-    gear {
+    Gear {
       id
       description
       weight
@@ -585,12 +612,37 @@ export const getCharacterGear = /* GraphQL */ `query GetCharacterGear($id: ID!) 
     }
     uses
     tags
-    characterID
+    Character {
+      userId
+      id
+      name
+      level
+      xp
+      armor
+      hitPointsMax
+      hitPointsCurrent
+      coin
+      loadMax
+      loadCurrent
+      isTemplate
+      tags
+      notes
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      characterCharacterRaceId
+      characterCharacterAlignmentId
+      characterCharacterProfessionId
+      __typename
+    }
     createdAt
     updatedAt
     _version
     _deleted
     _lastChangedAt
+    characterCharacterGearId
     characterGearGearId
     __typename
   }
@@ -609,12 +661,12 @@ export const listCharacterGears = /* GraphQL */ `query ListCharacterGears(
       id
       uses
       tags
-      characterID
       createdAt
       updatedAt
       _version
       _deleted
       _lastChangedAt
+      characterCharacterGearId
       characterGearGearId
       __typename
     }
@@ -643,12 +695,12 @@ export const syncCharacterGears = /* GraphQL */ `query SyncCharacterGears(
       id
       uses
       tags
-      characterID
       createdAt
       updatedAt
       _version
       _deleted
       _lastChangedAt
+      characterCharacterGearId
       characterGearGearId
       __typename
     }
@@ -661,42 +713,6 @@ export const syncCharacterGears = /* GraphQL */ `query SyncCharacterGears(
   APITypes.SyncCharacterGearsQueryVariables,
   APITypes.SyncCharacterGearsQuery
 >;
-export const characterGearsByCharacterID = /* GraphQL */ `query CharacterGearsByCharacterID(
-  $characterID: ID!
-  $sortDirection: ModelSortDirection
-  $filter: ModelCharacterGearFilterInput
-  $limit: Int
-  $nextToken: String
-) {
-  characterGearsByCharacterID(
-    characterID: $characterID
-    sortDirection: $sortDirection
-    filter: $filter
-    limit: $limit
-    nextToken: $nextToken
-  ) {
-    items {
-      id
-      uses
-      tags
-      characterID
-      createdAt
-      updatedAt
-      _version
-      _deleted
-      _lastChangedAt
-      characterGearGearId
-      __typename
-    }
-    nextToken
-    startedAt
-    __typename
-  }
-}
-` as GeneratedQuery<
-  APITypes.CharacterGearsByCharacterIDQueryVariables,
-  APITypes.CharacterGearsByCharacterIDQuery
->;
 export const getGear = /* GraphQL */ `query GetGear($id: ID!) {
   getGear(id: $id) {
     id
@@ -704,7 +720,7 @@ export const getGear = /* GraphQL */ `query GetGear($id: ID!) {
     weight
     uses
     tags
-    source {
+    Source {
       id
       name
       createdAt
@@ -786,7 +802,7 @@ export const getCharacterMove = /* GraphQL */ `query GetCharacterMove($id: ID!) 
   getCharacterMove(id: $id) {
     id
     selected
-    move {
+    Move {
       id
       description
       createdAt
@@ -794,16 +810,43 @@ export const getCharacterMove = /* GraphQL */ `query GetCharacterMove($id: ID!) 
       _version
       _deleted
       _lastChangedAt
-      moveClassId
+      moveProfessionId
       moveSourceId
       __typename
     }
-    characterID
+    Character {
+      userId
+      id
+      name
+      level
+      xp
+      armor
+      hitPointsMax
+      hitPointsCurrent
+      coin
+      loadMax
+      loadCurrent
+      isTemplate
+      tags
+      notes
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      characterCharacterRaceId
+      characterCharacterAlignmentId
+      characterCharacterProfessionId
+      __typename
+    }
     createdAt
     updatedAt
     _version
     _deleted
     _lastChangedAt
+    characterMovesStartingId
+    characterMovesTwoToTenId
+    characterMovesSixToTenId
     characterMoveMoveId
     __typename
   }
@@ -821,12 +864,14 @@ export const listCharacterMoves = /* GraphQL */ `query ListCharacterMoves(
     items {
       id
       selected
-      characterID
       createdAt
       updatedAt
       _version
       _deleted
       _lastChangedAt
+      characterMovesStartingId
+      characterMovesTwoToTenId
+      characterMovesSixToTenId
       characterMoveMoveId
       __typename
     }
@@ -854,12 +899,14 @@ export const syncCharacterMoves = /* GraphQL */ `query SyncCharacterMoves(
     items {
       id
       selected
-      characterID
       createdAt
       updatedAt
       _version
       _deleted
       _lastChangedAt
+      characterMovesStartingId
+      characterMovesTwoToTenId
+      characterMovesSixToTenId
       characterMoveMoveId
       __typename
     }
@@ -872,46 +919,11 @@ export const syncCharacterMoves = /* GraphQL */ `query SyncCharacterMoves(
   APITypes.SyncCharacterMovesQueryVariables,
   APITypes.SyncCharacterMovesQuery
 >;
-export const characterMovesByCharacterID = /* GraphQL */ `query CharacterMovesByCharacterID(
-  $characterID: ID!
-  $sortDirection: ModelSortDirection
-  $filter: ModelCharacterMoveFilterInput
-  $limit: Int
-  $nextToken: String
-) {
-  characterMovesByCharacterID(
-    characterID: $characterID
-    sortDirection: $sortDirection
-    filter: $filter
-    limit: $limit
-    nextToken: $nextToken
-  ) {
-    items {
-      id
-      selected
-      characterID
-      createdAt
-      updatedAt
-      _version
-      _deleted
-      _lastChangedAt
-      characterMoveMoveId
-      __typename
-    }
-    nextToken
-    startedAt
-    __typename
-  }
-}
-` as GeneratedQuery<
-  APITypes.CharacterMovesByCharacterIDQueryVariables,
-  APITypes.CharacterMovesByCharacterIDQuery
->;
 export const getMove = /* GraphQL */ `query GetMove($id: ID!) {
   getMove(id: $id) {
     id
     description
-    class {
+    Profession {
       id
       name
       description
@@ -921,10 +933,10 @@ export const getMove = /* GraphQL */ `query GetMove($id: ID!) {
       _deleted
       _lastChangedAt
       professionSourceId
-      professionDamageDiceTypeId
+      professionDiceTypeId
       __typename
     }
-    source {
+    Source {
       id
       name
       createdAt
@@ -939,7 +951,7 @@ export const getMove = /* GraphQL */ `query GetMove($id: ID!) {
     _version
     _deleted
     _lastChangedAt
-    moveClassId
+    moveProfessionId
     moveSourceId
     __typename
   }
@@ -959,7 +971,7 @@ export const listMoves = /* GraphQL */ `query ListMoves(
       _version
       _deleted
       _lastChangedAt
-      moveClassId
+      moveProfessionId
       moveSourceId
       __typename
     }
@@ -989,7 +1001,7 @@ export const syncMoves = /* GraphQL */ `query SyncMoves(
       _version
       _deleted
       _lastChangedAt
-      moveClassId
+      moveProfessionId
       moveSourceId
       __typename
     }
@@ -1003,7 +1015,7 @@ export const getCharacterBond = /* GraphQL */ `query GetCharacterBond($id: ID!) 
   getCharacterBond(id: $id) {
     id
     description
-    bond {
+    Bond {
       id
       description
       createdAt
@@ -1011,16 +1023,41 @@ export const getCharacterBond = /* GraphQL */ `query GetCharacterBond($id: ID!) 
       _version
       _deleted
       _lastChangedAt
-      bondClassId
+      bondProfessionId
       __typename
     }
     selected
-    characterID
+    Character {
+      userId
+      id
+      name
+      level
+      xp
+      armor
+      hitPointsMax
+      hitPointsCurrent
+      coin
+      loadMax
+      loadCurrent
+      isTemplate
+      tags
+      notes
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      characterCharacterRaceId
+      characterCharacterAlignmentId
+      characterCharacterProfessionId
+      __typename
+    }
     createdAt
     updatedAt
     _version
     _deleted
     _lastChangedAt
+    characterCharacterBondsId
     characterBondBondId
     __typename
   }
@@ -1039,12 +1076,12 @@ export const listCharacterBonds = /* GraphQL */ `query ListCharacterBonds(
       id
       description
       selected
-      characterID
       createdAt
       updatedAt
       _version
       _deleted
       _lastChangedAt
+      characterCharacterBondsId
       characterBondBondId
       __typename
     }
@@ -1073,12 +1110,12 @@ export const syncCharacterBonds = /* GraphQL */ `query SyncCharacterBonds(
       id
       description
       selected
-      characterID
       createdAt
       updatedAt
       _version
       _deleted
       _lastChangedAt
+      characterCharacterBondsId
       characterBondBondId
       __typename
     }
@@ -1091,47 +1128,11 @@ export const syncCharacterBonds = /* GraphQL */ `query SyncCharacterBonds(
   APITypes.SyncCharacterBondsQueryVariables,
   APITypes.SyncCharacterBondsQuery
 >;
-export const characterBondsByCharacterID = /* GraphQL */ `query CharacterBondsByCharacterID(
-  $characterID: ID!
-  $sortDirection: ModelSortDirection
-  $filter: ModelCharacterBondFilterInput
-  $limit: Int
-  $nextToken: String
-) {
-  characterBondsByCharacterID(
-    characterID: $characterID
-    sortDirection: $sortDirection
-    filter: $filter
-    limit: $limit
-    nextToken: $nextToken
-  ) {
-    items {
-      id
-      description
-      selected
-      characterID
-      createdAt
-      updatedAt
-      _version
-      _deleted
-      _lastChangedAt
-      characterBondBondId
-      __typename
-    }
-    nextToken
-    startedAt
-    __typename
-  }
-}
-` as GeneratedQuery<
-  APITypes.CharacterBondsByCharacterIDQueryVariables,
-  APITypes.CharacterBondsByCharacterIDQuery
->;
 export const getBond = /* GraphQL */ `query GetBond($id: ID!) {
   getBond(id: $id) {
     id
     description
-    class {
+    Profession {
       id
       name
       description
@@ -1141,7 +1142,7 @@ export const getBond = /* GraphQL */ `query GetBond($id: ID!) {
       _deleted
       _lastChangedAt
       professionSourceId
-      professionDamageDiceTypeId
+      professionDiceTypeId
       __typename
     }
     createdAt
@@ -1149,7 +1150,7 @@ export const getBond = /* GraphQL */ `query GetBond($id: ID!) {
     _version
     _deleted
     _lastChangedAt
-    bondClassId
+    bondProfessionId
     __typename
   }
 }
@@ -1168,7 +1169,7 @@ export const listBonds = /* GraphQL */ `query ListBonds(
       _version
       _deleted
       _lastChangedAt
-      bondClassId
+      bondProfessionId
       __typename
     }
     nextToken
@@ -1197,7 +1198,7 @@ export const syncBonds = /* GraphQL */ `query SyncBonds(
       _version
       _deleted
       _lastChangedAt
-      bondClassId
+      bondProfessionId
       __typename
     }
     nextToken
@@ -1208,7 +1209,7 @@ export const syncBonds = /* GraphQL */ `query SyncBonds(
 ` as GeneratedQuery<APITypes.SyncBondsQueryVariables, APITypes.SyncBondsQuery>;
 export const getCharacterAbilityScore = /* GraphQL */ `query GetCharacterAbilityScore($id: ID!) {
   getCharacterAbilityScore(id: $id) {
-    abilityScore {
+    AbilityScore {
       id
       name
       shortName
@@ -1225,12 +1226,37 @@ export const getCharacterAbilityScore = /* GraphQL */ `query GetCharacterAbility
     value
     bonus
     tags
-    characterID
+    Character {
+      userId
+      id
+      name
+      level
+      xp
+      armor
+      hitPointsMax
+      hitPointsCurrent
+      coin
+      loadMax
+      loadCurrent
+      isTemplate
+      tags
+      notes
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      characterCharacterRaceId
+      characterCharacterAlignmentId
+      characterCharacterProfessionId
+      __typename
+    }
     createdAt
     updatedAt
     _version
     _deleted
     _lastChangedAt
+    characterCharacterAbilityScoresId
     characterAbilityScoreAbilityScoreId
     __typename
   }
@@ -1254,12 +1280,12 @@ export const listCharacterAbilityScores = /* GraphQL */ `query ListCharacterAbil
       value
       bonus
       tags
-      characterID
       createdAt
       updatedAt
       _version
       _deleted
       _lastChangedAt
+      characterCharacterAbilityScoresId
       characterAbilityScoreAbilityScoreId
       __typename
     }
@@ -1289,12 +1315,12 @@ export const syncCharacterAbilityScores = /* GraphQL */ `query SyncCharacterAbil
       value
       bonus
       tags
-      characterID
       createdAt
       updatedAt
       _version
       _deleted
       _lastChangedAt
+      characterCharacterAbilityScoresId
       characterAbilityScoreAbilityScoreId
       __typename
     }
@@ -1306,43 +1332,6 @@ export const syncCharacterAbilityScores = /* GraphQL */ `query SyncCharacterAbil
 ` as GeneratedQuery<
   APITypes.SyncCharacterAbilityScoresQueryVariables,
   APITypes.SyncCharacterAbilityScoresQuery
->;
-export const characterAbilityScoresByCharacterID = /* GraphQL */ `query CharacterAbilityScoresByCharacterID(
-  $characterID: ID!
-  $sortDirection: ModelSortDirection
-  $filter: ModelCharacterAbilityScoreFilterInput
-  $limit: Int
-  $nextToken: String
-) {
-  characterAbilityScoresByCharacterID(
-    characterID: $characterID
-    sortDirection: $sortDirection
-    filter: $filter
-    limit: $limit
-    nextToken: $nextToken
-  ) {
-    items {
-      id
-      value
-      bonus
-      tags
-      characterID
-      createdAt
-      updatedAt
-      _version
-      _deleted
-      _lastChangedAt
-      characterAbilityScoreAbilityScoreId
-      __typename
-    }
-    nextToken
-    startedAt
-    __typename
-  }
-}
-` as GeneratedQuery<
-  APITypes.CharacterAbilityScoresByCharacterIDQueryVariables,
-  APITypes.CharacterAbilityScoresByCharacterIDQuery
 >;
 export const getAbilityScore = /* GraphQL */ `query GetAbilityScore($id: ID!) {
   getAbilityScore(id: $id) {
@@ -1428,7 +1417,7 @@ export const syncAbilityScores = /* GraphQL */ `query SyncAbilityScores(
 export const getCharacterRace = /* GraphQL */ `query GetCharacterRace($id: ID!) {
   getCharacterRace(id: $id) {
     id
-    race {
+    Race {
       id
       name
       description
@@ -1441,12 +1430,38 @@ export const getCharacterRace = /* GraphQL */ `query GetCharacterRace($id: ID!) 
       raceSourceId
       __typename
     }
+    Character {
+      userId
+      id
+      name
+      level
+      xp
+      armor
+      hitPointsMax
+      hitPointsCurrent
+      coin
+      loadMax
+      loadCurrent
+      isTemplate
+      tags
+      notes
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      characterCharacterRaceId
+      characterCharacterAlignmentId
+      characterCharacterProfessionId
+      __typename
+    }
     createdAt
     updatedAt
     _version
     _deleted
     _lastChangedAt
     characterRaceRaceId
+    characterRaceCharacterId
     __typename
   }
 }
@@ -1468,6 +1483,7 @@ export const listCharacterRaces = /* GraphQL */ `query ListCharacterRaces(
       _deleted
       _lastChangedAt
       characterRaceRaceId
+      characterRaceCharacterId
       __typename
     }
     nextToken
@@ -1499,6 +1515,7 @@ export const syncCharacterRaces = /* GraphQL */ `query SyncCharacterRaces(
       _deleted
       _lastChangedAt
       characterRaceRaceId
+      characterRaceCharacterId
       __typename
     }
     nextToken
@@ -1515,7 +1532,7 @@ export const getRace = /* GraphQL */ `query GetRace($id: ID!) {
     id
     name
     description
-    profession {
+    Profession {
       id
       name
       description
@@ -1525,10 +1542,10 @@ export const getRace = /* GraphQL */ `query GetRace($id: ID!) {
       _deleted
       _lastChangedAt
       professionSourceId
-      professionDamageDiceTypeId
+      professionDiceTypeId
       __typename
     }
-    source {
+    Source {
       id
       name
       createdAt
@@ -1608,7 +1625,7 @@ export const syncRaces = /* GraphQL */ `query SyncRaces(
 export const getCharacterAlignment = /* GraphQL */ `query GetCharacterAlignment($id: ID!) {
   getCharacterAlignment(id: $id) {
     id
-    alignment {
+    Alignment {
       id
       name
       description
@@ -1617,16 +1634,42 @@ export const getCharacterAlignment = /* GraphQL */ `query GetCharacterAlignment(
       _version
       _deleted
       _lastChangedAt
-      alignmentClassId
+      alignmentProfessionId
       __typename
     }
     selected
+    Character {
+      userId
+      id
+      name
+      level
+      xp
+      armor
+      hitPointsMax
+      hitPointsCurrent
+      coin
+      loadMax
+      loadCurrent
+      isTemplate
+      tags
+      notes
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      characterCharacterRaceId
+      characterCharacterAlignmentId
+      characterCharacterProfessionId
+      __typename
+    }
     createdAt
     updatedAt
     _version
     _deleted
     _lastChangedAt
     characterAlignmentAlignmentId
+    characterAlignmentCharacterId
     __typename
   }
 }
@@ -1653,6 +1696,7 @@ export const listCharacterAlignments = /* GraphQL */ `query ListCharacterAlignme
       _deleted
       _lastChangedAt
       characterAlignmentAlignmentId
+      characterAlignmentCharacterId
       __typename
     }
     nextToken
@@ -1685,6 +1729,7 @@ export const syncCharacterAlignments = /* GraphQL */ `query SyncCharacterAlignme
       _deleted
       _lastChangedAt
       characterAlignmentAlignmentId
+      characterAlignmentCharacterId
       __typename
     }
     nextToken
@@ -1701,7 +1746,7 @@ export const getAlignment = /* GraphQL */ `query GetAlignment($id: ID!) {
     id
     name
     description
-    class {
+    Profession {
       id
       name
       description
@@ -1711,7 +1756,7 @@ export const getAlignment = /* GraphQL */ `query GetAlignment($id: ID!) {
       _deleted
       _lastChangedAt
       professionSourceId
-      professionDamageDiceTypeId
+      professionDiceTypeId
       __typename
     }
     createdAt
@@ -1719,7 +1764,7 @@ export const getAlignment = /* GraphQL */ `query GetAlignment($id: ID!) {
     _version
     _deleted
     _lastChangedAt
-    alignmentClassId
+    alignmentProfessionId
     __typename
   }
 }
@@ -1742,7 +1787,7 @@ export const listAlignments = /* GraphQL */ `query ListAlignments(
       _version
       _deleted
       _lastChangedAt
-      alignmentClassId
+      alignmentProfessionId
       __typename
     }
     nextToken
@@ -1775,7 +1820,7 @@ export const syncAlignments = /* GraphQL */ `query SyncAlignments(
       _version
       _deleted
       _lastChangedAt
-      alignmentClassId
+      alignmentProfessionId
       __typename
     }
     nextToken
@@ -1862,9 +1907,40 @@ export const syncDiceTypes = /* GraphQL */ `query SyncDiceTypes(
 export const getCharacterLook = /* GraphQL */ `query GetCharacterLook($id: ID!) {
   getCharacterLook(id: $id) {
     id
-    look {
-      nextToken
-      startedAt
+    Look {
+      id
+      name
+      description
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      __typename
+    }
+    Character {
+      userId
+      id
+      name
+      level
+      xp
+      armor
+      hitPointsMax
+      hitPointsCurrent
+      coin
+      loadMax
+      loadCurrent
+      isTemplate
+      tags
+      notes
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      characterCharacterRaceId
+      characterCharacterAlignmentId
+      characterCharacterProfessionId
       __typename
     }
     createdAt
@@ -1872,6 +1948,8 @@ export const getCharacterLook = /* GraphQL */ `query GetCharacterLook($id: ID!) 
     _version
     _deleted
     _lastChangedAt
+    characterCharacterLooksId
+    characterLookLookId
     __typename
   }
 }
@@ -1892,6 +1970,8 @@ export const listCharacterLooks = /* GraphQL */ `query ListCharacterLooks(
       _version
       _deleted
       _lastChangedAt
+      characterCharacterLooksId
+      characterLookLookId
       __typename
     }
     nextToken
@@ -1922,6 +2002,8 @@ export const syncCharacterLooks = /* GraphQL */ `query SyncCharacterLooks(
       _version
       _deleted
       _lastChangedAt
+      characterCharacterLooksId
+      characterLookLookId
       __typename
     }
     nextToken
@@ -1938,7 +2020,6 @@ export const getLook = /* GraphQL */ `query GetLook($id: ID!) {
     id
     name
     description
-    characterlookID
     createdAt
     updatedAt
     _version
@@ -1958,7 +2039,6 @@ export const listLooks = /* GraphQL */ `query ListLooks(
       id
       name
       description
-      characterlookID
       createdAt
       updatedAt
       _version
@@ -1988,7 +2068,6 @@ export const syncLooks = /* GraphQL */ `query SyncLooks(
       id
       name
       description
-      characterlookID
       createdAt
       updatedAt
       _version
@@ -2002,41 +2081,6 @@ export const syncLooks = /* GraphQL */ `query SyncLooks(
   }
 }
 ` as GeneratedQuery<APITypes.SyncLooksQueryVariables, APITypes.SyncLooksQuery>;
-export const looksByCharacterlookID = /* GraphQL */ `query LooksByCharacterlookID(
-  $characterlookID: ID!
-  $sortDirection: ModelSortDirection
-  $filter: ModelLookFilterInput
-  $limit: Int
-  $nextToken: String
-) {
-  looksByCharacterlookID(
-    characterlookID: $characterlookID
-    sortDirection: $sortDirection
-    filter: $filter
-    limit: $limit
-    nextToken: $nextToken
-  ) {
-    items {
-      id
-      name
-      description
-      characterlookID
-      createdAt
-      updatedAt
-      _version
-      _deleted
-      _lastChangedAt
-      __typename
-    }
-    nextToken
-    startedAt
-    __typename
-  }
-}
-` as GeneratedQuery<
-  APITypes.LooksByCharacterlookIDQueryVariables,
-  APITypes.LooksByCharacterlookIDQuery
->;
 export const getCharacter = /* GraphQL */ `query GetCharacter($id: ID!) {
   getCharacter(id: $id) {
     userId
@@ -2051,37 +2095,39 @@ export const getCharacter = /* GraphQL */ `query GetCharacter($id: ID!) {
     loadMax
     loadCurrent
     isTemplate
-    gear {
+    tags
+    notes
+    CharacterGear {
       nextToken
       startedAt
       __typename
     }
-    sixToTenMoves {
+    MovesStarting {
       nextToken
       startedAt
       __typename
     }
-    twoToTenMoves {
+    MovesTwoToTen {
       nextToken
       startedAt
       __typename
     }
-    startingMoves {
+    MovesSixToTen {
       nextToken
       startedAt
       __typename
     }
-    bonds {
+    CharacterBonds {
       nextToken
       startedAt
       __typename
     }
-    abilityscores {
+    CharacterAbilityScores {
       nextToken
       startedAt
       __typename
     }
-    race {
+    CharacterRace {
       id
       createdAt
       updatedAt
@@ -2089,9 +2135,10 @@ export const getCharacter = /* GraphQL */ `query GetCharacter($id: ID!) {
       _deleted
       _lastChangedAt
       characterRaceRaceId
+      characterRaceCharacterId
       __typename
     }
-    alignment {
+    CharacterAlignment {
       id
       selected
       createdAt
@@ -2100,19 +2147,14 @@ export const getCharacter = /* GraphQL */ `query GetCharacter($id: ID!) {
       _deleted
       _lastChangedAt
       characterAlignmentAlignmentId
+      characterAlignmentCharacterId
       __typename
     }
-    tags
-    look {
-      id
-      createdAt
-      updatedAt
-      _version
-      _deleted
-      _lastChangedAt
+    CharacterLooks {
+      nextToken
+      startedAt
       __typename
     }
-    notes
     CharacterProfession {
       id
       createdAt
@@ -2124,14 +2166,18 @@ export const getCharacter = /* GraphQL */ `query GetCharacter($id: ID!) {
       characterProfessionCharacterId
       __typename
     }
+    CharacterSpells {
+      nextToken
+      startedAt
+      __typename
+    }
     createdAt
     updatedAt
     _version
     _deleted
     _lastChangedAt
-    characterRaceId
-    characterAlignmentId
-    characterLookId
+    characterCharacterRaceId
+    characterCharacterAlignmentId
     characterCharacterProfessionId
     __typename
   }
@@ -2166,9 +2212,8 @@ export const listCharacters = /* GraphQL */ `query ListCharacters(
       _version
       _deleted
       _lastChangedAt
-      characterRaceId
-      characterAlignmentId
-      characterLookId
+      characterCharacterRaceId
+      characterCharacterAlignmentId
       characterCharacterProfessionId
       __typename
     }
@@ -2213,9 +2258,8 @@ export const syncCharacters = /* GraphQL */ `query SyncCharacters(
       _version
       _deleted
       _lastChangedAt
-      characterRaceId
-      characterAlignmentId
-      characterLookId
+      characterCharacterRaceId
+      characterCharacterAlignmentId
       characterCharacterProfessionId
       __typename
     }

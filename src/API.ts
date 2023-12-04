@@ -2,23 +2,17 @@
 /* eslint-disable */
 //  This file was automatically generated and should not be edited.
 
-export type CreateUserInput = {
-  id?: string | null,
-  name: string,
-  email: string,
-  _version?: number | null,
-};
-
-export type ModelUserConditionInput = {
+export type ModelUserFilterInput = {
+  id?: ModelIDInput | null,
   name?: ModelStringInput | null,
   email?: ModelStringInput | null,
-  and?: Array< ModelUserConditionInput | null > | null,
-  or?: Array< ModelUserConditionInput | null > | null,
-  not?: ModelUserConditionInput | null,
+  and?: Array< ModelUserFilterInput | null > | null,
+  or?: Array< ModelUserFilterInput | null > | null,
+  not?: ModelUserFilterInput | null,
   _deleted?: ModelBooleanInput | null,
 };
 
-export type ModelStringInput = {
+export type ModelIDInput = {
   ne?: string | null,
   eq?: string | null,
   le?: string | null,
@@ -58,11 +52,34 @@ export type ModelSizeInput = {
   between?: Array< number | null > | null,
 };
 
+export type ModelStringInput = {
+  ne?: string | null,
+  eq?: string | null,
+  le?: string | null,
+  lt?: string | null,
+  ge?: string | null,
+  gt?: string | null,
+  contains?: string | null,
+  notContains?: string | null,
+  between?: Array< string | null > | null,
+  beginsWith?: string | null,
+  attributeExists?: boolean | null,
+  attributeType?: ModelAttributeTypes | null,
+  size?: ModelSizeInput | null,
+};
+
 export type ModelBooleanInput = {
   ne?: boolean | null,
   eq?: boolean | null,
   attributeExists?: boolean | null,
   attributeType?: ModelAttributeTypes | null,
+};
+
+export type ModelUserConnection = {
+  __typename: "ModelUserConnection",
+  items:  Array<User | null >,
+  nextToken?: string | null,
+  startedAt?: number | null,
 };
 
 export type User = {
@@ -75,6 +92,22 @@ export type User = {
   _version: number,
   _deleted?: boolean | null,
   _lastChangedAt: number,
+};
+
+export type CreateUserInput = {
+  id?: string | null,
+  name: string,
+  email: string,
+  _version?: number | null,
+};
+
+export type ModelUserConditionInput = {
+  name?: ModelStringInput | null,
+  email?: ModelStringInput | null,
+  and?: Array< ModelUserConditionInput | null > | null,
+  or?: Array< ModelUserConditionInput | null > | null,
+  not?: ModelUserConditionInput | null,
+  _deleted?: ModelBooleanInput | null,
 };
 
 export type UpdateUserInput = {
@@ -141,22 +174,6 @@ export type ModelCharacterProfessionConditionInput = {
   characterProfessionCharacterId?: ModelIDInput | null,
 };
 
-export type ModelIDInput = {
-  ne?: string | null,
-  eq?: string | null,
-  le?: string | null,
-  lt?: string | null,
-  ge?: string | null,
-  gt?: string | null,
-  contains?: string | null,
-  notContains?: string | null,
-  between?: Array< string | null > | null,
-  beginsWith?: string | null,
-  attributeExists?: boolean | null,
-  attributeType?: ModelAttributeTypes | null,
-  size?: ModelSizeInput | null,
-};
-
 export type CharacterProfession = {
   __typename: "CharacterProfession",
   id: string,
@@ -185,26 +202,26 @@ export type Character = {
   loadMax?: number | null,
   loadCurrent?: number | null,
   isTemplate?: boolean | null,
-  gear?: ModelCharacterGearConnection | null,
-  sixToTenMoves?: ModelCharacterMoveConnection | null,
-  twoToTenMoves?: ModelCharacterMoveConnection | null,
-  startingMoves?: ModelCharacterMoveConnection | null,
-  bonds?: ModelCharacterBondConnection | null,
-  abilityscores?: ModelCharacterAbilityScoreConnection | null,
-  race?: CharacterRace | null,
-  alignment?: CharacterAlignment | null,
   tags?: Array< string | null > | null,
-  look?: CharacterLook | null,
   notes?: string | null,
+  CharacterGear?: ModelCharacterGearConnection | null,
+  MovesStarting?: ModelCharacterMoveConnection | null,
+  MovesTwoToTen?: ModelCharacterMoveConnection | null,
+  MovesSixToTen?: ModelCharacterMoveConnection | null,
+  CharacterBonds?: ModelCharacterBondConnection | null,
+  CharacterAbilityScores?: ModelCharacterAbilityScoreConnection | null,
+  CharacterRace?: CharacterRace | null,
+  CharacterAlignment?: CharacterAlignment | null,
+  CharacterLooks?: ModelCharacterLookConnection | null,
   CharacterProfession?: CharacterProfession | null,
+  CharacterSpells?: ModelCharacterSpellConnection | null,
   createdAt: string,
   updatedAt: string,
   _version: number,
   _deleted?: boolean | null,
   _lastChangedAt: number,
-  characterRaceId?: string | null,
-  characterAlignmentId?: string | null,
-  characterLookId?: string | null,
+  characterCharacterRaceId?: string | null,
+  characterCharacterAlignmentId?: string | null,
   characterCharacterProfessionId?: string | null,
 };
 
@@ -218,15 +235,16 @@ export type ModelCharacterGearConnection = {
 export type CharacterGear = {
   __typename: "CharacterGear",
   id: string,
-  gear: Gear,
+  Gear: Gear,
   uses?: number | null,
   tags?: Array< string | null > | null,
-  characterID: string,
+  Character?: Character | null,
   createdAt: string,
   updatedAt: string,
   _version: number,
   _deleted?: boolean | null,
   _lastChangedAt: number,
+  characterCharacterGearId?: string | null,
   characterGearGearId: string,
 };
 
@@ -237,7 +255,7 @@ export type Gear = {
   weight: number,
   uses?: number | null,
   tags?: Array< string | null > | null,
-  source?: Source | null,
+  Source?: Source | null,
   createdAt: string,
   updatedAt: string,
   _version: number,
@@ -257,13 +275,16 @@ export type CharacterMove = {
   __typename: "CharacterMove",
   id: string,
   selected?: boolean | null,
-  move: Move,
-  characterID: string,
+  Move: Move,
+  Character?: Character | null,
   createdAt: string,
   updatedAt: string,
   _version: number,
   _deleted?: boolean | null,
   _lastChangedAt: number,
+  characterMovesStartingId?: string | null,
+  characterMovesTwoToTenId?: string | null,
+  characterMovesSixToTenId?: string | null,
   characterMoveMoveId: string,
 };
 
@@ -271,14 +292,14 @@ export type Move = {
   __typename: "Move",
   id: string,
   description: string,
-  class: Profession,
-  source?: Source | null,
+  Profession: Profession,
+  Source?: Source | null,
   createdAt: string,
   updatedAt: string,
   _version: number,
   _deleted?: boolean | null,
   _lastChangedAt: number,
-  moveClassId: string,
+  moveProfessionId: string,
   moveSourceId?: string | null,
 };
 
@@ -287,15 +308,15 @@ export type Profession = {
   id: string,
   name: string,
   description: string,
-  source: Source,
-  damageDiceType?: DiceType | null,
+  Source: Source,
+  DiceType?: DiceType | null,
   createdAt: string,
   updatedAt: string,
   _version: number,
   _deleted?: boolean | null,
   _lastChangedAt: number,
   professionSourceId: string,
-  professionDamageDiceTypeId?: string | null,
+  professionDiceTypeId?: string | null,
 };
 
 export type DiceType = {
@@ -320,14 +341,15 @@ export type CharacterBond = {
   __typename: "CharacterBond",
   id: string,
   description?: string | null,
-  bond: Bond,
+  Bond: Bond,
   selected?: boolean | null,
-  characterID: string,
+  Character?: Character | null,
   createdAt: string,
   updatedAt: string,
   _version: number,
   _deleted?: boolean | null,
   _lastChangedAt: number,
+  characterCharacterBondsId?: string | null,
   characterBondBondId: string,
 };
 
@@ -335,13 +357,13 @@ export type Bond = {
   __typename: "Bond",
   id: string,
   description?: string | null,
-  class: Profession,
+  Profession: Profession,
   createdAt: string,
   updatedAt: string,
   _version: number,
   _deleted?: boolean | null,
   _lastChangedAt: number,
-  bondClassId: string,
+  bondProfessionId: string,
 };
 
 export type ModelCharacterAbilityScoreConnection = {
@@ -353,17 +375,18 @@ export type ModelCharacterAbilityScoreConnection = {
 
 export type CharacterAbilityScore = {
   __typename: "CharacterAbilityScore",
-  abilityScore: AbilityScore,
+  AbilityScore: AbilityScore,
   id: string,
   value: string,
   bonus: number,
   tags?: Array< string | null > | null,
-  characterID: string,
+  Character?: Character | null,
   createdAt: string,
   updatedAt: string,
   _version: number,
   _deleted?: boolean | null,
   _lastChangedAt: number,
+  characterCharacterAbilityScoresId?: string | null,
   characterAbilityScoreAbilityScoreId: string,
 };
 
@@ -384,13 +407,15 @@ export type AbilityScore = {
 export type CharacterRace = {
   __typename: "CharacterRace",
   id: string,
-  race: Race,
+  Race: Race,
+  Character?: Character | null,
   createdAt: string,
   updatedAt: string,
   _version: number,
   _deleted?: boolean | null,
   _lastChangedAt: number,
   characterRaceRaceId: string,
+  characterRaceCharacterId?: string | null,
 };
 
 export type Race = {
@@ -398,8 +423,8 @@ export type Race = {
   id: string,
   name?: string | null,
   description?: string | null,
-  profession?: Profession | null,
-  source: Source,
+  Profession?: Profession | null,
+  Source: Source,
   createdAt: string,
   updatedAt: string,
   _version: number,
@@ -412,14 +437,16 @@ export type Race = {
 export type CharacterAlignment = {
   __typename: "CharacterAlignment",
   id: string,
-  alignment: Alignment,
+  Alignment: Alignment,
   selected?: boolean | null,
+  Character?: Character | null,
   createdAt: string,
   updatedAt: string,
   _version: number,
   _deleted?: boolean | null,
   _lastChangedAt: number,
   characterAlignmentAlignmentId: string,
+  characterAlignmentCharacterId?: string | null,
 };
 
 export type Alignment = {
@@ -427,31 +454,34 @@ export type Alignment = {
   id: string,
   name?: string | null,
   description?: string | null,
-  class: Profession,
+  Profession: Profession,
   createdAt: string,
   updatedAt: string,
   _version: number,
   _deleted?: boolean | null,
   _lastChangedAt: number,
-  alignmentClassId: string,
+  alignmentProfessionId: string,
+};
+
+export type ModelCharacterLookConnection = {
+  __typename: "ModelCharacterLookConnection",
+  items:  Array<CharacterLook | null >,
+  nextToken?: string | null,
+  startedAt?: number | null,
 };
 
 export type CharacterLook = {
   __typename: "CharacterLook",
   id: string,
-  look?: ModelLookConnection | null,
+  Look: Look,
+  Character?: Character | null,
   createdAt: string,
   updatedAt: string,
   _version: number,
   _deleted?: boolean | null,
   _lastChangedAt: number,
-};
-
-export type ModelLookConnection = {
-  __typename: "ModelLookConnection",
-  items:  Array<Look | null >,
-  nextToken?: string | null,
-  startedAt?: number | null,
+  characterCharacterLooksId?: string | null,
+  characterLookLookId: string,
 };
 
 export type Look = {
@@ -459,12 +489,53 @@ export type Look = {
   id: string,
   name: string,
   description: string,
-  characterlookID: string,
   createdAt: string,
   updatedAt: string,
   _version: number,
   _deleted?: boolean | null,
   _lastChangedAt: number,
+};
+
+export type ModelCharacterSpellConnection = {
+  __typename: "ModelCharacterSpellConnection",
+  items:  Array<CharacterSpell | null >,
+  nextToken?: string | null,
+  startedAt?: number | null,
+};
+
+export type CharacterSpell = {
+  __typename: "CharacterSpell",
+  id: string,
+  Spell: Spell,
+  selected?: boolean | null,
+  tags?: Array< string | null > | null,
+  Character?: Character | null,
+  createdAt: string,
+  updatedAt: string,
+  _version: number,
+  _deleted?: boolean | null,
+  _lastChangedAt: number,
+  characterCharacterSpellsId?: string | null,
+  characterSpellSpellId: string,
+};
+
+export type Spell = {
+  __typename: "Spell",
+  id: string,
+  name: string,
+  level: number,
+  type: string,
+  ongoing?: boolean | null,
+  description: string,
+  Source: Source,
+  Profession: Profession,
+  createdAt: string,
+  updatedAt: string,
+  _version: number,
+  _deleted?: boolean | null,
+  _lastChangedAt: number,
+  spellSourceId: string,
+  spellProfessionId: string,
 };
 
 export type UpdateCharacterProfessionInput = {
@@ -485,7 +556,7 @@ export type CreateProfessionInput = {
   description: string,
   _version?: number | null,
   professionSourceId: string,
-  professionDamageDiceTypeId?: string | null,
+  professionDiceTypeId?: string | null,
 };
 
 export type ModelProfessionConditionInput = {
@@ -496,7 +567,7 @@ export type ModelProfessionConditionInput = {
   not?: ModelProfessionConditionInput | null,
   _deleted?: ModelBooleanInput | null,
   professionSourceId?: ModelIDInput | null,
-  professionDamageDiceTypeId?: ModelIDInput | null,
+  professionDiceTypeId?: ModelIDInput | null,
 };
 
 export type UpdateProfessionInput = {
@@ -505,7 +576,7 @@ export type UpdateProfessionInput = {
   description?: string | null,
   _version?: number | null,
   professionSourceId?: string | null,
-  professionDamageDiceTypeId?: string | null,
+  professionDiceTypeId?: string | null,
 };
 
 export type DeleteProfessionInput = {
@@ -551,25 +622,6 @@ export type ModelIntInput = {
   attributeType?: ModelAttributeTypes | null,
 };
 
-export type Spell = {
-  __typename: "Spell",
-  id: string,
-  name: string,
-  level: number,
-  type: string,
-  ongoing?: boolean | null,
-  description: string,
-  source: Source,
-  profession: Profession,
-  createdAt: string,
-  updatedAt: string,
-  _version: number,
-  _deleted?: boolean | null,
-  _lastChangedAt: number,
-  spellSourceId: string,
-  spellProfessionId: string,
-};
-
 export type UpdateSpellInput = {
   id: string,
   name?: string | null,
@@ -592,6 +644,7 @@ export type CreateCharacterSpellInput = {
   selected?: boolean | null,
   tags?: Array< string | null > | null,
   _version?: number | null,
+  characterCharacterSpellsId?: string | null,
   characterSpellSpellId: string,
 };
 
@@ -602,21 +655,8 @@ export type ModelCharacterSpellConditionInput = {
   or?: Array< ModelCharacterSpellConditionInput | null > | null,
   not?: ModelCharacterSpellConditionInput | null,
   _deleted?: ModelBooleanInput | null,
+  characterCharacterSpellsId?: ModelIDInput | null,
   characterSpellSpellId?: ModelIDInput | null,
-};
-
-export type CharacterSpell = {
-  __typename: "CharacterSpell",
-  id: string,
-  spell: Spell,
-  selected?: boolean | null,
-  tags?: Array< string | null > | null,
-  createdAt: string,
-  updatedAt: string,
-  _version: number,
-  _deleted?: boolean | null,
-  _lastChangedAt: number,
-  characterSpellSpellId: string,
 };
 
 export type UpdateCharacterSpellInput = {
@@ -624,6 +664,7 @@ export type UpdateCharacterSpellInput = {
   selected?: boolean | null,
   tags?: Array< string | null > | null,
   _version?: number | null,
+  characterCharacterSpellsId?: string | null,
   characterSpellSpellId?: string | null,
 };
 
@@ -636,19 +677,19 @@ export type CreateCharacterGearInput = {
   id?: string | null,
   uses?: number | null,
   tags?: Array< string | null > | null,
-  characterID: string,
   _version?: number | null,
+  characterCharacterGearId?: string | null,
   characterGearGearId: string,
 };
 
 export type ModelCharacterGearConditionInput = {
   uses?: ModelIntInput | null,
   tags?: ModelStringInput | null,
-  characterID?: ModelIDInput | null,
   and?: Array< ModelCharacterGearConditionInput | null > | null,
   or?: Array< ModelCharacterGearConditionInput | null > | null,
   not?: ModelCharacterGearConditionInput | null,
   _deleted?: ModelBooleanInput | null,
+  characterCharacterGearId?: ModelIDInput | null,
   characterGearGearId?: ModelIDInput | null,
 };
 
@@ -656,8 +697,8 @@ export type UpdateCharacterGearInput = {
   id: string,
   uses?: number | null,
   tags?: Array< string | null > | null,
-  characterID?: string | null,
   _version?: number | null,
+  characterCharacterGearId?: string | null,
   characterGearGearId?: string | null,
 };
 
@@ -706,26 +747,32 @@ export type DeleteGearInput = {
 export type CreateCharacterMoveInput = {
   id?: string | null,
   selected?: boolean | null,
-  characterID: string,
   _version?: number | null,
+  characterMovesStartingId?: string | null,
+  characterMovesTwoToTenId?: string | null,
+  characterMovesSixToTenId?: string | null,
   characterMoveMoveId: string,
 };
 
 export type ModelCharacterMoveConditionInput = {
   selected?: ModelBooleanInput | null,
-  characterID?: ModelIDInput | null,
   and?: Array< ModelCharacterMoveConditionInput | null > | null,
   or?: Array< ModelCharacterMoveConditionInput | null > | null,
   not?: ModelCharacterMoveConditionInput | null,
   _deleted?: ModelBooleanInput | null,
+  characterMovesStartingId?: ModelIDInput | null,
+  characterMovesTwoToTenId?: ModelIDInput | null,
+  characterMovesSixToTenId?: ModelIDInput | null,
   characterMoveMoveId?: ModelIDInput | null,
 };
 
 export type UpdateCharacterMoveInput = {
   id: string,
   selected?: boolean | null,
-  characterID?: string | null,
   _version?: number | null,
+  characterMovesStartingId?: string | null,
+  characterMovesTwoToTenId?: string | null,
+  characterMovesSixToTenId?: string | null,
   characterMoveMoveId?: string | null,
 };
 
@@ -738,7 +785,7 @@ export type CreateMoveInput = {
   id?: string | null,
   description: string,
   _version?: number | null,
-  moveClassId: string,
+  moveProfessionId: string,
   moveSourceId?: string | null,
 };
 
@@ -748,7 +795,7 @@ export type ModelMoveConditionInput = {
   or?: Array< ModelMoveConditionInput | null > | null,
   not?: ModelMoveConditionInput | null,
   _deleted?: ModelBooleanInput | null,
-  moveClassId?: ModelIDInput | null,
+  moveProfessionId?: ModelIDInput | null,
   moveSourceId?: ModelIDInput | null,
 };
 
@@ -756,7 +803,7 @@ export type UpdateMoveInput = {
   id: string,
   description?: string | null,
   _version?: number | null,
-  moveClassId?: string | null,
+  moveProfessionId?: string | null,
   moveSourceId?: string | null,
 };
 
@@ -769,19 +816,19 @@ export type CreateCharacterBondInput = {
   id?: string | null,
   description?: string | null,
   selected?: boolean | null,
-  characterID: string,
   _version?: number | null,
+  characterCharacterBondsId?: string | null,
   characterBondBondId: string,
 };
 
 export type ModelCharacterBondConditionInput = {
   description?: ModelStringInput | null,
   selected?: ModelBooleanInput | null,
-  characterID?: ModelIDInput | null,
   and?: Array< ModelCharacterBondConditionInput | null > | null,
   or?: Array< ModelCharacterBondConditionInput | null > | null,
   not?: ModelCharacterBondConditionInput | null,
   _deleted?: ModelBooleanInput | null,
+  characterCharacterBondsId?: ModelIDInput | null,
   characterBondBondId?: ModelIDInput | null,
 };
 
@@ -789,8 +836,8 @@ export type UpdateCharacterBondInput = {
   id: string,
   description?: string | null,
   selected?: boolean | null,
-  characterID?: string | null,
   _version?: number | null,
+  characterCharacterBondsId?: string | null,
   characterBondBondId?: string | null,
 };
 
@@ -803,7 +850,7 @@ export type CreateBondInput = {
   id?: string | null,
   description?: string | null,
   _version?: number | null,
-  bondClassId: string,
+  bondProfessionId: string,
 };
 
 export type ModelBondConditionInput = {
@@ -812,14 +859,14 @@ export type ModelBondConditionInput = {
   or?: Array< ModelBondConditionInput | null > | null,
   not?: ModelBondConditionInput | null,
   _deleted?: ModelBooleanInput | null,
-  bondClassId?: ModelIDInput | null,
+  bondProfessionId?: ModelIDInput | null,
 };
 
 export type UpdateBondInput = {
   id: string,
   description?: string | null,
   _version?: number | null,
-  bondClassId?: string | null,
+  bondProfessionId?: string | null,
 };
 
 export type DeleteBondInput = {
@@ -832,8 +879,8 @@ export type CreateCharacterAbilityScoreInput = {
   value: string,
   bonus: number,
   tags?: Array< string | null > | null,
-  characterID: string,
   _version?: number | null,
+  characterCharacterAbilityScoresId?: string | null,
   characterAbilityScoreAbilityScoreId: string,
 };
 
@@ -841,11 +888,11 @@ export type ModelCharacterAbilityScoreConditionInput = {
   value?: ModelStringInput | null,
   bonus?: ModelIntInput | null,
   tags?: ModelStringInput | null,
-  characterID?: ModelIDInput | null,
   and?: Array< ModelCharacterAbilityScoreConditionInput | null > | null,
   or?: Array< ModelCharacterAbilityScoreConditionInput | null > | null,
   not?: ModelCharacterAbilityScoreConditionInput | null,
   _deleted?: ModelBooleanInput | null,
+  characterCharacterAbilityScoresId?: ModelIDInput | null,
   characterAbilityScoreAbilityScoreId?: ModelIDInput | null,
 };
 
@@ -854,8 +901,8 @@ export type UpdateCharacterAbilityScoreInput = {
   value?: string | null,
   bonus?: number | null,
   tags?: Array< string | null > | null,
-  characterID?: string | null,
   _version?: number | null,
+  characterCharacterAbilityScoresId?: string | null,
   characterAbilityScoreAbilityScoreId?: string | null,
 };
 
@@ -902,6 +949,7 @@ export type CreateCharacterRaceInput = {
   id?: string | null,
   _version?: number | null,
   characterRaceRaceId: string,
+  characterRaceCharacterId?: string | null,
 };
 
 export type ModelCharacterRaceConditionInput = {
@@ -910,12 +958,14 @@ export type ModelCharacterRaceConditionInput = {
   not?: ModelCharacterRaceConditionInput | null,
   _deleted?: ModelBooleanInput | null,
   characterRaceRaceId?: ModelIDInput | null,
+  characterRaceCharacterId?: ModelIDInput | null,
 };
 
 export type UpdateCharacterRaceInput = {
   id: string,
   _version?: number | null,
   characterRaceRaceId?: string | null,
+  characterRaceCharacterId?: string | null,
 };
 
 export type DeleteCharacterRaceInput = {
@@ -962,6 +1012,7 @@ export type CreateCharacterAlignmentInput = {
   selected?: boolean | null,
   _version?: number | null,
   characterAlignmentAlignmentId: string,
+  characterAlignmentCharacterId?: string | null,
 };
 
 export type ModelCharacterAlignmentConditionInput = {
@@ -971,6 +1022,7 @@ export type ModelCharacterAlignmentConditionInput = {
   not?: ModelCharacterAlignmentConditionInput | null,
   _deleted?: ModelBooleanInput | null,
   characterAlignmentAlignmentId?: ModelIDInput | null,
+  characterAlignmentCharacterId?: ModelIDInput | null,
 };
 
 export type UpdateCharacterAlignmentInput = {
@@ -978,6 +1030,7 @@ export type UpdateCharacterAlignmentInput = {
   selected?: boolean | null,
   _version?: number | null,
   characterAlignmentAlignmentId?: string | null,
+  characterAlignmentCharacterId?: string | null,
 };
 
 export type DeleteCharacterAlignmentInput = {
@@ -990,7 +1043,7 @@ export type CreateAlignmentInput = {
   name?: string | null,
   description?: string | null,
   _version?: number | null,
-  alignmentClassId: string,
+  alignmentProfessionId: string,
 };
 
 export type ModelAlignmentConditionInput = {
@@ -1000,7 +1053,7 @@ export type ModelAlignmentConditionInput = {
   or?: Array< ModelAlignmentConditionInput | null > | null,
   not?: ModelAlignmentConditionInput | null,
   _deleted?: ModelBooleanInput | null,
-  alignmentClassId?: ModelIDInput | null,
+  alignmentProfessionId?: ModelIDInput | null,
 };
 
 export type UpdateAlignmentInput = {
@@ -1008,7 +1061,7 @@ export type UpdateAlignmentInput = {
   name?: string | null,
   description?: string | null,
   _version?: number | null,
-  alignmentClassId?: string | null,
+  alignmentProfessionId?: string | null,
 };
 
 export type DeleteAlignmentInput = {
@@ -1044,6 +1097,8 @@ export type DeleteDiceTypeInput = {
 export type CreateCharacterLookInput = {
   id?: string | null,
   _version?: number | null,
+  characterCharacterLooksId?: string | null,
+  characterLookLookId: string,
 };
 
 export type ModelCharacterLookConditionInput = {
@@ -1051,11 +1106,15 @@ export type ModelCharacterLookConditionInput = {
   or?: Array< ModelCharacterLookConditionInput | null > | null,
   not?: ModelCharacterLookConditionInput | null,
   _deleted?: ModelBooleanInput | null,
+  characterCharacterLooksId?: ModelIDInput | null,
+  characterLookLookId?: ModelIDInput | null,
 };
 
 export type UpdateCharacterLookInput = {
   id: string,
   _version?: number | null,
+  characterCharacterLooksId?: string | null,
+  characterLookLookId?: string | null,
 };
 
 export type DeleteCharacterLookInput = {
@@ -1067,14 +1126,12 @@ export type CreateLookInput = {
   id?: string | null,
   name: string,
   description: string,
-  characterlookID: string,
   _version?: number | null,
 };
 
 export type ModelLookConditionInput = {
   name?: ModelStringInput | null,
   description?: ModelStringInput | null,
-  characterlookID?: ModelIDInput | null,
   and?: Array< ModelLookConditionInput | null > | null,
   or?: Array< ModelLookConditionInput | null > | null,
   not?: ModelLookConditionInput | null,
@@ -1085,7 +1142,6 @@ export type UpdateLookInput = {
   id: string,
   name?: string | null,
   description?: string | null,
-  characterlookID?: string | null,
   _version?: number | null,
 };
 
@@ -1110,9 +1166,8 @@ export type CreateCharacterInput = {
   tags?: Array< string | null > | null,
   notes?: string | null,
   _version?: number | null,
-  characterRaceId?: string | null,
-  characterAlignmentId?: string | null,
-  characterLookId?: string | null,
+  characterCharacterRaceId?: string | null,
+  characterCharacterAlignmentId?: string | null,
   characterCharacterProfessionId?: string | null,
 };
 
@@ -1134,9 +1189,8 @@ export type ModelCharacterConditionInput = {
   or?: Array< ModelCharacterConditionInput | null > | null,
   not?: ModelCharacterConditionInput | null,
   _deleted?: ModelBooleanInput | null,
-  characterRaceId?: ModelIDInput | null,
-  characterAlignmentId?: ModelIDInput | null,
-  characterLookId?: ModelIDInput | null,
+  characterCharacterRaceId?: ModelIDInput | null,
+  characterCharacterAlignmentId?: ModelIDInput | null,
   characterCharacterProfessionId?: ModelIDInput | null,
 };
 
@@ -1156,32 +1210,14 @@ export type UpdateCharacterInput = {
   tags?: Array< string | null > | null,
   notes?: string | null,
   _version?: number | null,
-  characterRaceId?: string | null,
-  characterAlignmentId?: string | null,
-  characterLookId?: string | null,
+  characterCharacterRaceId?: string | null,
+  characterCharacterAlignmentId?: string | null,
   characterCharacterProfessionId?: string | null,
 };
 
 export type DeleteCharacterInput = {
   id: string,
   _version?: number | null,
-};
-
-export type ModelUserFilterInput = {
-  id?: ModelIDInput | null,
-  name?: ModelStringInput | null,
-  email?: ModelStringInput | null,
-  and?: Array< ModelUserFilterInput | null > | null,
-  or?: Array< ModelUserFilterInput | null > | null,
-  not?: ModelUserFilterInput | null,
-  _deleted?: ModelBooleanInput | null,
-};
-
-export type ModelUserConnection = {
-  __typename: "ModelUserConnection",
-  items:  Array<User | null >,
-  nextToken?: string | null,
-  startedAt?: number | null,
 };
 
 export type ModelSourceFilterInput = {
@@ -1226,7 +1262,7 @@ export type ModelProfessionFilterInput = {
   not?: ModelProfessionFilterInput | null,
   _deleted?: ModelBooleanInput | null,
   professionSourceId?: ModelIDInput | null,
-  professionDamageDiceTypeId?: ModelIDInput | null,
+  professionDiceTypeId?: ModelIDInput | null,
 };
 
 export type ModelProfessionConnection = {
@@ -1266,33 +1302,21 @@ export type ModelCharacterSpellFilterInput = {
   or?: Array< ModelCharacterSpellFilterInput | null > | null,
   not?: ModelCharacterSpellFilterInput | null,
   _deleted?: ModelBooleanInput | null,
+  characterCharacterSpellsId?: ModelIDInput | null,
   characterSpellSpellId?: ModelIDInput | null,
-};
-
-export type ModelCharacterSpellConnection = {
-  __typename: "ModelCharacterSpellConnection",
-  items:  Array<CharacterSpell | null >,
-  nextToken?: string | null,
-  startedAt?: number | null,
 };
 
 export type ModelCharacterGearFilterInput = {
   id?: ModelIDInput | null,
   uses?: ModelIntInput | null,
   tags?: ModelStringInput | null,
-  characterID?: ModelIDInput | null,
   and?: Array< ModelCharacterGearFilterInput | null > | null,
   or?: Array< ModelCharacterGearFilterInput | null > | null,
   not?: ModelCharacterGearFilterInput | null,
   _deleted?: ModelBooleanInput | null,
+  characterCharacterGearId?: ModelIDInput | null,
   characterGearGearId?: ModelIDInput | null,
 };
-
-export enum ModelSortDirection {
-  ASC = "ASC",
-  DESC = "DESC",
-}
-
 
 export type ModelGearFilterInput = {
   id?: ModelIDInput | null,
@@ -1317,11 +1341,13 @@ export type ModelGearConnection = {
 export type ModelCharacterMoveFilterInput = {
   id?: ModelIDInput | null,
   selected?: ModelBooleanInput | null,
-  characterID?: ModelIDInput | null,
   and?: Array< ModelCharacterMoveFilterInput | null > | null,
   or?: Array< ModelCharacterMoveFilterInput | null > | null,
   not?: ModelCharacterMoveFilterInput | null,
   _deleted?: ModelBooleanInput | null,
+  characterMovesStartingId?: ModelIDInput | null,
+  characterMovesTwoToTenId?: ModelIDInput | null,
+  characterMovesSixToTenId?: ModelIDInput | null,
   characterMoveMoveId?: ModelIDInput | null,
 };
 
@@ -1332,7 +1358,7 @@ export type ModelMoveFilterInput = {
   or?: Array< ModelMoveFilterInput | null > | null,
   not?: ModelMoveFilterInput | null,
   _deleted?: ModelBooleanInput | null,
-  moveClassId?: ModelIDInput | null,
+  moveProfessionId?: ModelIDInput | null,
   moveSourceId?: ModelIDInput | null,
 };
 
@@ -1347,11 +1373,11 @@ export type ModelCharacterBondFilterInput = {
   id?: ModelIDInput | null,
   description?: ModelStringInput | null,
   selected?: ModelBooleanInput | null,
-  characterID?: ModelIDInput | null,
   and?: Array< ModelCharacterBondFilterInput | null > | null,
   or?: Array< ModelCharacterBondFilterInput | null > | null,
   not?: ModelCharacterBondFilterInput | null,
   _deleted?: ModelBooleanInput | null,
+  characterCharacterBondsId?: ModelIDInput | null,
   characterBondBondId?: ModelIDInput | null,
 };
 
@@ -1362,7 +1388,7 @@ export type ModelBondFilterInput = {
   or?: Array< ModelBondFilterInput | null > | null,
   not?: ModelBondFilterInput | null,
   _deleted?: ModelBooleanInput | null,
-  bondClassId?: ModelIDInput | null,
+  bondProfessionId?: ModelIDInput | null,
 };
 
 export type ModelBondConnection = {
@@ -1377,11 +1403,11 @@ export type ModelCharacterAbilityScoreFilterInput = {
   value?: ModelStringInput | null,
   bonus?: ModelIntInput | null,
   tags?: ModelStringInput | null,
-  characterID?: ModelIDInput | null,
   and?: Array< ModelCharacterAbilityScoreFilterInput | null > | null,
   or?: Array< ModelCharacterAbilityScoreFilterInput | null > | null,
   not?: ModelCharacterAbilityScoreFilterInput | null,
   _deleted?: ModelBooleanInput | null,
+  characterCharacterAbilityScoresId?: ModelIDInput | null,
   characterAbilityScoreAbilityScoreId?: ModelIDInput | null,
 };
 
@@ -1411,6 +1437,7 @@ export type ModelCharacterRaceFilterInput = {
   not?: ModelCharacterRaceFilterInput | null,
   _deleted?: ModelBooleanInput | null,
   characterRaceRaceId?: ModelIDInput | null,
+  characterRaceCharacterId?: ModelIDInput | null,
 };
 
 export type ModelCharacterRaceConnection = {
@@ -1447,6 +1474,7 @@ export type ModelCharacterAlignmentFilterInput = {
   not?: ModelCharacterAlignmentFilterInput | null,
   _deleted?: ModelBooleanInput | null,
   characterAlignmentAlignmentId?: ModelIDInput | null,
+  characterAlignmentCharacterId?: ModelIDInput | null,
 };
 
 export type ModelCharacterAlignmentConnection = {
@@ -1464,7 +1492,7 @@ export type ModelAlignmentFilterInput = {
   or?: Array< ModelAlignmentFilterInput | null > | null,
   not?: ModelAlignmentFilterInput | null,
   _deleted?: ModelBooleanInput | null,
-  alignmentClassId?: ModelIDInput | null,
+  alignmentProfessionId?: ModelIDInput | null,
 };
 
 export type ModelAlignmentConnection = {
@@ -1496,24 +1524,25 @@ export type ModelCharacterLookFilterInput = {
   or?: Array< ModelCharacterLookFilterInput | null > | null,
   not?: ModelCharacterLookFilterInput | null,
   _deleted?: ModelBooleanInput | null,
-};
-
-export type ModelCharacterLookConnection = {
-  __typename: "ModelCharacterLookConnection",
-  items:  Array<CharacterLook | null >,
-  nextToken?: string | null,
-  startedAt?: number | null,
+  characterCharacterLooksId?: ModelIDInput | null,
+  characterLookLookId?: ModelIDInput | null,
 };
 
 export type ModelLookFilterInput = {
   id?: ModelIDInput | null,
   name?: ModelStringInput | null,
   description?: ModelStringInput | null,
-  characterlookID?: ModelIDInput | null,
   and?: Array< ModelLookFilterInput | null > | null,
   or?: Array< ModelLookFilterInput | null > | null,
   not?: ModelLookFilterInput | null,
   _deleted?: ModelBooleanInput | null,
+};
+
+export type ModelLookConnection = {
+  __typename: "ModelLookConnection",
+  items:  Array<Look | null >,
+  nextToken?: string | null,
+  startedAt?: number | null,
 };
 
 export type ModelCharacterFilterInput = {
@@ -1535,9 +1564,8 @@ export type ModelCharacterFilterInput = {
   or?: Array< ModelCharacterFilterInput | null > | null,
   not?: ModelCharacterFilterInput | null,
   _deleted?: ModelBooleanInput | null,
-  characterRaceId?: ModelIDInput | null,
-  characterAlignmentId?: ModelIDInput | null,
-  characterLookId?: ModelIDInput | null,
+  characterCharacterRaceId?: ModelIDInput | null,
+  characterCharacterAlignmentId?: ModelIDInput | null,
   characterCharacterProfessionId?: ModelIDInput | null,
 };
 
@@ -1653,7 +1681,6 @@ export type ModelSubscriptionCharacterGearFilterInput = {
   id?: ModelSubscriptionIDInput | null,
   uses?: ModelSubscriptionIntInput | null,
   tags?: ModelSubscriptionStringInput | null,
-  characterID?: ModelSubscriptionIDInput | null,
   and?: Array< ModelSubscriptionCharacterGearFilterInput | null > | null,
   or?: Array< ModelSubscriptionCharacterGearFilterInput | null > | null,
   _deleted?: ModelBooleanInput | null,
@@ -1673,7 +1700,6 @@ export type ModelSubscriptionGearFilterInput = {
 export type ModelSubscriptionCharacterMoveFilterInput = {
   id?: ModelSubscriptionIDInput | null,
   selected?: ModelSubscriptionBooleanInput | null,
-  characterID?: ModelSubscriptionIDInput | null,
   and?: Array< ModelSubscriptionCharacterMoveFilterInput | null > | null,
   or?: Array< ModelSubscriptionCharacterMoveFilterInput | null > | null,
   _deleted?: ModelBooleanInput | null,
@@ -1691,7 +1717,6 @@ export type ModelSubscriptionCharacterBondFilterInput = {
   id?: ModelSubscriptionIDInput | null,
   description?: ModelSubscriptionStringInput | null,
   selected?: ModelSubscriptionBooleanInput | null,
-  characterID?: ModelSubscriptionIDInput | null,
   and?: Array< ModelSubscriptionCharacterBondFilterInput | null > | null,
   or?: Array< ModelSubscriptionCharacterBondFilterInput | null > | null,
   _deleted?: ModelBooleanInput | null,
@@ -1710,7 +1735,6 @@ export type ModelSubscriptionCharacterAbilityScoreFilterInput = {
   value?: ModelSubscriptionStringInput | null,
   bonus?: ModelSubscriptionIntInput | null,
   tags?: ModelSubscriptionStringInput | null,
-  characterID?: ModelSubscriptionIDInput | null,
   and?: Array< ModelSubscriptionCharacterAbilityScoreFilterInput | null > | null,
   or?: Array< ModelSubscriptionCharacterAbilityScoreFilterInput | null > | null,
   _deleted?: ModelBooleanInput | null,
@@ -1779,7 +1803,6 @@ export type ModelSubscriptionLookFilterInput = {
   id?: ModelSubscriptionIDInput | null,
   name?: ModelSubscriptionStringInput | null,
   description?: ModelSubscriptionStringInput | null,
-  characterlookID?: ModelSubscriptionIDInput | null,
   and?: Array< ModelSubscriptionLookFilterInput | null > | null,
   or?: Array< ModelSubscriptionLookFilterInput | null > | null,
   _deleted?: ModelBooleanInput | null,
@@ -1803,6 +1826,31 @@ export type ModelSubscriptionCharacterFilterInput = {
   and?: Array< ModelSubscriptionCharacterFilterInput | null > | null,
   or?: Array< ModelSubscriptionCharacterFilterInput | null > | null,
   _deleted?: ModelBooleanInput | null,
+};
+
+export type ListCharactersByUserQueryVariables = {
+  filter?: ModelUserFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ListCharactersByUserQuery = {
+  listUsers?:  {
+    __typename: "ModelUserConnection",
+    items:  Array< {
+      __typename: "User",
+      id: string,
+      name: string,
+      email: string,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+    } | null >,
+    nextToken?: string | null,
+    startedAt?: number | null,
+  } | null,
 };
 
 export type CreateUserMutationVariables = {
@@ -1946,9 +1994,8 @@ export type CreateCharacterProfessionMutation = {
       _version: number,
       _deleted?: boolean | null,
       _lastChangedAt: number,
-      characterRaceId?: string | null,
-      characterAlignmentId?: string | null,
-      characterLookId?: string | null,
+      characterCharacterRaceId?: string | null,
+      characterCharacterAlignmentId?: string | null,
       characterCharacterProfessionId?: string | null,
     } | null,
     Profession?:  {
@@ -1962,7 +2009,7 @@ export type CreateCharacterProfessionMutation = {
       _deleted?: boolean | null,
       _lastChangedAt: number,
       professionSourceId: string,
-      professionDamageDiceTypeId?: string | null,
+      professionDiceTypeId?: string | null,
     } | null,
     createdAt: string,
     updatedAt: string,
@@ -2004,9 +2051,8 @@ export type UpdateCharacterProfessionMutation = {
       _version: number,
       _deleted?: boolean | null,
       _lastChangedAt: number,
-      characterRaceId?: string | null,
-      characterAlignmentId?: string | null,
-      characterLookId?: string | null,
+      characterCharacterRaceId?: string | null,
+      characterCharacterAlignmentId?: string | null,
       characterCharacterProfessionId?: string | null,
     } | null,
     Profession?:  {
@@ -2020,7 +2066,7 @@ export type UpdateCharacterProfessionMutation = {
       _deleted?: boolean | null,
       _lastChangedAt: number,
       professionSourceId: string,
-      professionDamageDiceTypeId?: string | null,
+      professionDiceTypeId?: string | null,
     } | null,
     createdAt: string,
     updatedAt: string,
@@ -2062,9 +2108,8 @@ export type DeleteCharacterProfessionMutation = {
       _version: number,
       _deleted?: boolean | null,
       _lastChangedAt: number,
-      characterRaceId?: string | null,
-      characterAlignmentId?: string | null,
-      characterLookId?: string | null,
+      characterCharacterRaceId?: string | null,
+      characterCharacterAlignmentId?: string | null,
       characterCharacterProfessionId?: string | null,
     } | null,
     Profession?:  {
@@ -2078,7 +2123,7 @@ export type DeleteCharacterProfessionMutation = {
       _deleted?: boolean | null,
       _lastChangedAt: number,
       professionSourceId: string,
-      professionDamageDiceTypeId?: string | null,
+      professionDiceTypeId?: string | null,
     } | null,
     createdAt: string,
     updatedAt: string,
@@ -2101,7 +2146,7 @@ export type CreateProfessionMutation = {
     id: string,
     name: string,
     description: string,
-    source:  {
+    Source:  {
       __typename: "Source",
       id: string,
       name: string,
@@ -2111,7 +2156,7 @@ export type CreateProfessionMutation = {
       _deleted?: boolean | null,
       _lastChangedAt: number,
     },
-    damageDiceType?:  {
+    DiceType?:  {
       __typename: "DiceType",
       id: string,
       name?: string | null,
@@ -2127,7 +2172,7 @@ export type CreateProfessionMutation = {
     _deleted?: boolean | null,
     _lastChangedAt: number,
     professionSourceId: string,
-    professionDamageDiceTypeId?: string | null,
+    professionDiceTypeId?: string | null,
   } | null,
 };
 
@@ -2142,7 +2187,7 @@ export type UpdateProfessionMutation = {
     id: string,
     name: string,
     description: string,
-    source:  {
+    Source:  {
       __typename: "Source",
       id: string,
       name: string,
@@ -2152,7 +2197,7 @@ export type UpdateProfessionMutation = {
       _deleted?: boolean | null,
       _lastChangedAt: number,
     },
-    damageDiceType?:  {
+    DiceType?:  {
       __typename: "DiceType",
       id: string,
       name?: string | null,
@@ -2168,7 +2213,7 @@ export type UpdateProfessionMutation = {
     _deleted?: boolean | null,
     _lastChangedAt: number,
     professionSourceId: string,
-    professionDamageDiceTypeId?: string | null,
+    professionDiceTypeId?: string | null,
   } | null,
 };
 
@@ -2183,7 +2228,7 @@ export type DeleteProfessionMutation = {
     id: string,
     name: string,
     description: string,
-    source:  {
+    Source:  {
       __typename: "Source",
       id: string,
       name: string,
@@ -2193,7 +2238,7 @@ export type DeleteProfessionMutation = {
       _deleted?: boolean | null,
       _lastChangedAt: number,
     },
-    damageDiceType?:  {
+    DiceType?:  {
       __typename: "DiceType",
       id: string,
       name?: string | null,
@@ -2209,7 +2254,7 @@ export type DeleteProfessionMutation = {
     _deleted?: boolean | null,
     _lastChangedAt: number,
     professionSourceId: string,
-    professionDamageDiceTypeId?: string | null,
+    professionDiceTypeId?: string | null,
   } | null,
 };
 
@@ -2227,7 +2272,7 @@ export type CreateSpellMutation = {
     type: string,
     ongoing?: boolean | null,
     description: string,
-    source:  {
+    Source:  {
       __typename: "Source",
       id: string,
       name: string,
@@ -2237,7 +2282,7 @@ export type CreateSpellMutation = {
       _deleted?: boolean | null,
       _lastChangedAt: number,
     },
-    profession:  {
+    Profession:  {
       __typename: "Profession",
       id: string,
       name: string,
@@ -2248,7 +2293,7 @@ export type CreateSpellMutation = {
       _deleted?: boolean | null,
       _lastChangedAt: number,
       professionSourceId: string,
-      professionDamageDiceTypeId?: string | null,
+      professionDiceTypeId?: string | null,
     },
     createdAt: string,
     updatedAt: string,
@@ -2274,7 +2319,7 @@ export type UpdateSpellMutation = {
     type: string,
     ongoing?: boolean | null,
     description: string,
-    source:  {
+    Source:  {
       __typename: "Source",
       id: string,
       name: string,
@@ -2284,7 +2329,7 @@ export type UpdateSpellMutation = {
       _deleted?: boolean | null,
       _lastChangedAt: number,
     },
-    profession:  {
+    Profession:  {
       __typename: "Profession",
       id: string,
       name: string,
@@ -2295,7 +2340,7 @@ export type UpdateSpellMutation = {
       _deleted?: boolean | null,
       _lastChangedAt: number,
       professionSourceId: string,
-      professionDamageDiceTypeId?: string | null,
+      professionDiceTypeId?: string | null,
     },
     createdAt: string,
     updatedAt: string,
@@ -2321,7 +2366,7 @@ export type DeleteSpellMutation = {
     type: string,
     ongoing?: boolean | null,
     description: string,
-    source:  {
+    Source:  {
       __typename: "Source",
       id: string,
       name: string,
@@ -2331,7 +2376,7 @@ export type DeleteSpellMutation = {
       _deleted?: boolean | null,
       _lastChangedAt: number,
     },
-    profession:  {
+    Profession:  {
       __typename: "Profession",
       id: string,
       name: string,
@@ -2342,7 +2387,7 @@ export type DeleteSpellMutation = {
       _deleted?: boolean | null,
       _lastChangedAt: number,
       professionSourceId: string,
-      professionDamageDiceTypeId?: string | null,
+      professionDiceTypeId?: string | null,
     },
     createdAt: string,
     updatedAt: string,
@@ -2363,7 +2408,7 @@ export type CreateCharacterSpellMutation = {
   createCharacterSpell?:  {
     __typename: "CharacterSpell",
     id: string,
-    spell:  {
+    Spell:  {
       __typename: "Spell",
       id: string,
       name: string,
@@ -2381,11 +2426,37 @@ export type CreateCharacterSpellMutation = {
     },
     selected?: boolean | null,
     tags?: Array< string | null > | null,
+    Character?:  {
+      __typename: "Character",
+      userId: string,
+      id: string,
+      name: string,
+      level?: number | null,
+      xp?: number | null,
+      armor?: number | null,
+      hitPointsMax?: number | null,
+      hitPointsCurrent?: number | null,
+      coin?: number | null,
+      loadMax?: number | null,
+      loadCurrent?: number | null,
+      isTemplate?: boolean | null,
+      tags?: Array< string | null > | null,
+      notes?: string | null,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      characterCharacterRaceId?: string | null,
+      characterCharacterAlignmentId?: string | null,
+      characterCharacterProfessionId?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
+    characterCharacterSpellsId?: string | null,
     characterSpellSpellId: string,
   } | null,
 };
@@ -2399,7 +2470,7 @@ export type UpdateCharacterSpellMutation = {
   updateCharacterSpell?:  {
     __typename: "CharacterSpell",
     id: string,
-    spell:  {
+    Spell:  {
       __typename: "Spell",
       id: string,
       name: string,
@@ -2417,11 +2488,37 @@ export type UpdateCharacterSpellMutation = {
     },
     selected?: boolean | null,
     tags?: Array< string | null > | null,
+    Character?:  {
+      __typename: "Character",
+      userId: string,
+      id: string,
+      name: string,
+      level?: number | null,
+      xp?: number | null,
+      armor?: number | null,
+      hitPointsMax?: number | null,
+      hitPointsCurrent?: number | null,
+      coin?: number | null,
+      loadMax?: number | null,
+      loadCurrent?: number | null,
+      isTemplate?: boolean | null,
+      tags?: Array< string | null > | null,
+      notes?: string | null,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      characterCharacterRaceId?: string | null,
+      characterCharacterAlignmentId?: string | null,
+      characterCharacterProfessionId?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
+    characterCharacterSpellsId?: string | null,
     characterSpellSpellId: string,
   } | null,
 };
@@ -2435,7 +2532,7 @@ export type DeleteCharacterSpellMutation = {
   deleteCharacterSpell?:  {
     __typename: "CharacterSpell",
     id: string,
-    spell:  {
+    Spell:  {
       __typename: "Spell",
       id: string,
       name: string,
@@ -2453,11 +2550,37 @@ export type DeleteCharacterSpellMutation = {
     },
     selected?: boolean | null,
     tags?: Array< string | null > | null,
+    Character?:  {
+      __typename: "Character",
+      userId: string,
+      id: string,
+      name: string,
+      level?: number | null,
+      xp?: number | null,
+      armor?: number | null,
+      hitPointsMax?: number | null,
+      hitPointsCurrent?: number | null,
+      coin?: number | null,
+      loadMax?: number | null,
+      loadCurrent?: number | null,
+      isTemplate?: boolean | null,
+      tags?: Array< string | null > | null,
+      notes?: string | null,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      characterCharacterRaceId?: string | null,
+      characterCharacterAlignmentId?: string | null,
+      characterCharacterProfessionId?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
+    characterCharacterSpellsId?: string | null,
     characterSpellSpellId: string,
   } | null,
 };
@@ -2471,7 +2594,7 @@ export type CreateCharacterGearMutation = {
   createCharacterGear?:  {
     __typename: "CharacterGear",
     id: string,
-    gear:  {
+    Gear:  {
       __typename: "Gear",
       id: string,
       description: string,
@@ -2487,12 +2610,37 @@ export type CreateCharacterGearMutation = {
     },
     uses?: number | null,
     tags?: Array< string | null > | null,
-    characterID: string,
+    Character?:  {
+      __typename: "Character",
+      userId: string,
+      id: string,
+      name: string,
+      level?: number | null,
+      xp?: number | null,
+      armor?: number | null,
+      hitPointsMax?: number | null,
+      hitPointsCurrent?: number | null,
+      coin?: number | null,
+      loadMax?: number | null,
+      loadCurrent?: number | null,
+      isTemplate?: boolean | null,
+      tags?: Array< string | null > | null,
+      notes?: string | null,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      characterCharacterRaceId?: string | null,
+      characterCharacterAlignmentId?: string | null,
+      characterCharacterProfessionId?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
+    characterCharacterGearId?: string | null,
     characterGearGearId: string,
   } | null,
 };
@@ -2506,7 +2654,7 @@ export type UpdateCharacterGearMutation = {
   updateCharacterGear?:  {
     __typename: "CharacterGear",
     id: string,
-    gear:  {
+    Gear:  {
       __typename: "Gear",
       id: string,
       description: string,
@@ -2522,12 +2670,37 @@ export type UpdateCharacterGearMutation = {
     },
     uses?: number | null,
     tags?: Array< string | null > | null,
-    characterID: string,
+    Character?:  {
+      __typename: "Character",
+      userId: string,
+      id: string,
+      name: string,
+      level?: number | null,
+      xp?: number | null,
+      armor?: number | null,
+      hitPointsMax?: number | null,
+      hitPointsCurrent?: number | null,
+      coin?: number | null,
+      loadMax?: number | null,
+      loadCurrent?: number | null,
+      isTemplate?: boolean | null,
+      tags?: Array< string | null > | null,
+      notes?: string | null,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      characterCharacterRaceId?: string | null,
+      characterCharacterAlignmentId?: string | null,
+      characterCharacterProfessionId?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
+    characterCharacterGearId?: string | null,
     characterGearGearId: string,
   } | null,
 };
@@ -2541,7 +2714,7 @@ export type DeleteCharacterGearMutation = {
   deleteCharacterGear?:  {
     __typename: "CharacterGear",
     id: string,
-    gear:  {
+    Gear:  {
       __typename: "Gear",
       id: string,
       description: string,
@@ -2557,12 +2730,37 @@ export type DeleteCharacterGearMutation = {
     },
     uses?: number | null,
     tags?: Array< string | null > | null,
-    characterID: string,
+    Character?:  {
+      __typename: "Character",
+      userId: string,
+      id: string,
+      name: string,
+      level?: number | null,
+      xp?: number | null,
+      armor?: number | null,
+      hitPointsMax?: number | null,
+      hitPointsCurrent?: number | null,
+      coin?: number | null,
+      loadMax?: number | null,
+      loadCurrent?: number | null,
+      isTemplate?: boolean | null,
+      tags?: Array< string | null > | null,
+      notes?: string | null,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      characterCharacterRaceId?: string | null,
+      characterCharacterAlignmentId?: string | null,
+      characterCharacterProfessionId?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
+    characterCharacterGearId?: string | null,
     characterGearGearId: string,
   } | null,
 };
@@ -2580,7 +2778,7 @@ export type CreateGearMutation = {
     weight: number,
     uses?: number | null,
     tags?: Array< string | null > | null,
-    source?:  {
+    Source?:  {
       __typename: "Source",
       id: string,
       name: string,
@@ -2612,7 +2810,7 @@ export type UpdateGearMutation = {
     weight: number,
     uses?: number | null,
     tags?: Array< string | null > | null,
-    source?:  {
+    Source?:  {
       __typename: "Source",
       id: string,
       name: string,
@@ -2644,7 +2842,7 @@ export type DeleteGearMutation = {
     weight: number,
     uses?: number | null,
     tags?: Array< string | null > | null,
-    source?:  {
+    Source?:  {
       __typename: "Source",
       id: string,
       name: string,
@@ -2673,7 +2871,7 @@ export type CreateCharacterMoveMutation = {
     __typename: "CharacterMove",
     id: string,
     selected?: boolean | null,
-    move:  {
+    Move:  {
       __typename: "Move",
       id: string,
       description: string,
@@ -2682,15 +2880,42 @@ export type CreateCharacterMoveMutation = {
       _version: number,
       _deleted?: boolean | null,
       _lastChangedAt: number,
-      moveClassId: string,
+      moveProfessionId: string,
       moveSourceId?: string | null,
     },
-    characterID: string,
+    Character?:  {
+      __typename: "Character",
+      userId: string,
+      id: string,
+      name: string,
+      level?: number | null,
+      xp?: number | null,
+      armor?: number | null,
+      hitPointsMax?: number | null,
+      hitPointsCurrent?: number | null,
+      coin?: number | null,
+      loadMax?: number | null,
+      loadCurrent?: number | null,
+      isTemplate?: boolean | null,
+      tags?: Array< string | null > | null,
+      notes?: string | null,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      characterCharacterRaceId?: string | null,
+      characterCharacterAlignmentId?: string | null,
+      characterCharacterProfessionId?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
+    characterMovesStartingId?: string | null,
+    characterMovesTwoToTenId?: string | null,
+    characterMovesSixToTenId?: string | null,
     characterMoveMoveId: string,
   } | null,
 };
@@ -2705,7 +2930,7 @@ export type UpdateCharacterMoveMutation = {
     __typename: "CharacterMove",
     id: string,
     selected?: boolean | null,
-    move:  {
+    Move:  {
       __typename: "Move",
       id: string,
       description: string,
@@ -2714,15 +2939,42 @@ export type UpdateCharacterMoveMutation = {
       _version: number,
       _deleted?: boolean | null,
       _lastChangedAt: number,
-      moveClassId: string,
+      moveProfessionId: string,
       moveSourceId?: string | null,
     },
-    characterID: string,
+    Character?:  {
+      __typename: "Character",
+      userId: string,
+      id: string,
+      name: string,
+      level?: number | null,
+      xp?: number | null,
+      armor?: number | null,
+      hitPointsMax?: number | null,
+      hitPointsCurrent?: number | null,
+      coin?: number | null,
+      loadMax?: number | null,
+      loadCurrent?: number | null,
+      isTemplate?: boolean | null,
+      tags?: Array< string | null > | null,
+      notes?: string | null,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      characterCharacterRaceId?: string | null,
+      characterCharacterAlignmentId?: string | null,
+      characterCharacterProfessionId?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
+    characterMovesStartingId?: string | null,
+    characterMovesTwoToTenId?: string | null,
+    characterMovesSixToTenId?: string | null,
     characterMoveMoveId: string,
   } | null,
 };
@@ -2737,7 +2989,7 @@ export type DeleteCharacterMoveMutation = {
     __typename: "CharacterMove",
     id: string,
     selected?: boolean | null,
-    move:  {
+    Move:  {
       __typename: "Move",
       id: string,
       description: string,
@@ -2746,15 +2998,42 @@ export type DeleteCharacterMoveMutation = {
       _version: number,
       _deleted?: boolean | null,
       _lastChangedAt: number,
-      moveClassId: string,
+      moveProfessionId: string,
       moveSourceId?: string | null,
     },
-    characterID: string,
+    Character?:  {
+      __typename: "Character",
+      userId: string,
+      id: string,
+      name: string,
+      level?: number | null,
+      xp?: number | null,
+      armor?: number | null,
+      hitPointsMax?: number | null,
+      hitPointsCurrent?: number | null,
+      coin?: number | null,
+      loadMax?: number | null,
+      loadCurrent?: number | null,
+      isTemplate?: boolean | null,
+      tags?: Array< string | null > | null,
+      notes?: string | null,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      characterCharacterRaceId?: string | null,
+      characterCharacterAlignmentId?: string | null,
+      characterCharacterProfessionId?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
+    characterMovesStartingId?: string | null,
+    characterMovesTwoToTenId?: string | null,
+    characterMovesSixToTenId?: string | null,
     characterMoveMoveId: string,
   } | null,
 };
@@ -2769,7 +3048,7 @@ export type CreateMoveMutation = {
     __typename: "Move",
     id: string,
     description: string,
-    class:  {
+    Profession:  {
       __typename: "Profession",
       id: string,
       name: string,
@@ -2780,9 +3059,9 @@ export type CreateMoveMutation = {
       _deleted?: boolean | null,
       _lastChangedAt: number,
       professionSourceId: string,
-      professionDamageDiceTypeId?: string | null,
+      professionDiceTypeId?: string | null,
     },
-    source?:  {
+    Source?:  {
       __typename: "Source",
       id: string,
       name: string,
@@ -2797,7 +3076,7 @@ export type CreateMoveMutation = {
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
-    moveClassId: string,
+    moveProfessionId: string,
     moveSourceId?: string | null,
   } | null,
 };
@@ -2812,7 +3091,7 @@ export type UpdateMoveMutation = {
     __typename: "Move",
     id: string,
     description: string,
-    class:  {
+    Profession:  {
       __typename: "Profession",
       id: string,
       name: string,
@@ -2823,9 +3102,9 @@ export type UpdateMoveMutation = {
       _deleted?: boolean | null,
       _lastChangedAt: number,
       professionSourceId: string,
-      professionDamageDiceTypeId?: string | null,
+      professionDiceTypeId?: string | null,
     },
-    source?:  {
+    Source?:  {
       __typename: "Source",
       id: string,
       name: string,
@@ -2840,7 +3119,7 @@ export type UpdateMoveMutation = {
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
-    moveClassId: string,
+    moveProfessionId: string,
     moveSourceId?: string | null,
   } | null,
 };
@@ -2855,7 +3134,7 @@ export type DeleteMoveMutation = {
     __typename: "Move",
     id: string,
     description: string,
-    class:  {
+    Profession:  {
       __typename: "Profession",
       id: string,
       name: string,
@@ -2866,9 +3145,9 @@ export type DeleteMoveMutation = {
       _deleted?: boolean | null,
       _lastChangedAt: number,
       professionSourceId: string,
-      professionDamageDiceTypeId?: string | null,
+      professionDiceTypeId?: string | null,
     },
-    source?:  {
+    Source?:  {
       __typename: "Source",
       id: string,
       name: string,
@@ -2883,7 +3162,7 @@ export type DeleteMoveMutation = {
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
-    moveClassId: string,
+    moveProfessionId: string,
     moveSourceId?: string | null,
   } | null,
 };
@@ -2898,7 +3177,7 @@ export type CreateCharacterBondMutation = {
     __typename: "CharacterBond",
     id: string,
     description?: string | null,
-    bond:  {
+    Bond:  {
       __typename: "Bond",
       id: string,
       description?: string | null,
@@ -2907,15 +3186,40 @@ export type CreateCharacterBondMutation = {
       _version: number,
       _deleted?: boolean | null,
       _lastChangedAt: number,
-      bondClassId: string,
+      bondProfessionId: string,
     },
     selected?: boolean | null,
-    characterID: string,
+    Character?:  {
+      __typename: "Character",
+      userId: string,
+      id: string,
+      name: string,
+      level?: number | null,
+      xp?: number | null,
+      armor?: number | null,
+      hitPointsMax?: number | null,
+      hitPointsCurrent?: number | null,
+      coin?: number | null,
+      loadMax?: number | null,
+      loadCurrent?: number | null,
+      isTemplate?: boolean | null,
+      tags?: Array< string | null > | null,
+      notes?: string | null,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      characterCharacterRaceId?: string | null,
+      characterCharacterAlignmentId?: string | null,
+      characterCharacterProfessionId?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
+    characterCharacterBondsId?: string | null,
     characterBondBondId: string,
   } | null,
 };
@@ -2930,7 +3234,7 @@ export type UpdateCharacterBondMutation = {
     __typename: "CharacterBond",
     id: string,
     description?: string | null,
-    bond:  {
+    Bond:  {
       __typename: "Bond",
       id: string,
       description?: string | null,
@@ -2939,15 +3243,40 @@ export type UpdateCharacterBondMutation = {
       _version: number,
       _deleted?: boolean | null,
       _lastChangedAt: number,
-      bondClassId: string,
+      bondProfessionId: string,
     },
     selected?: boolean | null,
-    characterID: string,
+    Character?:  {
+      __typename: "Character",
+      userId: string,
+      id: string,
+      name: string,
+      level?: number | null,
+      xp?: number | null,
+      armor?: number | null,
+      hitPointsMax?: number | null,
+      hitPointsCurrent?: number | null,
+      coin?: number | null,
+      loadMax?: number | null,
+      loadCurrent?: number | null,
+      isTemplate?: boolean | null,
+      tags?: Array< string | null > | null,
+      notes?: string | null,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      characterCharacterRaceId?: string | null,
+      characterCharacterAlignmentId?: string | null,
+      characterCharacterProfessionId?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
+    characterCharacterBondsId?: string | null,
     characterBondBondId: string,
   } | null,
 };
@@ -2962,7 +3291,7 @@ export type DeleteCharacterBondMutation = {
     __typename: "CharacterBond",
     id: string,
     description?: string | null,
-    bond:  {
+    Bond:  {
       __typename: "Bond",
       id: string,
       description?: string | null,
@@ -2971,15 +3300,40 @@ export type DeleteCharacterBondMutation = {
       _version: number,
       _deleted?: boolean | null,
       _lastChangedAt: number,
-      bondClassId: string,
+      bondProfessionId: string,
     },
     selected?: boolean | null,
-    characterID: string,
+    Character?:  {
+      __typename: "Character",
+      userId: string,
+      id: string,
+      name: string,
+      level?: number | null,
+      xp?: number | null,
+      armor?: number | null,
+      hitPointsMax?: number | null,
+      hitPointsCurrent?: number | null,
+      coin?: number | null,
+      loadMax?: number | null,
+      loadCurrent?: number | null,
+      isTemplate?: boolean | null,
+      tags?: Array< string | null > | null,
+      notes?: string | null,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      characterCharacterRaceId?: string | null,
+      characterCharacterAlignmentId?: string | null,
+      characterCharacterProfessionId?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
+    characterCharacterBondsId?: string | null,
     characterBondBondId: string,
   } | null,
 };
@@ -2994,7 +3348,7 @@ export type CreateBondMutation = {
     __typename: "Bond",
     id: string,
     description?: string | null,
-    class:  {
+    Profession:  {
       __typename: "Profession",
       id: string,
       name: string,
@@ -3005,14 +3359,14 @@ export type CreateBondMutation = {
       _deleted?: boolean | null,
       _lastChangedAt: number,
       professionSourceId: string,
-      professionDamageDiceTypeId?: string | null,
+      professionDiceTypeId?: string | null,
     },
     createdAt: string,
     updatedAt: string,
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
-    bondClassId: string,
+    bondProfessionId: string,
   } | null,
 };
 
@@ -3026,7 +3380,7 @@ export type UpdateBondMutation = {
     __typename: "Bond",
     id: string,
     description?: string | null,
-    class:  {
+    Profession:  {
       __typename: "Profession",
       id: string,
       name: string,
@@ -3037,14 +3391,14 @@ export type UpdateBondMutation = {
       _deleted?: boolean | null,
       _lastChangedAt: number,
       professionSourceId: string,
-      professionDamageDiceTypeId?: string | null,
+      professionDiceTypeId?: string | null,
     },
     createdAt: string,
     updatedAt: string,
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
-    bondClassId: string,
+    bondProfessionId: string,
   } | null,
 };
 
@@ -3058,7 +3412,7 @@ export type DeleteBondMutation = {
     __typename: "Bond",
     id: string,
     description?: string | null,
-    class:  {
+    Profession:  {
       __typename: "Profession",
       id: string,
       name: string,
@@ -3069,14 +3423,14 @@ export type DeleteBondMutation = {
       _deleted?: boolean | null,
       _lastChangedAt: number,
       professionSourceId: string,
-      professionDamageDiceTypeId?: string | null,
+      professionDiceTypeId?: string | null,
     },
     createdAt: string,
     updatedAt: string,
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
-    bondClassId: string,
+    bondProfessionId: string,
   } | null,
 };
 
@@ -3088,7 +3442,7 @@ export type CreateCharacterAbilityScoreMutationVariables = {
 export type CreateCharacterAbilityScoreMutation = {
   createCharacterAbilityScore?:  {
     __typename: "CharacterAbilityScore",
-    abilityScore:  {
+    AbilityScore:  {
       __typename: "AbilityScore",
       id: string,
       name: string,
@@ -3105,12 +3459,37 @@ export type CreateCharacterAbilityScoreMutation = {
     value: string,
     bonus: number,
     tags?: Array< string | null > | null,
-    characterID: string,
+    Character?:  {
+      __typename: "Character",
+      userId: string,
+      id: string,
+      name: string,
+      level?: number | null,
+      xp?: number | null,
+      armor?: number | null,
+      hitPointsMax?: number | null,
+      hitPointsCurrent?: number | null,
+      coin?: number | null,
+      loadMax?: number | null,
+      loadCurrent?: number | null,
+      isTemplate?: boolean | null,
+      tags?: Array< string | null > | null,
+      notes?: string | null,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      characterCharacterRaceId?: string | null,
+      characterCharacterAlignmentId?: string | null,
+      characterCharacterProfessionId?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
+    characterCharacterAbilityScoresId?: string | null,
     characterAbilityScoreAbilityScoreId: string,
   } | null,
 };
@@ -3123,7 +3502,7 @@ export type UpdateCharacterAbilityScoreMutationVariables = {
 export type UpdateCharacterAbilityScoreMutation = {
   updateCharacterAbilityScore?:  {
     __typename: "CharacterAbilityScore",
-    abilityScore:  {
+    AbilityScore:  {
       __typename: "AbilityScore",
       id: string,
       name: string,
@@ -3140,12 +3519,37 @@ export type UpdateCharacterAbilityScoreMutation = {
     value: string,
     bonus: number,
     tags?: Array< string | null > | null,
-    characterID: string,
+    Character?:  {
+      __typename: "Character",
+      userId: string,
+      id: string,
+      name: string,
+      level?: number | null,
+      xp?: number | null,
+      armor?: number | null,
+      hitPointsMax?: number | null,
+      hitPointsCurrent?: number | null,
+      coin?: number | null,
+      loadMax?: number | null,
+      loadCurrent?: number | null,
+      isTemplate?: boolean | null,
+      tags?: Array< string | null > | null,
+      notes?: string | null,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      characterCharacterRaceId?: string | null,
+      characterCharacterAlignmentId?: string | null,
+      characterCharacterProfessionId?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
+    characterCharacterAbilityScoresId?: string | null,
     characterAbilityScoreAbilityScoreId: string,
   } | null,
 };
@@ -3158,7 +3562,7 @@ export type DeleteCharacterAbilityScoreMutationVariables = {
 export type DeleteCharacterAbilityScoreMutation = {
   deleteCharacterAbilityScore?:  {
     __typename: "CharacterAbilityScore",
-    abilityScore:  {
+    AbilityScore:  {
       __typename: "AbilityScore",
       id: string,
       name: string,
@@ -3175,12 +3579,37 @@ export type DeleteCharacterAbilityScoreMutation = {
     value: string,
     bonus: number,
     tags?: Array< string | null > | null,
-    characterID: string,
+    Character?:  {
+      __typename: "Character",
+      userId: string,
+      id: string,
+      name: string,
+      level?: number | null,
+      xp?: number | null,
+      armor?: number | null,
+      hitPointsMax?: number | null,
+      hitPointsCurrent?: number | null,
+      coin?: number | null,
+      loadMax?: number | null,
+      loadCurrent?: number | null,
+      isTemplate?: boolean | null,
+      tags?: Array< string | null > | null,
+      notes?: string | null,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      characterCharacterRaceId?: string | null,
+      characterCharacterAlignmentId?: string | null,
+      characterCharacterProfessionId?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
+    characterCharacterAbilityScoresId?: string | null,
     characterAbilityScoreAbilityScoreId: string,
   } | null,
 };
@@ -3257,7 +3686,7 @@ export type CreateCharacterRaceMutation = {
   createCharacterRace?:  {
     __typename: "CharacterRace",
     id: string,
-    race:  {
+    Race:  {
       __typename: "Race",
       id: string,
       name?: string | null,
@@ -3270,12 +3699,38 @@ export type CreateCharacterRaceMutation = {
       raceProfessionId?: string | null,
       raceSourceId: string,
     },
+    Character?:  {
+      __typename: "Character",
+      userId: string,
+      id: string,
+      name: string,
+      level?: number | null,
+      xp?: number | null,
+      armor?: number | null,
+      hitPointsMax?: number | null,
+      hitPointsCurrent?: number | null,
+      coin?: number | null,
+      loadMax?: number | null,
+      loadCurrent?: number | null,
+      isTemplate?: boolean | null,
+      tags?: Array< string | null > | null,
+      notes?: string | null,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      characterCharacterRaceId?: string | null,
+      characterCharacterAlignmentId?: string | null,
+      characterCharacterProfessionId?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
     characterRaceRaceId: string,
+    characterRaceCharacterId?: string | null,
   } | null,
 };
 
@@ -3288,7 +3743,7 @@ export type UpdateCharacterRaceMutation = {
   updateCharacterRace?:  {
     __typename: "CharacterRace",
     id: string,
-    race:  {
+    Race:  {
       __typename: "Race",
       id: string,
       name?: string | null,
@@ -3301,12 +3756,38 @@ export type UpdateCharacterRaceMutation = {
       raceProfessionId?: string | null,
       raceSourceId: string,
     },
+    Character?:  {
+      __typename: "Character",
+      userId: string,
+      id: string,
+      name: string,
+      level?: number | null,
+      xp?: number | null,
+      armor?: number | null,
+      hitPointsMax?: number | null,
+      hitPointsCurrent?: number | null,
+      coin?: number | null,
+      loadMax?: number | null,
+      loadCurrent?: number | null,
+      isTemplate?: boolean | null,
+      tags?: Array< string | null > | null,
+      notes?: string | null,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      characterCharacterRaceId?: string | null,
+      characterCharacterAlignmentId?: string | null,
+      characterCharacterProfessionId?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
     characterRaceRaceId: string,
+    characterRaceCharacterId?: string | null,
   } | null,
 };
 
@@ -3319,7 +3800,7 @@ export type DeleteCharacterRaceMutation = {
   deleteCharacterRace?:  {
     __typename: "CharacterRace",
     id: string,
-    race:  {
+    Race:  {
       __typename: "Race",
       id: string,
       name?: string | null,
@@ -3332,12 +3813,38 @@ export type DeleteCharacterRaceMutation = {
       raceProfessionId?: string | null,
       raceSourceId: string,
     },
+    Character?:  {
+      __typename: "Character",
+      userId: string,
+      id: string,
+      name: string,
+      level?: number | null,
+      xp?: number | null,
+      armor?: number | null,
+      hitPointsMax?: number | null,
+      hitPointsCurrent?: number | null,
+      coin?: number | null,
+      loadMax?: number | null,
+      loadCurrent?: number | null,
+      isTemplate?: boolean | null,
+      tags?: Array< string | null > | null,
+      notes?: string | null,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      characterCharacterRaceId?: string | null,
+      characterCharacterAlignmentId?: string | null,
+      characterCharacterProfessionId?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
     characterRaceRaceId: string,
+    characterRaceCharacterId?: string | null,
   } | null,
 };
 
@@ -3352,7 +3859,7 @@ export type CreateRaceMutation = {
     id: string,
     name?: string | null,
     description?: string | null,
-    profession?:  {
+    Profession?:  {
       __typename: "Profession",
       id: string,
       name: string,
@@ -3363,9 +3870,9 @@ export type CreateRaceMutation = {
       _deleted?: boolean | null,
       _lastChangedAt: number,
       professionSourceId: string,
-      professionDamageDiceTypeId?: string | null,
+      professionDiceTypeId?: string | null,
     } | null,
-    source:  {
+    Source:  {
       __typename: "Source",
       id: string,
       name: string,
@@ -3396,7 +3903,7 @@ export type UpdateRaceMutation = {
     id: string,
     name?: string | null,
     description?: string | null,
-    profession?:  {
+    Profession?:  {
       __typename: "Profession",
       id: string,
       name: string,
@@ -3407,9 +3914,9 @@ export type UpdateRaceMutation = {
       _deleted?: boolean | null,
       _lastChangedAt: number,
       professionSourceId: string,
-      professionDamageDiceTypeId?: string | null,
+      professionDiceTypeId?: string | null,
     } | null,
-    source:  {
+    Source:  {
       __typename: "Source",
       id: string,
       name: string,
@@ -3440,7 +3947,7 @@ export type DeleteRaceMutation = {
     id: string,
     name?: string | null,
     description?: string | null,
-    profession?:  {
+    Profession?:  {
       __typename: "Profession",
       id: string,
       name: string,
@@ -3451,9 +3958,9 @@ export type DeleteRaceMutation = {
       _deleted?: boolean | null,
       _lastChangedAt: number,
       professionSourceId: string,
-      professionDamageDiceTypeId?: string | null,
+      professionDiceTypeId?: string | null,
     } | null,
-    source:  {
+    Source:  {
       __typename: "Source",
       id: string,
       name: string,
@@ -3482,7 +3989,7 @@ export type CreateCharacterAlignmentMutation = {
   createCharacterAlignment?:  {
     __typename: "CharacterAlignment",
     id: string,
-    alignment:  {
+    Alignment:  {
       __typename: "Alignment",
       id: string,
       name?: string | null,
@@ -3492,15 +3999,41 @@ export type CreateCharacterAlignmentMutation = {
       _version: number,
       _deleted?: boolean | null,
       _lastChangedAt: number,
-      alignmentClassId: string,
+      alignmentProfessionId: string,
     },
     selected?: boolean | null,
+    Character?:  {
+      __typename: "Character",
+      userId: string,
+      id: string,
+      name: string,
+      level?: number | null,
+      xp?: number | null,
+      armor?: number | null,
+      hitPointsMax?: number | null,
+      hitPointsCurrent?: number | null,
+      coin?: number | null,
+      loadMax?: number | null,
+      loadCurrent?: number | null,
+      isTemplate?: boolean | null,
+      tags?: Array< string | null > | null,
+      notes?: string | null,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      characterCharacterRaceId?: string | null,
+      characterCharacterAlignmentId?: string | null,
+      characterCharacterProfessionId?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
     characterAlignmentAlignmentId: string,
+    characterAlignmentCharacterId?: string | null,
   } | null,
 };
 
@@ -3513,7 +4046,7 @@ export type UpdateCharacterAlignmentMutation = {
   updateCharacterAlignment?:  {
     __typename: "CharacterAlignment",
     id: string,
-    alignment:  {
+    Alignment:  {
       __typename: "Alignment",
       id: string,
       name?: string | null,
@@ -3523,15 +4056,41 @@ export type UpdateCharacterAlignmentMutation = {
       _version: number,
       _deleted?: boolean | null,
       _lastChangedAt: number,
-      alignmentClassId: string,
+      alignmentProfessionId: string,
     },
     selected?: boolean | null,
+    Character?:  {
+      __typename: "Character",
+      userId: string,
+      id: string,
+      name: string,
+      level?: number | null,
+      xp?: number | null,
+      armor?: number | null,
+      hitPointsMax?: number | null,
+      hitPointsCurrent?: number | null,
+      coin?: number | null,
+      loadMax?: number | null,
+      loadCurrent?: number | null,
+      isTemplate?: boolean | null,
+      tags?: Array< string | null > | null,
+      notes?: string | null,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      characterCharacterRaceId?: string | null,
+      characterCharacterAlignmentId?: string | null,
+      characterCharacterProfessionId?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
     characterAlignmentAlignmentId: string,
+    characterAlignmentCharacterId?: string | null,
   } | null,
 };
 
@@ -3544,7 +4103,7 @@ export type DeleteCharacterAlignmentMutation = {
   deleteCharacterAlignment?:  {
     __typename: "CharacterAlignment",
     id: string,
-    alignment:  {
+    Alignment:  {
       __typename: "Alignment",
       id: string,
       name?: string | null,
@@ -3554,15 +4113,41 @@ export type DeleteCharacterAlignmentMutation = {
       _version: number,
       _deleted?: boolean | null,
       _lastChangedAt: number,
-      alignmentClassId: string,
+      alignmentProfessionId: string,
     },
     selected?: boolean | null,
+    Character?:  {
+      __typename: "Character",
+      userId: string,
+      id: string,
+      name: string,
+      level?: number | null,
+      xp?: number | null,
+      armor?: number | null,
+      hitPointsMax?: number | null,
+      hitPointsCurrent?: number | null,
+      coin?: number | null,
+      loadMax?: number | null,
+      loadCurrent?: number | null,
+      isTemplate?: boolean | null,
+      tags?: Array< string | null > | null,
+      notes?: string | null,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      characterCharacterRaceId?: string | null,
+      characterCharacterAlignmentId?: string | null,
+      characterCharacterProfessionId?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
     characterAlignmentAlignmentId: string,
+    characterAlignmentCharacterId?: string | null,
   } | null,
 };
 
@@ -3577,7 +4162,7 @@ export type CreateAlignmentMutation = {
     id: string,
     name?: string | null,
     description?: string | null,
-    class:  {
+    Profession:  {
       __typename: "Profession",
       id: string,
       name: string,
@@ -3588,14 +4173,14 @@ export type CreateAlignmentMutation = {
       _deleted?: boolean | null,
       _lastChangedAt: number,
       professionSourceId: string,
-      professionDamageDiceTypeId?: string | null,
+      professionDiceTypeId?: string | null,
     },
     createdAt: string,
     updatedAt: string,
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
-    alignmentClassId: string,
+    alignmentProfessionId: string,
   } | null,
 };
 
@@ -3610,7 +4195,7 @@ export type UpdateAlignmentMutation = {
     id: string,
     name?: string | null,
     description?: string | null,
-    class:  {
+    Profession:  {
       __typename: "Profession",
       id: string,
       name: string,
@@ -3621,14 +4206,14 @@ export type UpdateAlignmentMutation = {
       _deleted?: boolean | null,
       _lastChangedAt: number,
       professionSourceId: string,
-      professionDamageDiceTypeId?: string | null,
+      professionDiceTypeId?: string | null,
     },
     createdAt: string,
     updatedAt: string,
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
-    alignmentClassId: string,
+    alignmentProfessionId: string,
   } | null,
 };
 
@@ -3643,7 +4228,7 @@ export type DeleteAlignmentMutation = {
     id: string,
     name?: string | null,
     description?: string | null,
-    class:  {
+    Profession:  {
       __typename: "Profession",
       id: string,
       name: string,
@@ -3654,14 +4239,14 @@ export type DeleteAlignmentMutation = {
       _deleted?: boolean | null,
       _lastChangedAt: number,
       professionSourceId: string,
-      professionDamageDiceTypeId?: string | null,
+      professionDiceTypeId?: string | null,
     },
     createdAt: string,
     updatedAt: string,
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
-    alignmentClassId: string,
+    alignmentProfessionId: string,
   } | null,
 };
 
@@ -3728,16 +4313,49 @@ export type CreateCharacterLookMutation = {
   createCharacterLook?:  {
     __typename: "CharacterLook",
     id: string,
-    look?:  {
-      __typename: "ModelLookConnection",
-      nextToken?: string | null,
-      startedAt?: number | null,
+    Look:  {
+      __typename: "Look",
+      id: string,
+      name: string,
+      description: string,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+    },
+    Character?:  {
+      __typename: "Character",
+      userId: string,
+      id: string,
+      name: string,
+      level?: number | null,
+      xp?: number | null,
+      armor?: number | null,
+      hitPointsMax?: number | null,
+      hitPointsCurrent?: number | null,
+      coin?: number | null,
+      loadMax?: number | null,
+      loadCurrent?: number | null,
+      isTemplate?: boolean | null,
+      tags?: Array< string | null > | null,
+      notes?: string | null,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      characterCharacterRaceId?: string | null,
+      characterCharacterAlignmentId?: string | null,
+      characterCharacterProfessionId?: string | null,
     } | null,
     createdAt: string,
     updatedAt: string,
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
+    characterCharacterLooksId?: string | null,
+    characterLookLookId: string,
   } | null,
 };
 
@@ -3750,16 +4368,49 @@ export type UpdateCharacterLookMutation = {
   updateCharacterLook?:  {
     __typename: "CharacterLook",
     id: string,
-    look?:  {
-      __typename: "ModelLookConnection",
-      nextToken?: string | null,
-      startedAt?: number | null,
+    Look:  {
+      __typename: "Look",
+      id: string,
+      name: string,
+      description: string,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+    },
+    Character?:  {
+      __typename: "Character",
+      userId: string,
+      id: string,
+      name: string,
+      level?: number | null,
+      xp?: number | null,
+      armor?: number | null,
+      hitPointsMax?: number | null,
+      hitPointsCurrent?: number | null,
+      coin?: number | null,
+      loadMax?: number | null,
+      loadCurrent?: number | null,
+      isTemplate?: boolean | null,
+      tags?: Array< string | null > | null,
+      notes?: string | null,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      characterCharacterRaceId?: string | null,
+      characterCharacterAlignmentId?: string | null,
+      characterCharacterProfessionId?: string | null,
     } | null,
     createdAt: string,
     updatedAt: string,
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
+    characterCharacterLooksId?: string | null,
+    characterLookLookId: string,
   } | null,
 };
 
@@ -3772,16 +4423,49 @@ export type DeleteCharacterLookMutation = {
   deleteCharacterLook?:  {
     __typename: "CharacterLook",
     id: string,
-    look?:  {
-      __typename: "ModelLookConnection",
-      nextToken?: string | null,
-      startedAt?: number | null,
+    Look:  {
+      __typename: "Look",
+      id: string,
+      name: string,
+      description: string,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+    },
+    Character?:  {
+      __typename: "Character",
+      userId: string,
+      id: string,
+      name: string,
+      level?: number | null,
+      xp?: number | null,
+      armor?: number | null,
+      hitPointsMax?: number | null,
+      hitPointsCurrent?: number | null,
+      coin?: number | null,
+      loadMax?: number | null,
+      loadCurrent?: number | null,
+      isTemplate?: boolean | null,
+      tags?: Array< string | null > | null,
+      notes?: string | null,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      characterCharacterRaceId?: string | null,
+      characterCharacterAlignmentId?: string | null,
+      characterCharacterProfessionId?: string | null,
     } | null,
     createdAt: string,
     updatedAt: string,
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
+    characterCharacterLooksId?: string | null,
+    characterLookLookId: string,
   } | null,
 };
 
@@ -3796,7 +4480,6 @@ export type CreateLookMutation = {
     id: string,
     name: string,
     description: string,
-    characterlookID: string,
     createdAt: string,
     updatedAt: string,
     _version: number,
@@ -3816,7 +4499,6 @@ export type UpdateLookMutation = {
     id: string,
     name: string,
     description: string,
-    characterlookID: string,
     createdAt: string,
     updatedAt: string,
     _version: number,
@@ -3836,7 +4518,6 @@ export type DeleteLookMutation = {
     id: string,
     name: string,
     description: string,
-    characterlookID: string,
     createdAt: string,
     updatedAt: string,
     _version: number,
@@ -3865,37 +4546,39 @@ export type CreateCharacterMutation = {
     loadMax?: number | null,
     loadCurrent?: number | null,
     isTemplate?: boolean | null,
-    gear?:  {
+    tags?: Array< string | null > | null,
+    notes?: string | null,
+    CharacterGear?:  {
       __typename: "ModelCharacterGearConnection",
       nextToken?: string | null,
       startedAt?: number | null,
     } | null,
-    sixToTenMoves?:  {
+    MovesStarting?:  {
       __typename: "ModelCharacterMoveConnection",
       nextToken?: string | null,
       startedAt?: number | null,
     } | null,
-    twoToTenMoves?:  {
+    MovesTwoToTen?:  {
       __typename: "ModelCharacterMoveConnection",
       nextToken?: string | null,
       startedAt?: number | null,
     } | null,
-    startingMoves?:  {
+    MovesSixToTen?:  {
       __typename: "ModelCharacterMoveConnection",
       nextToken?: string | null,
       startedAt?: number | null,
     } | null,
-    bonds?:  {
+    CharacterBonds?:  {
       __typename: "ModelCharacterBondConnection",
       nextToken?: string | null,
       startedAt?: number | null,
     } | null,
-    abilityscores?:  {
+    CharacterAbilityScores?:  {
       __typename: "ModelCharacterAbilityScoreConnection",
       nextToken?: string | null,
       startedAt?: number | null,
     } | null,
-    race?:  {
+    CharacterRace?:  {
       __typename: "CharacterRace",
       id: string,
       createdAt: string,
@@ -3904,8 +4587,9 @@ export type CreateCharacterMutation = {
       _deleted?: boolean | null,
       _lastChangedAt: number,
       characterRaceRaceId: string,
+      characterRaceCharacterId?: string | null,
     } | null,
-    alignment?:  {
+    CharacterAlignment?:  {
       __typename: "CharacterAlignment",
       id: string,
       selected?: boolean | null,
@@ -3915,18 +4599,13 @@ export type CreateCharacterMutation = {
       _deleted?: boolean | null,
       _lastChangedAt: number,
       characterAlignmentAlignmentId: string,
+      characterAlignmentCharacterId?: string | null,
     } | null,
-    tags?: Array< string | null > | null,
-    look?:  {
-      __typename: "CharacterLook",
-      id: string,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
+    CharacterLooks?:  {
+      __typename: "ModelCharacterLookConnection",
+      nextToken?: string | null,
+      startedAt?: number | null,
     } | null,
-    notes?: string | null,
     CharacterProfession?:  {
       __typename: "CharacterProfession",
       id: string,
@@ -3938,14 +4617,18 @@ export type CreateCharacterMutation = {
       characterProfessionProfessionId?: string | null,
       characterProfessionCharacterId?: string | null,
     } | null,
+    CharacterSpells?:  {
+      __typename: "ModelCharacterSpellConnection",
+      nextToken?: string | null,
+      startedAt?: number | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
-    characterRaceId?: string | null,
-    characterAlignmentId?: string | null,
-    characterLookId?: string | null,
+    characterCharacterRaceId?: string | null,
+    characterCharacterAlignmentId?: string | null,
     characterCharacterProfessionId?: string | null,
   } | null,
 };
@@ -3970,37 +4653,39 @@ export type UpdateCharacterMutation = {
     loadMax?: number | null,
     loadCurrent?: number | null,
     isTemplate?: boolean | null,
-    gear?:  {
+    tags?: Array< string | null > | null,
+    notes?: string | null,
+    CharacterGear?:  {
       __typename: "ModelCharacterGearConnection",
       nextToken?: string | null,
       startedAt?: number | null,
     } | null,
-    sixToTenMoves?:  {
+    MovesStarting?:  {
       __typename: "ModelCharacterMoveConnection",
       nextToken?: string | null,
       startedAt?: number | null,
     } | null,
-    twoToTenMoves?:  {
+    MovesTwoToTen?:  {
       __typename: "ModelCharacterMoveConnection",
       nextToken?: string | null,
       startedAt?: number | null,
     } | null,
-    startingMoves?:  {
+    MovesSixToTen?:  {
       __typename: "ModelCharacterMoveConnection",
       nextToken?: string | null,
       startedAt?: number | null,
     } | null,
-    bonds?:  {
+    CharacterBonds?:  {
       __typename: "ModelCharacterBondConnection",
       nextToken?: string | null,
       startedAt?: number | null,
     } | null,
-    abilityscores?:  {
+    CharacterAbilityScores?:  {
       __typename: "ModelCharacterAbilityScoreConnection",
       nextToken?: string | null,
       startedAt?: number | null,
     } | null,
-    race?:  {
+    CharacterRace?:  {
       __typename: "CharacterRace",
       id: string,
       createdAt: string,
@@ -4009,8 +4694,9 @@ export type UpdateCharacterMutation = {
       _deleted?: boolean | null,
       _lastChangedAt: number,
       characterRaceRaceId: string,
+      characterRaceCharacterId?: string | null,
     } | null,
-    alignment?:  {
+    CharacterAlignment?:  {
       __typename: "CharacterAlignment",
       id: string,
       selected?: boolean | null,
@@ -4020,18 +4706,13 @@ export type UpdateCharacterMutation = {
       _deleted?: boolean | null,
       _lastChangedAt: number,
       characterAlignmentAlignmentId: string,
+      characterAlignmentCharacterId?: string | null,
     } | null,
-    tags?: Array< string | null > | null,
-    look?:  {
-      __typename: "CharacterLook",
-      id: string,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
+    CharacterLooks?:  {
+      __typename: "ModelCharacterLookConnection",
+      nextToken?: string | null,
+      startedAt?: number | null,
     } | null,
-    notes?: string | null,
     CharacterProfession?:  {
       __typename: "CharacterProfession",
       id: string,
@@ -4043,14 +4724,18 @@ export type UpdateCharacterMutation = {
       characterProfessionProfessionId?: string | null,
       characterProfessionCharacterId?: string | null,
     } | null,
+    CharacterSpells?:  {
+      __typename: "ModelCharacterSpellConnection",
+      nextToken?: string | null,
+      startedAt?: number | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
-    characterRaceId?: string | null,
-    characterAlignmentId?: string | null,
-    characterLookId?: string | null,
+    characterCharacterRaceId?: string | null,
+    characterCharacterAlignmentId?: string | null,
     characterCharacterProfessionId?: string | null,
   } | null,
 };
@@ -4075,37 +4760,39 @@ export type DeleteCharacterMutation = {
     loadMax?: number | null,
     loadCurrent?: number | null,
     isTemplate?: boolean | null,
-    gear?:  {
+    tags?: Array< string | null > | null,
+    notes?: string | null,
+    CharacterGear?:  {
       __typename: "ModelCharacterGearConnection",
       nextToken?: string | null,
       startedAt?: number | null,
     } | null,
-    sixToTenMoves?:  {
+    MovesStarting?:  {
       __typename: "ModelCharacterMoveConnection",
       nextToken?: string | null,
       startedAt?: number | null,
     } | null,
-    twoToTenMoves?:  {
+    MovesTwoToTen?:  {
       __typename: "ModelCharacterMoveConnection",
       nextToken?: string | null,
       startedAt?: number | null,
     } | null,
-    startingMoves?:  {
+    MovesSixToTen?:  {
       __typename: "ModelCharacterMoveConnection",
       nextToken?: string | null,
       startedAt?: number | null,
     } | null,
-    bonds?:  {
+    CharacterBonds?:  {
       __typename: "ModelCharacterBondConnection",
       nextToken?: string | null,
       startedAt?: number | null,
     } | null,
-    abilityscores?:  {
+    CharacterAbilityScores?:  {
       __typename: "ModelCharacterAbilityScoreConnection",
       nextToken?: string | null,
       startedAt?: number | null,
     } | null,
-    race?:  {
+    CharacterRace?:  {
       __typename: "CharacterRace",
       id: string,
       createdAt: string,
@@ -4114,8 +4801,9 @@ export type DeleteCharacterMutation = {
       _deleted?: boolean | null,
       _lastChangedAt: number,
       characterRaceRaceId: string,
+      characterRaceCharacterId?: string | null,
     } | null,
-    alignment?:  {
+    CharacterAlignment?:  {
       __typename: "CharacterAlignment",
       id: string,
       selected?: boolean | null,
@@ -4125,18 +4813,13 @@ export type DeleteCharacterMutation = {
       _deleted?: boolean | null,
       _lastChangedAt: number,
       characterAlignmentAlignmentId: string,
+      characterAlignmentCharacterId?: string | null,
     } | null,
-    tags?: Array< string | null > | null,
-    look?:  {
-      __typename: "CharacterLook",
-      id: string,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
+    CharacterLooks?:  {
+      __typename: "ModelCharacterLookConnection",
+      nextToken?: string | null,
+      startedAt?: number | null,
     } | null,
-    notes?: string | null,
     CharacterProfession?:  {
       __typename: "CharacterProfession",
       id: string,
@@ -4148,14 +4831,18 @@ export type DeleteCharacterMutation = {
       characterProfessionProfessionId?: string | null,
       characterProfessionCharacterId?: string | null,
     } | null,
+    CharacterSpells?:  {
+      __typename: "ModelCharacterSpellConnection",
+      nextToken?: string | null,
+      startedAt?: number | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
-    characterRaceId?: string | null,
-    characterAlignmentId?: string | null,
-    characterLookId?: string | null,
+    characterCharacterRaceId?: string | null,
+    characterCharacterAlignmentId?: string | null,
     characterCharacterProfessionId?: string | null,
   } | null,
 };
@@ -4324,9 +5011,8 @@ export type GetCharacterProfessionQuery = {
       _version: number,
       _deleted?: boolean | null,
       _lastChangedAt: number,
-      characterRaceId?: string | null,
-      characterAlignmentId?: string | null,
-      characterLookId?: string | null,
+      characterCharacterRaceId?: string | null,
+      characterCharacterAlignmentId?: string | null,
       characterCharacterProfessionId?: string | null,
     } | null,
     Profession?:  {
@@ -4340,7 +5026,7 @@ export type GetCharacterProfessionQuery = {
       _deleted?: boolean | null,
       _lastChangedAt: number,
       professionSourceId: string,
-      professionDamageDiceTypeId?: string | null,
+      professionDiceTypeId?: string | null,
     } | null,
     createdAt: string,
     updatedAt: string,
@@ -4413,7 +5099,7 @@ export type GetProfessionQuery = {
     id: string,
     name: string,
     description: string,
-    source:  {
+    Source:  {
       __typename: "Source",
       id: string,
       name: string,
@@ -4423,7 +5109,7 @@ export type GetProfessionQuery = {
       _deleted?: boolean | null,
       _lastChangedAt: number,
     },
-    damageDiceType?:  {
+    DiceType?:  {
       __typename: "DiceType",
       id: string,
       name?: string | null,
@@ -4439,7 +5125,7 @@ export type GetProfessionQuery = {
     _deleted?: boolean | null,
     _lastChangedAt: number,
     professionSourceId: string,
-    professionDamageDiceTypeId?: string | null,
+    professionDiceTypeId?: string | null,
   } | null,
 };
 
@@ -4463,7 +5149,7 @@ export type ListProfessionsQuery = {
       _deleted?: boolean | null,
       _lastChangedAt: number,
       professionSourceId: string,
-      professionDamageDiceTypeId?: string | null,
+      professionDiceTypeId?: string | null,
     } | null >,
     nextToken?: string | null,
     startedAt?: number | null,
@@ -4491,7 +5177,7 @@ export type SyncProfessionsQuery = {
       _deleted?: boolean | null,
       _lastChangedAt: number,
       professionSourceId: string,
-      professionDamageDiceTypeId?: string | null,
+      professionDiceTypeId?: string | null,
     } | null >,
     nextToken?: string | null,
     startedAt?: number | null,
@@ -4511,7 +5197,7 @@ export type GetSpellQuery = {
     type: string,
     ongoing?: boolean | null,
     description: string,
-    source:  {
+    Source:  {
       __typename: "Source",
       id: string,
       name: string,
@@ -4521,7 +5207,7 @@ export type GetSpellQuery = {
       _deleted?: boolean | null,
       _lastChangedAt: number,
     },
-    profession:  {
+    Profession:  {
       __typename: "Profession",
       id: string,
       name: string,
@@ -4532,7 +5218,7 @@ export type GetSpellQuery = {
       _deleted?: boolean | null,
       _lastChangedAt: number,
       professionSourceId: string,
-      professionDamageDiceTypeId?: string | null,
+      professionDiceTypeId?: string | null,
     },
     createdAt: string,
     updatedAt: string,
@@ -4613,7 +5299,7 @@ export type GetCharacterSpellQuery = {
   getCharacterSpell?:  {
     __typename: "CharacterSpell",
     id: string,
-    spell:  {
+    Spell:  {
       __typename: "Spell",
       id: string,
       name: string,
@@ -4631,11 +5317,37 @@ export type GetCharacterSpellQuery = {
     },
     selected?: boolean | null,
     tags?: Array< string | null > | null,
+    Character?:  {
+      __typename: "Character",
+      userId: string,
+      id: string,
+      name: string,
+      level?: number | null,
+      xp?: number | null,
+      armor?: number | null,
+      hitPointsMax?: number | null,
+      hitPointsCurrent?: number | null,
+      coin?: number | null,
+      loadMax?: number | null,
+      loadCurrent?: number | null,
+      isTemplate?: boolean | null,
+      tags?: Array< string | null > | null,
+      notes?: string | null,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      characterCharacterRaceId?: string | null,
+      characterCharacterAlignmentId?: string | null,
+      characterCharacterProfessionId?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
+    characterCharacterSpellsId?: string | null,
     characterSpellSpellId: string,
   } | null,
 };
@@ -4659,6 +5371,7 @@ export type ListCharacterSpellsQuery = {
       _version: number,
       _deleted?: boolean | null,
       _lastChangedAt: number,
+      characterCharacterSpellsId?: string | null,
       characterSpellSpellId: string,
     } | null >,
     nextToken?: string | null,
@@ -4686,6 +5399,7 @@ export type SyncCharacterSpellsQuery = {
       _version: number,
       _deleted?: boolean | null,
       _lastChangedAt: number,
+      characterCharacterSpellsId?: string | null,
       characterSpellSpellId: string,
     } | null >,
     nextToken?: string | null,
@@ -4701,7 +5415,7 @@ export type GetCharacterGearQuery = {
   getCharacterGear?:  {
     __typename: "CharacterGear",
     id: string,
-    gear:  {
+    Gear:  {
       __typename: "Gear",
       id: string,
       description: string,
@@ -4717,12 +5431,37 @@ export type GetCharacterGearQuery = {
     },
     uses?: number | null,
     tags?: Array< string | null > | null,
-    characterID: string,
+    Character?:  {
+      __typename: "Character",
+      userId: string,
+      id: string,
+      name: string,
+      level?: number | null,
+      xp?: number | null,
+      armor?: number | null,
+      hitPointsMax?: number | null,
+      hitPointsCurrent?: number | null,
+      coin?: number | null,
+      loadMax?: number | null,
+      loadCurrent?: number | null,
+      isTemplate?: boolean | null,
+      tags?: Array< string | null > | null,
+      notes?: string | null,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      characterCharacterRaceId?: string | null,
+      characterCharacterAlignmentId?: string | null,
+      characterCharacterProfessionId?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
+    characterCharacterGearId?: string | null,
     characterGearGearId: string,
   } | null,
 };
@@ -4741,12 +5480,12 @@ export type ListCharacterGearsQuery = {
       id: string,
       uses?: number | null,
       tags?: Array< string | null > | null,
-      characterID: string,
       createdAt: string,
       updatedAt: string,
       _version: number,
       _deleted?: boolean | null,
       _lastChangedAt: number,
+      characterCharacterGearId?: string | null,
       characterGearGearId: string,
     } | null >,
     nextToken?: string | null,
@@ -4769,41 +5508,12 @@ export type SyncCharacterGearsQuery = {
       id: string,
       uses?: number | null,
       tags?: Array< string | null > | null,
-      characterID: string,
       createdAt: string,
       updatedAt: string,
       _version: number,
       _deleted?: boolean | null,
       _lastChangedAt: number,
-      characterGearGearId: string,
-    } | null >,
-    nextToken?: string | null,
-    startedAt?: number | null,
-  } | null,
-};
-
-export type CharacterGearsByCharacterIDQueryVariables = {
-  characterID: string,
-  sortDirection?: ModelSortDirection | null,
-  filter?: ModelCharacterGearFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-};
-
-export type CharacterGearsByCharacterIDQuery = {
-  characterGearsByCharacterID?:  {
-    __typename: "ModelCharacterGearConnection",
-    items:  Array< {
-      __typename: "CharacterGear",
-      id: string,
-      uses?: number | null,
-      tags?: Array< string | null > | null,
-      characterID: string,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
+      characterCharacterGearId?: string | null,
       characterGearGearId: string,
     } | null >,
     nextToken?: string | null,
@@ -4823,7 +5533,7 @@ export type GetGearQuery = {
     weight: number,
     uses?: number | null,
     tags?: Array< string | null > | null,
-    source?:  {
+    Source?:  {
       __typename: "Source",
       id: string,
       name: string,
@@ -4908,7 +5618,7 @@ export type GetCharacterMoveQuery = {
     __typename: "CharacterMove",
     id: string,
     selected?: boolean | null,
-    move:  {
+    Move:  {
       __typename: "Move",
       id: string,
       description: string,
@@ -4917,15 +5627,42 @@ export type GetCharacterMoveQuery = {
       _version: number,
       _deleted?: boolean | null,
       _lastChangedAt: number,
-      moveClassId: string,
+      moveProfessionId: string,
       moveSourceId?: string | null,
     },
-    characterID: string,
+    Character?:  {
+      __typename: "Character",
+      userId: string,
+      id: string,
+      name: string,
+      level?: number | null,
+      xp?: number | null,
+      armor?: number | null,
+      hitPointsMax?: number | null,
+      hitPointsCurrent?: number | null,
+      coin?: number | null,
+      loadMax?: number | null,
+      loadCurrent?: number | null,
+      isTemplate?: boolean | null,
+      tags?: Array< string | null > | null,
+      notes?: string | null,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      characterCharacterRaceId?: string | null,
+      characterCharacterAlignmentId?: string | null,
+      characterCharacterProfessionId?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
+    characterMovesStartingId?: string | null,
+    characterMovesTwoToTenId?: string | null,
+    characterMovesSixToTenId?: string | null,
     characterMoveMoveId: string,
   } | null,
 };
@@ -4943,12 +5680,14 @@ export type ListCharacterMovesQuery = {
       __typename: "CharacterMove",
       id: string,
       selected?: boolean | null,
-      characterID: string,
       createdAt: string,
       updatedAt: string,
       _version: number,
       _deleted?: boolean | null,
       _lastChangedAt: number,
+      characterMovesStartingId?: string | null,
+      characterMovesTwoToTenId?: string | null,
+      characterMovesSixToTenId?: string | null,
       characterMoveMoveId: string,
     } | null >,
     nextToken?: string | null,
@@ -4970,40 +5709,14 @@ export type SyncCharacterMovesQuery = {
       __typename: "CharacterMove",
       id: string,
       selected?: boolean | null,
-      characterID: string,
       createdAt: string,
       updatedAt: string,
       _version: number,
       _deleted?: boolean | null,
       _lastChangedAt: number,
-      characterMoveMoveId: string,
-    } | null >,
-    nextToken?: string | null,
-    startedAt?: number | null,
-  } | null,
-};
-
-export type CharacterMovesByCharacterIDQueryVariables = {
-  characterID: string,
-  sortDirection?: ModelSortDirection | null,
-  filter?: ModelCharacterMoveFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-};
-
-export type CharacterMovesByCharacterIDQuery = {
-  characterMovesByCharacterID?:  {
-    __typename: "ModelCharacterMoveConnection",
-    items:  Array< {
-      __typename: "CharacterMove",
-      id: string,
-      selected?: boolean | null,
-      characterID: string,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
+      characterMovesStartingId?: string | null,
+      characterMovesTwoToTenId?: string | null,
+      characterMovesSixToTenId?: string | null,
       characterMoveMoveId: string,
     } | null >,
     nextToken?: string | null,
@@ -5020,7 +5733,7 @@ export type GetMoveQuery = {
     __typename: "Move",
     id: string,
     description: string,
-    class:  {
+    Profession:  {
       __typename: "Profession",
       id: string,
       name: string,
@@ -5031,9 +5744,9 @@ export type GetMoveQuery = {
       _deleted?: boolean | null,
       _lastChangedAt: number,
       professionSourceId: string,
-      professionDamageDiceTypeId?: string | null,
+      professionDiceTypeId?: string | null,
     },
-    source?:  {
+    Source?:  {
       __typename: "Source",
       id: string,
       name: string,
@@ -5048,7 +5761,7 @@ export type GetMoveQuery = {
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
-    moveClassId: string,
+    moveProfessionId: string,
     moveSourceId?: string | null,
   } | null,
 };
@@ -5071,7 +5784,7 @@ export type ListMovesQuery = {
       _version: number,
       _deleted?: boolean | null,
       _lastChangedAt: number,
-      moveClassId: string,
+      moveProfessionId: string,
       moveSourceId?: string | null,
     } | null >,
     nextToken?: string | null,
@@ -5098,7 +5811,7 @@ export type SyncMovesQuery = {
       _version: number,
       _deleted?: boolean | null,
       _lastChangedAt: number,
-      moveClassId: string,
+      moveProfessionId: string,
       moveSourceId?: string | null,
     } | null >,
     nextToken?: string | null,
@@ -5115,7 +5828,7 @@ export type GetCharacterBondQuery = {
     __typename: "CharacterBond",
     id: string,
     description?: string | null,
-    bond:  {
+    Bond:  {
       __typename: "Bond",
       id: string,
       description?: string | null,
@@ -5124,15 +5837,40 @@ export type GetCharacterBondQuery = {
       _version: number,
       _deleted?: boolean | null,
       _lastChangedAt: number,
-      bondClassId: string,
+      bondProfessionId: string,
     },
     selected?: boolean | null,
-    characterID: string,
+    Character?:  {
+      __typename: "Character",
+      userId: string,
+      id: string,
+      name: string,
+      level?: number | null,
+      xp?: number | null,
+      armor?: number | null,
+      hitPointsMax?: number | null,
+      hitPointsCurrent?: number | null,
+      coin?: number | null,
+      loadMax?: number | null,
+      loadCurrent?: number | null,
+      isTemplate?: boolean | null,
+      tags?: Array< string | null > | null,
+      notes?: string | null,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      characterCharacterRaceId?: string | null,
+      characterCharacterAlignmentId?: string | null,
+      characterCharacterProfessionId?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
+    characterCharacterBondsId?: string | null,
     characterBondBondId: string,
   } | null,
 };
@@ -5151,12 +5889,12 @@ export type ListCharacterBondsQuery = {
       id: string,
       description?: string | null,
       selected?: boolean | null,
-      characterID: string,
       createdAt: string,
       updatedAt: string,
       _version: number,
       _deleted?: boolean | null,
       _lastChangedAt: number,
+      characterCharacterBondsId?: string | null,
       characterBondBondId: string,
     } | null >,
     nextToken?: string | null,
@@ -5179,41 +5917,12 @@ export type SyncCharacterBondsQuery = {
       id: string,
       description?: string | null,
       selected?: boolean | null,
-      characterID: string,
       createdAt: string,
       updatedAt: string,
       _version: number,
       _deleted?: boolean | null,
       _lastChangedAt: number,
-      characterBondBondId: string,
-    } | null >,
-    nextToken?: string | null,
-    startedAt?: number | null,
-  } | null,
-};
-
-export type CharacterBondsByCharacterIDQueryVariables = {
-  characterID: string,
-  sortDirection?: ModelSortDirection | null,
-  filter?: ModelCharacterBondFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-};
-
-export type CharacterBondsByCharacterIDQuery = {
-  characterBondsByCharacterID?:  {
-    __typename: "ModelCharacterBondConnection",
-    items:  Array< {
-      __typename: "CharacterBond",
-      id: string,
-      description?: string | null,
-      selected?: boolean | null,
-      characterID: string,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
+      characterCharacterBondsId?: string | null,
       characterBondBondId: string,
     } | null >,
     nextToken?: string | null,
@@ -5230,7 +5939,7 @@ export type GetBondQuery = {
     __typename: "Bond",
     id: string,
     description?: string | null,
-    class:  {
+    Profession:  {
       __typename: "Profession",
       id: string,
       name: string,
@@ -5241,14 +5950,14 @@ export type GetBondQuery = {
       _deleted?: boolean | null,
       _lastChangedAt: number,
       professionSourceId: string,
-      professionDamageDiceTypeId?: string | null,
+      professionDiceTypeId?: string | null,
     },
     createdAt: string,
     updatedAt: string,
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
-    bondClassId: string,
+    bondProfessionId: string,
   } | null,
 };
 
@@ -5270,7 +5979,7 @@ export type ListBondsQuery = {
       _version: number,
       _deleted?: boolean | null,
       _lastChangedAt: number,
-      bondClassId: string,
+      bondProfessionId: string,
     } | null >,
     nextToken?: string | null,
     startedAt?: number | null,
@@ -5296,7 +6005,7 @@ export type SyncBondsQuery = {
       _version: number,
       _deleted?: boolean | null,
       _lastChangedAt: number,
-      bondClassId: string,
+      bondProfessionId: string,
     } | null >,
     nextToken?: string | null,
     startedAt?: number | null,
@@ -5310,7 +6019,7 @@ export type GetCharacterAbilityScoreQueryVariables = {
 export type GetCharacterAbilityScoreQuery = {
   getCharacterAbilityScore?:  {
     __typename: "CharacterAbilityScore",
-    abilityScore:  {
+    AbilityScore:  {
       __typename: "AbilityScore",
       id: string,
       name: string,
@@ -5327,12 +6036,37 @@ export type GetCharacterAbilityScoreQuery = {
     value: string,
     bonus: number,
     tags?: Array< string | null > | null,
-    characterID: string,
+    Character?:  {
+      __typename: "Character",
+      userId: string,
+      id: string,
+      name: string,
+      level?: number | null,
+      xp?: number | null,
+      armor?: number | null,
+      hitPointsMax?: number | null,
+      hitPointsCurrent?: number | null,
+      coin?: number | null,
+      loadMax?: number | null,
+      loadCurrent?: number | null,
+      isTemplate?: boolean | null,
+      tags?: Array< string | null > | null,
+      notes?: string | null,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      characterCharacterRaceId?: string | null,
+      characterCharacterAlignmentId?: string | null,
+      characterCharacterProfessionId?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
+    characterCharacterAbilityScoresId?: string | null,
     characterAbilityScoreAbilityScoreId: string,
   } | null,
 };
@@ -5352,12 +6086,12 @@ export type ListCharacterAbilityScoresQuery = {
       value: string,
       bonus: number,
       tags?: Array< string | null > | null,
-      characterID: string,
       createdAt: string,
       updatedAt: string,
       _version: number,
       _deleted?: boolean | null,
       _lastChangedAt: number,
+      characterCharacterAbilityScoresId?: string | null,
       characterAbilityScoreAbilityScoreId: string,
     } | null >,
     nextToken?: string | null,
@@ -5381,42 +6115,12 @@ export type SyncCharacterAbilityScoresQuery = {
       value: string,
       bonus: number,
       tags?: Array< string | null > | null,
-      characterID: string,
       createdAt: string,
       updatedAt: string,
       _version: number,
       _deleted?: boolean | null,
       _lastChangedAt: number,
-      characterAbilityScoreAbilityScoreId: string,
-    } | null >,
-    nextToken?: string | null,
-    startedAt?: number | null,
-  } | null,
-};
-
-export type CharacterAbilityScoresByCharacterIDQueryVariables = {
-  characterID: string,
-  sortDirection?: ModelSortDirection | null,
-  filter?: ModelCharacterAbilityScoreFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-};
-
-export type CharacterAbilityScoresByCharacterIDQuery = {
-  characterAbilityScoresByCharacterID?:  {
-    __typename: "ModelCharacterAbilityScoreConnection",
-    items:  Array< {
-      __typename: "CharacterAbilityScore",
-      id: string,
-      value: string,
-      bonus: number,
-      tags?: Array< string | null > | null,
-      characterID: string,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
+      characterCharacterAbilityScoresId?: string | null,
       characterAbilityScoreAbilityScoreId: string,
     } | null >,
     nextToken?: string | null,
@@ -5507,7 +6211,7 @@ export type GetCharacterRaceQuery = {
   getCharacterRace?:  {
     __typename: "CharacterRace",
     id: string,
-    race:  {
+    Race:  {
       __typename: "Race",
       id: string,
       name?: string | null,
@@ -5520,12 +6224,38 @@ export type GetCharacterRaceQuery = {
       raceProfessionId?: string | null,
       raceSourceId: string,
     },
+    Character?:  {
+      __typename: "Character",
+      userId: string,
+      id: string,
+      name: string,
+      level?: number | null,
+      xp?: number | null,
+      armor?: number | null,
+      hitPointsMax?: number | null,
+      hitPointsCurrent?: number | null,
+      coin?: number | null,
+      loadMax?: number | null,
+      loadCurrent?: number | null,
+      isTemplate?: boolean | null,
+      tags?: Array< string | null > | null,
+      notes?: string | null,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      characterCharacterRaceId?: string | null,
+      characterCharacterAlignmentId?: string | null,
+      characterCharacterProfessionId?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
     characterRaceRaceId: string,
+    characterRaceCharacterId?: string | null,
   } | null,
 };
 
@@ -5547,6 +6277,7 @@ export type ListCharacterRacesQuery = {
       _deleted?: boolean | null,
       _lastChangedAt: number,
       characterRaceRaceId: string,
+      characterRaceCharacterId?: string | null,
     } | null >,
     nextToken?: string | null,
     startedAt?: number | null,
@@ -5572,6 +6303,7 @@ export type SyncCharacterRacesQuery = {
       _deleted?: boolean | null,
       _lastChangedAt: number,
       characterRaceRaceId: string,
+      characterRaceCharacterId?: string | null,
     } | null >,
     nextToken?: string | null,
     startedAt?: number | null,
@@ -5588,7 +6320,7 @@ export type GetRaceQuery = {
     id: string,
     name?: string | null,
     description?: string | null,
-    profession?:  {
+    Profession?:  {
       __typename: "Profession",
       id: string,
       name: string,
@@ -5599,9 +6331,9 @@ export type GetRaceQuery = {
       _deleted?: boolean | null,
       _lastChangedAt: number,
       professionSourceId: string,
-      professionDamageDiceTypeId?: string | null,
+      professionDiceTypeId?: string | null,
     } | null,
-    source:  {
+    Source:  {
       __typename: "Source",
       id: string,
       name: string,
@@ -5684,7 +6416,7 @@ export type GetCharacterAlignmentQuery = {
   getCharacterAlignment?:  {
     __typename: "CharacterAlignment",
     id: string,
-    alignment:  {
+    Alignment:  {
       __typename: "Alignment",
       id: string,
       name?: string | null,
@@ -5694,15 +6426,41 @@ export type GetCharacterAlignmentQuery = {
       _version: number,
       _deleted?: boolean | null,
       _lastChangedAt: number,
-      alignmentClassId: string,
+      alignmentProfessionId: string,
     },
     selected?: boolean | null,
+    Character?:  {
+      __typename: "Character",
+      userId: string,
+      id: string,
+      name: string,
+      level?: number | null,
+      xp?: number | null,
+      armor?: number | null,
+      hitPointsMax?: number | null,
+      hitPointsCurrent?: number | null,
+      coin?: number | null,
+      loadMax?: number | null,
+      loadCurrent?: number | null,
+      isTemplate?: boolean | null,
+      tags?: Array< string | null > | null,
+      notes?: string | null,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      characterCharacterRaceId?: string | null,
+      characterCharacterAlignmentId?: string | null,
+      characterCharacterProfessionId?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
     characterAlignmentAlignmentId: string,
+    characterAlignmentCharacterId?: string | null,
   } | null,
 };
 
@@ -5725,6 +6483,7 @@ export type ListCharacterAlignmentsQuery = {
       _deleted?: boolean | null,
       _lastChangedAt: number,
       characterAlignmentAlignmentId: string,
+      characterAlignmentCharacterId?: string | null,
     } | null >,
     nextToken?: string | null,
     startedAt?: number | null,
@@ -5751,6 +6510,7 @@ export type SyncCharacterAlignmentsQuery = {
       _deleted?: boolean | null,
       _lastChangedAt: number,
       characterAlignmentAlignmentId: string,
+      characterAlignmentCharacterId?: string | null,
     } | null >,
     nextToken?: string | null,
     startedAt?: number | null,
@@ -5767,7 +6527,7 @@ export type GetAlignmentQuery = {
     id: string,
     name?: string | null,
     description?: string | null,
-    class:  {
+    Profession:  {
       __typename: "Profession",
       id: string,
       name: string,
@@ -5778,14 +6538,14 @@ export type GetAlignmentQuery = {
       _deleted?: boolean | null,
       _lastChangedAt: number,
       professionSourceId: string,
-      professionDamageDiceTypeId?: string | null,
+      professionDiceTypeId?: string | null,
     },
     createdAt: string,
     updatedAt: string,
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
-    alignmentClassId: string,
+    alignmentProfessionId: string,
   } | null,
 };
 
@@ -5808,7 +6568,7 @@ export type ListAlignmentsQuery = {
       _version: number,
       _deleted?: boolean | null,
       _lastChangedAt: number,
-      alignmentClassId: string,
+      alignmentProfessionId: string,
     } | null >,
     nextToken?: string | null,
     startedAt?: number | null,
@@ -5835,7 +6595,7 @@ export type SyncAlignmentsQuery = {
       _version: number,
       _deleted?: boolean | null,
       _lastChangedAt: number,
-      alignmentClassId: string,
+      alignmentProfessionId: string,
     } | null >,
     nextToken?: string | null,
     startedAt?: number | null,
@@ -5916,16 +6676,49 @@ export type GetCharacterLookQuery = {
   getCharacterLook?:  {
     __typename: "CharacterLook",
     id: string,
-    look?:  {
-      __typename: "ModelLookConnection",
-      nextToken?: string | null,
-      startedAt?: number | null,
+    Look:  {
+      __typename: "Look",
+      id: string,
+      name: string,
+      description: string,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+    },
+    Character?:  {
+      __typename: "Character",
+      userId: string,
+      id: string,
+      name: string,
+      level?: number | null,
+      xp?: number | null,
+      armor?: number | null,
+      hitPointsMax?: number | null,
+      hitPointsCurrent?: number | null,
+      coin?: number | null,
+      loadMax?: number | null,
+      loadCurrent?: number | null,
+      isTemplate?: boolean | null,
+      tags?: Array< string | null > | null,
+      notes?: string | null,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      characterCharacterRaceId?: string | null,
+      characterCharacterAlignmentId?: string | null,
+      characterCharacterProfessionId?: string | null,
     } | null,
     createdAt: string,
     updatedAt: string,
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
+    characterCharacterLooksId?: string | null,
+    characterLookLookId: string,
   } | null,
 };
 
@@ -5946,6 +6739,8 @@ export type ListCharacterLooksQuery = {
       _version: number,
       _deleted?: boolean | null,
       _lastChangedAt: number,
+      characterCharacterLooksId?: string | null,
+      characterLookLookId: string,
     } | null >,
     nextToken?: string | null,
     startedAt?: number | null,
@@ -5970,6 +6765,8 @@ export type SyncCharacterLooksQuery = {
       _version: number,
       _deleted?: boolean | null,
       _lastChangedAt: number,
+      characterCharacterLooksId?: string | null,
+      characterLookLookId: string,
     } | null >,
     nextToken?: string | null,
     startedAt?: number | null,
@@ -5986,7 +6783,6 @@ export type GetLookQuery = {
     id: string,
     name: string,
     description: string,
-    characterlookID: string,
     createdAt: string,
     updatedAt: string,
     _version: number,
@@ -6009,7 +6805,6 @@ export type ListLooksQuery = {
       id: string,
       name: string,
       description: string,
-      characterlookID: string,
       createdAt: string,
       updatedAt: string,
       _version: number,
@@ -6036,35 +6831,6 @@ export type SyncLooksQuery = {
       id: string,
       name: string,
       description: string,
-      characterlookID: string,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-    } | null >,
-    nextToken?: string | null,
-    startedAt?: number | null,
-  } | null,
-};
-
-export type LooksByCharacterlookIDQueryVariables = {
-  characterlookID: string,
-  sortDirection?: ModelSortDirection | null,
-  filter?: ModelLookFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-};
-
-export type LooksByCharacterlookIDQuery = {
-  looksByCharacterlookID?:  {
-    __typename: "ModelLookConnection",
-    items:  Array< {
-      __typename: "Look",
-      id: string,
-      name: string,
-      description: string,
-      characterlookID: string,
       createdAt: string,
       updatedAt: string,
       _version: number,
@@ -6095,37 +6861,39 @@ export type GetCharacterQuery = {
     loadMax?: number | null,
     loadCurrent?: number | null,
     isTemplate?: boolean | null,
-    gear?:  {
+    tags?: Array< string | null > | null,
+    notes?: string | null,
+    CharacterGear?:  {
       __typename: "ModelCharacterGearConnection",
       nextToken?: string | null,
       startedAt?: number | null,
     } | null,
-    sixToTenMoves?:  {
+    MovesStarting?:  {
       __typename: "ModelCharacterMoveConnection",
       nextToken?: string | null,
       startedAt?: number | null,
     } | null,
-    twoToTenMoves?:  {
+    MovesTwoToTen?:  {
       __typename: "ModelCharacterMoveConnection",
       nextToken?: string | null,
       startedAt?: number | null,
     } | null,
-    startingMoves?:  {
+    MovesSixToTen?:  {
       __typename: "ModelCharacterMoveConnection",
       nextToken?: string | null,
       startedAt?: number | null,
     } | null,
-    bonds?:  {
+    CharacterBonds?:  {
       __typename: "ModelCharacterBondConnection",
       nextToken?: string | null,
       startedAt?: number | null,
     } | null,
-    abilityscores?:  {
+    CharacterAbilityScores?:  {
       __typename: "ModelCharacterAbilityScoreConnection",
       nextToken?: string | null,
       startedAt?: number | null,
     } | null,
-    race?:  {
+    CharacterRace?:  {
       __typename: "CharacterRace",
       id: string,
       createdAt: string,
@@ -6134,8 +6902,9 @@ export type GetCharacterQuery = {
       _deleted?: boolean | null,
       _lastChangedAt: number,
       characterRaceRaceId: string,
+      characterRaceCharacterId?: string | null,
     } | null,
-    alignment?:  {
+    CharacterAlignment?:  {
       __typename: "CharacterAlignment",
       id: string,
       selected?: boolean | null,
@@ -6145,18 +6914,13 @@ export type GetCharacterQuery = {
       _deleted?: boolean | null,
       _lastChangedAt: number,
       characterAlignmentAlignmentId: string,
+      characterAlignmentCharacterId?: string | null,
     } | null,
-    tags?: Array< string | null > | null,
-    look?:  {
-      __typename: "CharacterLook",
-      id: string,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
+    CharacterLooks?:  {
+      __typename: "ModelCharacterLookConnection",
+      nextToken?: string | null,
+      startedAt?: number | null,
     } | null,
-    notes?: string | null,
     CharacterProfession?:  {
       __typename: "CharacterProfession",
       id: string,
@@ -6168,14 +6932,18 @@ export type GetCharacterQuery = {
       characterProfessionProfessionId?: string | null,
       characterProfessionCharacterId?: string | null,
     } | null,
+    CharacterSpells?:  {
+      __typename: "ModelCharacterSpellConnection",
+      nextToken?: string | null,
+      startedAt?: number | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
-    characterRaceId?: string | null,
-    characterAlignmentId?: string | null,
-    characterLookId?: string | null,
+    characterCharacterRaceId?: string | null,
+    characterCharacterAlignmentId?: string | null,
     characterCharacterProfessionId?: string | null,
   } | null,
 };
@@ -6210,9 +6978,8 @@ export type ListCharactersQuery = {
       _version: number,
       _deleted?: boolean | null,
       _lastChangedAt: number,
-      characterRaceId?: string | null,
-      characterAlignmentId?: string | null,
-      characterLookId?: string | null,
+      characterCharacterRaceId?: string | null,
+      characterCharacterAlignmentId?: string | null,
       characterCharacterProfessionId?: string | null,
     } | null >,
     nextToken?: string | null,
@@ -6251,9 +7018,8 @@ export type SyncCharactersQuery = {
       _version: number,
       _deleted?: boolean | null,
       _lastChangedAt: number,
-      characterRaceId?: string | null,
-      characterAlignmentId?: string | null,
-      characterLookId?: string | null,
+      characterCharacterRaceId?: string | null,
+      characterCharacterAlignmentId?: string | null,
       characterCharacterProfessionId?: string | null,
     } | null >,
     nextToken?: string | null,
@@ -6395,9 +7161,8 @@ export type OnCreateCharacterProfessionSubscription = {
       _version: number,
       _deleted?: boolean | null,
       _lastChangedAt: number,
-      characterRaceId?: string | null,
-      characterAlignmentId?: string | null,
-      characterLookId?: string | null,
+      characterCharacterRaceId?: string | null,
+      characterCharacterAlignmentId?: string | null,
       characterCharacterProfessionId?: string | null,
     } | null,
     Profession?:  {
@@ -6411,7 +7176,7 @@ export type OnCreateCharacterProfessionSubscription = {
       _deleted?: boolean | null,
       _lastChangedAt: number,
       professionSourceId: string,
-      professionDamageDiceTypeId?: string | null,
+      professionDiceTypeId?: string | null,
     } | null,
     createdAt: string,
     updatedAt: string,
@@ -6452,9 +7217,8 @@ export type OnUpdateCharacterProfessionSubscription = {
       _version: number,
       _deleted?: boolean | null,
       _lastChangedAt: number,
-      characterRaceId?: string | null,
-      characterAlignmentId?: string | null,
-      characterLookId?: string | null,
+      characterCharacterRaceId?: string | null,
+      characterCharacterAlignmentId?: string | null,
       characterCharacterProfessionId?: string | null,
     } | null,
     Profession?:  {
@@ -6468,7 +7232,7 @@ export type OnUpdateCharacterProfessionSubscription = {
       _deleted?: boolean | null,
       _lastChangedAt: number,
       professionSourceId: string,
-      professionDamageDiceTypeId?: string | null,
+      professionDiceTypeId?: string | null,
     } | null,
     createdAt: string,
     updatedAt: string,
@@ -6509,9 +7273,8 @@ export type OnDeleteCharacterProfessionSubscription = {
       _version: number,
       _deleted?: boolean | null,
       _lastChangedAt: number,
-      characterRaceId?: string | null,
-      characterAlignmentId?: string | null,
-      characterLookId?: string | null,
+      characterCharacterRaceId?: string | null,
+      characterCharacterAlignmentId?: string | null,
       characterCharacterProfessionId?: string | null,
     } | null,
     Profession?:  {
@@ -6525,7 +7288,7 @@ export type OnDeleteCharacterProfessionSubscription = {
       _deleted?: boolean | null,
       _lastChangedAt: number,
       professionSourceId: string,
-      professionDamageDiceTypeId?: string | null,
+      professionDiceTypeId?: string | null,
     } | null,
     createdAt: string,
     updatedAt: string,
@@ -6547,7 +7310,7 @@ export type OnCreateProfessionSubscription = {
     id: string,
     name: string,
     description: string,
-    source:  {
+    Source:  {
       __typename: "Source",
       id: string,
       name: string,
@@ -6557,7 +7320,7 @@ export type OnCreateProfessionSubscription = {
       _deleted?: boolean | null,
       _lastChangedAt: number,
     },
-    damageDiceType?:  {
+    DiceType?:  {
       __typename: "DiceType",
       id: string,
       name?: string | null,
@@ -6573,7 +7336,7 @@ export type OnCreateProfessionSubscription = {
     _deleted?: boolean | null,
     _lastChangedAt: number,
     professionSourceId: string,
-    professionDamageDiceTypeId?: string | null,
+    professionDiceTypeId?: string | null,
   } | null,
 };
 
@@ -6587,7 +7350,7 @@ export type OnUpdateProfessionSubscription = {
     id: string,
     name: string,
     description: string,
-    source:  {
+    Source:  {
       __typename: "Source",
       id: string,
       name: string,
@@ -6597,7 +7360,7 @@ export type OnUpdateProfessionSubscription = {
       _deleted?: boolean | null,
       _lastChangedAt: number,
     },
-    damageDiceType?:  {
+    DiceType?:  {
       __typename: "DiceType",
       id: string,
       name?: string | null,
@@ -6613,7 +7376,7 @@ export type OnUpdateProfessionSubscription = {
     _deleted?: boolean | null,
     _lastChangedAt: number,
     professionSourceId: string,
-    professionDamageDiceTypeId?: string | null,
+    professionDiceTypeId?: string | null,
   } | null,
 };
 
@@ -6627,7 +7390,7 @@ export type OnDeleteProfessionSubscription = {
     id: string,
     name: string,
     description: string,
-    source:  {
+    Source:  {
       __typename: "Source",
       id: string,
       name: string,
@@ -6637,7 +7400,7 @@ export type OnDeleteProfessionSubscription = {
       _deleted?: boolean | null,
       _lastChangedAt: number,
     },
-    damageDiceType?:  {
+    DiceType?:  {
       __typename: "DiceType",
       id: string,
       name?: string | null,
@@ -6653,7 +7416,7 @@ export type OnDeleteProfessionSubscription = {
     _deleted?: boolean | null,
     _lastChangedAt: number,
     professionSourceId: string,
-    professionDamageDiceTypeId?: string | null,
+    professionDiceTypeId?: string | null,
   } | null,
 };
 
@@ -6670,7 +7433,7 @@ export type OnCreateSpellSubscription = {
     type: string,
     ongoing?: boolean | null,
     description: string,
-    source:  {
+    Source:  {
       __typename: "Source",
       id: string,
       name: string,
@@ -6680,7 +7443,7 @@ export type OnCreateSpellSubscription = {
       _deleted?: boolean | null,
       _lastChangedAt: number,
     },
-    profession:  {
+    Profession:  {
       __typename: "Profession",
       id: string,
       name: string,
@@ -6691,7 +7454,7 @@ export type OnCreateSpellSubscription = {
       _deleted?: boolean | null,
       _lastChangedAt: number,
       professionSourceId: string,
-      professionDamageDiceTypeId?: string | null,
+      professionDiceTypeId?: string | null,
     },
     createdAt: string,
     updatedAt: string,
@@ -6716,7 +7479,7 @@ export type OnUpdateSpellSubscription = {
     type: string,
     ongoing?: boolean | null,
     description: string,
-    source:  {
+    Source:  {
       __typename: "Source",
       id: string,
       name: string,
@@ -6726,7 +7489,7 @@ export type OnUpdateSpellSubscription = {
       _deleted?: boolean | null,
       _lastChangedAt: number,
     },
-    profession:  {
+    Profession:  {
       __typename: "Profession",
       id: string,
       name: string,
@@ -6737,7 +7500,7 @@ export type OnUpdateSpellSubscription = {
       _deleted?: boolean | null,
       _lastChangedAt: number,
       professionSourceId: string,
-      professionDamageDiceTypeId?: string | null,
+      professionDiceTypeId?: string | null,
     },
     createdAt: string,
     updatedAt: string,
@@ -6762,7 +7525,7 @@ export type OnDeleteSpellSubscription = {
     type: string,
     ongoing?: boolean | null,
     description: string,
-    source:  {
+    Source:  {
       __typename: "Source",
       id: string,
       name: string,
@@ -6772,7 +7535,7 @@ export type OnDeleteSpellSubscription = {
       _deleted?: boolean | null,
       _lastChangedAt: number,
     },
-    profession:  {
+    Profession:  {
       __typename: "Profession",
       id: string,
       name: string,
@@ -6783,7 +7546,7 @@ export type OnDeleteSpellSubscription = {
       _deleted?: boolean | null,
       _lastChangedAt: number,
       professionSourceId: string,
-      professionDamageDiceTypeId?: string | null,
+      professionDiceTypeId?: string | null,
     },
     createdAt: string,
     updatedAt: string,
@@ -6803,7 +7566,7 @@ export type OnCreateCharacterSpellSubscription = {
   onCreateCharacterSpell?:  {
     __typename: "CharacterSpell",
     id: string,
-    spell:  {
+    Spell:  {
       __typename: "Spell",
       id: string,
       name: string,
@@ -6821,11 +7584,37 @@ export type OnCreateCharacterSpellSubscription = {
     },
     selected?: boolean | null,
     tags?: Array< string | null > | null,
+    Character?:  {
+      __typename: "Character",
+      userId: string,
+      id: string,
+      name: string,
+      level?: number | null,
+      xp?: number | null,
+      armor?: number | null,
+      hitPointsMax?: number | null,
+      hitPointsCurrent?: number | null,
+      coin?: number | null,
+      loadMax?: number | null,
+      loadCurrent?: number | null,
+      isTemplate?: boolean | null,
+      tags?: Array< string | null > | null,
+      notes?: string | null,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      characterCharacterRaceId?: string | null,
+      characterCharacterAlignmentId?: string | null,
+      characterCharacterProfessionId?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
+    characterCharacterSpellsId?: string | null,
     characterSpellSpellId: string,
   } | null,
 };
@@ -6838,7 +7627,7 @@ export type OnUpdateCharacterSpellSubscription = {
   onUpdateCharacterSpell?:  {
     __typename: "CharacterSpell",
     id: string,
-    spell:  {
+    Spell:  {
       __typename: "Spell",
       id: string,
       name: string,
@@ -6856,11 +7645,37 @@ export type OnUpdateCharacterSpellSubscription = {
     },
     selected?: boolean | null,
     tags?: Array< string | null > | null,
+    Character?:  {
+      __typename: "Character",
+      userId: string,
+      id: string,
+      name: string,
+      level?: number | null,
+      xp?: number | null,
+      armor?: number | null,
+      hitPointsMax?: number | null,
+      hitPointsCurrent?: number | null,
+      coin?: number | null,
+      loadMax?: number | null,
+      loadCurrent?: number | null,
+      isTemplate?: boolean | null,
+      tags?: Array< string | null > | null,
+      notes?: string | null,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      characterCharacterRaceId?: string | null,
+      characterCharacterAlignmentId?: string | null,
+      characterCharacterProfessionId?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
+    characterCharacterSpellsId?: string | null,
     characterSpellSpellId: string,
   } | null,
 };
@@ -6873,7 +7688,7 @@ export type OnDeleteCharacterSpellSubscription = {
   onDeleteCharacterSpell?:  {
     __typename: "CharacterSpell",
     id: string,
-    spell:  {
+    Spell:  {
       __typename: "Spell",
       id: string,
       name: string,
@@ -6891,11 +7706,37 @@ export type OnDeleteCharacterSpellSubscription = {
     },
     selected?: boolean | null,
     tags?: Array< string | null > | null,
+    Character?:  {
+      __typename: "Character",
+      userId: string,
+      id: string,
+      name: string,
+      level?: number | null,
+      xp?: number | null,
+      armor?: number | null,
+      hitPointsMax?: number | null,
+      hitPointsCurrent?: number | null,
+      coin?: number | null,
+      loadMax?: number | null,
+      loadCurrent?: number | null,
+      isTemplate?: boolean | null,
+      tags?: Array< string | null > | null,
+      notes?: string | null,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      characterCharacterRaceId?: string | null,
+      characterCharacterAlignmentId?: string | null,
+      characterCharacterProfessionId?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
+    characterCharacterSpellsId?: string | null,
     characterSpellSpellId: string,
   } | null,
 };
@@ -6908,7 +7749,7 @@ export type OnCreateCharacterGearSubscription = {
   onCreateCharacterGear?:  {
     __typename: "CharacterGear",
     id: string,
-    gear:  {
+    Gear:  {
       __typename: "Gear",
       id: string,
       description: string,
@@ -6924,12 +7765,37 @@ export type OnCreateCharacterGearSubscription = {
     },
     uses?: number | null,
     tags?: Array< string | null > | null,
-    characterID: string,
+    Character?:  {
+      __typename: "Character",
+      userId: string,
+      id: string,
+      name: string,
+      level?: number | null,
+      xp?: number | null,
+      armor?: number | null,
+      hitPointsMax?: number | null,
+      hitPointsCurrent?: number | null,
+      coin?: number | null,
+      loadMax?: number | null,
+      loadCurrent?: number | null,
+      isTemplate?: boolean | null,
+      tags?: Array< string | null > | null,
+      notes?: string | null,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      characterCharacterRaceId?: string | null,
+      characterCharacterAlignmentId?: string | null,
+      characterCharacterProfessionId?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
+    characterCharacterGearId?: string | null,
     characterGearGearId: string,
   } | null,
 };
@@ -6942,7 +7808,7 @@ export type OnUpdateCharacterGearSubscription = {
   onUpdateCharacterGear?:  {
     __typename: "CharacterGear",
     id: string,
-    gear:  {
+    Gear:  {
       __typename: "Gear",
       id: string,
       description: string,
@@ -6958,12 +7824,37 @@ export type OnUpdateCharacterGearSubscription = {
     },
     uses?: number | null,
     tags?: Array< string | null > | null,
-    characterID: string,
+    Character?:  {
+      __typename: "Character",
+      userId: string,
+      id: string,
+      name: string,
+      level?: number | null,
+      xp?: number | null,
+      armor?: number | null,
+      hitPointsMax?: number | null,
+      hitPointsCurrent?: number | null,
+      coin?: number | null,
+      loadMax?: number | null,
+      loadCurrent?: number | null,
+      isTemplate?: boolean | null,
+      tags?: Array< string | null > | null,
+      notes?: string | null,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      characterCharacterRaceId?: string | null,
+      characterCharacterAlignmentId?: string | null,
+      characterCharacterProfessionId?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
+    characterCharacterGearId?: string | null,
     characterGearGearId: string,
   } | null,
 };
@@ -6976,7 +7867,7 @@ export type OnDeleteCharacterGearSubscription = {
   onDeleteCharacterGear?:  {
     __typename: "CharacterGear",
     id: string,
-    gear:  {
+    Gear:  {
       __typename: "Gear",
       id: string,
       description: string,
@@ -6992,12 +7883,37 @@ export type OnDeleteCharacterGearSubscription = {
     },
     uses?: number | null,
     tags?: Array< string | null > | null,
-    characterID: string,
+    Character?:  {
+      __typename: "Character",
+      userId: string,
+      id: string,
+      name: string,
+      level?: number | null,
+      xp?: number | null,
+      armor?: number | null,
+      hitPointsMax?: number | null,
+      hitPointsCurrent?: number | null,
+      coin?: number | null,
+      loadMax?: number | null,
+      loadCurrent?: number | null,
+      isTemplate?: boolean | null,
+      tags?: Array< string | null > | null,
+      notes?: string | null,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      characterCharacterRaceId?: string | null,
+      characterCharacterAlignmentId?: string | null,
+      characterCharacterProfessionId?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
+    characterCharacterGearId?: string | null,
     characterGearGearId: string,
   } | null,
 };
@@ -7014,7 +7930,7 @@ export type OnCreateGearSubscription = {
     weight: number,
     uses?: number | null,
     tags?: Array< string | null > | null,
-    source?:  {
+    Source?:  {
       __typename: "Source",
       id: string,
       name: string,
@@ -7045,7 +7961,7 @@ export type OnUpdateGearSubscription = {
     weight: number,
     uses?: number | null,
     tags?: Array< string | null > | null,
-    source?:  {
+    Source?:  {
       __typename: "Source",
       id: string,
       name: string,
@@ -7076,7 +7992,7 @@ export type OnDeleteGearSubscription = {
     weight: number,
     uses?: number | null,
     tags?: Array< string | null > | null,
-    source?:  {
+    Source?:  {
       __typename: "Source",
       id: string,
       name: string,
@@ -7104,7 +8020,7 @@ export type OnCreateCharacterMoveSubscription = {
     __typename: "CharacterMove",
     id: string,
     selected?: boolean | null,
-    move:  {
+    Move:  {
       __typename: "Move",
       id: string,
       description: string,
@@ -7113,15 +8029,42 @@ export type OnCreateCharacterMoveSubscription = {
       _version: number,
       _deleted?: boolean | null,
       _lastChangedAt: number,
-      moveClassId: string,
+      moveProfessionId: string,
       moveSourceId?: string | null,
     },
-    characterID: string,
+    Character?:  {
+      __typename: "Character",
+      userId: string,
+      id: string,
+      name: string,
+      level?: number | null,
+      xp?: number | null,
+      armor?: number | null,
+      hitPointsMax?: number | null,
+      hitPointsCurrent?: number | null,
+      coin?: number | null,
+      loadMax?: number | null,
+      loadCurrent?: number | null,
+      isTemplate?: boolean | null,
+      tags?: Array< string | null > | null,
+      notes?: string | null,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      characterCharacterRaceId?: string | null,
+      characterCharacterAlignmentId?: string | null,
+      characterCharacterProfessionId?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
+    characterMovesStartingId?: string | null,
+    characterMovesTwoToTenId?: string | null,
+    characterMovesSixToTenId?: string | null,
     characterMoveMoveId: string,
   } | null,
 };
@@ -7135,7 +8078,7 @@ export type OnUpdateCharacterMoveSubscription = {
     __typename: "CharacterMove",
     id: string,
     selected?: boolean | null,
-    move:  {
+    Move:  {
       __typename: "Move",
       id: string,
       description: string,
@@ -7144,15 +8087,42 @@ export type OnUpdateCharacterMoveSubscription = {
       _version: number,
       _deleted?: boolean | null,
       _lastChangedAt: number,
-      moveClassId: string,
+      moveProfessionId: string,
       moveSourceId?: string | null,
     },
-    characterID: string,
+    Character?:  {
+      __typename: "Character",
+      userId: string,
+      id: string,
+      name: string,
+      level?: number | null,
+      xp?: number | null,
+      armor?: number | null,
+      hitPointsMax?: number | null,
+      hitPointsCurrent?: number | null,
+      coin?: number | null,
+      loadMax?: number | null,
+      loadCurrent?: number | null,
+      isTemplate?: boolean | null,
+      tags?: Array< string | null > | null,
+      notes?: string | null,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      characterCharacterRaceId?: string | null,
+      characterCharacterAlignmentId?: string | null,
+      characterCharacterProfessionId?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
+    characterMovesStartingId?: string | null,
+    characterMovesTwoToTenId?: string | null,
+    characterMovesSixToTenId?: string | null,
     characterMoveMoveId: string,
   } | null,
 };
@@ -7166,7 +8136,7 @@ export type OnDeleteCharacterMoveSubscription = {
     __typename: "CharacterMove",
     id: string,
     selected?: boolean | null,
-    move:  {
+    Move:  {
       __typename: "Move",
       id: string,
       description: string,
@@ -7175,15 +8145,42 @@ export type OnDeleteCharacterMoveSubscription = {
       _version: number,
       _deleted?: boolean | null,
       _lastChangedAt: number,
-      moveClassId: string,
+      moveProfessionId: string,
       moveSourceId?: string | null,
     },
-    characterID: string,
+    Character?:  {
+      __typename: "Character",
+      userId: string,
+      id: string,
+      name: string,
+      level?: number | null,
+      xp?: number | null,
+      armor?: number | null,
+      hitPointsMax?: number | null,
+      hitPointsCurrent?: number | null,
+      coin?: number | null,
+      loadMax?: number | null,
+      loadCurrent?: number | null,
+      isTemplate?: boolean | null,
+      tags?: Array< string | null > | null,
+      notes?: string | null,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      characterCharacterRaceId?: string | null,
+      characterCharacterAlignmentId?: string | null,
+      characterCharacterProfessionId?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
+    characterMovesStartingId?: string | null,
+    characterMovesTwoToTenId?: string | null,
+    characterMovesSixToTenId?: string | null,
     characterMoveMoveId: string,
   } | null,
 };
@@ -7197,7 +8194,7 @@ export type OnCreateMoveSubscription = {
     __typename: "Move",
     id: string,
     description: string,
-    class:  {
+    Profession:  {
       __typename: "Profession",
       id: string,
       name: string,
@@ -7208,9 +8205,9 @@ export type OnCreateMoveSubscription = {
       _deleted?: boolean | null,
       _lastChangedAt: number,
       professionSourceId: string,
-      professionDamageDiceTypeId?: string | null,
+      professionDiceTypeId?: string | null,
     },
-    source?:  {
+    Source?:  {
       __typename: "Source",
       id: string,
       name: string,
@@ -7225,7 +8222,7 @@ export type OnCreateMoveSubscription = {
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
-    moveClassId: string,
+    moveProfessionId: string,
     moveSourceId?: string | null,
   } | null,
 };
@@ -7239,7 +8236,7 @@ export type OnUpdateMoveSubscription = {
     __typename: "Move",
     id: string,
     description: string,
-    class:  {
+    Profession:  {
       __typename: "Profession",
       id: string,
       name: string,
@@ -7250,9 +8247,9 @@ export type OnUpdateMoveSubscription = {
       _deleted?: boolean | null,
       _lastChangedAt: number,
       professionSourceId: string,
-      professionDamageDiceTypeId?: string | null,
+      professionDiceTypeId?: string | null,
     },
-    source?:  {
+    Source?:  {
       __typename: "Source",
       id: string,
       name: string,
@@ -7267,7 +8264,7 @@ export type OnUpdateMoveSubscription = {
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
-    moveClassId: string,
+    moveProfessionId: string,
     moveSourceId?: string | null,
   } | null,
 };
@@ -7281,7 +8278,7 @@ export type OnDeleteMoveSubscription = {
     __typename: "Move",
     id: string,
     description: string,
-    class:  {
+    Profession:  {
       __typename: "Profession",
       id: string,
       name: string,
@@ -7292,9 +8289,9 @@ export type OnDeleteMoveSubscription = {
       _deleted?: boolean | null,
       _lastChangedAt: number,
       professionSourceId: string,
-      professionDamageDiceTypeId?: string | null,
+      professionDiceTypeId?: string | null,
     },
-    source?:  {
+    Source?:  {
       __typename: "Source",
       id: string,
       name: string,
@@ -7309,7 +8306,7 @@ export type OnDeleteMoveSubscription = {
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
-    moveClassId: string,
+    moveProfessionId: string,
     moveSourceId?: string | null,
   } | null,
 };
@@ -7323,7 +8320,7 @@ export type OnCreateCharacterBondSubscription = {
     __typename: "CharacterBond",
     id: string,
     description?: string | null,
-    bond:  {
+    Bond:  {
       __typename: "Bond",
       id: string,
       description?: string | null,
@@ -7332,15 +8329,40 @@ export type OnCreateCharacterBondSubscription = {
       _version: number,
       _deleted?: boolean | null,
       _lastChangedAt: number,
-      bondClassId: string,
+      bondProfessionId: string,
     },
     selected?: boolean | null,
-    characterID: string,
+    Character?:  {
+      __typename: "Character",
+      userId: string,
+      id: string,
+      name: string,
+      level?: number | null,
+      xp?: number | null,
+      armor?: number | null,
+      hitPointsMax?: number | null,
+      hitPointsCurrent?: number | null,
+      coin?: number | null,
+      loadMax?: number | null,
+      loadCurrent?: number | null,
+      isTemplate?: boolean | null,
+      tags?: Array< string | null > | null,
+      notes?: string | null,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      characterCharacterRaceId?: string | null,
+      characterCharacterAlignmentId?: string | null,
+      characterCharacterProfessionId?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
+    characterCharacterBondsId?: string | null,
     characterBondBondId: string,
   } | null,
 };
@@ -7354,7 +8376,7 @@ export type OnUpdateCharacterBondSubscription = {
     __typename: "CharacterBond",
     id: string,
     description?: string | null,
-    bond:  {
+    Bond:  {
       __typename: "Bond",
       id: string,
       description?: string | null,
@@ -7363,15 +8385,40 @@ export type OnUpdateCharacterBondSubscription = {
       _version: number,
       _deleted?: boolean | null,
       _lastChangedAt: number,
-      bondClassId: string,
+      bondProfessionId: string,
     },
     selected?: boolean | null,
-    characterID: string,
+    Character?:  {
+      __typename: "Character",
+      userId: string,
+      id: string,
+      name: string,
+      level?: number | null,
+      xp?: number | null,
+      armor?: number | null,
+      hitPointsMax?: number | null,
+      hitPointsCurrent?: number | null,
+      coin?: number | null,
+      loadMax?: number | null,
+      loadCurrent?: number | null,
+      isTemplate?: boolean | null,
+      tags?: Array< string | null > | null,
+      notes?: string | null,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      characterCharacterRaceId?: string | null,
+      characterCharacterAlignmentId?: string | null,
+      characterCharacterProfessionId?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
+    characterCharacterBondsId?: string | null,
     characterBondBondId: string,
   } | null,
 };
@@ -7385,7 +8432,7 @@ export type OnDeleteCharacterBondSubscription = {
     __typename: "CharacterBond",
     id: string,
     description?: string | null,
-    bond:  {
+    Bond:  {
       __typename: "Bond",
       id: string,
       description?: string | null,
@@ -7394,15 +8441,40 @@ export type OnDeleteCharacterBondSubscription = {
       _version: number,
       _deleted?: boolean | null,
       _lastChangedAt: number,
-      bondClassId: string,
+      bondProfessionId: string,
     },
     selected?: boolean | null,
-    characterID: string,
+    Character?:  {
+      __typename: "Character",
+      userId: string,
+      id: string,
+      name: string,
+      level?: number | null,
+      xp?: number | null,
+      armor?: number | null,
+      hitPointsMax?: number | null,
+      hitPointsCurrent?: number | null,
+      coin?: number | null,
+      loadMax?: number | null,
+      loadCurrent?: number | null,
+      isTemplate?: boolean | null,
+      tags?: Array< string | null > | null,
+      notes?: string | null,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      characterCharacterRaceId?: string | null,
+      characterCharacterAlignmentId?: string | null,
+      characterCharacterProfessionId?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
+    characterCharacterBondsId?: string | null,
     characterBondBondId: string,
   } | null,
 };
@@ -7416,7 +8488,7 @@ export type OnCreateBondSubscription = {
     __typename: "Bond",
     id: string,
     description?: string | null,
-    class:  {
+    Profession:  {
       __typename: "Profession",
       id: string,
       name: string,
@@ -7427,14 +8499,14 @@ export type OnCreateBondSubscription = {
       _deleted?: boolean | null,
       _lastChangedAt: number,
       professionSourceId: string,
-      professionDamageDiceTypeId?: string | null,
+      professionDiceTypeId?: string | null,
     },
     createdAt: string,
     updatedAt: string,
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
-    bondClassId: string,
+    bondProfessionId: string,
   } | null,
 };
 
@@ -7447,7 +8519,7 @@ export type OnUpdateBondSubscription = {
     __typename: "Bond",
     id: string,
     description?: string | null,
-    class:  {
+    Profession:  {
       __typename: "Profession",
       id: string,
       name: string,
@@ -7458,14 +8530,14 @@ export type OnUpdateBondSubscription = {
       _deleted?: boolean | null,
       _lastChangedAt: number,
       professionSourceId: string,
-      professionDamageDiceTypeId?: string | null,
+      professionDiceTypeId?: string | null,
     },
     createdAt: string,
     updatedAt: string,
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
-    bondClassId: string,
+    bondProfessionId: string,
   } | null,
 };
 
@@ -7478,7 +8550,7 @@ export type OnDeleteBondSubscription = {
     __typename: "Bond",
     id: string,
     description?: string | null,
-    class:  {
+    Profession:  {
       __typename: "Profession",
       id: string,
       name: string,
@@ -7489,14 +8561,14 @@ export type OnDeleteBondSubscription = {
       _deleted?: boolean | null,
       _lastChangedAt: number,
       professionSourceId: string,
-      professionDamageDiceTypeId?: string | null,
+      professionDiceTypeId?: string | null,
     },
     createdAt: string,
     updatedAt: string,
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
-    bondClassId: string,
+    bondProfessionId: string,
   } | null,
 };
 
@@ -7507,7 +8579,7 @@ export type OnCreateCharacterAbilityScoreSubscriptionVariables = {
 export type OnCreateCharacterAbilityScoreSubscription = {
   onCreateCharacterAbilityScore?:  {
     __typename: "CharacterAbilityScore",
-    abilityScore:  {
+    AbilityScore:  {
       __typename: "AbilityScore",
       id: string,
       name: string,
@@ -7524,12 +8596,37 @@ export type OnCreateCharacterAbilityScoreSubscription = {
     value: string,
     bonus: number,
     tags?: Array< string | null > | null,
-    characterID: string,
+    Character?:  {
+      __typename: "Character",
+      userId: string,
+      id: string,
+      name: string,
+      level?: number | null,
+      xp?: number | null,
+      armor?: number | null,
+      hitPointsMax?: number | null,
+      hitPointsCurrent?: number | null,
+      coin?: number | null,
+      loadMax?: number | null,
+      loadCurrent?: number | null,
+      isTemplate?: boolean | null,
+      tags?: Array< string | null > | null,
+      notes?: string | null,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      characterCharacterRaceId?: string | null,
+      characterCharacterAlignmentId?: string | null,
+      characterCharacterProfessionId?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
+    characterCharacterAbilityScoresId?: string | null,
     characterAbilityScoreAbilityScoreId: string,
   } | null,
 };
@@ -7541,7 +8638,7 @@ export type OnUpdateCharacterAbilityScoreSubscriptionVariables = {
 export type OnUpdateCharacterAbilityScoreSubscription = {
   onUpdateCharacterAbilityScore?:  {
     __typename: "CharacterAbilityScore",
-    abilityScore:  {
+    AbilityScore:  {
       __typename: "AbilityScore",
       id: string,
       name: string,
@@ -7558,12 +8655,37 @@ export type OnUpdateCharacterAbilityScoreSubscription = {
     value: string,
     bonus: number,
     tags?: Array< string | null > | null,
-    characterID: string,
+    Character?:  {
+      __typename: "Character",
+      userId: string,
+      id: string,
+      name: string,
+      level?: number | null,
+      xp?: number | null,
+      armor?: number | null,
+      hitPointsMax?: number | null,
+      hitPointsCurrent?: number | null,
+      coin?: number | null,
+      loadMax?: number | null,
+      loadCurrent?: number | null,
+      isTemplate?: boolean | null,
+      tags?: Array< string | null > | null,
+      notes?: string | null,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      characterCharacterRaceId?: string | null,
+      characterCharacterAlignmentId?: string | null,
+      characterCharacterProfessionId?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
+    characterCharacterAbilityScoresId?: string | null,
     characterAbilityScoreAbilityScoreId: string,
   } | null,
 };
@@ -7575,7 +8697,7 @@ export type OnDeleteCharacterAbilityScoreSubscriptionVariables = {
 export type OnDeleteCharacterAbilityScoreSubscription = {
   onDeleteCharacterAbilityScore?:  {
     __typename: "CharacterAbilityScore",
-    abilityScore:  {
+    AbilityScore:  {
       __typename: "AbilityScore",
       id: string,
       name: string,
@@ -7592,12 +8714,37 @@ export type OnDeleteCharacterAbilityScoreSubscription = {
     value: string,
     bonus: number,
     tags?: Array< string | null > | null,
-    characterID: string,
+    Character?:  {
+      __typename: "Character",
+      userId: string,
+      id: string,
+      name: string,
+      level?: number | null,
+      xp?: number | null,
+      armor?: number | null,
+      hitPointsMax?: number | null,
+      hitPointsCurrent?: number | null,
+      coin?: number | null,
+      loadMax?: number | null,
+      loadCurrent?: number | null,
+      isTemplate?: boolean | null,
+      tags?: Array< string | null > | null,
+      notes?: string | null,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      characterCharacterRaceId?: string | null,
+      characterCharacterAlignmentId?: string | null,
+      characterCharacterProfessionId?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
+    characterCharacterAbilityScoresId?: string | null,
     characterAbilityScoreAbilityScoreId: string,
   } | null,
 };
@@ -7670,7 +8817,7 @@ export type OnCreateCharacterRaceSubscription = {
   onCreateCharacterRace?:  {
     __typename: "CharacterRace",
     id: string,
-    race:  {
+    Race:  {
       __typename: "Race",
       id: string,
       name?: string | null,
@@ -7683,12 +8830,38 @@ export type OnCreateCharacterRaceSubscription = {
       raceProfessionId?: string | null,
       raceSourceId: string,
     },
+    Character?:  {
+      __typename: "Character",
+      userId: string,
+      id: string,
+      name: string,
+      level?: number | null,
+      xp?: number | null,
+      armor?: number | null,
+      hitPointsMax?: number | null,
+      hitPointsCurrent?: number | null,
+      coin?: number | null,
+      loadMax?: number | null,
+      loadCurrent?: number | null,
+      isTemplate?: boolean | null,
+      tags?: Array< string | null > | null,
+      notes?: string | null,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      characterCharacterRaceId?: string | null,
+      characterCharacterAlignmentId?: string | null,
+      characterCharacterProfessionId?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
     characterRaceRaceId: string,
+    characterRaceCharacterId?: string | null,
   } | null,
 };
 
@@ -7700,7 +8873,7 @@ export type OnUpdateCharacterRaceSubscription = {
   onUpdateCharacterRace?:  {
     __typename: "CharacterRace",
     id: string,
-    race:  {
+    Race:  {
       __typename: "Race",
       id: string,
       name?: string | null,
@@ -7713,12 +8886,38 @@ export type OnUpdateCharacterRaceSubscription = {
       raceProfessionId?: string | null,
       raceSourceId: string,
     },
+    Character?:  {
+      __typename: "Character",
+      userId: string,
+      id: string,
+      name: string,
+      level?: number | null,
+      xp?: number | null,
+      armor?: number | null,
+      hitPointsMax?: number | null,
+      hitPointsCurrent?: number | null,
+      coin?: number | null,
+      loadMax?: number | null,
+      loadCurrent?: number | null,
+      isTemplate?: boolean | null,
+      tags?: Array< string | null > | null,
+      notes?: string | null,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      characterCharacterRaceId?: string | null,
+      characterCharacterAlignmentId?: string | null,
+      characterCharacterProfessionId?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
     characterRaceRaceId: string,
+    characterRaceCharacterId?: string | null,
   } | null,
 };
 
@@ -7730,7 +8929,7 @@ export type OnDeleteCharacterRaceSubscription = {
   onDeleteCharacterRace?:  {
     __typename: "CharacterRace",
     id: string,
-    race:  {
+    Race:  {
       __typename: "Race",
       id: string,
       name?: string | null,
@@ -7743,12 +8942,38 @@ export type OnDeleteCharacterRaceSubscription = {
       raceProfessionId?: string | null,
       raceSourceId: string,
     },
+    Character?:  {
+      __typename: "Character",
+      userId: string,
+      id: string,
+      name: string,
+      level?: number | null,
+      xp?: number | null,
+      armor?: number | null,
+      hitPointsMax?: number | null,
+      hitPointsCurrent?: number | null,
+      coin?: number | null,
+      loadMax?: number | null,
+      loadCurrent?: number | null,
+      isTemplate?: boolean | null,
+      tags?: Array< string | null > | null,
+      notes?: string | null,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      characterCharacterRaceId?: string | null,
+      characterCharacterAlignmentId?: string | null,
+      characterCharacterProfessionId?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
     characterRaceRaceId: string,
+    characterRaceCharacterId?: string | null,
   } | null,
 };
 
@@ -7762,7 +8987,7 @@ export type OnCreateRaceSubscription = {
     id: string,
     name?: string | null,
     description?: string | null,
-    profession?:  {
+    Profession?:  {
       __typename: "Profession",
       id: string,
       name: string,
@@ -7773,9 +8998,9 @@ export type OnCreateRaceSubscription = {
       _deleted?: boolean | null,
       _lastChangedAt: number,
       professionSourceId: string,
-      professionDamageDiceTypeId?: string | null,
+      professionDiceTypeId?: string | null,
     } | null,
-    source:  {
+    Source:  {
       __typename: "Source",
       id: string,
       name: string,
@@ -7805,7 +9030,7 @@ export type OnUpdateRaceSubscription = {
     id: string,
     name?: string | null,
     description?: string | null,
-    profession?:  {
+    Profession?:  {
       __typename: "Profession",
       id: string,
       name: string,
@@ -7816,9 +9041,9 @@ export type OnUpdateRaceSubscription = {
       _deleted?: boolean | null,
       _lastChangedAt: number,
       professionSourceId: string,
-      professionDamageDiceTypeId?: string | null,
+      professionDiceTypeId?: string | null,
     } | null,
-    source:  {
+    Source:  {
       __typename: "Source",
       id: string,
       name: string,
@@ -7848,7 +9073,7 @@ export type OnDeleteRaceSubscription = {
     id: string,
     name?: string | null,
     description?: string | null,
-    profession?:  {
+    Profession?:  {
       __typename: "Profession",
       id: string,
       name: string,
@@ -7859,9 +9084,9 @@ export type OnDeleteRaceSubscription = {
       _deleted?: boolean | null,
       _lastChangedAt: number,
       professionSourceId: string,
-      professionDamageDiceTypeId?: string | null,
+      professionDiceTypeId?: string | null,
     } | null,
-    source:  {
+    Source:  {
       __typename: "Source",
       id: string,
       name: string,
@@ -7889,7 +9114,7 @@ export type OnCreateCharacterAlignmentSubscription = {
   onCreateCharacterAlignment?:  {
     __typename: "CharacterAlignment",
     id: string,
-    alignment:  {
+    Alignment:  {
       __typename: "Alignment",
       id: string,
       name?: string | null,
@@ -7899,15 +9124,41 @@ export type OnCreateCharacterAlignmentSubscription = {
       _version: number,
       _deleted?: boolean | null,
       _lastChangedAt: number,
-      alignmentClassId: string,
+      alignmentProfessionId: string,
     },
     selected?: boolean | null,
+    Character?:  {
+      __typename: "Character",
+      userId: string,
+      id: string,
+      name: string,
+      level?: number | null,
+      xp?: number | null,
+      armor?: number | null,
+      hitPointsMax?: number | null,
+      hitPointsCurrent?: number | null,
+      coin?: number | null,
+      loadMax?: number | null,
+      loadCurrent?: number | null,
+      isTemplate?: boolean | null,
+      tags?: Array< string | null > | null,
+      notes?: string | null,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      characterCharacterRaceId?: string | null,
+      characterCharacterAlignmentId?: string | null,
+      characterCharacterProfessionId?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
     characterAlignmentAlignmentId: string,
+    characterAlignmentCharacterId?: string | null,
   } | null,
 };
 
@@ -7919,7 +9170,7 @@ export type OnUpdateCharacterAlignmentSubscription = {
   onUpdateCharacterAlignment?:  {
     __typename: "CharacterAlignment",
     id: string,
-    alignment:  {
+    Alignment:  {
       __typename: "Alignment",
       id: string,
       name?: string | null,
@@ -7929,15 +9180,41 @@ export type OnUpdateCharacterAlignmentSubscription = {
       _version: number,
       _deleted?: boolean | null,
       _lastChangedAt: number,
-      alignmentClassId: string,
+      alignmentProfessionId: string,
     },
     selected?: boolean | null,
+    Character?:  {
+      __typename: "Character",
+      userId: string,
+      id: string,
+      name: string,
+      level?: number | null,
+      xp?: number | null,
+      armor?: number | null,
+      hitPointsMax?: number | null,
+      hitPointsCurrent?: number | null,
+      coin?: number | null,
+      loadMax?: number | null,
+      loadCurrent?: number | null,
+      isTemplate?: boolean | null,
+      tags?: Array< string | null > | null,
+      notes?: string | null,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      characterCharacterRaceId?: string | null,
+      characterCharacterAlignmentId?: string | null,
+      characterCharacterProfessionId?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
     characterAlignmentAlignmentId: string,
+    characterAlignmentCharacterId?: string | null,
   } | null,
 };
 
@@ -7949,7 +9226,7 @@ export type OnDeleteCharacterAlignmentSubscription = {
   onDeleteCharacterAlignment?:  {
     __typename: "CharacterAlignment",
     id: string,
-    alignment:  {
+    Alignment:  {
       __typename: "Alignment",
       id: string,
       name?: string | null,
@@ -7959,15 +9236,41 @@ export type OnDeleteCharacterAlignmentSubscription = {
       _version: number,
       _deleted?: boolean | null,
       _lastChangedAt: number,
-      alignmentClassId: string,
+      alignmentProfessionId: string,
     },
     selected?: boolean | null,
+    Character?:  {
+      __typename: "Character",
+      userId: string,
+      id: string,
+      name: string,
+      level?: number | null,
+      xp?: number | null,
+      armor?: number | null,
+      hitPointsMax?: number | null,
+      hitPointsCurrent?: number | null,
+      coin?: number | null,
+      loadMax?: number | null,
+      loadCurrent?: number | null,
+      isTemplate?: boolean | null,
+      tags?: Array< string | null > | null,
+      notes?: string | null,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      characterCharacterRaceId?: string | null,
+      characterCharacterAlignmentId?: string | null,
+      characterCharacterProfessionId?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
     characterAlignmentAlignmentId: string,
+    characterAlignmentCharacterId?: string | null,
   } | null,
 };
 
@@ -7981,7 +9284,7 @@ export type OnCreateAlignmentSubscription = {
     id: string,
     name?: string | null,
     description?: string | null,
-    class:  {
+    Profession:  {
       __typename: "Profession",
       id: string,
       name: string,
@@ -7992,14 +9295,14 @@ export type OnCreateAlignmentSubscription = {
       _deleted?: boolean | null,
       _lastChangedAt: number,
       professionSourceId: string,
-      professionDamageDiceTypeId?: string | null,
+      professionDiceTypeId?: string | null,
     },
     createdAt: string,
     updatedAt: string,
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
-    alignmentClassId: string,
+    alignmentProfessionId: string,
   } | null,
 };
 
@@ -8013,7 +9316,7 @@ export type OnUpdateAlignmentSubscription = {
     id: string,
     name?: string | null,
     description?: string | null,
-    class:  {
+    Profession:  {
       __typename: "Profession",
       id: string,
       name: string,
@@ -8024,14 +9327,14 @@ export type OnUpdateAlignmentSubscription = {
       _deleted?: boolean | null,
       _lastChangedAt: number,
       professionSourceId: string,
-      professionDamageDiceTypeId?: string | null,
+      professionDiceTypeId?: string | null,
     },
     createdAt: string,
     updatedAt: string,
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
-    alignmentClassId: string,
+    alignmentProfessionId: string,
   } | null,
 };
 
@@ -8045,7 +9348,7 @@ export type OnDeleteAlignmentSubscription = {
     id: string,
     name?: string | null,
     description?: string | null,
-    class:  {
+    Profession:  {
       __typename: "Profession",
       id: string,
       name: string,
@@ -8056,14 +9359,14 @@ export type OnDeleteAlignmentSubscription = {
       _deleted?: boolean | null,
       _lastChangedAt: number,
       professionSourceId: string,
-      professionDamageDiceTypeId?: string | null,
+      professionDiceTypeId?: string | null,
     },
     createdAt: string,
     updatedAt: string,
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
-    alignmentClassId: string,
+    alignmentProfessionId: string,
   } | null,
 };
 
@@ -8126,16 +9429,49 @@ export type OnCreateCharacterLookSubscription = {
   onCreateCharacterLook?:  {
     __typename: "CharacterLook",
     id: string,
-    look?:  {
-      __typename: "ModelLookConnection",
-      nextToken?: string | null,
-      startedAt?: number | null,
+    Look:  {
+      __typename: "Look",
+      id: string,
+      name: string,
+      description: string,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+    },
+    Character?:  {
+      __typename: "Character",
+      userId: string,
+      id: string,
+      name: string,
+      level?: number | null,
+      xp?: number | null,
+      armor?: number | null,
+      hitPointsMax?: number | null,
+      hitPointsCurrent?: number | null,
+      coin?: number | null,
+      loadMax?: number | null,
+      loadCurrent?: number | null,
+      isTemplate?: boolean | null,
+      tags?: Array< string | null > | null,
+      notes?: string | null,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      characterCharacterRaceId?: string | null,
+      characterCharacterAlignmentId?: string | null,
+      characterCharacterProfessionId?: string | null,
     } | null,
     createdAt: string,
     updatedAt: string,
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
+    characterCharacterLooksId?: string | null,
+    characterLookLookId: string,
   } | null,
 };
 
@@ -8147,16 +9483,49 @@ export type OnUpdateCharacterLookSubscription = {
   onUpdateCharacterLook?:  {
     __typename: "CharacterLook",
     id: string,
-    look?:  {
-      __typename: "ModelLookConnection",
-      nextToken?: string | null,
-      startedAt?: number | null,
+    Look:  {
+      __typename: "Look",
+      id: string,
+      name: string,
+      description: string,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+    },
+    Character?:  {
+      __typename: "Character",
+      userId: string,
+      id: string,
+      name: string,
+      level?: number | null,
+      xp?: number | null,
+      armor?: number | null,
+      hitPointsMax?: number | null,
+      hitPointsCurrent?: number | null,
+      coin?: number | null,
+      loadMax?: number | null,
+      loadCurrent?: number | null,
+      isTemplate?: boolean | null,
+      tags?: Array< string | null > | null,
+      notes?: string | null,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      characterCharacterRaceId?: string | null,
+      characterCharacterAlignmentId?: string | null,
+      characterCharacterProfessionId?: string | null,
     } | null,
     createdAt: string,
     updatedAt: string,
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
+    characterCharacterLooksId?: string | null,
+    characterLookLookId: string,
   } | null,
 };
 
@@ -8168,16 +9537,49 @@ export type OnDeleteCharacterLookSubscription = {
   onDeleteCharacterLook?:  {
     __typename: "CharacterLook",
     id: string,
-    look?:  {
-      __typename: "ModelLookConnection",
-      nextToken?: string | null,
-      startedAt?: number | null,
+    Look:  {
+      __typename: "Look",
+      id: string,
+      name: string,
+      description: string,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+    },
+    Character?:  {
+      __typename: "Character",
+      userId: string,
+      id: string,
+      name: string,
+      level?: number | null,
+      xp?: number | null,
+      armor?: number | null,
+      hitPointsMax?: number | null,
+      hitPointsCurrent?: number | null,
+      coin?: number | null,
+      loadMax?: number | null,
+      loadCurrent?: number | null,
+      isTemplate?: boolean | null,
+      tags?: Array< string | null > | null,
+      notes?: string | null,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      characterCharacterRaceId?: string | null,
+      characterCharacterAlignmentId?: string | null,
+      characterCharacterProfessionId?: string | null,
     } | null,
     createdAt: string,
     updatedAt: string,
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
+    characterCharacterLooksId?: string | null,
+    characterLookLookId: string,
   } | null,
 };
 
@@ -8191,7 +9593,6 @@ export type OnCreateLookSubscription = {
     id: string,
     name: string,
     description: string,
-    characterlookID: string,
     createdAt: string,
     updatedAt: string,
     _version: number,
@@ -8210,7 +9611,6 @@ export type OnUpdateLookSubscription = {
     id: string,
     name: string,
     description: string,
-    characterlookID: string,
     createdAt: string,
     updatedAt: string,
     _version: number,
@@ -8229,7 +9629,6 @@ export type OnDeleteLookSubscription = {
     id: string,
     name: string,
     description: string,
-    characterlookID: string,
     createdAt: string,
     updatedAt: string,
     _version: number,
@@ -8257,37 +9656,39 @@ export type OnCreateCharacterSubscription = {
     loadMax?: number | null,
     loadCurrent?: number | null,
     isTemplate?: boolean | null,
-    gear?:  {
+    tags?: Array< string | null > | null,
+    notes?: string | null,
+    CharacterGear?:  {
       __typename: "ModelCharacterGearConnection",
       nextToken?: string | null,
       startedAt?: number | null,
     } | null,
-    sixToTenMoves?:  {
+    MovesStarting?:  {
       __typename: "ModelCharacterMoveConnection",
       nextToken?: string | null,
       startedAt?: number | null,
     } | null,
-    twoToTenMoves?:  {
+    MovesTwoToTen?:  {
       __typename: "ModelCharacterMoveConnection",
       nextToken?: string | null,
       startedAt?: number | null,
     } | null,
-    startingMoves?:  {
+    MovesSixToTen?:  {
       __typename: "ModelCharacterMoveConnection",
       nextToken?: string | null,
       startedAt?: number | null,
     } | null,
-    bonds?:  {
+    CharacterBonds?:  {
       __typename: "ModelCharacterBondConnection",
       nextToken?: string | null,
       startedAt?: number | null,
     } | null,
-    abilityscores?:  {
+    CharacterAbilityScores?:  {
       __typename: "ModelCharacterAbilityScoreConnection",
       nextToken?: string | null,
       startedAt?: number | null,
     } | null,
-    race?:  {
+    CharacterRace?:  {
       __typename: "CharacterRace",
       id: string,
       createdAt: string,
@@ -8296,8 +9697,9 @@ export type OnCreateCharacterSubscription = {
       _deleted?: boolean | null,
       _lastChangedAt: number,
       characterRaceRaceId: string,
+      characterRaceCharacterId?: string | null,
     } | null,
-    alignment?:  {
+    CharacterAlignment?:  {
       __typename: "CharacterAlignment",
       id: string,
       selected?: boolean | null,
@@ -8307,18 +9709,13 @@ export type OnCreateCharacterSubscription = {
       _deleted?: boolean | null,
       _lastChangedAt: number,
       characterAlignmentAlignmentId: string,
+      characterAlignmentCharacterId?: string | null,
     } | null,
-    tags?: Array< string | null > | null,
-    look?:  {
-      __typename: "CharacterLook",
-      id: string,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
+    CharacterLooks?:  {
+      __typename: "ModelCharacterLookConnection",
+      nextToken?: string | null,
+      startedAt?: number | null,
     } | null,
-    notes?: string | null,
     CharacterProfession?:  {
       __typename: "CharacterProfession",
       id: string,
@@ -8330,14 +9727,18 @@ export type OnCreateCharacterSubscription = {
       characterProfessionProfessionId?: string | null,
       characterProfessionCharacterId?: string | null,
     } | null,
+    CharacterSpells?:  {
+      __typename: "ModelCharacterSpellConnection",
+      nextToken?: string | null,
+      startedAt?: number | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
-    characterRaceId?: string | null,
-    characterAlignmentId?: string | null,
-    characterLookId?: string | null,
+    characterCharacterRaceId?: string | null,
+    characterCharacterAlignmentId?: string | null,
     characterCharacterProfessionId?: string | null,
   } | null,
 };
@@ -8361,37 +9762,39 @@ export type OnUpdateCharacterSubscription = {
     loadMax?: number | null,
     loadCurrent?: number | null,
     isTemplate?: boolean | null,
-    gear?:  {
+    tags?: Array< string | null > | null,
+    notes?: string | null,
+    CharacterGear?:  {
       __typename: "ModelCharacterGearConnection",
       nextToken?: string | null,
       startedAt?: number | null,
     } | null,
-    sixToTenMoves?:  {
+    MovesStarting?:  {
       __typename: "ModelCharacterMoveConnection",
       nextToken?: string | null,
       startedAt?: number | null,
     } | null,
-    twoToTenMoves?:  {
+    MovesTwoToTen?:  {
       __typename: "ModelCharacterMoveConnection",
       nextToken?: string | null,
       startedAt?: number | null,
     } | null,
-    startingMoves?:  {
+    MovesSixToTen?:  {
       __typename: "ModelCharacterMoveConnection",
       nextToken?: string | null,
       startedAt?: number | null,
     } | null,
-    bonds?:  {
+    CharacterBonds?:  {
       __typename: "ModelCharacterBondConnection",
       nextToken?: string | null,
       startedAt?: number | null,
     } | null,
-    abilityscores?:  {
+    CharacterAbilityScores?:  {
       __typename: "ModelCharacterAbilityScoreConnection",
       nextToken?: string | null,
       startedAt?: number | null,
     } | null,
-    race?:  {
+    CharacterRace?:  {
       __typename: "CharacterRace",
       id: string,
       createdAt: string,
@@ -8400,8 +9803,9 @@ export type OnUpdateCharacterSubscription = {
       _deleted?: boolean | null,
       _lastChangedAt: number,
       characterRaceRaceId: string,
+      characterRaceCharacterId?: string | null,
     } | null,
-    alignment?:  {
+    CharacterAlignment?:  {
       __typename: "CharacterAlignment",
       id: string,
       selected?: boolean | null,
@@ -8411,18 +9815,13 @@ export type OnUpdateCharacterSubscription = {
       _deleted?: boolean | null,
       _lastChangedAt: number,
       characterAlignmentAlignmentId: string,
+      characterAlignmentCharacterId?: string | null,
     } | null,
-    tags?: Array< string | null > | null,
-    look?:  {
-      __typename: "CharacterLook",
-      id: string,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
+    CharacterLooks?:  {
+      __typename: "ModelCharacterLookConnection",
+      nextToken?: string | null,
+      startedAt?: number | null,
     } | null,
-    notes?: string | null,
     CharacterProfession?:  {
       __typename: "CharacterProfession",
       id: string,
@@ -8434,14 +9833,18 @@ export type OnUpdateCharacterSubscription = {
       characterProfessionProfessionId?: string | null,
       characterProfessionCharacterId?: string | null,
     } | null,
+    CharacterSpells?:  {
+      __typename: "ModelCharacterSpellConnection",
+      nextToken?: string | null,
+      startedAt?: number | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
-    characterRaceId?: string | null,
-    characterAlignmentId?: string | null,
-    characterLookId?: string | null,
+    characterCharacterRaceId?: string | null,
+    characterCharacterAlignmentId?: string | null,
     characterCharacterProfessionId?: string | null,
   } | null,
 };
@@ -8465,37 +9868,39 @@ export type OnDeleteCharacterSubscription = {
     loadMax?: number | null,
     loadCurrent?: number | null,
     isTemplate?: boolean | null,
-    gear?:  {
+    tags?: Array< string | null > | null,
+    notes?: string | null,
+    CharacterGear?:  {
       __typename: "ModelCharacterGearConnection",
       nextToken?: string | null,
       startedAt?: number | null,
     } | null,
-    sixToTenMoves?:  {
+    MovesStarting?:  {
       __typename: "ModelCharacterMoveConnection",
       nextToken?: string | null,
       startedAt?: number | null,
     } | null,
-    twoToTenMoves?:  {
+    MovesTwoToTen?:  {
       __typename: "ModelCharacterMoveConnection",
       nextToken?: string | null,
       startedAt?: number | null,
     } | null,
-    startingMoves?:  {
+    MovesSixToTen?:  {
       __typename: "ModelCharacterMoveConnection",
       nextToken?: string | null,
       startedAt?: number | null,
     } | null,
-    bonds?:  {
+    CharacterBonds?:  {
       __typename: "ModelCharacterBondConnection",
       nextToken?: string | null,
       startedAt?: number | null,
     } | null,
-    abilityscores?:  {
+    CharacterAbilityScores?:  {
       __typename: "ModelCharacterAbilityScoreConnection",
       nextToken?: string | null,
       startedAt?: number | null,
     } | null,
-    race?:  {
+    CharacterRace?:  {
       __typename: "CharacterRace",
       id: string,
       createdAt: string,
@@ -8504,8 +9909,9 @@ export type OnDeleteCharacterSubscription = {
       _deleted?: boolean | null,
       _lastChangedAt: number,
       characterRaceRaceId: string,
+      characterRaceCharacterId?: string | null,
     } | null,
-    alignment?:  {
+    CharacterAlignment?:  {
       __typename: "CharacterAlignment",
       id: string,
       selected?: boolean | null,
@@ -8515,18 +9921,13 @@ export type OnDeleteCharacterSubscription = {
       _deleted?: boolean | null,
       _lastChangedAt: number,
       characterAlignmentAlignmentId: string,
+      characterAlignmentCharacterId?: string | null,
     } | null,
-    tags?: Array< string | null > | null,
-    look?:  {
-      __typename: "CharacterLook",
-      id: string,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
+    CharacterLooks?:  {
+      __typename: "ModelCharacterLookConnection",
+      nextToken?: string | null,
+      startedAt?: number | null,
     } | null,
-    notes?: string | null,
     CharacterProfession?:  {
       __typename: "CharacterProfession",
       id: string,
@@ -8538,14 +9939,18 @@ export type OnDeleteCharacterSubscription = {
       characterProfessionProfessionId?: string | null,
       characterProfessionCharacterId?: string | null,
     } | null,
+    CharacterSpells?:  {
+      __typename: "ModelCharacterSpellConnection",
+      nextToken?: string | null,
+      startedAt?: number | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
-    characterRaceId?: string | null,
-    characterAlignmentId?: string | null,
-    characterLookId?: string | null,
+    characterCharacterRaceId?: string | null,
+    characterCharacterAlignmentId?: string | null,
     characterCharacterProfessionId?: string | null,
   } | null,
 };

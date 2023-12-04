@@ -20,12 +20,6 @@
         "dungeonworldcompf878a003": {
           "googleClientId": "110657226307-cnoh4q4r2rho9n08ec7obk67fcmlivah.apps.googleusercontent.com"
         }
-      },
-      "function": {
-        "AdminQueries93882c08": {
-          "deploymentBucketName": "amplify-dungeonworldcomp-dev-121356-deployment",
-          "s3Key": "amplify-builds/AdminQueries93882c08-4d6f7577736e2f4b6469-build.zip"
-        }
       }
     }
   }

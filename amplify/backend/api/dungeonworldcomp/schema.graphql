@@ -19,8 +19,8 @@ type Profession @model @auth(rules: [{allow: public}]) {
   id: ID!
   name: String!
   description: String!
-  source: Source! @hasOne
-  damageDiceType: DiceType @hasOne
+  Source: Source! @hasOne
+  DiceType: DiceType @hasOne
 }
 
 type Spell @model @auth(rules: [{allow: public}]) {
@@ -30,23 +30,24 @@ type Spell @model @auth(rules: [{allow: public}]) {
   type: String!
   ongoing: Boolean
   description: String!
-  source: Source! @hasOne
-  profession: Profession! @hasOne
+  Source: Source! @hasOne
+  Profession: Profession! @hasOne
 }
 
 type CharacterSpell @model @auth(rules: [{allow: public}]) {
   id: ID!
-  spell: Spell! @hasOne
+  Spell: Spell! @hasOne
   selected: Boolean
   tags: [String]
+  Character: Character @belongsTo
 }
 
 type CharacterGear @model @auth(rules: [{allow: public}]) {
   id: ID!
-  gear: Gear! @hasOne
+  Gear: Gear! @hasOne
   uses: Int
   tags: [String]
-  characterID: ID! @index(name: "byCharacter")
+  Character: Character @belongsTo
 }
 
 type Gear @model @auth(rules: [{allow: public}]) {
@@ -55,44 +56,44 @@ type Gear @model @auth(rules: [{allow: public}]) {
   weight: Int!
   uses: Int
   tags: [String]
-  source: Source @hasOne
+  Source: Source @hasOne
 }
 
 type CharacterMove @model @auth(rules: [{allow: public}]) {
   id: ID!
   selected: Boolean
-  move: Move! @hasOne
-  characterID: ID! @index(name: "byCharacter")
+  Move: Move! @hasOne
+  Character: Character @belongsTo
 }
 
 type Move @model @auth(rules: [{allow: public}]) {
   id: ID!
   description: String!
-  class: Profession! @hasOne
-  source: Source @hasOne
+  Profession: Profession! @hasOne
+  Source: Source @hasOne
 }
 
 type CharacterBond @model @auth(rules: [{allow: public}]) {
   id: ID!
   description: String
-  bond: Bond! @hasOne
+  Bond: Bond! @hasOne
   selected: Boolean
-  characterID: ID! @index(name: "byCharacter")
+  Character: Character @belongsTo
 }
 
 type Bond @model @auth(rules: [{allow: public}]) {
   id: ID!
   description: String
-  class: Profession! @hasOne
+  Profession:  Profession! @hasOne
 }
 
 type CharacterAbilityScore @model @auth(rules: [{allow: public}]) {
-  abilityScore: AbilityScore! @hasOne
+  AbilityScore: AbilityScore! @hasOne
   id: ID!
   value: String!
   bonus: Int!
   tags: [String]
-  characterID: ID! @index(name: "byCharacter")
+  Character: Character @belongsTo
 }
 
 type AbilityScore @model @auth(rules: [{allow: public}]) {
@@ -105,28 +106,30 @@ type AbilityScore @model @auth(rules: [{allow: public}]) {
 
 type CharacterRace @model @auth(rules: [{allow: public}]) {
   id: ID!
-  race: Race! @hasOne
+  Race: Race! @hasOne
+  Character: Character @belongsTo
 }
 
 type Race @model @auth(rules: [{allow: public}]) {
   id: ID!
   name: String
   description: String
-  profession: Profession @hasOne
-  source: Source! @hasOne
+  Profession: Profession @hasOne
+  Source: Source! @hasOne
 }
 
 type CharacterAlignment @model @auth(rules: [{allow: public}]) {
   id: ID!
-  alignment: Alignment! @hasOne
+  Alignment: Alignment! @hasOne
   selected: Boolean
+  Character: Character @belongsTo
 }
 
 type Alignment @model @auth(rules: [{allow: public}]) {
   id: ID!
   name: String
   description: String
-  class: Profession! @hasOne
+  Profession:  Profession! @hasOne
 }
 
 type DiceType @model @auth(rules: [{allow: public}]) {
@@ -136,14 +139,14 @@ type DiceType @model @auth(rules: [{allow: public}]) {
 
 type CharacterLook @model @auth(rules: [{allow: public}]) {
   id: ID!
-  look: [Look!] @hasMany(indexName: "byCharacterLook", fields: ["id"])
+  Look: Look! @hasOne
+  Character: Character @belongsTo
 }
 
 type Look @model @auth(rules: [{allow: public}]) {
   id: ID!
   name: String!
   description: String!
-  characterlookID: ID! @index(name: "byCharacterLook")
 }
 
 type Character @model @auth(rules: [{allow: public}]) {
@@ -159,16 +162,21 @@ type Character @model @auth(rules: [{allow: public}]) {
   loadMax: Int
   loadCurrent: Int
   isTemplate: Boolean
-  gear: [CharacterGear] @hasMany(indexName: "byCharacter", fields: ["id"])
-  sixToTenMoves: [CharacterMove] @hasMany(indexName: "byCharacter", fields: ["id"])
-  twoToTenMoves: [CharacterMove] @hasMany(indexName: "byCharacter", fields: ["id"])
-  startingMoves: [CharacterMove] @hasMany(indexName: "byCharacter", fields: ["id"])
-  bonds: [CharacterBond] @hasMany(indexName: "byCharacter", fields: ["id"])
-  abilityscores: [CharacterAbilityScore] @hasMany(indexName: "byCharacter", fields: ["id"])
-  race: CharacterRace @hasOne
-  alignment: CharacterAlignment @hasOne
   tags: [String]
-  look: CharacterLook @hasOne
   notes: String
+  CharacterGear: [CharacterGear] @hasMany
+  MovesStarting: [CharacterMove] @hasMany
+  MovesTwoToTen: [CharacterMove] @hasMany
+  MovesSixToTen: [CharacterMove] @hasMany
+  CharacterBonds: [CharacterBond] @hasMany
+  CharacterAbilityScores: [CharacterAbilityScore] @hasMany
+  CharacterRace: CharacterRace @hasOne
+  CharacterAlignment: CharacterAlignment @hasOne
+  CharacterLooks: [CharacterLook] @hasMany
   CharacterProfession: CharacterProfession @hasOne
+  CharacterSpells: [CharacterSpell] @hasMany
 } 
+
+type Query {
+  listCharactersByUser(args: String): String # your custom queries here
+}

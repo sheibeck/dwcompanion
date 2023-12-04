@@ -248,8 +248,8 @@ export const schema = {
                     "isRequired": true,
                     "attributes": []
                 },
-                "source": {
-                    "name": "source",
+                "Source": {
+                    "name": "Source",
                     "isArray": false,
                     "type": {
                         "model": "Source"
@@ -266,8 +266,8 @@ export const schema = {
                         ]
                     }
                 },
-                "damageDiceType": {
-                    "name": "damageDiceType",
+                "DiceType": {
+                    "name": "DiceType",
                     "isArray": false,
                     "type": {
                         "model": "DiceType"
@@ -280,7 +280,7 @@ export const schema = {
                             "id"
                         ],
                         "targetNames": [
-                            "professionDamageDiceTypeId"
+                            "professionDiceTypeId"
                         ]
                     }
                 },
@@ -307,8 +307,8 @@ export const schema = {
                     "isRequired": true,
                     "attributes": []
                 },
-                "professionDamageDiceTypeId": {
-                    "name": "professionDamageDiceTypeId",
+                "professionDiceTypeId": {
+                    "name": "professionDiceTypeId",
                     "isArray": false,
                     "type": "ID",
                     "isRequired": false,
@@ -385,8 +385,8 @@ export const schema = {
                     "isRequired": true,
                     "attributes": []
                 },
-                "source": {
-                    "name": "source",
+                "Source": {
+                    "name": "Source",
                     "isArray": false,
                     "type": {
                         "model": "Source"
@@ -403,8 +403,8 @@ export const schema = {
                         ]
                     }
                 },
-                "profession": {
-                    "name": "profession",
+                "Profession": {
+                    "name": "Profession",
                     "isArray": false,
                     "type": {
                         "model": "Profession"
@@ -487,8 +487,8 @@ export const schema = {
                     "isRequired": true,
                     "attributes": []
                 },
-                "spell": {
-                    "name": "spell",
+                "Spell": {
+                    "name": "Spell",
                     "isArray": false,
                     "type": {
                         "model": "Spell"
@@ -520,6 +520,21 @@ export const schema = {
                     "attributes": [],
                     "isArrayNullable": true
                 },
+                "Character": {
+                    "name": "Character",
+                    "isArray": false,
+                    "type": {
+                        "model": "Character"
+                    },
+                    "isRequired": false,
+                    "attributes": [],
+                    "association": {
+                        "connectionType": "BELONGS_TO",
+                        "targetNames": [
+                            "characterCharacterSpellsId"
+                        ]
+                    }
+                },
                 "createdAt": {
                     "name": "createdAt",
                     "isArray": false,
@@ -541,6 +556,13 @@ export const schema = {
                     "isArray": false,
                     "type": "ID",
                     "isRequired": true,
+                    "attributes": []
+                },
+                "characterCharacterSpellsId": {
+                    "name": "characterCharacterSpellsId",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": false,
                     "attributes": []
                 }
             },
@@ -579,8 +601,8 @@ export const schema = {
                     "isRequired": true,
                     "attributes": []
                 },
-                "gear": {
-                    "name": "gear",
+                "Gear": {
+                    "name": "Gear",
                     "isArray": false,
                     "type": {
                         "model": "Gear"
@@ -612,12 +634,20 @@ export const schema = {
                     "attributes": [],
                     "isArrayNullable": true
                 },
-                "characterID": {
-                    "name": "characterID",
+                "Character": {
+                    "name": "Character",
                     "isArray": false,
-                    "type": "ID",
-                    "isRequired": true,
-                    "attributes": []
+                    "type": {
+                        "model": "Character"
+                    },
+                    "isRequired": false,
+                    "attributes": [],
+                    "association": {
+                        "connectionType": "BELONGS_TO",
+                        "targetNames": [
+                            "characterCharacterGearId"
+                        ]
+                    }
                 },
                 "createdAt": {
                     "name": "createdAt",
@@ -641,6 +671,13 @@ export const schema = {
                     "type": "ID",
                     "isRequired": true,
                     "attributes": []
+                },
+                "characterCharacterGearId": {
+                    "name": "characterCharacterGearId",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": false,
+                    "attributes": []
                 }
             },
             "syncable": true,
@@ -649,15 +686,6 @@ export const schema = {
                 {
                     "type": "model",
                     "properties": {}
-                },
-                {
-                    "type": "key",
-                    "properties": {
-                        "name": "byCharacter",
-                        "fields": [
-                            "characterID"
-                        ]
-                    }
                 },
                 {
                     "type": "auth",
@@ -716,8 +744,8 @@ export const schema = {
                     "attributes": [],
                     "isArrayNullable": true
                 },
-                "source": {
-                    "name": "source",
+                "Source": {
+                    "name": "Source",
                     "isArray": false,
                     "type": {
                         "model": "Source"
@@ -800,8 +828,8 @@ export const schema = {
                     "isRequired": false,
                     "attributes": []
                 },
-                "move": {
-                    "name": "move",
+                "Move": {
+                    "name": "Move",
                     "isArray": false,
                     "type": {
                         "model": "Move"
@@ -818,12 +846,20 @@ export const schema = {
                         ]
                     }
                 },
-                "characterID": {
-                    "name": "characterID",
+                "Character": {
+                    "name": "Character",
                     "isArray": false,
-                    "type": "ID",
-                    "isRequired": true,
-                    "attributes": []
+                    "type": {
+                        "model": "Character"
+                    },
+                    "isRequired": false,
+                    "attributes": [],
+                    "association": {
+                        "connectionType": "BELONGS_TO",
+                        "targetNames": [
+                            "characterMovesStartingId"
+                        ]
+                    }
                 },
                 "createdAt": {
                     "name": "createdAt",
@@ -847,6 +883,27 @@ export const schema = {
                     "type": "ID",
                     "isRequired": true,
                     "attributes": []
+                },
+                "characterMovesStartingId": {
+                    "name": "characterMovesStartingId",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "characterMovesTwoToTenId": {
+                    "name": "characterMovesTwoToTenId",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "characterMovesSixToTenId": {
+                    "name": "characterMovesSixToTenId",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": false,
+                    "attributes": []
                 }
             },
             "syncable": true,
@@ -855,15 +912,6 @@ export const schema = {
                 {
                     "type": "model",
                     "properties": {}
-                },
-                {
-                    "type": "key",
-                    "properties": {
-                        "name": "byCharacter",
-                        "fields": [
-                            "characterID"
-                        ]
-                    }
                 },
                 {
                     "type": "auth",
@@ -900,8 +948,8 @@ export const schema = {
                     "isRequired": true,
                     "attributes": []
                 },
-                "class": {
-                    "name": "class",
+                "Profession": {
+                    "name": "Profession",
                     "isArray": false,
                     "type": {
                         "model": "Profession"
@@ -914,12 +962,12 @@ export const schema = {
                             "id"
                         ],
                         "targetNames": [
-                            "moveClassId"
+                            "moveProfessionId"
                         ]
                     }
                 },
-                "source": {
-                    "name": "source",
+                "Source": {
+                    "name": "Source",
                     "isArray": false,
                     "type": {
                         "model": "Source"
@@ -952,8 +1000,8 @@ export const schema = {
                     "attributes": [],
                     "isReadOnly": true
                 },
-                "moveClassId": {
-                    "name": "moveClassId",
+                "moveProfessionId": {
+                    "name": "moveProfessionId",
                     "isArray": false,
                     "type": "ID",
                     "isRequired": true,
@@ -1009,8 +1057,8 @@ export const schema = {
                     "isRequired": false,
                     "attributes": []
                 },
-                "bond": {
-                    "name": "bond",
+                "Bond": {
+                    "name": "Bond",
                     "isArray": false,
                     "type": {
                         "model": "Bond"
@@ -1034,12 +1082,20 @@ export const schema = {
                     "isRequired": false,
                     "attributes": []
                 },
-                "characterID": {
-                    "name": "characterID",
+                "Character": {
+                    "name": "Character",
                     "isArray": false,
-                    "type": "ID",
-                    "isRequired": true,
-                    "attributes": []
+                    "type": {
+                        "model": "Character"
+                    },
+                    "isRequired": false,
+                    "attributes": [],
+                    "association": {
+                        "connectionType": "BELONGS_TO",
+                        "targetNames": [
+                            "characterCharacterBondsId"
+                        ]
+                    }
                 },
                 "createdAt": {
                     "name": "createdAt",
@@ -1063,6 +1119,13 @@ export const schema = {
                     "type": "ID",
                     "isRequired": true,
                     "attributes": []
+                },
+                "characterCharacterBondsId": {
+                    "name": "characterCharacterBondsId",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": false,
+                    "attributes": []
                 }
             },
             "syncable": true,
@@ -1071,15 +1134,6 @@ export const schema = {
                 {
                     "type": "model",
                     "properties": {}
-                },
-                {
-                    "type": "key",
-                    "properties": {
-                        "name": "byCharacter",
-                        "fields": [
-                            "characterID"
-                        ]
-                    }
                 },
                 {
                     "type": "auth",
@@ -1116,8 +1170,8 @@ export const schema = {
                     "isRequired": false,
                     "attributes": []
                 },
-                "class": {
-                    "name": "class",
+                "Profession": {
+                    "name": "Profession",
                     "isArray": false,
                     "type": {
                         "model": "Profession"
@@ -1130,7 +1184,7 @@ export const schema = {
                             "id"
                         ],
                         "targetNames": [
-                            "bondClassId"
+                            "bondProfessionId"
                         ]
                     }
                 },
@@ -1150,8 +1204,8 @@ export const schema = {
                     "attributes": [],
                     "isReadOnly": true
                 },
-                "bondClassId": {
-                    "name": "bondClassId",
+                "bondProfessionId": {
+                    "name": "bondProfessionId",
                     "isArray": false,
                     "type": "ID",
                     "isRequired": true,
@@ -1193,8 +1247,8 @@ export const schema = {
                     "isRequired": true,
                     "attributes": []
                 },
-                "abilityScore": {
-                    "name": "abilityScore",
+                "AbilityScore": {
+                    "name": "AbilityScore",
                     "isArray": false,
                     "type": {
                         "model": "AbilityScore"
@@ -1233,12 +1287,20 @@ export const schema = {
                     "attributes": [],
                     "isArrayNullable": true
                 },
-                "characterID": {
-                    "name": "characterID",
+                "Character": {
+                    "name": "Character",
                     "isArray": false,
-                    "type": "ID",
-                    "isRequired": true,
-                    "attributes": []
+                    "type": {
+                        "model": "Character"
+                    },
+                    "isRequired": false,
+                    "attributes": [],
+                    "association": {
+                        "connectionType": "BELONGS_TO",
+                        "targetNames": [
+                            "characterCharacterAbilityScoresId"
+                        ]
+                    }
                 },
                 "createdAt": {
                     "name": "createdAt",
@@ -1262,6 +1324,13 @@ export const schema = {
                     "type": "ID",
                     "isRequired": true,
                     "attributes": []
+                },
+                "characterCharacterAbilityScoresId": {
+                    "name": "characterCharacterAbilityScoresId",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": false,
+                    "attributes": []
                 }
             },
             "syncable": true,
@@ -1270,15 +1339,6 @@ export const schema = {
                 {
                     "type": "model",
                     "properties": {}
-                },
-                {
-                    "type": "key",
-                    "properties": {
-                        "name": "byCharacter",
-                        "fields": [
-                            "characterID"
-                        ]
-                    }
                 },
                 {
                     "type": "auth",
@@ -1388,8 +1448,8 @@ export const schema = {
                     "isRequired": true,
                     "attributes": []
                 },
-                "race": {
-                    "name": "race",
+                "Race": {
+                    "name": "Race",
                     "isArray": false,
                     "type": {
                         "model": "Race"
@@ -1403,6 +1463,21 @@ export const schema = {
                         ],
                         "targetNames": [
                             "characterRaceRaceId"
+                        ]
+                    }
+                },
+                "Character": {
+                    "name": "Character",
+                    "isArray": false,
+                    "type": {
+                        "model": "Character"
+                    },
+                    "isRequired": false,
+                    "attributes": [],
+                    "association": {
+                        "connectionType": "BELONGS_TO",
+                        "targetNames": [
+                            "characterRaceCharacterId"
                         ]
                     }
                 },
@@ -1427,6 +1502,13 @@ export const schema = {
                     "isArray": false,
                     "type": "ID",
                     "isRequired": true,
+                    "attributes": []
+                },
+                "characterRaceCharacterId": {
+                    "name": "characterRaceCharacterId",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": false,
                     "attributes": []
                 }
             },
@@ -1479,8 +1561,8 @@ export const schema = {
                     "isRequired": false,
                     "attributes": []
                 },
-                "profession": {
-                    "name": "profession",
+                "Profession": {
+                    "name": "Profession",
                     "isArray": false,
                     "type": {
                         "model": "Profession"
@@ -1497,8 +1579,8 @@ export const schema = {
                         ]
                     }
                 },
-                "source": {
-                    "name": "source",
+                "Source": {
+                    "name": "Source",
                     "isArray": false,
                     "type": {
                         "model": "Source"
@@ -1581,8 +1663,8 @@ export const schema = {
                     "isRequired": true,
                     "attributes": []
                 },
-                "alignment": {
-                    "name": "alignment",
+                "Alignment": {
+                    "name": "Alignment",
                     "isArray": false,
                     "type": {
                         "model": "Alignment"
@@ -1606,6 +1688,21 @@ export const schema = {
                     "isRequired": false,
                     "attributes": []
                 },
+                "Character": {
+                    "name": "Character",
+                    "isArray": false,
+                    "type": {
+                        "model": "Character"
+                    },
+                    "isRequired": false,
+                    "attributes": [],
+                    "association": {
+                        "connectionType": "BELONGS_TO",
+                        "targetNames": [
+                            "characterAlignmentCharacterId"
+                        ]
+                    }
+                },
                 "createdAt": {
                     "name": "createdAt",
                     "isArray": false,
@@ -1627,6 +1724,13 @@ export const schema = {
                     "isArray": false,
                     "type": "ID",
                     "isRequired": true,
+                    "attributes": []
+                },
+                "characterAlignmentCharacterId": {
+                    "name": "characterAlignmentCharacterId",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": false,
                     "attributes": []
                 }
             },
@@ -1679,8 +1783,8 @@ export const schema = {
                     "isRequired": false,
                     "attributes": []
                 },
-                "class": {
-                    "name": "class",
+                "Profession": {
+                    "name": "Profession",
                     "isArray": false,
                     "type": {
                         "model": "Profession"
@@ -1693,7 +1797,7 @@ export const schema = {
                             "id"
                         ],
                         "targetNames": [
-                            "alignmentClassId"
+                            "alignmentProfessionId"
                         ]
                     }
                 },
@@ -1713,8 +1817,8 @@ export const schema = {
                     "attributes": [],
                     "isReadOnly": true
                 },
-                "alignmentClassId": {
-                    "name": "alignmentClassId",
+                "alignmentProfessionId": {
+                    "name": "alignmentProfessionId",
                     "isArray": false,
                     "type": "ID",
                     "isRequired": true,
@@ -1815,19 +1919,36 @@ export const schema = {
                     "isRequired": true,
                     "attributes": []
                 },
-                "look": {
-                    "name": "look",
-                    "isArray": true,
+                "Look": {
+                    "name": "Look",
+                    "isArray": false,
                     "type": {
                         "model": "Look"
                     },
                     "isRequired": true,
                     "attributes": [],
-                    "isArrayNullable": true,
                     "association": {
-                        "connectionType": "HAS_MANY",
+                        "connectionType": "HAS_ONE",
                         "associatedWith": [
-                            "characterlookID"
+                            "id"
+                        ],
+                        "targetNames": [
+                            "characterLookLookId"
+                        ]
+                    }
+                },
+                "Character": {
+                    "name": "Character",
+                    "isArray": false,
+                    "type": {
+                        "model": "Character"
+                    },
+                    "isRequired": false,
+                    "attributes": [],
+                    "association": {
+                        "connectionType": "BELONGS_TO",
+                        "targetNames": [
+                            "characterCharacterLooksId"
                         ]
                     }
                 },
@@ -1846,6 +1967,20 @@ export const schema = {
                     "isRequired": false,
                     "attributes": [],
                     "isReadOnly": true
+                },
+                "characterLookLookId": {
+                    "name": "characterLookLookId",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "characterCharacterLooksId": {
+                    "name": "characterCharacterLooksId",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": false,
+                    "attributes": []
                 }
             },
             "syncable": true,
@@ -1897,13 +2032,6 @@ export const schema = {
                     "isRequired": true,
                     "attributes": []
                 },
-                "characterlookID": {
-                    "name": "characterlookID",
-                    "isArray": false,
-                    "type": "ID",
-                    "isRequired": true,
-                    "attributes": []
-                },
                 "createdAt": {
                     "name": "createdAt",
                     "isArray": false,
@@ -1927,15 +2055,6 @@ export const schema = {
                 {
                     "type": "model",
                     "properties": {}
-                },
-                {
-                    "type": "key",
-                    "properties": {
-                        "name": "byCharacterLook",
-                        "fields": [
-                            "characterlookID"
-                        ]
-                    }
                 },
                 {
                     "type": "auth",
@@ -2042,8 +2161,23 @@ export const schema = {
                     "isRequired": false,
                     "attributes": []
                 },
-                "gear": {
-                    "name": "gear",
+                "tags": {
+                    "name": "tags",
+                    "isArray": true,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": [],
+                    "isArrayNullable": true
+                },
+                "notes": {
+                    "name": "notes",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "CharacterGear": {
+                    "name": "CharacterGear",
                     "isArray": true,
                     "type": {
                         "model": "CharacterGear"
@@ -2054,12 +2188,12 @@ export const schema = {
                     "association": {
                         "connectionType": "HAS_MANY",
                         "associatedWith": [
-                            "characterID"
+                            "characterCharacterGearId"
                         ]
                     }
                 },
-                "sixToTenMoves": {
-                    "name": "sixToTenMoves",
+                "MovesStarting": {
+                    "name": "MovesStarting",
                     "isArray": true,
                     "type": {
                         "model": "CharacterMove"
@@ -2070,12 +2204,12 @@ export const schema = {
                     "association": {
                         "connectionType": "HAS_MANY",
                         "associatedWith": [
-                            "characterID"
+                            "characterMovesStartingId"
                         ]
                     }
                 },
-                "twoToTenMoves": {
-                    "name": "twoToTenMoves",
+                "MovesTwoToTen": {
+                    "name": "MovesTwoToTen",
                     "isArray": true,
                     "type": {
                         "model": "CharacterMove"
@@ -2086,12 +2220,12 @@ export const schema = {
                     "association": {
                         "connectionType": "HAS_MANY",
                         "associatedWith": [
-                            "characterID"
+                            "characterMovesTwoToTenId"
                         ]
                     }
                 },
-                "startingMoves": {
-                    "name": "startingMoves",
+                "MovesSixToTen": {
+                    "name": "MovesSixToTen",
                     "isArray": true,
                     "type": {
                         "model": "CharacterMove"
@@ -2102,12 +2236,12 @@ export const schema = {
                     "association": {
                         "connectionType": "HAS_MANY",
                         "associatedWith": [
-                            "characterID"
+                            "characterMovesSixToTenId"
                         ]
                     }
                 },
-                "bonds": {
-                    "name": "bonds",
+                "CharacterBonds": {
+                    "name": "CharacterBonds",
                     "isArray": true,
                     "type": {
                         "model": "CharacterBond"
@@ -2118,12 +2252,12 @@ export const schema = {
                     "association": {
                         "connectionType": "HAS_MANY",
                         "associatedWith": [
-                            "characterID"
+                            "characterCharacterBondsId"
                         ]
                     }
                 },
-                "abilityscores": {
-                    "name": "abilityscores",
+                "CharacterAbilityScores": {
+                    "name": "CharacterAbilityScores",
                     "isArray": true,
                     "type": {
                         "model": "CharacterAbilityScore"
@@ -2134,12 +2268,12 @@ export const schema = {
                     "association": {
                         "connectionType": "HAS_MANY",
                         "associatedWith": [
-                            "characterID"
+                            "characterCharacterAbilityScoresId"
                         ]
                     }
                 },
-                "race": {
-                    "name": "race",
+                "CharacterRace": {
+                    "name": "CharacterRace",
                     "isArray": false,
                     "type": {
                         "model": "CharacterRace"
@@ -2152,12 +2286,12 @@ export const schema = {
                             "id"
                         ],
                         "targetNames": [
-                            "characterRaceId"
+                            "characterCharacterRaceId"
                         ]
                     }
                 },
-                "alignment": {
-                    "name": "alignment",
+                "CharacterAlignment": {
+                    "name": "CharacterAlignment",
                     "isArray": false,
                     "type": {
                         "model": "CharacterAlignment"
@@ -2170,42 +2304,25 @@ export const schema = {
                             "id"
                         ],
                         "targetNames": [
-                            "characterAlignmentId"
+                            "characterCharacterAlignmentId"
                         ]
                     }
                 },
-                "tags": {
-                    "name": "tags",
+                "CharacterLooks": {
+                    "name": "CharacterLooks",
                     "isArray": true,
-                    "type": "String",
-                    "isRequired": false,
-                    "attributes": [],
-                    "isArrayNullable": true
-                },
-                "look": {
-                    "name": "look",
-                    "isArray": false,
                     "type": {
                         "model": "CharacterLook"
                     },
                     "isRequired": false,
                     "attributes": [],
+                    "isArrayNullable": true,
                     "association": {
-                        "connectionType": "HAS_ONE",
+                        "connectionType": "HAS_MANY",
                         "associatedWith": [
-                            "id"
-                        ],
-                        "targetNames": [
-                            "characterLookId"
+                            "characterCharacterLooksId"
                         ]
                     }
-                },
-                "notes": {
-                    "name": "notes",
-                    "isArray": false,
-                    "type": "String",
-                    "isRequired": false,
-                    "attributes": []
                 },
                 "CharacterProfession": {
                     "name": "CharacterProfession",
@@ -2225,6 +2342,22 @@ export const schema = {
                         ]
                     }
                 },
+                "CharacterSpells": {
+                    "name": "CharacterSpells",
+                    "isArray": true,
+                    "type": {
+                        "model": "CharacterSpell"
+                    },
+                    "isRequired": false,
+                    "attributes": [],
+                    "isArrayNullable": true,
+                    "association": {
+                        "connectionType": "HAS_MANY",
+                        "associatedWith": [
+                            "characterCharacterSpellsId"
+                        ]
+                    }
+                },
                 "createdAt": {
                     "name": "createdAt",
                     "isArray": false,
@@ -2241,22 +2374,15 @@ export const schema = {
                     "attributes": [],
                     "isReadOnly": true
                 },
-                "characterRaceId": {
-                    "name": "characterRaceId",
+                "characterCharacterRaceId": {
+                    "name": "characterCharacterRaceId",
                     "isArray": false,
                     "type": "ID",
                     "isRequired": false,
                     "attributes": []
                 },
-                "characterAlignmentId": {
-                    "name": "characterAlignmentId",
-                    "isArray": false,
-                    "type": "ID",
-                    "isRequired": false,
-                    "attributes": []
-                },
-                "characterLookId": {
-                    "name": "characterLookId",
+                "characterCharacterAlignmentId": {
+                    "name": "characterCharacterAlignmentId",
                     "isArray": false,
                     "type": "ID",
                     "isRequired": false,
@@ -2299,5 +2425,5 @@ export const schema = {
     "enums": {},
     "nonModels": {},
     "codegenVersion": "3.4.4",
-    "version": "e1f2f592a4e1c4475d14e52a89b1f617"
+    "version": "5bbe5cd01bb34f30ea24490aa167ba51"
 };
