@@ -13,7 +13,7 @@
 
         <div class="h3">Bard Moves</div>
         <div v-for="move in moveList">
-            <div>
+            <div class="h5">
                 {{ move.name }}
             </div>
             <VueShowdown
@@ -42,8 +42,4 @@ onMounted(async () => {
 });
 </script>
 <style>
-    br {
-        display: block;
-        margin: 10px;
-    }
 </style>
