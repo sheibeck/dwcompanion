@@ -179,6 +179,7 @@ export const syncGears = /* GraphQL */ `query SyncGears(
 export const getMove = /* GraphQL */ `query GetMove($id: ID!) {
   getMove(id: $id) {
     id
+    name
     description
     selected
     profession
@@ -200,6 +201,7 @@ export const listMoves = /* GraphQL */ `query ListMoves(
   listMoves(filter: $filter, limit: $limit, nextToken: $nextToken) {
     items {
       id
+      name
       description
       selected
       profession
@@ -231,6 +233,7 @@ export const syncMoves = /* GraphQL */ `query SyncMoves(
   ) {
     items {
       id
+      name
       description
       selected
       profession
@@ -253,7 +256,7 @@ export const getBond = /* GraphQL */ `query GetBond($id: ID!) {
     id
     description
     profession
-    selected
+    value
     tags
     createdAt
     updatedAt
@@ -274,7 +277,7 @@ export const listBonds = /* GraphQL */ `query ListBonds(
       id
       description
       profession
-      selected
+      value
       tags
       createdAt
       updatedAt
@@ -305,7 +308,7 @@ export const syncBonds = /* GraphQL */ `query SyncBonds(
       id
       description
       profession
-      selected
+      value
       tags
       createdAt
       updatedAt
@@ -568,7 +571,8 @@ export const getLook = /* GraphQL */ `query GetLook($id: ID!) {
     id
     name
     description
-    selected
+    value
+    profession
     createdAt
     updatedAt
     _version
@@ -588,7 +592,8 @@ export const listLooks = /* GraphQL */ `query ListLooks(
       id
       name
       description
-      selected
+      value
+      profession
       createdAt
       updatedAt
       _version
@@ -618,7 +623,8 @@ export const syncLooks = /* GraphQL */ `query SyncLooks(
       id
       name
       description
-      selected
+      value
+      profession
       createdAt
       updatedAt
       _version

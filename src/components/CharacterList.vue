@@ -10,22 +10,40 @@
         </div>
 
         <button type="button" class="btn btn-secondary" @click="">Create a Character</button>
+
+        <div class="h3">Bard Moves</div>
+        <div v-for="move in moveList">
+            <div>
+                {{ move.name }}
+            </div>
+            <VueShowdown
+                :markdown="move.description"
+            />
+        </div>
     </div>
 </template>
 
 <script setup lang="ts">
 import { computed, onMounted, ref } from 'vue';
 import { useGlobalStore } from '@/stores/globalStore';
-import { getCharactersWithProfessions } from '@/services/characterService';
+import { getCharactersWithProfessions, getMovesByProfession } from '@/services/characterService';
+import { Profession } from '@/enums/profession';
+import { VueShowdown } from 'vue-showdown';
 
 const globalStore = useGlobalStore();
 
 const characterList = ref<any>([]);
+const moveList = ref<any>([]);
 const hasCharacters = computed(() => characterList.value?.length > 0);
 
 onMounted(async () => {
-    const items = await getCharactersWithProfessions(globalStore.getUserId);
-    characterList.value = items;
+    characterList.value = await getCharactersWithProfessions(globalStore.getUserId);
+    moveList.value = await getMovesByProfession(Profession.BARD);
 });
-
 </script>
+<style>
+    br {
+        display: block;
+        margin: 10px;
+    }
+</style>

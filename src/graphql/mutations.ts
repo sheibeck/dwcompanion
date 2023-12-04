@@ -164,6 +164,7 @@ export const createMove = /* GraphQL */ `mutation CreateMove(
 ) {
   createMove(input: $input, condition: $condition) {
     id
+    name
     description
     selected
     profession
@@ -186,6 +187,7 @@ export const updateMove = /* GraphQL */ `mutation UpdateMove(
 ) {
   updateMove(input: $input, condition: $condition) {
     id
+    name
     description
     selected
     profession
@@ -208,6 +210,7 @@ export const deleteMove = /* GraphQL */ `mutation DeleteMove(
 ) {
   deleteMove(input: $input, condition: $condition) {
     id
+    name
     description
     selected
     profession
@@ -232,7 +235,7 @@ export const createBond = /* GraphQL */ `mutation CreateBond(
     id
     description
     profession
-    selected
+    value
     tags
     createdAt
     updatedAt
@@ -254,7 +257,7 @@ export const updateBond = /* GraphQL */ `mutation UpdateBond(
     id
     description
     profession
-    selected
+    value
     tags
     createdAt
     updatedAt
@@ -276,7 +279,7 @@ export const deleteBond = /* GraphQL */ `mutation DeleteBond(
     id
     description
     profession
-    selected
+    value
     tags
     createdAt
     updatedAt
@@ -505,7 +508,8 @@ export const createLook = /* GraphQL */ `mutation CreateLook(
     id
     name
     description
-    selected
+    value
+    profession
     createdAt
     updatedAt
     _version
@@ -526,7 +530,8 @@ export const updateLook = /* GraphQL */ `mutation UpdateLook(
     id
     name
     description
-    selected
+    value
+    profession
     createdAt
     updatedAt
     _version
@@ -547,7 +552,8 @@ export const deleteLook = /* GraphQL */ `mutation DeleteLook(
     id
     name
     description
-    selected
+    value
+    profession
     createdAt
     updatedAt
     _version

@@ -22,6 +22,7 @@ type Gear @model @auth(rules: [{allow: public}]) {
 
 type Move @model @auth(rules: [{allow: public}]) {
   id: ID!
+  name: String!
   description: String!
   selected: Boolean
   profession: String!
@@ -32,7 +33,7 @@ type Bond @model @auth(rules: [{allow: public}]) {
   id: ID!
   description: String
   profession: String!
-  selected: Boolean
+  value: String
   tags: [String]
 }
 
@@ -67,7 +68,8 @@ type Look @model @auth(rules: [{allow: public}]) {
   id: ID!
   name: String!
   description: String!
-  selected: String
+  value: String
+  profession: String!
 }
 
 type Character @model @auth(rules: [{allow: public}]) {
@@ -85,15 +87,15 @@ type Character @model @auth(rules: [{allow: public}]) {
   isTemplate: Boolean
   tags: [String]
   notes: [String]
-  gear: [AWSJSON]
-  startingMoves: [AWSJSON]
-  advancedMovesTwoToTen: [AWSJSON]
-  advancedMovesSixToTen: [AWSJSON]
-  bonds: [AWSJSON]
-  abilityScores: [AWSJSON]
+  gear: AWSJSON
+  startingMoves: AWSJSON
+  advancedMovesTwoToTen: AWSJSON
+  advancedMovesSixToTen: AWSJSON
+  bonds: AWSJSON
+  abilityScores: AWSJSON
   race: AWSJSON
   alignment: AWSJSON
-  look: [AWSJSON]
+  look: AWSJSON
   profession: AWSJSON
-  spells: [AWSJSON]
+  spells: AWSJSON
 }

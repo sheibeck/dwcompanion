@@ -214,6 +214,13 @@ export const schema = {
                     "isRequired": true,
                     "attributes": []
                 },
+                "name": {
+                    "name": "name",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": true,
+                    "attributes": []
+                },
                 "description": {
                     "name": "description",
                     "isArray": false,
@@ -308,10 +315,10 @@ export const schema = {
                     "isRequired": true,
                     "attributes": []
                 },
-                "selected": {
-                    "name": "selected",
+                "value": {
+                    "name": "value",
                     "isArray": false,
-                    "type": "Boolean",
+                    "type": "String",
                     "isRequired": false,
                     "attributes": []
                 },
@@ -651,11 +658,18 @@ export const schema = {
                     "isRequired": true,
                     "attributes": []
                 },
-                "selected": {
-                    "name": "selected",
+                "value": {
+                    "name": "value",
                     "isArray": false,
                     "type": "String",
                     "isRequired": false,
+                    "attributes": []
+                },
+                "profession": {
+                    "name": "profession",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": true,
                     "attributes": []
                 },
                 "createdAt": {
@@ -805,51 +819,45 @@ export const schema = {
                 },
                 "gear": {
                     "name": "gear",
-                    "isArray": true,
+                    "isArray": false,
                     "type": "AWSJSON",
                     "isRequired": false,
-                    "attributes": [],
-                    "isArrayNullable": true
+                    "attributes": []
                 },
                 "startingMoves": {
                     "name": "startingMoves",
-                    "isArray": true,
+                    "isArray": false,
                     "type": "AWSJSON",
                     "isRequired": false,
-                    "attributes": [],
-                    "isArrayNullable": true
+                    "attributes": []
                 },
                 "advancedMovesTwoToTen": {
                     "name": "advancedMovesTwoToTen",
-                    "isArray": true,
+                    "isArray": false,
                     "type": "AWSJSON",
                     "isRequired": false,
-                    "attributes": [],
-                    "isArrayNullable": true
+                    "attributes": []
                 },
                 "advancedMovesSixToTen": {
                     "name": "advancedMovesSixToTen",
-                    "isArray": true,
+                    "isArray": false,
                     "type": "AWSJSON",
                     "isRequired": false,
-                    "attributes": [],
-                    "isArrayNullable": true
+                    "attributes": []
                 },
                 "bonds": {
                     "name": "bonds",
-                    "isArray": true,
+                    "isArray": false,
                     "type": "AWSJSON",
                     "isRequired": false,
-                    "attributes": [],
-                    "isArrayNullable": true
+                    "attributes": []
                 },
                 "abilityScores": {
                     "name": "abilityScores",
-                    "isArray": true,
+                    "isArray": false,
                     "type": "AWSJSON",
                     "isRequired": false,
-                    "attributes": [],
-                    "isArrayNullable": true
+                    "attributes": []
                 },
                 "race": {
                     "name": "race",
@@ -867,11 +875,10 @@ export const schema = {
                 },
                 "look": {
                     "name": "look",
-                    "isArray": true,
+                    "isArray": false,
                     "type": "AWSJSON",
                     "isRequired": false,
-                    "attributes": [],
-                    "isArrayNullable": true
+                    "attributes": []
                 },
                 "profession": {
                     "name": "profession",
@@ -882,11 +889,10 @@ export const schema = {
                 },
                 "spells": {
                     "name": "spells",
-                    "isArray": true,
+                    "isArray": false,
                     "type": "AWSJSON",
                     "isRequired": false,
-                    "attributes": [],
-                    "isArrayNullable": true
+                    "attributes": []
                 },
                 "createdAt": {
                     "name": "createdAt",
@@ -934,5 +940,5 @@ export const schema = {
     "enums": {},
     "nonModels": {},
     "codegenVersion": "3.4.4",
-    "version": "671c173639943e6470c49005c7a30c65"
+    "version": "c8b5d3c67ab9d06925b1514db7ccde17"
 };

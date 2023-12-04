@@ -143,6 +143,7 @@ export const onDeleteGear = /* GraphQL */ `subscription OnDeleteGear($filter: Mo
 export const onCreateMove = /* GraphQL */ `subscription OnCreateMove($filter: ModelSubscriptionMoveFilterInput) {
   onCreateMove(filter: $filter) {
     id
+    name
     description
     selected
     profession
@@ -162,6 +163,7 @@ export const onCreateMove = /* GraphQL */ `subscription OnCreateMove($filter: Mo
 export const onUpdateMove = /* GraphQL */ `subscription OnUpdateMove($filter: ModelSubscriptionMoveFilterInput) {
   onUpdateMove(filter: $filter) {
     id
+    name
     description
     selected
     profession
@@ -181,6 +183,7 @@ export const onUpdateMove = /* GraphQL */ `subscription OnUpdateMove($filter: Mo
 export const onDeleteMove = /* GraphQL */ `subscription OnDeleteMove($filter: ModelSubscriptionMoveFilterInput) {
   onDeleteMove(filter: $filter) {
     id
+    name
     description
     selected
     profession
@@ -202,7 +205,7 @@ export const onCreateBond = /* GraphQL */ `subscription OnCreateBond($filter: Mo
     id
     description
     profession
-    selected
+    value
     tags
     createdAt
     updatedAt
@@ -221,7 +224,7 @@ export const onUpdateBond = /* GraphQL */ `subscription OnUpdateBond($filter: Mo
     id
     description
     profession
-    selected
+    value
     tags
     createdAt
     updatedAt
@@ -240,7 +243,7 @@ export const onDeleteBond = /* GraphQL */ `subscription OnDeleteBond($filter: Mo
     id
     description
     profession
-    selected
+    value
     tags
     createdAt
     updatedAt
@@ -445,7 +448,8 @@ export const onCreateLook = /* GraphQL */ `subscription OnCreateLook($filter: Mo
     id
     name
     description
-    selected
+    value
+    profession
     createdAt
     updatedAt
     _version
@@ -463,7 +467,8 @@ export const onUpdateLook = /* GraphQL */ `subscription OnUpdateLook($filter: Mo
     id
     name
     description
-    selected
+    value
+    profession
     createdAt
     updatedAt
     _version
@@ -481,7 +486,8 @@ export const onDeleteLook = /* GraphQL */ `subscription OnDeleteLook($filter: Mo
     id
     name
     description
-    selected
+    value
+    profession
     createdAt
     updatedAt
     _version

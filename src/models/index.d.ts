@@ -92,6 +92,7 @@ type EagerMove = {
     readOnlyFields: 'createdAt' | 'updatedAt';
   };
   readonly id: string;
+  readonly name: string;
   readonly description: string;
   readonly selected?: boolean | null;
   readonly profession: string;
@@ -106,6 +107,7 @@ type LazyMove = {
     readOnlyFields: 'createdAt' | 'updatedAt';
   };
   readonly id: string;
+  readonly name: string;
   readonly description: string;
   readonly selected?: boolean | null;
   readonly profession: string;
@@ -128,7 +130,7 @@ type EagerBond = {
   readonly id: string;
   readonly description?: string | null;
   readonly profession: string;
-  readonly selected?: boolean | null;
+  readonly value?: string | null;
   readonly tags?: (string | null)[] | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
@@ -142,7 +144,7 @@ type LazyBond = {
   readonly id: string;
   readonly description?: string | null;
   readonly profession: string;
-  readonly selected?: boolean | null;
+  readonly value?: string | null;
   readonly tags?: (string | null)[] | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
@@ -270,7 +272,8 @@ type EagerLook = {
   readonly id: string;
   readonly name: string;
   readonly description: string;
-  readonly selected?: string | null;
+  readonly value?: string | null;
+  readonly profession: string;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -283,7 +286,8 @@ type LazyLook = {
   readonly id: string;
   readonly name: string;
   readonly description: string;
-  readonly selected?: string | null;
+  readonly value?: string | null;
+  readonly profession: string;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -313,17 +317,17 @@ type EagerCharacter = {
   readonly isTemplate?: boolean | null;
   readonly tags?: (string | null)[] | null;
   readonly notes?: (string | null)[] | null;
-  readonly gear?: (string | null)[] | null;
-  readonly startingMoves?: (string | null)[] | null;
-  readonly advancedMovesTwoToTen?: (string | null)[] | null;
-  readonly advancedMovesSixToTen?: (string | null)[] | null;
-  readonly bonds?: (string | null)[] | null;
-  readonly abilityScores?: (string | null)[] | null;
+  readonly gear?: string | null;
+  readonly startingMoves?: string | null;
+  readonly advancedMovesTwoToTen?: string | null;
+  readonly advancedMovesSixToTen?: string | null;
+  readonly bonds?: string | null;
+  readonly abilityScores?: string | null;
   readonly race?: string | null;
   readonly alignment?: string | null;
-  readonly look?: (string | null)[] | null;
+  readonly look?: string | null;
   readonly profession?: string | null;
-  readonly spells?: (string | null)[] | null;
+  readonly spells?: string | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -347,17 +351,17 @@ type LazyCharacter = {
   readonly isTemplate?: boolean | null;
   readonly tags?: (string | null)[] | null;
   readonly notes?: (string | null)[] | null;
-  readonly gear?: (string | null)[] | null;
-  readonly startingMoves?: (string | null)[] | null;
-  readonly advancedMovesTwoToTen?: (string | null)[] | null;
-  readonly advancedMovesSixToTen?: (string | null)[] | null;
-  readonly bonds?: (string | null)[] | null;
-  readonly abilityScores?: (string | null)[] | null;
+  readonly gear?: string | null;
+  readonly startingMoves?: string | null;
+  readonly advancedMovesTwoToTen?: string | null;
+  readonly advancedMovesSixToTen?: string | null;
+  readonly bonds?: string | null;
+  readonly abilityScores?: string | null;
   readonly race?: string | null;
   readonly alignment?: string | null;
-  readonly look?: (string | null)[] | null;
+  readonly look?: string | null;
   readonly profession?: string | null;
-  readonly spells?: (string | null)[] | null;
+  readonly spells?: string | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
