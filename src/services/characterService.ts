@@ -20,9 +20,7 @@ export const getCharactersWithProfessions = async(userId: string) => {
 
         const charList: any = characters.data.listCharacters.items;
         charList.forEach((item: any) => {
-            item.profession = formatJson(item.profession);
-            item.startingMoves = formatJson(item.startingMoves);
-            item.look = formatJson(item.look);
+            item = jsonCharacter(item)
         });
 
         return charList;
@@ -53,6 +51,18 @@ export const getMovesByProfession = async(profession: Profession) => {
 
     return moveList;
 };
+
+export function jsonCharacter(character: any) {
+    character.alignment = formatJson(character.alignment);
+    character.profession = formatJson(character.profession);
+    character.startingMoves = formatJson(character.startingMoves);
+    character.look = formatJson(character.look);
+    character.abilityScores = formatJson(character.abilityScores);
+    character.advancedMovesTwoToTen = formatJson(character.advancedMovesTwoToTen);
+    character.advancedMovesSixToTen = formatJson(character.advancedMovesSixToTen);
+    
+    return character;
+}
 
 function formatJson(text: any) {
     if(!text) return text;
