@@ -2,7 +2,7 @@
 <template>
   <main>
     <!-- Navigation Bar -->
-    <nav class="navbar navbar-expand-lg navbar-dark justify-content-between">
+    <nav v-if="!isLogin" class="navbar navbar-expand-lg navbar-dark justify-content-between">
       <a class="navbar-brand" href="#">
         <img alt="logo" class="nav-logo" src="@/assets/dwlogo.png" />
       </a>
@@ -29,9 +29,14 @@
 </template>
 
 <script setup lang="ts">
-import { RouterView } from 'vue-router'
+import { RouterView, useRoute } from 'vue-router'
 import { useGlobalStore } from './stores/globalStore';
+import { computed } from 'vue';
 const globalStore = useGlobalStore();
+const route = useRoute();
+
+const isLogin = computed(() => route.name === "home");
+
 </script>
 
 
