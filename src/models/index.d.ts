@@ -6,6 +6,40 @@ import { LazyLoading, LazyLoadingDisabled } from "@aws-amplify/datastore";
 
 
 
+type EagerProfession = {
+  readonly [__modelMeta__]: {
+    identifier: ManagedIdentifier<Profession, 'id'>;
+    readOnlyFields: 'createdAt' | 'updatedAt';
+  };
+  readonly id: string;
+  readonly name: string;
+  readonly description: string;
+  readonly diceType: string;
+  readonly source: string;
+  readonly createdAt?: string | null;
+  readonly updatedAt?: string | null;
+}
+
+type LazyProfession = {
+  readonly [__modelMeta__]: {
+    identifier: ManagedIdentifier<Profession, 'id'>;
+    readOnlyFields: 'createdAt' | 'updatedAt';
+  };
+  readonly id: string;
+  readonly name: string;
+  readonly description: string;
+  readonly diceType: string;
+  readonly source: string;
+  readonly createdAt?: string | null;
+  readonly updatedAt?: string | null;
+}
+
+export declare type Profession = LazyLoading extends LazyLoadingDisabled ? EagerProfession : LazyProfession
+
+export declare const Profession: (new (init: ModelInit<Profession>) => Profession) & {
+  copyOf(source: Profession, mutator: (draft: MutableModel<Profession>) => MutableModel<Profession> | void): Profession;
+}
+
 type EagerSpell = {
   readonly [__modelMeta__]: {
     identifier: ManagedIdentifier<Spell, 'id'>;
@@ -205,6 +239,7 @@ type EagerRace = {
   readonly name?: string | null;
   readonly description?: string | null;
   readonly profession: string;
+  readonly selected: boolean;
   readonly source: string;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
@@ -219,6 +254,7 @@ type LazyRace = {
   readonly name?: string | null;
   readonly description?: string | null;
   readonly profession: string;
+  readonly selected: boolean;
   readonly source: string;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;

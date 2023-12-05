@@ -1,3 +1,10 @@
+type Profession @model @auth(rules: [{allow: public}]) {
+  name: String!
+  description: String!
+  diceType: String!
+  source: String! 
+}
+
 type Spell @model @auth(rules: [{allow: public}]) {
   id: ID!
   name: String!
@@ -53,6 +60,7 @@ type Race @model @auth(rules: [{allow: public}]) {
   name: String
   description: String
   profession: String!
+  selected: Boolean!
   source: String!
 }
 

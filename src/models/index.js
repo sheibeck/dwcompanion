@@ -4,9 +4,10 @@ import { schema } from './schema';
 
 
 
-const { Spell, Gear, Move, Bond, AbilityScore, Race, Alignment, Look, Character } = initSchema(schema);
+const { Profession, Spell, Gear, Move, Bond, AbilityScore, Race, Alignment, Look, Character } = initSchema(schema);
 
 export {
+  Profession,
   Spell,
   Gear,
   Move,

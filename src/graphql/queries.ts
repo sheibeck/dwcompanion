@@ -8,6 +8,87 @@ type GeneratedQuery<InputType, OutputType> = string & {
   __generatedQueryOutput: OutputType;
 };
 
+export const getProfession = /* GraphQL */ `query GetProfession($id: ID!) {
+  getProfession(id: $id) {
+    name
+    description
+    diceType
+    source
+    id
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.GetProfessionQueryVariables,
+  APITypes.GetProfessionQuery
+>;
+export const listProfessions = /* GraphQL */ `query ListProfessions(
+  $filter: ModelProfessionFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listProfessions(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      name
+      description
+      diceType
+      source
+      id
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      __typename
+    }
+    nextToken
+    startedAt
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.ListProfessionsQueryVariables,
+  APITypes.ListProfessionsQuery
+>;
+export const syncProfessions = /* GraphQL */ `query SyncProfessions(
+  $filter: ModelProfessionFilterInput
+  $limit: Int
+  $nextToken: String
+  $lastSync: AWSTimestamp
+) {
+  syncProfessions(
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+    lastSync: $lastSync
+  ) {
+    items {
+      name
+      description
+      diceType
+      source
+      id
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      __typename
+    }
+    nextToken
+    startedAt
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.SyncProfessionsQueryVariables,
+  APITypes.SyncProfessionsQuery
+>;
 export const getSpell = /* GraphQL */ `query GetSpell($id: ID!) {
   getSpell(id: $id) {
     id
@@ -419,6 +500,7 @@ export const getRace = /* GraphQL */ `query GetRace($id: ID!) {
     name
     description
     profession
+    selected
     source
     createdAt
     updatedAt
@@ -440,6 +522,7 @@ export const listRaces = /* GraphQL */ `query ListRaces(
       name
       description
       profession
+      selected
       source
       createdAt
       updatedAt
@@ -471,6 +554,7 @@ export const syncRaces = /* GraphQL */ `query SyncRaces(
       name
       description
       profession
+      selected
       source
       createdAt
       updatedAt

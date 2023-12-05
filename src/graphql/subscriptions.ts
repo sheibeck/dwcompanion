@@ -8,6 +8,69 @@ type GeneratedSubscription<InputType, OutputType> = string & {
   __generatedSubscriptionOutput: OutputType;
 };
 
+export const onCreateProfession = /* GraphQL */ `subscription OnCreateProfession(
+  $filter: ModelSubscriptionProfessionFilterInput
+) {
+  onCreateProfession(filter: $filter) {
+    name
+    description
+    diceType
+    source
+    id
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnCreateProfessionSubscriptionVariables,
+  APITypes.OnCreateProfessionSubscription
+>;
+export const onUpdateProfession = /* GraphQL */ `subscription OnUpdateProfession(
+  $filter: ModelSubscriptionProfessionFilterInput
+) {
+  onUpdateProfession(filter: $filter) {
+    name
+    description
+    diceType
+    source
+    id
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnUpdateProfessionSubscriptionVariables,
+  APITypes.OnUpdateProfessionSubscription
+>;
+export const onDeleteProfession = /* GraphQL */ `subscription OnDeleteProfession(
+  $filter: ModelSubscriptionProfessionFilterInput
+) {
+  onDeleteProfession(filter: $filter) {
+    name
+    description
+    diceType
+    source
+    id
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnDeleteProfessionSubscriptionVariables,
+  APITypes.OnDeleteProfessionSubscription
+>;
 export const onCreateSpell = /* GraphQL */ `subscription OnCreateSpell($filter: ModelSubscriptionSpellFilterInput) {
   onCreateSpell(filter: $filter) {
     id
@@ -335,6 +398,7 @@ export const onCreateRace = /* GraphQL */ `subscription OnCreateRace($filter: Mo
     name
     description
     profession
+    selected
     source
     createdAt
     updatedAt
@@ -354,6 +418,7 @@ export const onUpdateRace = /* GraphQL */ `subscription OnUpdateRace($filter: Mo
     name
     description
     profession
+    selected
     source
     createdAt
     updatedAt
@@ -373,6 +438,7 @@ export const onDeleteRace = /* GraphQL */ `subscription OnDeleteRace($filter: Mo
     name
     description
     profession
+    selected
     source
     createdAt
     updatedAt

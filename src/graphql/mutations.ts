@@ -8,6 +8,72 @@ type GeneratedMutation<InputType, OutputType> = string & {
   __generatedMutationOutput: OutputType;
 };
 
+export const createProfession = /* GraphQL */ `mutation CreateProfession(
+  $input: CreateProfessionInput!
+  $condition: ModelProfessionConditionInput
+) {
+  createProfession(input: $input, condition: $condition) {
+    name
+    description
+    diceType
+    source
+    id
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.CreateProfessionMutationVariables,
+  APITypes.CreateProfessionMutation
+>;
+export const updateProfession = /* GraphQL */ `mutation UpdateProfession(
+  $input: UpdateProfessionInput!
+  $condition: ModelProfessionConditionInput
+) {
+  updateProfession(input: $input, condition: $condition) {
+    name
+    description
+    diceType
+    source
+    id
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.UpdateProfessionMutationVariables,
+  APITypes.UpdateProfessionMutation
+>;
+export const deleteProfession = /* GraphQL */ `mutation DeleteProfession(
+  $input: DeleteProfessionInput!
+  $condition: ModelProfessionConditionInput
+) {
+  deleteProfession(input: $input, condition: $condition) {
+    name
+    description
+    diceType
+    source
+    id
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.DeleteProfessionMutationVariables,
+  APITypes.DeleteProfessionMutation
+>;
 export const createSpell = /* GraphQL */ `mutation CreateSpell(
   $input: CreateSpellInput!
   $condition: ModelSpellConditionInput
@@ -377,6 +443,7 @@ export const createRace = /* GraphQL */ `mutation CreateRace(
     name
     description
     profession
+    selected
     source
     createdAt
     updatedAt
@@ -399,6 +466,7 @@ export const updateRace = /* GraphQL */ `mutation UpdateRace(
     name
     description
     profession
+    selected
     source
     createdAt
     updatedAt
@@ -421,6 +489,7 @@ export const deleteRace = /* GraphQL */ `mutation DeleteRace(
     name
     description
     profession
+    selected
     source
     createdAt
     updatedAt

@@ -10,22 +10,39 @@
       </authenticator>
     </div>
   </template>
+
+  <template v-if="auth.route === 'authenticated'">
+    <main>
+      <!-- Navigation Bar -->
+      <nav class="navbar navbar-expand-lg navbar-dark justify-content-between">
+        <a class="navbar-brand" href="#">
+          <img alt="logo" class="nav-logo" src="@/assets/dwlogo.png" />
+        </a>
+        <div class="ml-auto">
+          <button class="btn btn-secondary text-light btn-link" @click="auth.signOut">Sign out</button>
+        </div> 
+      </nav>
+
+      <!-- Page Content -->
+      <div class="container-fluid mt-5">
+        <CharacterList />
+      </div>
+    </main>
+  </template>
 </template>
 
 <script setup lang="ts">
 import { Authenticator, useAuthenticator } from '@aws-amplify/ui-vue';
+import CharacterList from '@/components/CharacterList.vue';
+import { watch } from 'vue';
 import { useGlobalStore } from '@/stores/globalStore';
-import { onMounted } from 'vue';
-import { useRouter } from 'vue-router';
   
 const auth = useAuthenticator();
 const globalStore = useGlobalStore();
-const router = useRouter();
 
-onMounted(async () => {
-  const userId = await globalStore.getUserId();
-  if (userId) {
-    router.push({ name: "characters" });
+watch(() => auth.user, () => {
+  if (auth.route === 'authenticated') {
+    globalStore.setUserId(auth.user.userId);
   }
 })
 
