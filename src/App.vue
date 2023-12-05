@@ -8,16 +8,16 @@
       </a>
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
-          <li class="nav-item">
+          <li class="nav-item p-2">
             <a class="nav-link" href="/characters">Characters</a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item p-2">
             <a class="nav-link" href="/about">About</a>
           </li>
         </ul>
       </div>
       <div class="ml-auto">
-        <button class="btn btn-secondary  btn-link" @click="globalStore.signOut()">Sign out</button>
+        <button class="btn btn-secondary text-light btn-link" @click="globalStore.signOut()">Sign out</button>
       </div> 
     </nav>
 

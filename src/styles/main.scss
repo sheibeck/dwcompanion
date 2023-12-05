@@ -1,5 +1,10 @@
 @import "/node_modules/bootstrap/scss/bootstrap-reboot.scss";
 @import "/node_modules/bootstrap/scss/bootstrap.scss";
+@import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Londrina+Solid:wght@300;400&display=swap');
+
+body {
+    font-family: 'Londrina Solid', sans-serif;
+}
 
 main {
     .nav-logo {
@@ -10,5 +15,21 @@ main {
     nav {
         background-color: #181818;
         max-height: 100px;
+        font-weight: 700;
+        font-family: 'Cinzel Decorative', serif;
     }
+
+    @media print {
+        nav {
+            display: none !important;
+        }
+    }
+}
+
+
+
+// bootstrap overrides
+.form-check-input:checked {
+    background-color: black;
+    border-color: gray;
 }
