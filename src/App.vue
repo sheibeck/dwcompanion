@@ -17,7 +17,7 @@
         </ul>
       </div>
       <div class="ml-auto">
-        <button class="btn btn-secondary text-light btn-link" @click="globalStore.signOut()">Sign out</button>
+        <button class="btn btn-secondary  btn-link" @click="globalStore.signOut()">Sign out</button>
       </div> 
     </nav>
 

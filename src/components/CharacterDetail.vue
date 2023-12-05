@@ -26,23 +26,23 @@
             <span class="input-group-text" id="basic-addon3">{{look.name}}</span>
             <input type="text" class="form-control" aria-describedby="basic-addon3 basic-addon4" v-model="look.value">
           </div>
-          <div class="form-text" id="basic-addon4">{{look.description}}</div>
+          <div class="form-text " id="basic-addon4">{{look.description}}</div>
         </div>
       </div>
       <!-- combat -->
       <div class="container-fluid  mb-3">
         <div class="input-group">
-          <span class="input-group-text bg-dark text-light w-75 fs-4" id="level">Armor</span>
+          <span class="input-group-text   w-75 fs-4" id="level">Armor</span>
           <input type="text" class="form-control fs-3 text-center"  v-model="character.armor">
         </div>
         <div class="input-group">
-          <span class="input-group-text bg-dark text-light w-50 fs-4" id="level">Hit Points</span>
+          <span class="input-group-text   w-50 fs-4" id="level">Hit Points</span>
           <input type="text" class="form-control fs-4 text-center" aria-describedby="hitpoint-description" v-model="character.hitPointsMax">
           <input type="text" class="form-control fs-4 text-center" aria-describedby="hitpoint-description" v-model="character.hitPointsCurrent">
         </div>
         <div class="form-text text-end" id="hitpoint-description">Max (8 + Constitution) / Current</div>
         <div class="input-group">
-          <span class="input-group-text bg-dark text-light w-75 fs-4" id="level">Damage</span>
+          <span class="input-group-text   w-75 fs-4" id="level">Damage</span>
           <input type="text" class="form-control fs-4 text-center">
         </div>
       </div>
@@ -54,8 +54,8 @@
             <input class="form-check-input mt-0" type="checkbox" v-model="alignment.selected" :aria-label="`Alignment checkbox for ${alignment.name}`">
           </div>
           <div class="form-text p-1">
-            <div class="fs-4" id="basic-addon4">{{ alignment.name }}</div>
-            <div class="form-text text-end" id="basic-addon4">{{ alignment.description }}</div>
+            <div class="fs-4 " id="basic-addon4">{{ alignment.name }}</div>
+            <div class="form-text text-end " id="basic-addon4">{{ alignment.description }}</div>
           </div>
         </div>
       </div>
@@ -64,22 +64,22 @@
     <div id="ability-scores">
       <!-- ability scores -->
        <div id="abilities">
-        <!-- score -->
-        <div v-for="ability in character.abilityScores" class="container-fluid mb-3">
-          <div class="border border-dark fs-3 p-1">{{ability.name}}</div>
-          <div class="input-group input-group-lg bg-dark">
-            <span class="attr-label" id="level">{{ability.shortName}}</span>
-            <input type="text" class="form-control fs-3 text-center attr-circle">
-            <div class="d-flex justify-content-end d-flex bg-dark text-light flex-fill" id="level">
-               <span class="form-check debility">
-                <input class="" type="checkbox" v-model="ability.debility" :id="`${ability.name}-debility`">
-                <label class="" :for="`${ability.name}-debility`">
-                  {{ ability.debility }} ({{ ability.debilityPenalty }})
-                </label>
-              </span>
+            <!-- score -->
+            <div v-for="ability in character.abilityScores" class="container-fluid mb-3">
+                <div class="border border-dark fs-3 p-1">{{ability.name}}</div>
+                <div class="input-group input-group-lg bg-dark text-light">
+                <span class="attr-label text-dark" id="level">{{ability.shortName}}</span>
+                <input type="text" class="form-control fs-3 text-center attr-circle">
+                <div class="d-flex justify-content-end d-flex   flex-fill" id="level">
+                    <span class="form-check debility">
+                    <input class="" type="checkbox" v-model="ability.debility" :id="`${ability.name}-debility`">
+                    <label class="" :for="`${ability.name}-debility`">
+                        {{ ability.debility }} ({{ ability.debilityPenalty }})
+                    </label>
+                    </span>
+                </div>
+                </div>
             </div>
-          </div>
-        </div>
       </div>
       
       <!-- bonds -->
@@ -156,7 +156,7 @@ const getCharacter = async (id: string) => {
       
       #abilities {
         display: grid;
-        grid-template-columns: auto auto auto;
+        grid-template-columns: 50% 50%;
         
         .attr-circle {
           border-radius: 25px;
@@ -175,10 +175,6 @@ const getCharacter = async (id: string) => {
           width: 60px;
           max-width: 60px;
           min-width: 60px;
-        }
-        
-        .debility {
-         
         }
       }
     }
