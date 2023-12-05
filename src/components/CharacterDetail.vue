@@ -2,11 +2,20 @@
     <div v-if="!character">
         Loading ...
     </div>
-    <div v-else class="character container mt-3">
+    <div v-else class="character container-fluid mt-3">
         <div class="page">
             <div class="sheet-label">
-                <div class="rotated-text">
-                    The Bard
+                <div class="banner-top">
+                    <img src="../assets/page-banner-top.png" alt="page banner top" />
+                </div>
+                <div class="banner-middle">
+                    <div class="rotated-text">
+                        The Bard
+                    </div>
+                </div>
+                <div class="banner-bottom">
+                    <img src="../assets/page-banner-bottom.png" alt="page banner bottom" />
+                    <img class="banner-bottom-fill" src="../assets/page-banner-bottom-fill.png" alt="page banner bottom fill" />
                 </div>
             </div>
             <div class="sheet-details">
@@ -33,9 +42,9 @@
                         <div class="bg-dark text-light fs-5 p-1 mb-1">Look</div>
                         <div v-for="look in character.look" :index="look.id">
                             <div class="input-group input-group-sm">
-                                <span class="input-group-text" id="basic-addon3">{{ look.name }}</span>
+                                <span class="input-group-text fs-5" id="basic-addon3">{{ look.name }}</span>
                                 <input type="text" class="form-control" aria-describedby="basic-addon3 basic-addon4"
-                                    v-model="look.value">
+                                    v-model="look.v1ue">
                             </div>
                             <div class="form-text text-end" id="basic-addon4">{{ look.description }}</div>
                         </div>
@@ -150,24 +159,53 @@ const getCharacter = async (id: string) => {
 
     .page {
         display: grid;
-        grid-template-columns: 80px 1fr;
+        grid-template-columns: auto;
+        height: 1012px;
+        break-inside: avoid;
+
+       
 
         .sheet-label {
+            display: none;
+            grid-template-rows: auto 600px 1fr;
             font-weight: 700;
             font-family: 'Cinzel Decorative', serif;
             height: 100%;
 
-            .rotated-text {
-                transform: rotate(-90deg);
-                position: absolute;
-                top: 50%;
-                left: -45%;
-                transform-origin: 50% 50%;
-                text-align: center;
-                width: 100%;
-                font-size: 45px;
+            .banner-middle {
+                .rotated-text {
+                    width: 600px;
+                    transform: translate(-43%, 300%) rotate(-90deg);
+                    font-size: 60px;
+                    text-align: center;
+                }
+            }
+
+            .banner-bottom {
+                height: 100%;
+                width: 70px;
+                
+                img {
+                    margin: 0px;
+                }
+
+                &-fill {
+                    height: 100%;
+                    width: 79px;
+                }
             }
         }
+    }
+
+    @media(min-width: 800px) {
+        .page {
+            display: grid;
+            grid-template-columns: 80px 1fr;
+
+            .sheet-label {
+                display: grid;
+            }
+        }  
     }
 
     #identity {
@@ -187,6 +225,10 @@ const getCharacter = async (id: string) => {
         flex-wrap: wrap;
 
         .look {
+            div, input {
+                margin: 0px !important;
+                padding: 0px !important;
+            }
             .input-group {
                 flex-wrap: nowrap;
 
@@ -203,6 +245,9 @@ const getCharacter = async (id: string) => {
         }
 
         .alignment {
+            div {
+                margin: 0px;
+            }
             .input-group {
                 flex-wrap: nowrap;
 
@@ -217,7 +262,7 @@ const getCharacter = async (id: string) => {
     @media(min-width: 800px) {
         #combat {
             display: grid;
-            grid-template-columns: auto auto 25%;
+            grid-template-columns: auto auto 33%;
         }
     }
 
@@ -253,12 +298,36 @@ const getCharacter = async (id: string) => {
     @media(min-width: 800px) {
         #ability-scores {
             display: grid;
-            grid-template-columns: 1fr 25%;
+            grid-template-columns: 1fr 33%;
 
             #abilities {
                 display: grid;
-                grid-template-columns: auto auto auto;
+                grid-template-columns: 1fr 1fr 1fr;
             }
         }
     }
-}</style>
+}
+
+
+
+@media print {
+    .container-fluid {
+        margin-top: 5px !important;
+    }
+    .character {
+        margin: 0px !important;
+        padding: 0px !important;
+    }
+    .alignment div,
+    .look div {
+        margin: 0px !important;
+        padding: 0px !important;
+        font-size: .9em;
+
+        .fs-5 {
+            font-size: 1.25em !important;
+        }
+    }
+}
+
+</style>

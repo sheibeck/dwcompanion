@@ -2,7 +2,7 @@
 <template>
   <main>
     <!-- Navigation Bar -->
-    <nav v-if="!isLogin" class="navbar navbar-expand-lg navbar-dark justify-content-between">
+    <nav v-if="!isLogin" class="d-print-none navbar navbar-expand-lg navbar-dark justify-content-between">
       <a class="navbar-brand" href="#">
         <img alt="logo" class="nav-logo" src="@/assets/dwlogo.png" />
       </a>
