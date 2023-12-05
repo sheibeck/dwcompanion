@@ -21,7 +21,7 @@
       </div> 
     </nav>
 
-    <div class="container-fluid mt-5">
+    <div class="container-fluid mt-5 content">
       <RouterView />
     </div>
 
@@ -42,4 +42,10 @@ const isLogin = computed(() => route.name === "home");
 
 <style lang="scss">
   @import "./styles/main.scss";
+
+  @media print {
+      .content {
+          margin-top: 5px !important;
+      }
+  }
 </style>
