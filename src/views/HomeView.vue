@@ -3,7 +3,7 @@
 
   <div class="professions">
     <div class="card m-2" v-for="(profession, idx) in professionList" :key="profession">
-      <img :src="`/src/assets/professions/${profession.name.toLowerCase()}.png`" class="card-img-top" :alt="`image of ${profession.name}`">
+      <img :src="`/professions/${profession.name.toLowerCase()}.png`" class="card-img-top" :alt="`image of ${profession.name}`">
       <div class="card-body">
         <h4 class="card-title">{{ profession.name }}</h4>
         <p class="card-text">{{profession.description}}</p>

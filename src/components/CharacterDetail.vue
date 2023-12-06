@@ -6,7 +6,7 @@
         <div class="page">
             <div class="sheet-label">
                 <div class="banner-top">
-                    <img src="../assets/page-banner-top.png" alt="page banner top" />
+                    <img src="@/assets/page-banner-top.png" alt="page banner top" />
                 </div>
                 <div class="banner-middle">
                     <div class="rotated-text">
@@ -14,8 +14,8 @@
                     </div>
                 </div>
                 <div class="banner-bottom">
-                    <img src="../assets/page-banner-bottom.png" alt="page banner bottom" />
-                    <img class="banner-bottom-fill" src="../assets/page-banner-bottom-fill.png" alt="page banner bottom fill" />
+                    <img src="@/assets/page-banner-bottom.png" alt="page banner bottom" />
+                    <img class="banner-bottom-fill" src="@/assets/page-banner-bottom-fill.png" alt="page banner bottom fill" />
                 </div>
             </div>
             <div class="sheet-details">

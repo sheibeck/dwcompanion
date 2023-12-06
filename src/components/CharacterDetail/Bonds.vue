@@ -9,7 +9,7 @@
             <div v-if="!isEditing" class="d-flex">
                 <VueShowdown :markdown="bond.description" class="description" />
                 <button class="btn btn-link d-print-none" type="button" @click="isEditing=true">
-                    <img src="../../assets/pencil-solid.svg" alt="edit description"/>
+                    <img src="@/assets/pencil-solid.svg" alt="edit description"/>
                 </button>
             </div>
             
@@ -17,10 +17,10 @@
                 <input type="text" class="form-control from-control-sm" v-model="bond.description" />
 
                 <button class="btn btn-link" type="button" @click="isEditing=false">
-                    <img src="../../assets/floppy-disk-solid.svg" alt="save description"/>
+                    <img src="@/assets/floppy-disk-solid.svg" alt="save description"/>
                 </button>
                 <button class="btn btn-link" type="button" @click="isEditing=false">
-                    <img src="../../assets/ban-solid.svg" alt="cancel edit description"/>
+                    <img src="@/assets/ban-solid.svg" alt="cancel edit description"/>
                 </button>
             </div>
         </div>
