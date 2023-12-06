@@ -7,7 +7,7 @@ const client = generateClient();
 
 export const getProfessions = async() => {
 
-    const result: any = await client.graphql({ query: queries.listProfessions });
+    const result: any = await client.graphql({ query: queries.listProfessions});
 
     const professsions =  await result.data.listProfessions.items;
 

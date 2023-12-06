@@ -49,8 +49,20 @@ let createCharacterModal: any;
 const professionList = ref();
 
 const getProfessionList = async () => {
-  const list = await getProfessions();
-  professionList.value = list;
+  const isAuthenticated = await globalStore.isAuthenticated();
+  if (isAuthenticated) {
+    const list = await getProfessions();
+    professionList.value = list;
+  }
+  else {
+    const profs: { name: string, description: string }[] = Object.values(Profession).map((value) => {
+      return {
+        name: value.toString(), // Convert value to string for "name" property
+        description: "", // Use existing "description" property
+      };
+    }).filter( p => p.name !== "Any");
+    professionList.value = profs;
+  }
 };
 getProfessionList();
 

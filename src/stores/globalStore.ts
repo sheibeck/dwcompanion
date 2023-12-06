@@ -10,7 +10,7 @@ export const useGlobalStore = defineStore('globalStore', () => {
     const userId = ref<string|null>(null);
    
     async function isAuthenticated() {
-        const session = await Auth.fetchAuthSession();
+        const session = await Auth.fetchAuthSession();        
         if (session.userSub) {
             userId.value = session.userSub;
             return true;
