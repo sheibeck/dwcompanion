@@ -1,6 +1,5 @@
 <template>
     <div>
-        <!-- Your page content goes here -->
         <h1>Characters</h1>
 
         <div v-if="hasCharacters">
@@ -9,7 +8,7 @@
             </div>
         </div>
 
-        <button type="button" class="btn btn-secondary" @click="">Create a Character</button>
+        <a href="/home" class="btn btn-secondary">Create a Character</a>
     </div>
 </template>
 

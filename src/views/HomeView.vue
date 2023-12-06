@@ -1,81 +1,44 @@
 <template>
+  <h1>Create a Character</h1>
 
-  <template v-if="auth.route !== 'authenticated'">
-    <div class="authentication justify-content-center vh-100">
-      <header>
-        <img alt="logo" class="logo" src="@/assets/dwlogo.png" />
-      </header>
-
-      <authenticator :login-mechanisms="['email', 'name']" :social-providers="['google']">
-      </authenticator>
+  <div class="professions">
+    <div class="card m-2" v-for="(profession, idx) in profList" :key="profession">
+      <div class="card-body">
+        <h5 class="card-title">{{ profession }}</h5>
+        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+        <a href="/" class="btn btn-primary">Create a {{ profession }}</a>
+      </div>
     </div>
-  </template>
+  </div>
 </template>
 
 <script setup lang="ts">
-import { Authenticator, useAuthenticator } from '@aws-amplify/ui-vue';
-import { useGlobalStore } from '@/stores/globalStore';
-import { onMounted } from 'vue';
-import { useRouter } from 'vue-router';
-  
-const auth = useAuthenticator();
-const globalStore = useGlobalStore();
-const router = useRouter();
+import { Profession } from '@/enums/profession';
+import { computed, ref } from 'vue';
 
-onMounted(async () => {
-  const userId = await globalStore.getUserId();
-  if (userId) {
-    router.push({ name: "characters" });
+const profList: any = computed(() => {
+  const profList = [];
+  for (const prof in Profession) {
+    if (prof !== Profession.ANY.toString().toUpperCase()) {
+      profList.push(prof);
+    }
   }
-})
+  return profList;
+});
 
 </script>
 
 <style scoped lang="scss">
-.authentication {
-  margin:auto;
-  display: grid;
-  grid-template-columns: auto;
-
-  header {
-    line-height: 1.5;
-    max-height: 100vh;
-    display: flex;
-  }
-
-  .logo {
-    display: block;
-    margin: 0 auto 2rem;
-    max-width: 300px;
-  }
-
-  @media (min-width: 1024px) {
+  .professions {
     display: grid;
-    grid-template-columns: auto auto;
+    grid-template-columns: repeat(1, 1fr);
+  }
 
-    header {
-      display: flex;
-      place-items: center;
-      padding-right: calc(var(--section-gap) / 2);
-    }
-
-    .logo {
-      margin: 0 2rem 0 0;
-      max-width: 500px;
+  @media(min-width: 800px) {
+    .professions {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
     }
   }
-}
-
-main {
-  .nav-logo {
-    height: 150px;
-    margin-top: 30px;
-  }
-
-  nav {
-    background-color: #181818;
-    max-height: 100px;
-  }
-}
 
 </style>

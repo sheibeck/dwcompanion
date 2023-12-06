@@ -5,6 +5,8 @@ import router from './router'
 import { Amplify } from 'aws-amplify';
 import awsconfig from './aws-exports'
 import "@aws-amplify/ui-vue/styles.css";
+import 'vue3-toastify/dist/index.css';
+import Vue3Toastify, { type ToastContainerOptions } from 'vue3-toastify';
 import { VueShowdownPlugin } from 'vue-showdown';
 
 Amplify.configure(awsconfig);
@@ -19,6 +21,11 @@ app.use(VueShowdownPlugin, {
       emoji: false,
     },
   });
+
+app.use(Vue3Toastify, {
+    autoClose: 3000,
+  } as ToastContainerOptions);
+
 app.use(createPinia())
 app.use(router)
 

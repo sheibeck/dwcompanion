@@ -1,0 +1,68 @@
+<template>
+
+  <template v-if="auth.route !== 'authenticated'">
+    <div class="authentication justify-content-center vh-100">
+      <header>
+        <img alt="logo" class="logo" src="@/assets/dwlogo.png" />
+      </header>
+
+      <authenticator :login-mechanisms="['email', 'name']" :social-providers="['google']">
+      </authenticator>
+    </div>
+  </template>
+</template>
+
+<script setup lang="ts">
+import { Authenticator, useAuthenticator } from '@aws-amplify/ui-vue';
+import { useGlobalStore } from '@/stores/globalStore';
+import { onMounted } from 'vue';
+import { useRouter } from 'vue-router';
+  
+const auth = useAuthenticator();
+const globalStore = useGlobalStore();
+const router = useRouter();
+
+onMounted(async () => {
+  const userId = await globalStore.getUserId();
+  if (userId) {
+    router.push({ name: "characters" });
+  }
+})
+
+</script>
+
+<style scoped lang="scss">
+.authentication {
+  margin:auto;
+  display: grid;
+  grid-template-columns: auto;
+
+  header {
+    line-height: 1.5;
+    max-height: 100vh;
+    display: flex;
+  }
+
+  .logo {
+    display: block;
+    margin: 0 auto 2rem;
+    max-width: 300px;
+  }
+
+  @media (min-width: 1024px) {
+    display: grid;
+    grid-template-columns: auto auto;
+
+    header {
+      display: flex;
+      place-items: center;
+      padding-right: calc(var(--section-gap) / 2);
+    }
+
+    .logo {
+      margin: 0 2rem 0 0;
+      max-width: 500px;
+    }
+  }
+}
+</style>

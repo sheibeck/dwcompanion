@@ -1,10 +1,16 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
+import HomeView from '../views/HomeView.vue';
+import LoginView from '../views/LoginView.vue';
 import * as Auth from 'aws-amplify/auth';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
+    {
+      path: '/login',
+      name: 'login',
+      component: LoginView
+    },
     {
       path: '/',
       name: 'home',
@@ -32,26 +38,23 @@ const router = createRouter({
 })
 
 router.beforeEach(async (to, from) => {
-  const homeRoute = {name: "home"};
-
   if (!router.getRoutes().find( r => r.name === to.name)) {
-    router.push(homeRoute);
+    router.push({name: "home"});
     return false;
   }
 
   const session = await Auth.fetchAuthSession();
 
-  if (to.name !== "home") {
-    if (!session.userSub) {
-      router.push(homeRoute);
+  if (!session.userSub && to.name !== "home") {
+    if (to.name !== "login") {
+      router.push({name: "login"});
       return false;
     }
   }
 
-  if (to.name === "home") {
-    if (session.userSub) {
-      router.push({name: "characters" });
-    }
+  if (session.userSub && to.name === "login") {  
+      router.push({name: "home" });
+      return true;
   }
 })
 

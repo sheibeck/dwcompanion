@@ -9,6 +9,9 @@
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
           <li class="nav-item p-2">
+            <a class="nav-link" href="/home">Home</a>
+          </li>
+          <li class="nav-item p-2">
             <a class="nav-link" href="/characters">Characters</a>
           </li>
           <li class="nav-item p-2">
@@ -17,14 +20,14 @@
         </ul>
       </div>
       <div class="ml-auto">
-        <button class="btn btn-secondary text-light btn-link" @click="globalStore.signOut()">Sign out</button>
+        <button v-if="globalStore.isAuthenticated" class="btn btn-secondary text-light btn-link" @click="globalStore.signOut()">Sign out</button>
+        <a v-else class="btn btn-secondary text-light" href="/login">Sign in</a>
       </div> 
     </nav>
 
     <div class="container-fluid mt-5 content">
       <RouterView />
     </div>
-
   </main>
 </template>
 
@@ -32,10 +35,12 @@
 import { RouterView, useRoute } from 'vue-router'
 import { useGlobalStore } from './stores/globalStore';
 import { computed } from 'vue';
+import { toast } from 'vue3-toastify';
+
 const globalStore = useGlobalStore();
 const route = useRoute();
 
-const isLogin = computed(() => route.name === "home");
+const isLogin = computed(() => route.name === "login");
 
 </script>
 
