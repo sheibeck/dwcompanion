@@ -26,7 +26,7 @@ const hasCharacters = computed(() => characterList.value?.length > 0);
 const userId = ref()
 
 onMounted(async () => {
-    userId.value = await globalStore.getUserId();
+    userId.value = await globalStore.userId;
     characterList.value = await getCharactersWithProfessions(userId.value);
 });
 

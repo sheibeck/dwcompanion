@@ -1,10 +1,12 @@
 import { defineStore } from 'pinia'
-import { useRouter } from 'vue-router';
+import { useRouter, useRoute } from 'vue-router';
 import * as Auth from 'aws-amplify/auth';
 import { ref } from 'vue';
 
 export const useGlobalStore = defineStore('globalStore', () => {
     const router = useRouter()
+    const route = useRoute();
+
     const userId = ref<string|null>(null);
    
     async function isAuthenticated() {
@@ -25,7 +27,9 @@ export const useGlobalStore = defineStore('globalStore', () => {
                 userId.value = session.userSub;
                 resolve(session.userSub);
             } else {
-            router.push({ path: '/login' });
+                if (route.name !== "home") {
+                    router.push({ path: '/login' });
+                }
                 userId.value = null;
                 resolve(null); // Replace with the actual default path
             }

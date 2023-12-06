@@ -40,7 +40,6 @@ import { useGlobalStore } from '@/stores/globalStore';
 import { useRouter } from 'vue-router';
 import * as notify from 'vue3-toastify';
 
-
 const globalStore = useGlobalStore();
 const router = useRouter();
 const confirmDialog = ref<any>(null);
@@ -72,8 +71,8 @@ function confirmCreate(profession: Profession) {
 }
 
 async function createCharacter() {
-  const userId = await globalStore.getUserId();
   const isAuthenticated = await globalStore.isAuthenticated();
+  const userId = await globalStore.userId;
 
   if (isAuthenticated && userId && professionChoice.value) {
     const character:any = await createNewCharacter(userId, professionChoice.value);

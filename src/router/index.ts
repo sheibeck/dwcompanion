@@ -43,13 +43,15 @@ router.beforeEach(async (to, from) => {
     return false;
   }
 
+  if (to.name == "home") {
+    return true;
+  }
+
   const session = await Auth.fetchAuthSession();
 
-  if (!session.userSub && to.name !== "home") {
-    if (to.name !== "login") {
-      router.push({name: "login"});
-      return false;
-    }
+  if (!session.userSub && to.name !== "login") {
+    router.push({name: "login"});
+    return false;
   }
 
   if (session.userSub && to.name === "login") {  
