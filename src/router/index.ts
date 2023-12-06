@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue';
 import LoginView from '../views/LoginView.vue';
+import AboutView from '../views/AboutView.vue';
 import * as Auth from 'aws-amplify/auth';
 
 const router = createRouter({
@@ -32,7 +33,7 @@ const router = createRouter({
       // route level code-splitting
       // this generates a separate chunk (About.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
-      component: () => import('../views/AboutView.vue')
+      component: AboutView
     }
   ]
 })
@@ -44,6 +45,10 @@ router.beforeEach(async (to, from) => {
   }
 
   if (to.name == "home") {
+    return true;
+  }
+  
+  if (to.name == "about") {
     return true;
   }
 

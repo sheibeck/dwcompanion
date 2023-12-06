@@ -88,6 +88,9 @@ async function createCharacter() {
       notify.toast("Failed to created character!");
     }
   }
+  else {
+    notify.toast("You must be logged in to create a character.");
+  }
 
   createCharacterModal.hide();
 }

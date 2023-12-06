@@ -11,7 +11,7 @@
           <li class="nav-item p-2">
             <a class="nav-link" href="/home">Home</a>
           </li>
-          <li class="nav-item p-2">
+          <li v-if="isUserLoggedIn" class="nav-item p-2">
             <a class="nav-link" href="/characters">Characters</a>
           </li>
           <li class="nav-item p-2">
@@ -19,7 +19,7 @@
           </li>
         </ul>
       </div>
-      <div class="ml-auto">
+      <div class="ml-auto me-3">
         <button v-if="isUserLoggedIn" class="btn btn-secondary text-light btn-link" @click="globalStore.signOut()">Sign out</button>
         <a v-else class="btn btn-secondary text-light" href="/login">Sign in</a>
       </div>

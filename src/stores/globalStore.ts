@@ -27,8 +27,8 @@ export const useGlobalStore = defineStore('globalStore', () => {
                 userId.value = session.userSub;
                 resolve(session.userSub);
             } else {
-                if (route.name !== "home") {
-                    router.push({ path: '/login' });
+                if (route.name !== "home" && route.name !== "about") {
+                    router.push({ name: 'login' });
                 }
                 userId.value = null;
                 resolve(null); // Replace with the actual default path
@@ -39,7 +39,7 @@ export const useGlobalStore = defineStore('globalStore', () => {
     async function signOut() {
         await Auth.signOut();
         userId.value = null;
-        router.push({ path: '/' });
+        router.push({ name: 'home' });
     }
     
     return { 
