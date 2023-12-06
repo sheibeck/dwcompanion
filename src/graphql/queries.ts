@@ -754,6 +754,7 @@ export const getCharacter = /* GraphQL */ `query GetCharacter($id: ID!) {
     _version
     _deleted
     _lastChangedAt
+    owner
     __typename
   }
 }
@@ -798,6 +799,7 @@ export const listCharacters = /* GraphQL */ `query ListCharacters(
       _version
       _deleted
       _lastChangedAt
+      owner
       __typename
     }
     nextToken
@@ -852,6 +854,7 @@ export const syncCharacters = /* GraphQL */ `query SyncCharacters(
       _version
       _deleted
       _lastChangedAt
+      owner
       __typename
     }
     nextToken

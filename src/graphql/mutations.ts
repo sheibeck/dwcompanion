@@ -670,6 +670,7 @@ export const createCharacter = /* GraphQL */ `mutation CreateCharacter(
     _version
     _deleted
     _lastChangedAt
+    owner
     __typename
   }
 }
@@ -712,6 +713,7 @@ export const updateCharacter = /* GraphQL */ `mutation UpdateCharacter(
     _version
     _deleted
     _lastChangedAt
+    owner
     __typename
   }
 }
@@ -754,6 +756,7 @@ export const deleteCharacter = /* GraphQL */ `mutation DeleteCharacter(
     _version
     _deleted
     _lastChangedAt
+    owner
     __typename
   }
 }

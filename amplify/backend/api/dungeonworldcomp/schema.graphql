@@ -1,4 +1,4 @@
-type Profession @model @auth(rules: [{allow: public}]) {
+type Profession @model @auth(rules: [{allow: public, operations: [read]}, {allow: private, operations: [read]}]) {
   id: ID!
   name: String!
   description: String!
@@ -6,7 +6,7 @@ type Profession @model @auth(rules: [{allow: public}]) {
   source: String!
 }
 
-type Spell @model @auth(rules: [{allow: public}]) {
+type Spell @model @auth(rules: [{allow: public, operations: [read]}, {allow: private, operations: [read]}]) {
   id: ID!
   name: String!
   level: Int!
@@ -19,7 +19,7 @@ type Spell @model @auth(rules: [{allow: public}]) {
   profession: String!
 }
 
-type Gear @model @auth(rules: [{allow: public}]) {
+type Gear @model @auth(rules: [{allow: public, operations: [read]}, {allow: private, operations: [read]}]) {
   id: ID!
   description: String!
   weight: Int!
@@ -28,7 +28,7 @@ type Gear @model @auth(rules: [{allow: public}]) {
   source: String!
 }
 
-type Move @model @auth(rules: [{allow: public}]) {
+type Move @model @auth(rules: [{allow: public, operations: [read]}, {allow: private, operations: [read]}]) {
   id: ID!
   name: String!
   description: String!
@@ -37,7 +37,7 @@ type Move @model @auth(rules: [{allow: public}]) {
   source: String!
 }
 
-type Bond @model @auth(rules: [{allow: public}]) {
+type Bond @model @auth(rules: [{allow: public, operations: [read]}, {allow: private, operations: [read]}]) {
   id: ID!
   description: String
   profession: String!
@@ -45,7 +45,7 @@ type Bond @model @auth(rules: [{allow: public}]) {
   tags: [String]
 }
 
-type AbilityScore @model @auth(rules: [{allow: public}]) {
+type AbilityScore @model @auth(rules: [{allow: public, operations: [read]}, {allow: private, operations: [read]}]) {
   id: ID!
   name: String!
   shortName: String!
@@ -56,7 +56,7 @@ type AbilityScore @model @auth(rules: [{allow: public}]) {
   tags: [String]
 }
 
-type Race @model @auth(rules: [{allow: public}]) {
+type Race @model @auth(rules: [{allow: public, operations: [read]}, {allow: private, operations: [read]}]) {
   id: ID!
   name: String
   description: String
@@ -65,7 +65,7 @@ type Race @model @auth(rules: [{allow: public}]) {
   source: String!
 }
 
-type Alignment @model @auth(rules: [{allow: public}]) {
+type Alignment @model @auth(rules: [{allow: public, operations: [read]}, {allow: private, operations: [read]}]) {
   id: ID!
   name: String
   description: String
@@ -73,7 +73,7 @@ type Alignment @model @auth(rules: [{allow: public}]) {
   profession: String!
 }
 
-type Look @model @auth(rules: [{allow: public}]) {
+type Look @model @auth(rules: [{allow: public, operations: [read]}, {allow: private, operations: [read]}]) {
   id: ID!
   name: String!
   description: String!
@@ -81,7 +81,7 @@ type Look @model @auth(rules: [{allow: public}]) {
   profession: String!
 }
 
-type Character @model @auth(rules: [{allow: public}, {allow: owner}]) {
+type Character @model @auth(rules: [{allow: public, operations: [read]}, {allow: owner}, {allow: private, operations: [read]}]) {
   userId: ID!
   id: ID!
   name: String!

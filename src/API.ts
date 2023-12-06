@@ -645,6 +645,7 @@ export type Character = {
   _version: number,
   _deleted?: boolean | null,
   _lastChangedAt: number,
+  owner?: string | null,
 };
 
 export type UpdateCharacterInput = {
@@ -1728,6 +1729,7 @@ export type CreateCharacterMutation = {
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
+    owner?: string | null,
   } | null,
 };
 
@@ -1769,6 +1771,7 @@ export type UpdateCharacterMutation = {
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
+    owner?: string | null,
   } | null,
 };
 
@@ -1810,6 +1813,7 @@ export type DeleteCharacterMutation = {
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
+    owner?: string | null,
   } | null,
 };
 
@@ -2558,6 +2562,7 @@ export type GetCharacterQuery = {
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
+    owner?: string | null,
   } | null,
 };
 
@@ -2602,6 +2607,7 @@ export type ListCharactersQuery = {
       _version: number,
       _deleted?: boolean | null,
       _lastChangedAt: number,
+      owner?: string | null,
     } | null >,
     nextToken?: string | null,
     startedAt?: number | null,
@@ -2650,6 +2656,7 @@ export type SyncCharactersQuery = {
       _version: number,
       _deleted?: boolean | null,
       _lastChangedAt: number,
+      owner?: string | null,
     } | null >,
     nextToken?: string | null,
     startedAt?: number | null,
@@ -3231,6 +3238,7 @@ export type OnDeleteLookSubscription = {
 
 export type OnCreateCharacterSubscriptionVariables = {
   filter?: ModelSubscriptionCharacterFilterInput | null,
+  owner?: string | null,
 };
 
 export type OnCreateCharacterSubscription = {
@@ -3266,11 +3274,13 @@ export type OnCreateCharacterSubscription = {
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
+    owner?: string | null,
   } | null,
 };
 
 export type OnUpdateCharacterSubscriptionVariables = {
   filter?: ModelSubscriptionCharacterFilterInput | null,
+  owner?: string | null,
 };
 
 export type OnUpdateCharacterSubscription = {
@@ -3306,11 +3316,13 @@ export type OnUpdateCharacterSubscription = {
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
+    owner?: string | null,
   } | null,
 };
 
 export type OnDeleteCharacterSubscriptionVariables = {
   filter?: ModelSubscriptionCharacterFilterInput | null,
+  owner?: string | null,
 };
 
 export type OnDeleteCharacterSubscription = {
@@ -3346,5 +3358,6 @@ export type OnDeleteCharacterSubscription = {
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
+    owner?: string | null,
   } | null,
 };
