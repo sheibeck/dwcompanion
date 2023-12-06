@@ -2,5 +2,11 @@
   "AppSyncApiName": "dungeonworldcomp",
   "DynamoDBBillingMode": "PAY_PER_REQUEST",
   "DynamoDBEnableServerSideEncryption": false,
-  "AuthModeLastUpdated": "2023-12-02T22:40:58.720Z"
+  "AuthModeLastUpdated": "2023-12-06T18:21:55.322Z",
+  "AuthCognitoUserPoolId": {
+    "Fn::GetAtt": [
+      "authdungeonworldcompf878a003",
+      "Outputs.UserPoolId"
+    ]
+  }
 }

@@ -81,6 +81,6 @@
       "accounts.google.com"
     ],
     "thirdPartyAuth": true,
-    "oAuthMetadata": "{\"AllowedOAuthFlows\":[\"implicit\"],\"AllowedOAuthScopes\":[\"phone\",\"email\",\"openid\",\"profile\",\"aws.cognito.signin.user.admin\"],\"CallbackURLs\":[\"https://dungeon-world-companion.com/\",\"https://127.0.0.1:5173/\",\"https://localhost:5173/\",\"https://develop.d3e6jynefwsc7i.amplifyapp.com/\"],\"LogoutURLs\":[\"https://dungeon-world-companion.com/\",\"https://develop.d3e6jynefwsc7i.amplifyapp.com/\",\"https://localhost:5173/\"]}"
+    "oAuthMetadata": "{\"AllowedOAuthFlows\":[\"implicit\"],\"AllowedOAuthScopes\":[\"phone\",\"email\",\"openid\",\"profile\",\"aws.cognito.signin.user.admin\"],\"CallbackURLs\":[\"https://dungeon-world-companion.com/\",\"https://127.0.0.1:5173/\",\"https://localhost:5173/\",\"https://develop.d3e6jynefwsc7i.amplifyapp.com/\"],\"LogoutURLs\":[\"https://dungeon-world-companion.com/\",\"https://develop.d3e6jynefwsc7i.amplifyapp.com/\"]}"
   }
 }
