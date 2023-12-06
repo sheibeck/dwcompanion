@@ -26,7 +26,10 @@
                     <Alignment :character="character" />
                 </div>
                 <div id="ability-scores">
-                    <AbilityScores :character="character" />
+                    <div>
+                        <AbilityScores :character="character" />
+                        <Moves :character="character" :moveType="MoveType.STARTING_MOVES" />
+                    </div>
                     <Bonds :character="character" />
                 </div>
             </div>
@@ -45,6 +48,8 @@ import Combat from '@/components/CharacterDetail/Combat.vue';
 import Alignment from '@/components/CharacterDetail/Alignment.vue';
 import AbilityScores from '@/components/CharacterDetail/AbilityScores.vue';
 import Bonds from '@/components/CharacterDetail/Bonds.vue';
+import Moves from '@/components/CharacterDetail/Moves.vue';
+import { MoveType } from '@/enums/moveType';
 
 const { characterId } = defineProps<{
     characterId: string;
@@ -143,6 +148,7 @@ const getCharacter = async (id: string) => {
         #ability-scores {
             display: grid;
             grid-template-columns: 1fr 33%;
+            align-items: start;
         }
     }
 }

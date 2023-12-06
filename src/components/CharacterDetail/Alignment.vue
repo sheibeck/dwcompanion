@@ -7,8 +7,8 @@
                     :aria-label="`Alignment checkbox for ${alignment.name}`">
             </div>
             <div class="form-text p-1">
-                <div class="fs-5 " id="basic-addon4">{{ alignment.name }}</div>
-                <div class="form-text" id="basic-addon4">{{ alignment.description }}</div>
+                <div class="fs-5">{{ alignment.name }}</div>
+                <div class="form-text description">{{ alignment.description }}</div>
             </div>
         </div>
     </div>
@@ -71,6 +71,11 @@ const { character } = defineProps<{
         &.compact {
             margin-top: -5px !important;
             padding: 0px !important;
+        }
+
+        .description {
+            padding: 0px;
+            margin: 0px;
         }
     }
 }

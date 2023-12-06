@@ -3,11 +3,10 @@
         <div class="bg-dark text-light fs-5 p-1 mb-1">Look</div>
             <div v-for="(look, index) in character.look" :index="look.id" class="item" :class="{'compact': index > 0}">
             <div class="input-group input-group-sm">
-                <span class="input-group-text fs-5 name" id="basic-addon3">{{ look.name }}</span>
-                <input type="text" class="form-control" aria-describedby="basic-addon3 basic-addon4"
-                    v-model="look.value">
+                <span class="input-group-text fs-5 name">{{ look.name }}</span>
+                <input type="text" class="form-control" v-model="look.value">
             </div>
-            <div class="form-text text-end" id="basic-addon4">{{ look.description }}</div>
+            <div class="form-text text-end description">{{ look.description }}</div>
         </div>
     </div>
 </template>
@@ -46,8 +45,12 @@ const { character } = defineProps<{
             }
 
             &.compact {
-                margin-top: -6px !important;
+                margin-top: -3px !important;
                 padding: 0px !important;
+            }
+
+            .description {
+                margin-top: -3px;
             }
         }
     }

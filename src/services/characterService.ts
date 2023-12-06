@@ -1,7 +1,6 @@
 
 import { generateClient } from 'aws-amplify/api';
 import * as queries from '@/graphql/queries';
-import type { Profession } from '@/enums/profession';
 
 const client = generateClient();
 
@@ -32,26 +31,6 @@ export const getCharactersWithProfessions = async(userId: string) => {
     return result;
 }
 
-export const getMovesByProfession = async(profession: Profession) => {
-
-    const moves: any = await client.graphql({ query: queries.listMoves,
-            variables: { filter: {
-                    profession: {
-                        eq: profession
-                    }
-                } 
-            } 
-        });
-
-    const moveList =  moves.data.listMoves.items;
-
-    moveList.forEach((item: any) => {
-        item.description = formatText(item.description);
-    });
-
-    return moveList;
-};
-
 export function jsonCharacter(character: any) {
     character.alignment = formatJson(character.alignment);
     character.profession = formatJson(character.profession);
@@ -60,16 +39,12 @@ export function jsonCharacter(character: any) {
     character.abilityScores = formatJson(character.abilityScores);
     character.advancedMovesTwoToTen = formatJson(character.advancedMovesTwoToTen);
     character.advancedMovesSixToTen = formatJson(character.advancedMovesSixToTen);
+    character.bonds = formatJson(character.bonds);
     
     return character;
 }
 
 function formatJson(text: any) {
     if(!text) return text;
-    return JSON.parse(formatText(text));
-}
-
-function formatText(text: any) {
-    if(!text) return text;
-    return text.replaceAll("\\n", "<br />");
+    return JSON.parse(text);
 }
