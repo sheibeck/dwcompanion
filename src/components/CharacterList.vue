@@ -4,7 +4,7 @@
 
         <div v-if="hasCharacters">
             <div v-for="character in characterList">
-                {{ character.name }} ({{ character.profession?.name ?? "Unknown" }}) <button class="btn btn-sm btn-primary" type="button" @click="viewCharacter(character.id)">View</button>
+                {{ character.name }} ({{ character.profession?.name ?? "Unknown" }}) <button class="btn btn-sm btn-dark" type="button" @click="viewCharacter(character.id)">View</button>
             </div>
         </div>
 

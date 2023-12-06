@@ -2,12 +2,12 @@
   <h1>Create a Character</h1>
 
   <div class="professions">
-    <div class="card m-2" v-for="(profession, idx) in profList" :key="profession">
-      <img :src="`/src/assets/professions/${profession.toLowerCase()}.png`" class="card-img-top" :alt="`image of ${profession}`">
+    <div class="card m-2" v-for="(profession, idx) in professionList" :key="profession">
+      <img :src="`/src/assets/professions/${profession.name.toLowerCase()}.png`" class="card-img-top" :alt="`image of ${profession.name}`">
       <div class="card-body">
-        <h5 class="card-title">{{ profession }}</h5>
-        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-        <button type="button" @click="confirmCreate(profession)" class="btn btn-primary">Create a {{ profession }}</button>
+        <h4 class="card-title">{{ profession.name }}</h4>
+        <p class="card-text">{{profession.description}}</p>
+        <button type="button" @click="confirmCreate(profession.name)" class="btn btn-dark">Create a {{ profession.name }}</button>
       </div>
     </div>
   </div>
@@ -24,7 +24,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-        <button type="button" class="btn btn-primary" @click="createCharacter()">Create</button>
+        <button type="button" class="btn btn-dark" @click="createCharacter()">Create</button>
       </div>
     </div>
   </div>
@@ -33,28 +33,29 @@
 
 <script setup lang="ts">
 import { Profession } from '@/enums/profession';
-import { computed, onMounted, ref } from 'vue';
+import { onMounted, ref } from 'vue';
 import * as bootstrap from 'bootstrap';
 import { createNewCharacter } from '@/services/characterService';
 import { useGlobalStore } from '@/stores/globalStore';
 import { useRouter } from 'vue-router';
 import * as notify from 'vue3-toastify';
+import { getProfessions } from '@/services/lookupTableService';
 
 const globalStore = useGlobalStore();
 const router = useRouter();
 const confirmDialog = ref<any>(null);
 const professionChoice = ref<any>(null);
 let createCharacterModal: any;
+const professionList = ref();
 
-const profList: any = computed(() => {
-  const profs: string[] = Object.values(Profession).map((value) => value.valueOf());
-  return profs.filter( p => p !== "Any");
-});
-
+const getProfessionList = async () => {
+  const list = await getProfessions();
+  professionList.value = list;
+};
+getProfessionList();
 
 onMounted(() => {
   if (confirmDialog.value) {
-    
     createCharacterModal = new bootstrap.Modal("#createCharacterModal");
 
     confirmDialog.value.addEventListener('show.bs.modal', (event: any) => {
