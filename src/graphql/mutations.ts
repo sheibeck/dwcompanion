@@ -13,11 +13,11 @@ export const createProfession = /* GraphQL */ `mutation CreateProfession(
   $condition: ModelProfessionConditionInput
 ) {
   createProfession(input: $input, condition: $condition) {
+    id
     name
     description
     diceType
     source
-    id
     createdAt
     updatedAt
     _version
@@ -35,11 +35,11 @@ export const updateProfession = /* GraphQL */ `mutation UpdateProfession(
   $condition: ModelProfessionConditionInput
 ) {
   updateProfession(input: $input, condition: $condition) {
+    id
     name
     description
     diceType
     source
-    id
     createdAt
     updatedAt
     _version
@@ -57,11 +57,11 @@ export const deleteProfession = /* GraphQL */ `mutation DeleteProfession(
   $condition: ModelProfessionConditionInput
 ) {
   deleteProfession(input: $input, condition: $condition) {
+    id
     name
     description
     diceType
     source
-    id
     createdAt
     updatedAt
     _version

@@ -1,6 +1,9 @@
 
 import { generateClient } from 'aws-amplify/api';
 import * as queries from '@/graphql/queries';
+import * as mutations from '@/graphql/mutations';
+import { Profession } from '@/enums/profession';
+import * as uuid from 'short-uuid';
 
 const client = generateClient();
 
@@ -9,7 +12,8 @@ export const getCharactersWithProfessions = async(userId: string) => {
 
     try {
         const characters = await client.graphql({ query: queries.listCharacters,
-            variables: { filter: {
+            variables: { 
+                filter: {
                     userId: {
                         eq: userId
                     }
@@ -29,6 +33,45 @@ export const getCharactersWithProfessions = async(userId: string) => {
     }
 
     return result;
+}
+
+export async function createNewCharacter(userId: string, profession: Profession) {
+    
+    try {
+        const profResult =  await client.graphql({ query: queries.listProfessions,
+            variables: {
+                filter: {
+                    name: {
+                        eq: profession
+                    }
+                } 
+            }
+        });
+
+        const fullProf = profResult.data.listProfessions.items;
+
+        if (profResult.data.listProfessions.items.length > 0)
+        {
+            const result = await client.graphql({ query: mutations.createCharacter,
+                variables: {
+                    input: {
+                        id: uuid.generate(),
+                        userId: userId,
+                        name: 'New Character',
+                        profession: JSON.stringify(fullProf[0])
+                    }
+                },
+            });
+
+            const character: any = result.data.createCharacter;
+            return character;
+        }
+        return null;
+    }
+    catch(ex) {
+        console.error(ex);
+    }
+
 }
 
 export function jsonCharacter(character: any) {

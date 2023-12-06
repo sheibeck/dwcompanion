@@ -10,11 +10,11 @@ type GeneratedQuery<InputType, OutputType> = string & {
 
 export const getProfession = /* GraphQL */ `query GetProfession($id: ID!) {
   getProfession(id: $id) {
+    id
     name
     description
     diceType
     source
-    id
     createdAt
     updatedAt
     _version
@@ -34,11 +34,11 @@ export const listProfessions = /* GraphQL */ `query ListProfessions(
 ) {
   listProfessions(filter: $filter, limit: $limit, nextToken: $nextToken) {
     items {
+      id
       name
       description
       diceType
       source
-      id
       createdAt
       updatedAt
       _version
@@ -68,11 +68,11 @@ export const syncProfessions = /* GraphQL */ `query SyncProfessions(
     lastSync: $lastSync
   ) {
     items {
+      id
       name
       description
       diceType
       source
-      id
       createdAt
       updatedAt
       _version

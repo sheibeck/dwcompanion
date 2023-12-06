@@ -20,9 +20,9 @@
         </ul>
       </div>
       <div class="ml-auto">
-        <button v-if="globalStore.isAuthenticated" class="btn btn-secondary text-light btn-link" @click="globalStore.signOut()">Sign out</button>
+        <button v-if="globalStore.userId" class="btn btn-secondary text-light btn-link" @click="globalStore.signOut()">Sign out</button>
         <a v-else class="btn btn-secondary text-light" href="/login">Sign in</a>
-      </div> 
+      </div>
     </nav>
 
     <div class="container-fluid mt-5 content">
@@ -34,12 +34,10 @@
 <script setup lang="ts">
 import { RouterView, useRoute } from 'vue-router'
 import { useGlobalStore } from './stores/globalStore';
-import { computed } from 'vue';
-import { toast } from 'vue3-toastify';
+import { computed, ref } from 'vue';
 
 const globalStore = useGlobalStore();
 const route = useRoute();
-
 const isLogin = computed(() => route.name === "login");
 
 </script>

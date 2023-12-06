@@ -1,38 +1,47 @@
 import { defineStore } from 'pinia'
-import { computed } from 'vue';
 import { useRouter } from 'vue-router';
 import * as Auth from 'aws-amplify/auth';
-import * as bootstrap from 'bootstrap';
+import { ref } from 'vue';
 
 export const useGlobalStore = defineStore('globalStore', () => {
     const router = useRouter()
+    const userId = ref<string|null>(null);
    
-    const isAuthenticated = computed(async () => (await Auth.fetchAuthSession()).userSub);
+    async function isAuthenticated() {
+        const session = await Auth.fetchAuthSession();
+        if (session.userSub) {
+            userId.value = session.userSub;
+            return true;
+        }
+
+        userId.value = null;
+        return false;
+    };
 
     async function getUserId() {
-        return new Promise<string>(async (resolve) => {
+        return new Promise<string|null>(async (resolve) => {
             const session = await Auth.fetchAuthSession();
             if (session.userSub) {
+                userId.value = session.userSub;
                 resolve(session.userSub);
             } else {
             router.push({ path: '/login' });
-                resolve(''); // Replace with the actual default path
+                userId.value = null;
+                resolve(null); // Replace with the actual default path
             }
         });
     }
 
     async function signOut() {
         await Auth.signOut();
+        userId.value = null;
         router.push({ path: '/' });
-    }
-
-    function userMessage(message: string) {
-        const toastBootstrap = bootstrap.Toast.getOrCreateInstance(UserMessage)
     }
     
     return { 
         getUserId,
         signOut,
         isAuthenticated,
+        userId
     }
 })

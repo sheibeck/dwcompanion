@@ -1,4 +1,5 @@
 type Profession @model @auth(rules: [{allow: public}]) {
+  id: ID!
   name: String!
   description: String!
   diceType: String!

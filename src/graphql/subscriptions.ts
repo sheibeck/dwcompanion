@@ -12,11 +12,11 @@ export const onCreateProfession = /* GraphQL */ `subscription OnCreateProfession
   $filter: ModelSubscriptionProfessionFilterInput
 ) {
   onCreateProfession(filter: $filter) {
+    id
     name
     description
     diceType
     source
-    id
     createdAt
     updatedAt
     _version
@@ -33,11 +33,11 @@ export const onUpdateProfession = /* GraphQL */ `subscription OnUpdateProfession
   $filter: ModelSubscriptionProfessionFilterInput
 ) {
   onUpdateProfession(filter: $filter) {
+    id
     name
     description
     diceType
     source
-    id
     createdAt
     updatedAt
     _version
@@ -54,11 +54,11 @@ export const onDeleteProfession = /* GraphQL */ `subscription OnDeleteProfession
   $filter: ModelSubscriptionProfessionFilterInput
 ) {
   onDeleteProfession(filter: $filter) {
+    id
     name
     description
     diceType
     source
-    id
     createdAt
     updatedAt
     _version
