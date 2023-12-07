@@ -1,5 +1,5 @@
 <template>
-    <div class="container-fluid mb-3">
+    <div class="container-fluid mb-2">
         <div class="bg-dark text-light fs-5 p-1">Bonds</div>
         <div v-for="(bond, index) in character.bonds" :key="bond.id" class="item" :class="{'compact': index > 0}">
             <div class="input-group input-group-sm">
@@ -56,7 +56,7 @@ initialize();
 
     .item {
         line-height: .9em;
-        
+
         .input-group {
             flex-wrap: nowrap;
 
