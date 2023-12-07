@@ -34,7 +34,7 @@ export const useGlobalStore = defineStore('globalStore', () => {
         });
     }
 
-    async function signOut() {
+    async function signOffUser() {
         await signOut();
         currentUser.value = null;
         router.push({ name: 'home' });
@@ -42,7 +42,7 @@ export const useGlobalStore = defineStore('globalStore', () => {
     
     return { 
         getUserId,
-        signOut,
+        signOffUser,
         isAuthenticated,
         currentUser
     }

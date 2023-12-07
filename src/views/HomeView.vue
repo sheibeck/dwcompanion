@@ -7,38 +7,37 @@
       <div class="card-body">
         <h4 class="card-title">{{ profession.name }}</h4>
         <p class="card-text">{{profession.description}}</p>
-        <button type="button" @click="confirmCreate(profession.name)" class="btn btn-dark">Create a {{ profession.name }}</button>
+        <button type="button" @click="createCharacter(profession.name)" class="btn btn-dark">Create a {{ profession.name }}</button>
       </div>
     </div>
   </div>
 
   <div class="modal" tabindex="-1" id="createCharacterModal" ref="confirmDialog">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Create a Character</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <p>Are you sure you want to create a new character?</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-        <button type="button" class="btn btn-dark" @click="createCharacter()">Create</button>
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Create a Character</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p>Are you sure you want to create a new character?</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          <button type="button" class="btn btn-dark" @click="">Create</button>
+        </div>
       </div>
     </div>
   </div>
-</div>
 </template>
 
 <script setup lang="ts">
 import { Profession } from '@/enums/profession';
 import { onMounted, ref } from 'vue';
 import * as bootstrap from 'bootstrap';
-import { createNewCharacter } from '@/services/characterService';
 import { useGlobalStore } from '@/stores/globalStore';
 import { useRouter } from 'vue-router';
-import * as notify from 'vue3-toastify';
+import { toast } from 'vue3-toastify';
 import { getProfessions } from '@/services/lookupTableService';
 
 const globalStore = useGlobalStore();
@@ -50,20 +49,10 @@ const professionList = ref();
 const isAuthenticated = ref(false);
 
 const getProfessionList = async () => {
-  if (isAuthenticated.value) {
-    const list = await getProfessions();
-    professionList.value = list;
-  }
-  else {
-    const profs: { name: string, description: string }[] = Object.values(Profession).map((value) => {
-      return {
-        name: value.toString(),
-        description: "",
-      };
-    }).filter( p => p.name !== "Any");
-    professionList.value = profs;
-  }
-};
+  const list = await getProfessions();
+  professionList.value = list;
+}
+
 getProfessionList();
 
 onMounted(async () => {
@@ -85,32 +74,12 @@ function confirmCreate(profession: Profession) {
     createCharacterModal.show();
   }
   else {
-    notify.toast("You must be logged in to create a character.");
+    toast("You must be logged in to create a character.");
   }
 }
 
-async function createCharacter() {
-  const userId = globalStore.currentUser;
-
-  if (isAuthenticated.value && userId && professionChoice.value) {
-    const character:any = await createNewCharacter(userId, professionChoice.value);
-
-    if (character != null) {
-      notify.toast("Character created.");
-
-      professionChoice.value = null;
-      
-      router.push({ name: "character", params: { id: character.id } });
-    }
-    else {
-      notify.toast("Failed to created character!");
-    }
-  }
-  else {
-    notify.toast("You must be logged in to create a character.");
-  }
-
-  createCharacterModal.hide();
+function createCharacter(profession: string) {
+  router.push({ name: "character", params: { id: "new-character", profession: profession } });
 }
 
 

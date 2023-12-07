@@ -4,7 +4,9 @@
 
         <div v-if="hasCharacters">
             <div v-for="character in characterList">
-                {{ character.name }} ({{ character.profession?.name ?? "Unknown" }}) <button class="btn btn-sm btn-dark" type="button" @click="viewCharacter(character.id)">View</button>
+                {{ character.name }} ({{ character.profession?.name ?? "Unknown" }}) 
+                <button class="btn btn-sm btn-dark" type="button" @click="viewCharacter(character.id)">View</button>
+                <button class="btn btn-sm btn-danger" type="button" @click="removeCharacter(character.id)">Delete</button>
             </div>
         </div>
 
@@ -16,7 +18,7 @@
 import { computed, onMounted, ref } from 'vue';
 import { useGlobalStore } from '@/stores/globalStore';
 import { useRouter } from 'vue-router';
-import { getCharactersWithProfessions } from '@/services/characterService';
+import { getCharactersWithProfessions, deleteCharacter } from '@/services/characterService';
 
 const globalStore = useGlobalStore();
 const router = useRouter();
@@ -32,6 +34,17 @@ onMounted(async () => {
 
 function viewCharacter(id: string) {
     router.push({ name: "character", params: { id: id } });
+}
+
+async function removeCharacter(id: string) {
+    const confirmed = confirm("Are you sure you want to delete this character?");
+
+    if (confirmed) {
+        await deleteCharacter(id);
+
+        const objectToRemove = characterList.value.find( (c: any) => c.id === id);
+        characterList.value.indexOf(objectToRemove);
+    }
 }
 </script>
 

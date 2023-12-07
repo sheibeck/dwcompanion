@@ -23,7 +23,7 @@ const router = createRouter({
       component: () => import('../views/CharacterListView.vue')
     },
     {
-      path: '/character/:id',
+      path: '/character/:id/:profession?',
       name: 'character',
       component: () => import('../views/CharacterDetailView.vue')
     },
@@ -49,6 +49,10 @@ router.beforeEach(async (to, from) => {
   }
   
   if (to.name == "about") {
+    return true;
+  }
+
+  if (to.name == "character") {
     return true;
   }
 

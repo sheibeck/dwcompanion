@@ -20,7 +20,7 @@
         </ul>
       </div>
       <div class="ml-auto me-3">
-        <button v-if="isUserLoggedIn" class="btn btn-secondary text-light btn-link" @click="globalStore.signOut()">Sign out</button>
+        <button v-if="isUserLoggedIn" class="btn btn-secondary text-light btn-link" @click="globalStore.signOffUser()">Sign out</button>
         <a v-else class="btn btn-secondary text-light" href="/login">Sign in</a>
       </div>
     </nav>

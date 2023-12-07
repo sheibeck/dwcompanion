@@ -10,7 +10,7 @@
                 </div>
                 <div class="banner-middle">
                     <div class="rotated-text">
-                        The Bard
+                        The {{ character.profession.name }}
                     </div>
                 </div>
                 <div class="banner-bottom">
@@ -34,7 +34,12 @@
                 </div>
             </div>
         </div>
+
+        <div class="d-print-none action-bar">
+            <button type="button" @click="saveCharacter()">Save</button>
+        </div>
     </div>
+
 </template>
 
 <script setup lang="ts">
@@ -50,26 +55,66 @@ import AbilityScores from '@/components/CharacterDetail/AbilityScores.vue';
 import Bonds from '@/components/CharacterDetail/Bonds.vue';
 import Moves from '@/components/CharacterDetail/Moves.vue';
 import { MoveType } from '@/enums/moveType';
+import * as lookupService from '@/services/lookupTableService';
+import { Profession } from '@/enums/profession';
+import { toast } from 'vue3-toastify';
+import { createNewCharacter } from '@/services/characterService';
+import { useGlobalStore } from '@/stores/globalStore';
 
-const { characterId } = defineProps<{
+const { characterId, characterProfession} = defineProps<{
     characterId: string;
+    characterProfession: Profession | null;
 }>();
 
+const globalStore = useGlobalStore();
 const client = generateClient();
 const character = ref<any>(null);
 
 onMounted(async () => {
-    character.value = await getCharacter(characterId);
+    await setupCharacter();
 });
+
+async function setupCharacter() {
+    if (characterId === "new-character" && characterProfession !== null) {
+        await getNewCharacter();
+        return;
+    }
+
+    character.value = await getCharacter(characterId);
+}
+
+async function getNewCharacter() {
+    if (characterProfession) {
+        const profLookupResult = await lookupService.getProfessionByName(characterProfession);
+      
+        if (profLookupResult[0]) {
+            character.value = {
+                "profession": profLookupResult[0],
+            };
+        }
+        else {
+            toast(`Could not find profession ${characterProfession}`);
+        }
+    }
+}
+
+async function saveCharacter() {
+    if (!character.value.id) {
+        const userId = await globalStore.getUserId();
+        character.value.userId = userId;
+        character.value.name = "Bob";
+        createNewCharacter(character.value)
+    }
+}
 
 // Fetch a single record by its identifier
 const getCharacter = async (id: string) => {
-    const result = await client.graphql({
+    const { data, errors } = await client.graphql({
         query: queries.getCharacter,
         variables: { id: id }
     });
 
-    const character = result.data.getCharacter;
+    const character = data.getCharacter;
     return jsonCharacter(character);
 }
 </script>
@@ -94,7 +139,7 @@ const getCharacter = async (id: string) => {
             .banner-middle {
                 .rotated-text {
                     width: 600px;
-                    transform: translate(-43%, 300%) rotate(-90deg);
+                    transform: translate(-43%, 270%) rotate(-90deg);
                     font-size: 60px;
                     text-align: center;
                 }
