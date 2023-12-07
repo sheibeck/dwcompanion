@@ -9,12 +9,13 @@
     },
     "additionalAuthTypes": [
       {
-        "mode": "AWS_IAM"
+        "mode": "API_KEY",
+        "expirationTime": 365,
+        "apiKeyExpirationDate": "2024-12-06T14:12:47.433Z",
+        "keyDescription": "dungeon world companion api key"
       },
       {
-        "mode": "API_KEY",
-        "keyDescription": "api key description",
-        "expirationTime": 30
+        "mode": "AWS_IAM"
       }
     ],
     "conflictResolution": {

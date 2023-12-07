@@ -47,18 +47,18 @@ const confirmDialog = ref<any>(null);
 const professionChoice = ref<any>(null);
 let createCharacterModal: any;
 const professionList = ref();
+const isAuthenticated = ref(false);
 
 const getProfessionList = async () => {
-  const isAuthenticated = await globalStore.isAuthenticated();
-  if (isAuthenticated) {
+  if (isAuthenticated.value) {
     const list = await getProfessions();
     professionList.value = list;
   }
   else {
     const profs: { name: string, description: string }[] = Object.values(Profession).map((value) => {
       return {
-        name: value.toString(), // Convert value to string for "name" property
-        description: "", // Use existing "description" property
+        name: value.toString(),
+        description: "",
       };
     }).filter( p => p.name !== "Any");
     professionList.value = profs;
@@ -66,7 +66,8 @@ const getProfessionList = async () => {
 };
 getProfessionList();
 
-onMounted(() => {
+onMounted(async () => {
+  isAuthenticated.value = await globalStore.isAuthenticated();
   if (confirmDialog.value) {
     createCharacterModal = new bootstrap.Modal("#createCharacterModal");
 
@@ -79,15 +80,19 @@ onMounted(() => {
 });
 
 function confirmCreate(profession: Profession) {
-  professionChoice.value = profession;
-  createCharacterModal.show();
+  if (isAuthenticated.value) {
+    professionChoice.value = profession;
+    createCharacterModal.show();
+  }
+  else {
+    notify.toast("You must be logged in to create a character.");
+  }
 }
 
 async function createCharacter() {
-  const isAuthenticated = await globalStore.isAuthenticated();
-  const userId = await globalStore.userId;
+  const userId = globalStore.currentUser;
 
-  if (isAuthenticated && userId && professionChoice.value) {
+  if (isAuthenticated.value && userId && professionChoice.value) {
     const character:any = await createNewCharacter(userId, professionChoice.value);
 
     if (character != null) {

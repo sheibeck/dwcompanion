@@ -2,9 +2,9 @@
 <template>
   <main>
     <!-- Navigation Bar -->
-    <nav v-if="!isLogin" class="d-print-none navbar navbar-expand-lg navbar-dark justify-content-between">
+    <nav v-if="!isLogin" class="d-print-none navbar navbar-expand-lg bg-body-tertiary justify-content-between">
       <a class="navbar-brand" href="#">
-        <img alt="logo" class="nav-logo" src="@/assets/dwlogo.png" />
+        <img alt="logo" class="nav-logo img-fluid" src="@/assets/dwlogo.png" />
       </a>
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
@@ -45,7 +45,7 @@ onMounted(() => {
 })
 
 const isUserLoggedIn = computed( () => {
-  const userId = globalStore.userId;
+  const userId = globalStore.currentUser;
   return userId !== null;
 })
 
