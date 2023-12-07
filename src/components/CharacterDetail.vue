@@ -103,6 +103,7 @@ const getCharacter = async (id: string) => {
             .banner-bottom {
                 height: 100%;
                 width: 70px;
+                margin-top: -35px;
                 
                 img {
                     margin: 0px;
