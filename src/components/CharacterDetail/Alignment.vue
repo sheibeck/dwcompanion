@@ -23,6 +23,8 @@ const { character } = defineProps<{
 
 <style scoped lang="scss">
  .alignment {
+    line-height: 1.25em;
+    
     div {
         margin: 0px;
     }
@@ -39,7 +41,7 @@ const { character } = defineProps<{
 
 @media print {
    .alignment {
-
+    
         .item {
             &.compact {
                 margin-top: -12px !important;
@@ -71,6 +73,7 @@ const { character } = defineProps<{
         &.compact {
             margin-top: -5px !important;
             padding: 0px !important;
+            line-height: 1em;
         }
 
         .description {

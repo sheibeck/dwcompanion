@@ -1,5 +1,5 @@
 <template>
-    <div class="container-fluid  mb-3">
+    <div class="container-fluid mb-2">
         <div class="input-group mb-1">
             <span class="input-group-text w-75 fs-5" id="level">Armor</span>
             <input type="text" class="form-control fs-5 text-center" v-model="character.armor">

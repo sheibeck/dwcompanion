@@ -54,20 +54,23 @@ initialize();
         margin-top: 0px !important;
     }
 
-    
-    .input-group {
-        flex-wrap: nowrap;
+    .item {
+        line-height: .9em;
+        
+        .input-group {
+            flex-wrap: nowrap;
 
-        .input-group-text {
-            background-color: unset;
-            border: unset;
-        }
+            .input-group-text {
+                background-color: unset;
+                border: unset;
+            }
 
-        input {
-            border: unset;
-            border-bottom: 1px solid black;
+            input {
+                border: unset;
+                border-bottom: 1px solid black;
+            }
         }
-    }
+}
         
     @media print {
         .item {

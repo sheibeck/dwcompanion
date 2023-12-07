@@ -1,31 +1,32 @@
 <template>
-    <div class="container-fluid mb-3 look">
+    <div class="container-fluid mb-2 moves">
         <div class="bg-dark text-light fs-5 p-1 mb-1">{{ getLabel }}</div>
-            <div v-for="(move, index) in getMoves" :index="move.id" class="item d-flex" :class="{'compact': index > 0}">
-                <div>
-                    <input type="checkbox" v-model="move.selected" />
-                </div>
-                <div>
-                    <div class="fs-5">{{ move.name }}</div>
-                    <div v-if="!isEditing" class="d-flex">
-                        <VueShowdown :markdown="move.description" class="description" />
-                        <button class="btn btn-link d-print-none" type="button" @click="isEditing=true">
-                            <img src="@/assets/pencil-solid.svg" alt="edit description"/>
-                        </button>
-                    </div>
-                    
-                    <div v-if="isEditing" class="d-flex d-print-none">
-                        <textarea type="text" class="form-control from-control-sm" v-model="move.description"></textarea>
+        <div class="items">
+            <div v-for="(move, index) in getMoves" :index="move.id" class="card m-1" :class="{'compact': index > 0}">
+                <div class="card-body p-0">
+                    <h5 class="card-title"><input type="checkbox" class="form-check-input" v-model="move.selected" /> {{ move.name }}</h5>
+                    <div class="card-text">
+                        <div v-if="!isEditing" class="d-flex">
+                            <VueShowdown :markdown="move.description" class="description" />
+                            <button class="btn btn-link d-print-none" type="button" @click="isEditing=true">
+                                <img src="@/assets/pencil-solid.svg" alt="edit description"/>
+                            </button>
+                        </div>
+                        
+                        <div v-if="isEditing" class="d-flex d-print-none">
+                            <textarea type="text" class="form-control from-control-sm" v-model="move.description"></textarea>
 
-                        <button class="btn btn-link" type="button" @click="isEditing=false">
-                            <img src="@/assets/floppy-disk-solid.svg" alt="save description"/>
-                        </button>
-                        <button class="btn btn-link" type="button" @click="isEditing=false">
-                            <img src="@/assets/ban-solid.svg" alt="cancel edit description"/>
-                        </button>
+                            <button class="btn btn-link" type="button" @click="isEditing=false">
+                                <img src="@/assets/floppy-disk-solid.svg" alt="save description"/>
+                            </button>
+                            <button class="btn btn-link" type="button" @click="isEditing=false">
+                                <img src="@/assets/ban-solid.svg" alt="cancel edit description"/>
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
+        </div>
     </div>
 </template>
 
@@ -58,37 +59,47 @@ initialize();
 
 
 <style scoped lang="scss">
-.look {
-    .input-group {
-        flex-wrap: nowrap;
 
-        .input-group-text {
-            background-color: unset;
-            border: unset;
+ol, ul, dl, p {
+    margin-bottom: 0px !important;
+}
+
+.moves {
+    .items {
+        display:grid;
+        grid-template-columns: 1fr;
+
+        .card {
+            border: 0;
+            
+            .card-text {
+                line-height: 1em;
+
+                .description {
+                    p {
+                        margin-bottom: 5px !important;
+                    }
+                }
+            }
+
+            .form-check-input {
+                width: 20px;
+                height: 20px;
+            }
         }
+    }
 
-        input {
-            border: unset;
-            border-bottom: 1px solid black;
+    @media(min-width: 800px) {
+        .items {
+            grid-template-columns: repeat(2, 1fr);
         }
     }
 }
 
 @media print {
-    .look {
-        .item {
-            .name {
-                font-size: .9em !important;
-            }
-
-            &.compact {
-                margin-top: -3px !important;
-                padding: 0px !important;
-            }
-
-            .description {
-                margin-top: -3px;
-            }
+    .moves {   
+        .card-text {
+            font-size: .75em;
         }
     }
 }

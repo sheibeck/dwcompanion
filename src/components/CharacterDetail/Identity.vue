@@ -1,16 +1,16 @@
 <template>
     <div id="identity" class="container-fluid">
-        <div class="input-group mb-3 pe-md-2">
+        <div class="input-group mb-2 pe-md-2">
             <span class="input-group-text" id="name">Name</span>
             <input type="text" class="form-control" placeholder="Name" aria-label="Name" aria-describedby="name"
                 v-model="character.name">
         </div>
-        <div class="input-group mb-3 pe-md-2">
+        <div class="input-group mb-2 pe-md-2">
             <span class="input-group-text" id="level">Level</span>
             <input type="text" class="form-control" placeholder="Level" aria-label="Level"
                 aria-describedby="level" v-model="character.level">
         </div>
-        <div class="input-group mb-3">
+        <div class="input-group mb-2">
             <span class="input-group-text" id="xp">XP</span>
             <input type="text" class="form-control" placeholder="XP" aria-label="XP" aria-describedby="xp"
                 v-model="character.xp">
