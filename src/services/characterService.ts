@@ -75,7 +75,6 @@ export async function updateCharacter(character: any) {
         delete updatedCharacter['_lastChangedAt'];
         delete updatedCharacter['_deleted'];
         delete updatedCharacter['owner'];
-        delete updatedCharacter['_version'];
         updatedCharacter = stringifyCharacter(updatedCharacter);
 
         const { data, errors } = await client.graphql({ query: mutations.updateCharacter,
@@ -111,10 +110,9 @@ export async function getCharacter(id: string) {
 
 export async function deleteCharacter(id: any) {
     try {
-        const character = await getCharacter(id);
+        const character: any = await getCharacter(id);
         const { data, errors } = await client.graphql({ query: mutations.deleteCharacter,
             variables: { 
-                
                     input: {
                         id: character.id,
                         _version: character._version
@@ -156,6 +154,8 @@ function jsonCharacter(character: any) {
     character.advancedMovesTwoToTen = formatJson(character.advancedMovesTwoToTen);
     character.advancedMovesSixToTen = formatJson(character.advancedMovesSixToTen);
     character.bonds = formatJson(character.bonds);
+
+    return character;
 }
 
 function formatJson(text: any) {
