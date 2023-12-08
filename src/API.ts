@@ -3236,6 +3236,7 @@ export type OnDeleteLookSubscription = {
 
 export type OnCreateCharacterSubscriptionVariables = {
   filter?: ModelSubscriptionCharacterFilterInput | null,
+  owner?: string | null,
 };
 
 export type OnCreateCharacterSubscription = {
@@ -3277,6 +3278,7 @@ export type OnCreateCharacterSubscription = {
 
 export type OnUpdateCharacterSubscriptionVariables = {
   filter?: ModelSubscriptionCharacterFilterInput | null,
+  owner?: string | null,
 };
 
 export type OnUpdateCharacterSubscription = {
@@ -3318,6 +3320,7 @@ export type OnUpdateCharacterSubscription = {
 
 export type OnDeleteCharacterSubscriptionVariables = {
   filter?: ModelSubscriptionCharacterFilterInput | null,
+  owner?: string | null,
 };
 
 export type OnDeleteCharacterSubscription = {

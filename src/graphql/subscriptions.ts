@@ -566,8 +566,11 @@ export const onDeleteLook = /* GraphQL */ `subscription OnDeleteLook($filter: Mo
   APITypes.OnDeleteLookSubscriptionVariables,
   APITypes.OnDeleteLookSubscription
 >;
-export const onCreateCharacter = /* GraphQL */ `subscription OnCreateCharacter($filter: ModelSubscriptionCharacterFilterInput) {
-  onCreateCharacter(filter: $filter) {
+export const onCreateCharacter = /* GraphQL */ `subscription OnCreateCharacter(
+  $filter: ModelSubscriptionCharacterFilterInput
+  $owner: String
+) {
+  onCreateCharacter(filter: $filter, owner: $owner) {
     userId
     id
     name
@@ -606,8 +609,11 @@ export const onCreateCharacter = /* GraphQL */ `subscription OnCreateCharacter($
   APITypes.OnCreateCharacterSubscriptionVariables,
   APITypes.OnCreateCharacterSubscription
 >;
-export const onUpdateCharacter = /* GraphQL */ `subscription OnUpdateCharacter($filter: ModelSubscriptionCharacterFilterInput) {
-  onUpdateCharacter(filter: $filter) {
+export const onUpdateCharacter = /* GraphQL */ `subscription OnUpdateCharacter(
+  $filter: ModelSubscriptionCharacterFilterInput
+  $owner: String
+) {
+  onUpdateCharacter(filter: $filter, owner: $owner) {
     userId
     id
     name
@@ -646,8 +652,11 @@ export const onUpdateCharacter = /* GraphQL */ `subscription OnUpdateCharacter($
   APITypes.OnUpdateCharacterSubscriptionVariables,
   APITypes.OnUpdateCharacterSubscription
 >;
-export const onDeleteCharacter = /* GraphQL */ `subscription OnDeleteCharacter($filter: ModelSubscriptionCharacterFilterInput) {
-  onDeleteCharacter(filter: $filter) {
+export const onDeleteCharacter = /* GraphQL */ `subscription OnDeleteCharacter(
+  $filter: ModelSubscriptionCharacterFilterInput
+  $owner: String
+) {
+  onDeleteCharacter(filter: $filter, owner: $owner) {
     userId
     id
     name
