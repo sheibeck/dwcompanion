@@ -5,6 +5,7 @@ import * as mutations from '@/graphql/mutations';
 import { Profession } from '@/enums/profession';
 import * as uuid from 'short-uuid';
 
+
 const client = generateClient();
 
 export const getCharactersWithProfessions = async(userId: string) => {
@@ -43,13 +44,13 @@ export async function createNewCharacter(newCharacter: any) {
         newCharacter.id = uuid.generate();
         newCharacter = stringifyCharacter(newCharacter);
 
-        const result = await client.graphql({ query: mutations.createCharacter,
+        const { data } = await client.graphql({ query: mutations.createCharacter,
             variables: {
                 input: newCharacter
             },
         });
 
-        const character: any = result.data.createCharacter;
+        const character: any = data.createCharacter;
         return character;
        
     }

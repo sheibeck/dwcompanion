@@ -3,11 +3,11 @@
 //  This file was automatically generated and should not be edited.
 
 export type CreateProfessionInput = {
-  id?: string | null,
   name: string,
   description: string,
   diceType: string,
   source: string,
+  id?: string | null,
   _version?: number | null,
 };
 
@@ -71,11 +71,11 @@ export type ModelBooleanInput = {
 
 export type Profession = {
   __typename: "Profession",
-  id: string,
   name: string,
   description: string,
   diceType: string,
   source: string,
+  id: string,
   createdAt: string,
   updatedAt: string,
   _version: number,
@@ -84,11 +84,11 @@ export type Profession = {
 };
 
 export type UpdateProfessionInput = {
-  id: string,
   name?: string | null,
   description?: string | null,
   diceType?: string | null,
   source?: string | null,
+  id: string,
   _version?: number | null,
 };
 
@@ -683,7 +683,6 @@ export type DeleteCharacterInput = {
 };
 
 export type ModelProfessionFilterInput = {
-  id?: ModelIDInput | null,
   name?: ModelStringInput | null,
   description?: ModelStringInput | null,
   diceType?: ModelStringInput | null,
@@ -904,7 +903,6 @@ export type ModelCharacterConnection = {
 };
 
 export type ModelSubscriptionProfessionFilterInput = {
-  id?: ModelSubscriptionIDInput | null,
   name?: ModelSubscriptionStringInput | null,
   description?: ModelSubscriptionStringInput | null,
   diceType?: ModelSubscriptionStringInput | null,
@@ -912,21 +910,6 @@ export type ModelSubscriptionProfessionFilterInput = {
   and?: Array< ModelSubscriptionProfessionFilterInput | null > | null,
   or?: Array< ModelSubscriptionProfessionFilterInput | null > | null,
   _deleted?: ModelBooleanInput | null,
-};
-
-export type ModelSubscriptionIDInput = {
-  ne?: string | null,
-  eq?: string | null,
-  le?: string | null,
-  lt?: string | null,
-  ge?: string | null,
-  gt?: string | null,
-  contains?: string | null,
-  notContains?: string | null,
-  between?: Array< string | null > | null,
-  beginsWith?: string | null,
-  in?: Array< string | null > | null,
-  notIn?: Array< string | null > | null,
 };
 
 export type ModelSubscriptionStringInput = {
@@ -958,6 +941,21 @@ export type ModelSubscriptionSpellFilterInput = {
   and?: Array< ModelSubscriptionSpellFilterInput | null > | null,
   or?: Array< ModelSubscriptionSpellFilterInput | null > | null,
   _deleted?: ModelBooleanInput | null,
+};
+
+export type ModelSubscriptionIDInput = {
+  ne?: string | null,
+  eq?: string | null,
+  le?: string | null,
+  lt?: string | null,
+  ge?: string | null,
+  gt?: string | null,
+  contains?: string | null,
+  notContains?: string | null,
+  between?: Array< string | null > | null,
+  beginsWith?: string | null,
+  in?: Array< string | null > | null,
+  notIn?: Array< string | null > | null,
 };
 
 export type ModelSubscriptionIntInput = {
@@ -1099,11 +1097,11 @@ export type CreateProfessionMutationVariables = {
 export type CreateProfessionMutation = {
   createProfession?:  {
     __typename: "Profession",
-    id: string,
     name: string,
     description: string,
     diceType: string,
     source: string,
+    id: string,
     createdAt: string,
     updatedAt: string,
     _version: number,
@@ -1120,11 +1118,11 @@ export type UpdateProfessionMutationVariables = {
 export type UpdateProfessionMutation = {
   updateProfession?:  {
     __typename: "Profession",
-    id: string,
     name: string,
     description: string,
     diceType: string,
     source: string,
+    id: string,
     createdAt: string,
     updatedAt: string,
     _version: number,
@@ -1141,11 +1139,11 @@ export type DeleteProfessionMutationVariables = {
 export type DeleteProfessionMutation = {
   deleteProfession?:  {
     __typename: "Profession",
-    id: string,
     name: string,
     description: string,
     diceType: string,
     source: string,
+    id: string,
     createdAt: string,
     updatedAt: string,
     _version: number,
@@ -1824,11 +1822,11 @@ export type GetProfessionQueryVariables = {
 export type GetProfessionQuery = {
   getProfession?:  {
     __typename: "Profession",
-    id: string,
     name: string,
     description: string,
     diceType: string,
     source: string,
+    id: string,
     createdAt: string,
     updatedAt: string,
     _version: number,
@@ -1848,11 +1846,11 @@ export type ListProfessionsQuery = {
     __typename: "ModelProfessionConnection",
     items:  Array< {
       __typename: "Profession",
-      id: string,
       name: string,
       description: string,
       diceType: string,
       source: string,
+      id: string,
       createdAt: string,
       updatedAt: string,
       _version: number,
@@ -1876,11 +1874,11 @@ export type SyncProfessionsQuery = {
     __typename: "ModelProfessionConnection",
     items:  Array< {
       __typename: "Profession",
-      id: string,
       name: string,
       description: string,
       diceType: string,
       source: string,
+      id: string,
       createdAt: string,
       updatedAt: string,
       _version: number,
@@ -2670,11 +2668,11 @@ export type OnCreateProfessionSubscriptionVariables = {
 export type OnCreateProfessionSubscription = {
   onCreateProfession?:  {
     __typename: "Profession",
-    id: string,
     name: string,
     description: string,
     diceType: string,
     source: string,
+    id: string,
     createdAt: string,
     updatedAt: string,
     _version: number,
@@ -2690,11 +2688,11 @@ export type OnUpdateProfessionSubscriptionVariables = {
 export type OnUpdateProfessionSubscription = {
   onUpdateProfession?:  {
     __typename: "Profession",
-    id: string,
     name: string,
     description: string,
     diceType: string,
     source: string,
+    id: string,
     createdAt: string,
     updatedAt: string,
     _version: number,
@@ -2710,11 +2708,11 @@ export type OnDeleteProfessionSubscriptionVariables = {
 export type OnDeleteProfessionSubscription = {
   onDeleteProfession?:  {
     __typename: "Profession",
-    id: string,
     name: string,
     description: string,
     diceType: string,
     source: string,
+    id: string,
     createdAt: string,
     updatedAt: string,
     _version: number,
@@ -3238,7 +3236,6 @@ export type OnDeleteLookSubscription = {
 
 export type OnCreateCharacterSubscriptionVariables = {
   filter?: ModelSubscriptionCharacterFilterInput | null,
-  owner?: string | null,
 };
 
 export type OnCreateCharacterSubscription = {
@@ -3280,7 +3277,6 @@ export type OnCreateCharacterSubscription = {
 
 export type OnUpdateCharacterSubscriptionVariables = {
   filter?: ModelSubscriptionCharacterFilterInput | null,
-  owner?: string | null,
 };
 
 export type OnUpdateCharacterSubscription = {
@@ -3322,7 +3318,6 @@ export type OnUpdateCharacterSubscription = {
 
 export type OnDeleteCharacterSubscriptionVariables = {
   filter?: ModelSubscriptionCharacterFilterInput | null,
-  owner?: string | null,
 };
 
 export type OnDeleteCharacterSubscription = {

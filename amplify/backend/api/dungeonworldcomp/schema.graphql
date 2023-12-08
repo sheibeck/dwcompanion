@@ -1,5 +1,4 @@
 type Profession @model @auth(rules: [{allow: public, operations: [read]}, {allow: private, operations: [read]}]) {
-  id: ID!
   name: String!
   description: String!
   diceType: String!
@@ -81,7 +80,7 @@ type Look @model @auth(rules: [{allow: public, operations: [read]}, {allow: priv
   profession: String!
 }
 
-type Character @model @auth(rules: [{allow: public, operations: [read]}, {allow: owner}, {allow: private, operations: [read]}]) {
+type Character @model @auth(rules: [{allow: owner, operations: [create, update, delete]}, {allow: public, operations: [read]}, {allow: private, operations: [read]}]) {
   userId: ID!
   id: ID!
   name: String!
@@ -107,5 +106,4 @@ type Character @model @auth(rules: [{allow: public, operations: [read]}, {allow:
   look: AWSJSON
   profession: AWSJSON
   spells: AWSJSON
-}
- 
+} 
