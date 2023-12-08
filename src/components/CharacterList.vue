@@ -33,8 +33,8 @@ onMounted(async () => {
     characterList.value = await getCharactersWithProfessions(userId.value);
 });
 
-function viewCharacter(id: string) {
-    router.push({ name: "character", params: { id: id } });
+async function viewCharacter(id: string) {
+    await router.push({ name: "character", params: { id: id } });
 }
 
 async function removeCharacter(id: string) {

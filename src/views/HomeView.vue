@@ -41,7 +41,7 @@ const getProfessionList = async () => {
 onMounted(async () => {
   const isAuthenticated = await globalStore.isAuthenticated();
   if (!isAuthenticated) {
-    router.push({name: "login"});
+    await router.push({name: "login"});
   }
   else {
     getProfessionList();
@@ -49,8 +49,8 @@ onMounted(async () => {
 })
 
 
-function createCharacter(profession: string) {
-  router.push({ name: "character", params: { id: "new-character", profession: profession } });
+async function createCharacter(profession: string) {
+  await router.push({ name: "character", params: { id: "new-character", profession: profession } });
 }
 
 </script>

@@ -26,7 +26,7 @@ export const getCharactersWithProfessions = async(userId: string) => {
 
         const charList: any = characters.data.listCharacters.items;
         charList.forEach((item: any) => {
-            item = jsonCharacter(item)
+            jsonCharacter(item)
         });
 
         return charList;
@@ -38,11 +38,13 @@ export const getCharactersWithProfessions = async(userId: string) => {
     return result;
 }
 
-export async function createNewCharacter(newCharacter: any) {
+export async function createNewCharacter(character: any) {
     
     try {
        
-        newCharacter.id = uuid.generate();
+        //don't mutate the original character;
+        character.id = uuid.generate();
+        let newCharacter = JSON.parse(JSON.stringify(character));
         newCharacter = stringifyCharacter(newCharacter);
 
         const { data, errors } = await client.graphql({ query: mutations.createCharacter,
@@ -51,38 +53,42 @@ export async function createNewCharacter(newCharacter: any) {
             }
         });
 
-        const character: any = data.createCharacter;
-        return character;
+        return newCharacter.id;
+       
+    }
+    catch(ex) {
+        console.error(ex);
+        return null;
+    }
 
-        // const char = new Character({
-        //     "userId": newCharacter.userId,
-        //     "name": "Lorem ipsum dolor sit amet",
-        //     "level": 1020,
-        //     "xp": 1020,
-        //     "armor": 1020,
-        //     "hitPointsMax": 1020,
-        //     "hitPointsCurrent": 1020,
-        //     "coin": 1020,
-        //     "loadMax": 1020,
-        //     "loadCurrent": 1020,
-        //     "isTemplate": true,
-        //     "tags": [],
-        //     "notes": [],
-        //     "gear":  null,
-        //     "startingMoves":  null,
-        //     "advancedMovesTwoToTen":  null,
-        //     "advancedMovesSixToTen":  null,
-        //     "bonds":  null,
-        //     "abilityScores":  null,
-        //     "race":  null,
-        //     "alignment":  null,
-        //     "look":  null,
-        //     "profession":  JSON.stringify(newCharacter),
-        //     "spells":  null,
-        // })
+}
 
-        // const result = await DataStore.save(char);
-        // return result;
+
+export async function updateCharacter(character: any) {
+    
+    try {
+       
+        let updatedCharacter = JSON.parse(JSON.stringify(character));
+        delete updatedCharacter['__typename'];
+        delete updatedCharacter['updatedAt'];
+        delete updatedCharacter['createdAt'];
+        delete updatedCharacter['_lastChangedAt'];
+        delete updatedCharacter['_deleted'];
+        delete updatedCharacter['owner'];
+        delete updatedCharacter['_version'];
+        updatedCharacter = stringifyCharacter(updatedCharacter);
+
+        const { data, errors } = await client.graphql({ query: mutations.updateCharacter,
+            variables: {
+                input: updatedCharacter
+            }
+        });
+        
+        if (errors) {
+            return null
+        }
+
+        return jsonCharacter(data.updateCharacter);
        
     }
     catch(ex) {
@@ -116,15 +122,6 @@ export async function deleteCharacter(id: any) {
                  
             } 
         });
-
-        // const item = await DataStore.query(Character, id);
-        // if (item) {
-        //     const result = await DataStore.delete(item);
-        //     return true;
-        // }
-        // else {
-        //     return false;
-        // }
     }
     catch(ex) {
         console.error(ex);
@@ -132,7 +129,7 @@ export async function deleteCharacter(id: any) {
     }
 }
 
-export function stringifyCharacter(character: any) {
+function stringifyCharacter(character: any) {
     character.alignment = stringifyJson(character.alignment);
     character.profession = stringifyJson(character.profession);
     character.startingMoves = stringifyJson(character.startingMoves);
@@ -150,7 +147,7 @@ function stringifyJson(thing: object) {
     return JSON.stringify(thing);
 }
 
-export function jsonCharacter(character: any) {
+function jsonCharacter(character: any) {
     character.alignment = formatJson(character.alignment);
     character.profession = formatJson(character.profession);
     character.startingMoves = formatJson(character.startingMoves);
@@ -159,8 +156,6 @@ export function jsonCharacter(character: any) {
     character.advancedMovesTwoToTen = formatJson(character.advancedMovesTwoToTen);
     character.advancedMovesSixToTen = formatJson(character.advancedMovesSixToTen);
     character.bonds = formatJson(character.bonds);
-    
-    return character;
 }
 
 function formatJson(text: any) {

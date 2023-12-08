@@ -37,7 +37,7 @@
         </div>
 
         <div class="d-print-none action-bar d-flex justify-content-end border-top pt-2" v-if="isAuthenticated">
-            <a href="/" type="button" class="btn btn-secondary me-2">Close</a>
+            <a href="/characters" type="button" class="btn btn-secondary me-2">Close</a>
             <button type="button" class="btn btn-dark" @click="saveCharacter()">Save</button>
         </div>
     </div>
@@ -57,8 +57,9 @@ import { MoveType } from '@/enums/moveType';
 import * as lookupService from '@/services/lookupTableService';
 import { ProfessionType } from '@/enums/professionType';
 import { toast } from 'vue3-toastify';
-import { createNewCharacter, getCharacter } from '@/services/characterService';
+import { createNewCharacter, getCharacter, updateCharacter } from '@/services/characterService';
 import { useGlobalStore } from '@/stores/globalStore';
+import { useRouter } from 'vue-router'
 
 const { characterId, characterProfession} = defineProps<{
     characterId: string;
@@ -66,6 +67,7 @@ const { characterId, characterProfession} = defineProps<{
 }>();
 
 const globalStore = useGlobalStore();
+const router = useRouter();
 const character = ref<any>(null);
 const isAuthenticated = ref(false);
 
@@ -108,13 +110,34 @@ async function saveCharacter() {
             return;
         }
 
-        const newcharacter = await createNewCharacter(character.value);
-        if (newcharacter) {
+        const newcharacterId = await createNewCharacter(character.value);
+        if (newcharacterId) {
             toast(`Created character ${character.value.name} the ${character.value.profession.name}.`)
+
+            setTimeout(async () => {
+                await router.push({ name: "character", params: { id: newcharacterId, profession: null }, replace: true });
+            }, 2000);
+            
         }
         else {
             toast(`Failed to create character!`);
         }
+    }
+
+    else {
+        await update();
+    }
+}
+
+async function update() {
+    const updateChar = await updateCharacter(character.value);
+
+    if (updateChar) {
+        character.value = updateChar;
+        toast(`Character saved.`);
+    }
+    else {
+        toast('There was a problem saving character!');
     }
 }
 
