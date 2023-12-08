@@ -33,11 +33,12 @@ async function initialize() {
     const moves = await getMovesByProfession(character.profession.name);
     switch(moveType) {
         case MoveType.STARTING_MOVES:
-            if (!character.startingMoves || character.startingMoves.length === 0)
+            if (!character.startingMoves || character.startingMoves.length === 0) {
                 character.startingMoves = moves.filter( m => m.isStartingMove == true);
                 character.startingMoves.forEach( (move: any) => {
                     move.selected = move.selectedOnNew;
                 });
+            }
             break;
         case MoveType.TWO_TO_TEN:
             if (!character.advancedMovesTwoToTen || character.advancedMovesTwoToTen.length === 0)

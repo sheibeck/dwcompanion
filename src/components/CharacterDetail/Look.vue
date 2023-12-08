@@ -35,6 +35,10 @@ initialize();
 .look {
     line-height: 1.25em;
 
+    .description {
+        line-height: .7em;
+    }
+
     .input-group {
         flex-wrap: nowrap;
 
@@ -63,7 +67,6 @@ initialize();
             }
 
             .description {
-                margin-top: -3px;
             }
         }
     }

@@ -2,17 +2,17 @@
     <div id="identity" class="container-fluid">
         <div class="input-group mb-2 pe-md-2">
             <span class="input-group-text" id="name">Name</span>
-            <input type="text" class="form-control" placeholder="Name" aria-label="Name" aria-describedby="name"
+            <input type="text" class="form-control" aria-label="Name" aria-describedby="name"
                 v-model="character.name">
         </div>
         <div class="input-group mb-2 pe-md-2">
             <span class="input-group-text" id="level">Level</span>
-            <input type="text" class="form-control" placeholder="Level" aria-label="Level"
+            <input type="text" class="form-control" aria-label="Level"
                 aria-describedby="level" v-model="character.level">
         </div>
         <div class="input-group mb-2">
             <span class="input-group-text" id="xp">XP</span>
-            <input type="text" class="form-control" placeholder="XP" aria-label="XP" aria-describedby="xp"
+            <input type="text" class="form-control" aria-label="XP" aria-describedby="xp"
                 v-model="character.xp">
         </div>
     </div>
@@ -34,7 +34,6 @@ const { character } = defineProps<{
         }
         .form-control {
             background-color: white;
-            border-width: 0px;
         }
     }
 
@@ -42,6 +41,12 @@ const { character } = defineProps<{
         #identity {
             display: grid;
             grid-template-columns: auto 150px 200px;
+        }
+    }
+
+    @media print {
+        .form-control {
+            border-width: 0px;
         }
     }
 </style>

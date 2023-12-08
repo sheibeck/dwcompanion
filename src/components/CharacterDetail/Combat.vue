@@ -12,7 +12,7 @@
             <input type="text" class="form-control fs-5 text-center" aria-describedby="hitpoint-description"
                 v-model="character.hitPointsCurrent">
         </div>
-        <div class="form-text text-end mb-1 label" id="hitpoint-description">Max (8 + Constitution) / Current</div>
+        <div class="form-text text-end mb-2 label" id="hitpoint-description">Max (8 + Constitution) / Current</div>
 
         <div class="input-group">
             <span class="input-group-text w-75 fs-5 bg-dark text-light label">Damage</span>
@@ -32,6 +32,7 @@ const { character } = defineProps<{
     .label {
         max-height: 30px;
         margin-top: 8px;
+        line-height: .7em;
     }
 
     input {
