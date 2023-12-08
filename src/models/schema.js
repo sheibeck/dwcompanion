@@ -348,6 +348,13 @@ export const schema = {
                     "isRequired": false,
                     "attributes": []
                 },
+                "selectedOnNew": {
+                    "name": "selectedOnNew",
+                    "isArray": false,
+                    "type": "Boolean",
+                    "isRequired": false,
+                    "attributes": []
+                },
                 "profession": {
                     "name": "profession",
                     "isArray": false,
@@ -360,6 +367,34 @@ export const schema = {
                     "isArray": false,
                     "type": "String",
                     "isRequired": true,
+                    "attributes": []
+                },
+                "isStartingMove": {
+                    "name": "isStartingMove",
+                    "isArray": false,
+                    "type": "Boolean",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "isAdvancedMove": {
+                    "name": "isAdvancedMove",
+                    "isArray": false,
+                    "type": "Boolean",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "isTwoToTenMove": {
+                    "name": "isTwoToTenMove",
+                    "isArray": false,
+                    "type": "Boolean",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "isSixToTenMove": {
+                    "name": "isSixToTenMove",
+                    "isArray": false,
+                    "type": "Boolean",
+                    "isRequired": false,
                     "attributes": []
                 },
                 "createdAt": {
@@ -557,6 +592,20 @@ export const schema = {
                     "isArray": false,
                     "type": "Int",
                     "isRequired": true,
+                    "attributes": []
+                },
+                "debilityIsSelected": {
+                    "name": "debilityIsSelected",
+                    "isArray": false,
+                    "type": "Boolean",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "sortOrder": {
+                    "name": "sortOrder",
+                    "isArray": false,
+                    "type": "Int",
+                    "isRequired": false,
                     "attributes": []
                 },
                 "tags": {
@@ -1149,5 +1198,5 @@ export const schema = {
     "enums": {},
     "nonModels": {},
     "codegenVersion": "3.4.4",
-    "version": "82f67955c63b67c7fda3206df92d3056"
+    "version": "a743580829b2db7e1f48b0292f9cb38f"
 };

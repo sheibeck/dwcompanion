@@ -31,13 +31,13 @@
 </template>
 
 <script setup lang="ts">
-import type { MoveType } from '@/enums/moveType';
+import { MoveType } from '@/enums/moveType';
 import { getMovesByProfession } from '@/services/lookupTableService';
 import { computed, ref } from 'vue';
 import { VueShowdown } from 'vue-showdown';
 
 
-const { character } = defineProps<{
+const { character, moveType } = defineProps<{
     character: any;
     moveType: MoveType;
 }>();
@@ -48,9 +48,23 @@ const getLabel = computed(() => "Starting Moves");
 const getMoves = computed(() => character.startingMoves);
 
 async function initialize() {
-    if (!character.startingMoves || character.startingMoves.length === 0) {
-        const startingMoves = await getMovesByProfession(character.profession.name);
-        character.startingMoves = startingMoves;
+    const moves = await getMovesByProfession(character.profession.name);
+    switch(moveType) {
+        case MoveType.STARTING_MOVES:
+            if (!character.startingMoves || character.startingMoves.length === 0)
+                character.startingMoves = moves.filter( m => m.isStartingMove == true);
+                character.startingMoves.forEach( (move: any) => {
+                    move.selected = move.selectedOnNew;
+                });
+            break;
+        case MoveType.TWO_TO_TEN:
+            if (!character.advancedMovesTwoToTen || character.advancedMovesTwoToTen.length === 0)
+                character.advancedMovesTwoToTen = moves.filter( m => m.isTwoToTenMove == true);
+            break;
+        case MoveType.TWO_TO_TEN:
+            if (!character.advancedMovesSixToTen || character.advancedMovesSixToTen.length === 0)
+                character.advancedMovesSixToTen = moves.filter( m => m.isSixToTenMove == true);
+        break;
     }
 }
 

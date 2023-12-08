@@ -32,8 +32,13 @@ type Move @model @auth(rules: [{allow: private, operations: [read], provider: ia
   name: String!
   description: String!
   selected: Boolean
+  selectedOnNew: Boolean
   profession: String!
   source: String!
+  isStartingMove: Boolean
+  isAdvancedMove: Boolean
+  isTwoToTenMove: Boolean
+  isSixToTenMove: Boolean
 }
 
 type Bond @model @auth(rules: [{allow: private, operations: [read], provider: iam}, {allow: private, operations: [read]}, {allow: public, operations: [read], provider: iam}]) {
@@ -52,6 +57,8 @@ type AbilityScore @model @auth(rules: [{allow: private, operations: [read], prov
   debilityPenalty: String!
   value: String!
   bonus: Int!
+  debilityIsSelected: Boolean
+  sortOrder: Int
   tags: [String]
 }
 

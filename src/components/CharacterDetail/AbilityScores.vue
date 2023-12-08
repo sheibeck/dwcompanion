@@ -22,9 +22,21 @@
 
 <script setup lang="ts">
 
+import { getAbilityScores } from '@/services/lookupTableService';
+
 const { character } = defineProps<{
     character: any;
 }>();
+
+async function initialize() {
+    if (!character.abilityScores || character.abilityScores.length === 0) {
+        const result = await getAbilityScores();
+        character.abilityScores = result;
+    }
+}
+
+initialize();
+
 </script>
 
 <style scoped lang="scss">

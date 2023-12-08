@@ -12,10 +12,21 @@
 </template>
 
 <script setup lang="ts">
+import { getLooksByProfession } from '@/services/lookupTableService';
 
 const { character } = defineProps<{
     character: any;
 }>();
+
+
+async function initialize() {
+    if (!character.look || character.look.length === 0) {
+        const result = await getLooksByProfession(character.profession.name);
+        character.look = result;
+    }
+}
+
+initialize();
 
 </script>
 

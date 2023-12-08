@@ -233,8 +233,13 @@ export const createMove = /* GraphQL */ `mutation CreateMove(
     name
     description
     selected
+    selectedOnNew
     profession
     source
+    isStartingMove
+    isAdvancedMove
+    isTwoToTenMove
+    isSixToTenMove
     createdAt
     updatedAt
     _version
@@ -256,8 +261,13 @@ export const updateMove = /* GraphQL */ `mutation UpdateMove(
     name
     description
     selected
+    selectedOnNew
     profession
     source
+    isStartingMove
+    isAdvancedMove
+    isTwoToTenMove
+    isSixToTenMove
     createdAt
     updatedAt
     _version
@@ -279,8 +289,13 @@ export const deleteMove = /* GraphQL */ `mutation DeleteMove(
     name
     description
     selected
+    selectedOnNew
     profession
     source
+    isStartingMove
+    isAdvancedMove
+    isTwoToTenMove
+    isSixToTenMove
     createdAt
     updatedAt
     _version
@@ -371,6 +386,8 @@ export const createAbilityScore = /* GraphQL */ `mutation CreateAbilityScore(
     debilityPenalty
     value
     bonus
+    debilityIsSelected
+    sortOrder
     tags
     createdAt
     updatedAt
@@ -396,6 +413,8 @@ export const updateAbilityScore = /* GraphQL */ `mutation UpdateAbilityScore(
     debilityPenalty
     value
     bonus
+    debilityIsSelected
+    sortOrder
     tags
     createdAt
     updatedAt
@@ -421,6 +440,8 @@ export const deleteAbilityScore = /* GraphQL */ `mutation DeleteAbilityScore(
     debilityPenalty
     value
     bonus
+    debilityIsSelected
+    sortOrder
     tags
     createdAt
     updatedAt

@@ -15,10 +15,20 @@
 </template>
 
 <script setup lang="ts">
+import { getAlignmentsByProfession } from '@/services/lookupTableService';
 
 const { character } = defineProps<{
     character: any;
 }>();
+
+async function initialize() {
+    if (!character.alignment || character.alignment.length === 0) {
+        const result = await getAlignmentsByProfession(character.profession.name);
+        character.alignment = result;
+    }
+}
+
+initialize();
 </script>
 
 <style scoped lang="scss">

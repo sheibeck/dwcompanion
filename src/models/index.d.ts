@@ -129,8 +129,13 @@ type EagerMove = {
   readonly name: string;
   readonly description: string;
   readonly selected?: boolean | null;
+  readonly selectedOnNew?: boolean | null;
   readonly profession: string;
   readonly source: string;
+  readonly isStartingMove?: boolean | null;
+  readonly isAdvancedMove?: boolean | null;
+  readonly isTwoToTenMove?: boolean | null;
+  readonly isSixToTenMove?: boolean | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -144,8 +149,13 @@ type LazyMove = {
   readonly name: string;
   readonly description: string;
   readonly selected?: boolean | null;
+  readonly selectedOnNew?: boolean | null;
   readonly profession: string;
   readonly source: string;
+  readonly isStartingMove?: boolean | null;
+  readonly isAdvancedMove?: boolean | null;
+  readonly isTwoToTenMove?: boolean | null;
+  readonly isSixToTenMove?: boolean | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -202,6 +212,8 @@ type EagerAbilityScore = {
   readonly debilityPenalty: string;
   readonly value: string;
   readonly bonus: number;
+  readonly debilityIsSelected?: boolean | null;
+  readonly sortOrder?: number | null;
   readonly tags?: (string | null)[] | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
@@ -219,6 +231,8 @@ type LazyAbilityScore = {
   readonly debilityPenalty: string;
   readonly value: string;
   readonly bonus: number;
+  readonly debilityIsSelected?: boolean | null;
+  readonly sortOrder?: number | null;
   readonly tags?: (string | null)[] | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;

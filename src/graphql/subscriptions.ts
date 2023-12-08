@@ -209,8 +209,13 @@ export const onCreateMove = /* GraphQL */ `subscription OnCreateMove($filter: Mo
     name
     description
     selected
+    selectedOnNew
     profession
     source
+    isStartingMove
+    isAdvancedMove
+    isTwoToTenMove
+    isSixToTenMove
     createdAt
     updatedAt
     _version
@@ -229,8 +234,13 @@ export const onUpdateMove = /* GraphQL */ `subscription OnUpdateMove($filter: Mo
     name
     description
     selected
+    selectedOnNew
     profession
     source
+    isStartingMove
+    isAdvancedMove
+    isTwoToTenMove
+    isSixToTenMove
     createdAt
     updatedAt
     _version
@@ -249,8 +259,13 @@ export const onDeleteMove = /* GraphQL */ `subscription OnDeleteMove($filter: Mo
     name
     description
     selected
+    selectedOnNew
     profession
     source
+    isStartingMove
+    isAdvancedMove
+    isTwoToTenMove
+    isSixToTenMove
     createdAt
     updatedAt
     _version
@@ -331,6 +346,8 @@ export const onCreateAbilityScore = /* GraphQL */ `subscription OnCreateAbilityS
     debilityPenalty
     value
     bonus
+    debilityIsSelected
+    sortOrder
     tags
     createdAt
     updatedAt
@@ -355,6 +372,8 @@ export const onUpdateAbilityScore = /* GraphQL */ `subscription OnUpdateAbilityS
     debilityPenalty
     value
     bonus
+    debilityIsSelected
+    sortOrder
     tags
     createdAt
     updatedAt
@@ -379,6 +398,8 @@ export const onDeleteAbilityScore = /* GraphQL */ `subscription OnDeleteAbilityS
     debilityPenalty
     value
     bonus
+    debilityIsSelected
+    sortOrder
     tags
     createdAt
     updatedAt

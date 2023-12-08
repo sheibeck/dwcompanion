@@ -1,23 +1,30 @@
 
 import { generateClient } from 'aws-amplify/api';
 import * as queries from '@/graphql/queries';
-import type { Profession } from '@/enums/profession';
+import type { ProfessionType } from '@/enums/professionType';
 
 const client = generateClient();
 
 export const getProfessions = async() => {
 
-    const result: any = await client.graphql({ query: queries.listProfessions});
+    const { data, errors} = await client.graphql({ query: queries.listProfessions});
 
-    const professsions =  await result.data.listProfessions.items;
+    const professions =  await data.listProfessions.items;
 
-    function compareByName(a: any, b: any) {
+    function compareBy(a: any, b: any) {
         if (a.name > b.name) return 1;
         if (a.name < b.name) return -1;
         return 0;
     }
 
-    return professsions.sort(compareByName);
+    return professions.sort(compareBy);
+}
+
+export const getAbilityScores = async() => {
+
+    const { data, errors} = await client.graphql({ query: queries.listAbilityScores});
+
+    return data.listAbilityScores.items.sort((a, b) => (a?.sortOrder ?? 0) - (b?.sortOrder ?? 0));
 }
 
 export const getProfessionByName = async(name: string) => {
@@ -45,9 +52,9 @@ export const getProfessionByName = async(name: string) => {
 }
 
 
-export const getBondsByProfession = async(profession: Profession) => {
+export const getBondsByProfession = async(profession: ProfessionType) => {
 
-    const result: any = await client.graphql({ query: queries.listBonds,
+    const { data } = await client.graphql({ query: queries.listBonds,
             variables: { 
                 filter: {
                     profession: {
@@ -57,13 +64,12 @@ export const getBondsByProfession = async(profession: Profession) => {
             } 
         });
 
-    const bonds =  await result.data.listBonds.items;
-    return bonds;
+    return data.listBonds.items;
 }
 
-export const getMovesByProfession = async(profession: Profession) => {
+export const getMovesByProfession = async(profession: ProfessionType) => {
 
-    const result: any = await client.graphql({ query: queries.listMoves,
+    const { data } = await client.graphql({ query: queries.listMoves,
             variables: { filter: {
                     profession: {
                         eq: profession
@@ -72,7 +78,34 @@ export const getMovesByProfession = async(profession: Profession) => {
             } 
         });
 
-    const moves =  await result.data.listMoves.items;
-    return moves;
+    return await data.listMoves.items;
+}
+
+export const getLooksByProfession = async(profession: ProfessionType) => {
+
+    const { data } = await client.graphql({ query: queries.listLooks,
+            variables: { filter: {
+                    profession: {
+                        eq: profession
+                    }
+                } 
+            } 
+        });
+
+    return data.listLooks.items;
+}
+
+export const getAlignmentsByProfession = async(profession: ProfessionType) => {
+
+    const { data, errors }: any = await client.graphql({ query: queries.listAlignments,
+            variables: { filter: {
+                    profession: {
+                        eq: profession
+                    }
+                } 
+            } 
+        });
+
+    return data.listAlignments.items;
 }
 

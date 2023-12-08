@@ -263,8 +263,13 @@ export const getMove = /* GraphQL */ `query GetMove($id: ID!) {
     name
     description
     selected
+    selectedOnNew
     profession
     source
+    isStartingMove
+    isAdvancedMove
+    isTwoToTenMove
+    isSixToTenMove
     createdAt
     updatedAt
     _version
@@ -285,8 +290,13 @@ export const listMoves = /* GraphQL */ `query ListMoves(
       name
       description
       selected
+      selectedOnNew
       profession
       source
+      isStartingMove
+      isAdvancedMove
+      isTwoToTenMove
+      isSixToTenMove
       createdAt
       updatedAt
       _version
@@ -317,8 +327,13 @@ export const syncMoves = /* GraphQL */ `query SyncMoves(
       name
       description
       selected
+      selectedOnNew
       profession
       source
+      isStartingMove
+      isAdvancedMove
+      isTwoToTenMove
+      isSixToTenMove
       createdAt
       updatedAt
       _version
@@ -413,6 +428,8 @@ export const getAbilityScore = /* GraphQL */ `query GetAbilityScore($id: ID!) {
     debilityPenalty
     value
     bonus
+    debilityIsSelected
+    sortOrder
     tags
     createdAt
     updatedAt
@@ -440,6 +457,8 @@ export const listAbilityScores = /* GraphQL */ `query ListAbilityScores(
       debilityPenalty
       value
       bonus
+      debilityIsSelected
+      sortOrder
       tags
       createdAt
       updatedAt
@@ -477,6 +496,8 @@ export const syncAbilityScores = /* GraphQL */ `query SyncAbilityScores(
       debilityPenalty
       value
       bonus
+      debilityIsSelected
+      sortOrder
       tags
       createdAt
       updatedAt
