@@ -5,7 +5,7 @@ type Profession @model @auth(rules: [{allow: private, operations: [read], provid
   source: String!
 }
 
-type Spell  @model @auth(rules: [{allow: private, operations: [read], provider: iam}, {allow: private, operations: [read]}, {allow: public, operations: [read], provider: iam}]) {
+type Spell @model @auth(rules: [{allow: private, operations: [read], provider: iam}, {allow: private, operations: [read]}, {allow: public, operations: [read], provider: iam}]) {
   id: ID!
   name: String!
   level: Int!
@@ -18,7 +18,7 @@ type Spell  @model @auth(rules: [{allow: private, operations: [read], provider: 
   profession: String!
 }
 
-type Gear  @model @auth(rules: [{allow: private, operations: [read], provider: iam}, {allow: private, operations: [read]}, {allow: public, operations: [read], provider: iam}]) {
+type Gear @model @auth(rules: [{allow: private, operations: [read], provider: iam}, {allow: private, operations: [read]}, {allow: public, operations: [read], provider: iam}]) {
   id: ID!
   description: String!
   weight: Int!
@@ -27,7 +27,7 @@ type Gear  @model @auth(rules: [{allow: private, operations: [read], provider: i
   source: String!
 }
 
-type Move  @model @auth(rules: [{allow: private, operations: [read], provider: iam}, {allow: private, operations: [read]}, {allow: public, operations: [read], provider: iam}]) {
+type Move @model @auth(rules: [{allow: private, operations: [read], provider: iam}, {allow: private, operations: [read]}, {allow: public, operations: [read], provider: iam}]) {
   id: ID!
   name: String!
   description: String!
@@ -36,7 +36,7 @@ type Move  @model @auth(rules: [{allow: private, operations: [read], provider: i
   source: String!
 }
 
-type Bond  @model @auth(rules: [{allow: private, operations: [read], provider: iam}, {allow: private, operations: [read]}, {allow: public, operations: [read], provider: iam}]) {
+type Bond @model @auth(rules: [{allow: private, operations: [read], provider: iam}, {allow: private, operations: [read]}, {allow: public, operations: [read], provider: iam}]) {
   id: ID!
   description: String
   profession: String!
@@ -44,7 +44,7 @@ type Bond  @model @auth(rules: [{allow: private, operations: [read], provider: i
   tags: [String]
 }
 
-type AbilityScore  @model @auth(rules: [{allow: private, operations: [read], provider: iam}, {allow: private, operations: [read]}, {allow: public, operations: [read], provider: iam}]) {
+type AbilityScore @model @auth(rules: [{allow: private, operations: [read], provider: iam}, {allow: private, operations: [read]}, {allow: public, operations: [read], provider: iam}]) {
   id: ID!
   name: String!
   shortName: String!
@@ -55,7 +55,7 @@ type AbilityScore  @model @auth(rules: [{allow: private, operations: [read], pro
   tags: [String]
 }
 
-type Race  @model @auth(rules: [{allow: private, operations: [read], provider: iam}, {allow: private, operations: [read]}, {allow: public, operations: [read], provider: iam}]) {
+type Race @model @auth(rules: [{allow: private, operations: [read], provider: iam}, {allow: private, operations: [read]}, {allow: public, operations: [read], provider: iam}]) {
   id: ID!
   name: String
   description: String
@@ -64,7 +64,7 @@ type Race  @model @auth(rules: [{allow: private, operations: [read], provider: i
   source: String!
 }
 
-type Alignment  @model @auth(rules: [{allow: private, operations: [read], provider: iam}, {allow: private, operations: [read]}, {allow: public, operations: [read], provider: iam}]) {
+type Alignment @model @auth(rules: [{allow: private, operations: [read], provider: iam}, {allow: private, operations: [read]}, {allow: public, operations: [read], provider: iam}]) {
   id: ID!
   name: String
   description: String
@@ -72,7 +72,7 @@ type Alignment  @model @auth(rules: [{allow: private, operations: [read], provid
   profession: String!
 }
 
-type Look  @model @auth(rules: [{allow: private, operations: [read], provider: iam}, {allow: private, operations: [read]}, {allow: public, operations: [read], provider: iam}]) {
+type Look @model @auth(rules: [{allow: private, operations: [read], provider: iam}, {allow: private, operations: [read]}, {allow: public, operations: [read], provider: iam}]) {
   id: ID!
   name: String!
   description: String!
@@ -106,5 +106,4 @@ type Character @model @auth(rules: [{allow: owner}, {allow: private, operations:
   look: AWSJSON
   profession: AWSJSON
   spells: AWSJSON
-}
- 
+} 

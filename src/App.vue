@@ -9,7 +9,7 @@
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
           <li class="nav-item p-2">
-            <a class="nav-link" href="/home">Home</a>
+            <a class="nav-link" href="/">Home</a>
           </li>
           <li v-if="isUserLoggedIn" class="nav-item p-2">
             <a class="nav-link" href="/characters">Characters</a>

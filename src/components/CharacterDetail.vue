@@ -56,14 +56,14 @@ import Bonds from '@/components/CharacterDetail/Bonds.vue';
 import Moves from '@/components/CharacterDetail/Moves.vue';
 import { MoveType } from '@/enums/moveType';
 import * as lookupService from '@/services/lookupTableService';
-import { Profession } from '@/enums/profession';
-import { toast } from 'vue3-toastify';
-import { createNewCharacter } from '@/services/characterService';
+import { ProfessionType } from '@/enums/professionType';
+import { ToastActions, toast } from 'vue3-toastify';
+import { createNewCharacter, getCharacter } from '@/services/characterService';
 import { useGlobalStore } from '@/stores/globalStore';
 
 const { characterId, characterProfession} = defineProps<{
     characterId: string;
-    characterProfession: Profession | null;
+    characterProfession: ProfessionType | null;
 }>();
 
 const globalStore = useGlobalStore();
@@ -102,21 +102,22 @@ async function saveCharacter() {
     if (!character.value.id) {
         const userId = await globalStore.getUserId();
         character.value.userId = userId;
-        character.value.name = "Bob";
-        createNewCharacter(character.value)
+
+        if (!character.value.name || character.value.name.trim().length === 0) {
+            toast("You must give your character a name.")
+            return;
+        }
+
+        const newcharacter = await createNewCharacter(character.value);
+        if (newcharacter) {
+            toast(`Created character ${character.value.name} the ${character.value.profession.name}.`)
+        }
+        else {
+            toast(`Failed to create character!`);
+        }
     }
 }
 
-// Fetch a single record by its identifier
-const getCharacter = async (id: string) => {
-    const { data, errors } = await client.graphql({
-        query: queries.getCharacter,
-        variables: { id: id }
-    });
-
-    const character = data.getCharacter;
-    return jsonCharacter(character);
-}
 </script>
 
 <style scoped lang="scss">

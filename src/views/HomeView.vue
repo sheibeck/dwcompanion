@@ -2,106 +2,82 @@
   <h1>Create a Character</h1>
 
   <div class="professions">
-    <div class="card m-2" v-for="(profession, idx) in professionList" :key="profession">
-      <img :src="`/professions/${profession.name.toLowerCase()}.png`" class="card-img-top" :alt="`image of ${profession.name}`">
+    <div class="card m-2 profession" v-for="(profession, idx) in professionList" :key="profession">
+      <div class="">
+        <div>
+          <img :src="`/professions/${profession.name.toLowerCase()}.png`" class="img-fluid" :alt="`image of ${profession.name}`">
+        </div>
+        <div class="d-flex justify-content-center mt-2">
+          <button type="button" @click="createCharacter(profession.name)" class="btn btn-dark">Create a {{ profession.name }}</button>
+        </div>
+      </div>
       <div class="card-body">
         <h4 class="card-title">{{ profession.name }}</h4>
-        <p class="card-text">{{profession.description}}</p>
-        <button type="button" @click="createCharacter(profession.name)" class="btn btn-dark">Create a {{ profession.name }}</button>
-      </div>
-    </div>
-  </div>
-
-  <div class="modal" tabindex="-1" id="createCharacterModal" ref="confirmDialog">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">Create a Character</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <p>Are you sure you want to create a new character?</p>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-          <button type="button" class="btn btn-dark" @click="">Create</button>
-        </div>
+        <p class="card-text">
+          <VueShowdown :markdown="profession.description" />
+        </p>
+        
       </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { Profession } from '@/enums/profession';
-import { onMounted, ref } from 'vue';
-import * as bootstrap from 'bootstrap';
-import { useGlobalStore } from '@/stores/globalStore';
 import { useRouter } from 'vue-router';
-import { toast } from 'vue3-toastify';
 import { getProfessions } from '@/services/lookupTableService';
+import { VueShowdown } from 'vue-showdown';
+import { onMounted, ref } from 'vue';
+import { useGlobalStore } from '@/stores/globalStore';
 
-const globalStore = useGlobalStore();
 const router = useRouter();
-const confirmDialog = ref<any>(null);
-const professionChoice = ref<any>(null);
-let createCharacterModal: any;
 const professionList = ref();
-const isAuthenticated = ref(false);
+const globalStore = useGlobalStore();
 
 const getProfessionList = async () => {
   const list = await getProfessions();
   professionList.value = list;
 }
 
-getProfessionList();
-
 onMounted(async () => {
-  isAuthenticated.value = await globalStore.isAuthenticated();
-  if (confirmDialog.value) {
-    createCharacterModal = new bootstrap.Modal("#createCharacterModal");
-
-    confirmDialog.value.addEventListener('show.bs.modal', (event: any) => {
-      const modalBodyText = confirmDialog.value.querySelector('.modal-body p')
-
-      modalBodyText.textContent = `Are you sure you want to create a ${professionChoice.value}?`;
-    });
-  }
-});
-
-function confirmCreate(profession: Profession) {
-  if (isAuthenticated.value) {
-    professionChoice.value = profession;
-    createCharacterModal.show();
+  const isAuthenticated = await globalStore.isAuthenticated();
+  if (!isAuthenticated) {
+    router.push({name: "login"});
   }
   else {
-    toast("You must be logged in to create a character.");
+    getProfessionList();
   }
-}
+})
+
 
 function createCharacter(profession: string) {
   router.push({ name: "character", params: { id: "new-character", profession: profession } });
 }
 
-
 </script>
 
 <style scoped lang="scss">
+
+
   .professions {
     display: grid;
-    grid-template-columns: repeat(1, 1fr);
-    
-    .card-img-top {
-      margin: auto;
-      max-width: 140px;
+    grid-template-columns: 1fr;
+
+    .profession {
+      display: grid;
+      grid-template-columns: auto 1fr;
+
+      font-size: 1.1em;
     }
   }
 
  
 
-  @media(min-width: 800px) {
+  @media(min-width: 1024px) {
     .professions {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
+      grid-template-columns: repeat(2, 1fr);
+      .profession {
+        
+      }
     }
   }
 

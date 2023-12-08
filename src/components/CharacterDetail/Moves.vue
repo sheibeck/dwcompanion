@@ -34,6 +34,7 @@
 import type { MoveType } from '@/enums/moveType';
 import { getMovesByProfession } from '@/services/lookupTableService';
 import { computed, ref } from 'vue';
+import { VueShowdown } from 'vue-showdown';
 
 
 const { character } = defineProps<{

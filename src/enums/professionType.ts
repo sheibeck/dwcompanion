@@ -1,4 +1,4 @@
-  export enum Profession {
+  export enum ProfessionType {
     ANY = "Any",
     BARBARIAN = "Barbarian",
     BARD = "Bard",

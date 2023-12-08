@@ -10,7 +10,7 @@
             </div>
         </div>
 
-        <a href="/home" class="btn btn-secondary">Create a Character</a>
+        <a href="/" class="btn btn-secondary">Create a Character</a>
     </div>
 </template>
 
@@ -19,11 +19,12 @@ import { computed, onMounted, ref } from 'vue';
 import { useGlobalStore } from '@/stores/globalStore';
 import { useRouter } from 'vue-router';
 import { getCharactersWithProfessions, deleteCharacter } from '@/services/characterService';
+import type { Character } from '@/models';
 
 const globalStore = useGlobalStore();
 const router = useRouter();
 
-const characterList = ref<any>([]);
+const characterList = ref<Array<any>>([]);
 const hasCharacters = computed(() => characterList.value?.length > 0);
 const userId = ref()
 
@@ -43,7 +44,8 @@ async function removeCharacter(id: string) {
         await deleteCharacter(id);
 
         const objectToRemove = characterList.value.find( (c: any) => c.id === id);
-        characterList.value.indexOf(objectToRemove);
+        const idx = characterList.value.indexOf(objectToRemove);
+        characterList.value.splice(idx, 1);
     }
 }
 </script>
