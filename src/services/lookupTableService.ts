@@ -109,3 +109,18 @@ export const getAlignmentsByProfession = async(profession: ProfessionType) => {
     return data.listAlignments.items;
 }
 
+
+export const getRaceByProfession = async(profession: ProfessionType) => {
+
+    const { data, errors }: any = await client.graphql({ query: queries.listRaces,
+            variables: { 
+                filter: {
+                    or: [{ profession: { eq: profession } }, { profession: { eq: 'Any' } }]
+                  }
+            }
+        });
+
+    return data.listRaces.items;
+}
+
+

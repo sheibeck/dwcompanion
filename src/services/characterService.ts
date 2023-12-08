@@ -136,6 +136,7 @@ function stringifyCharacter(character: any) {
     character.advancedMovesTwoToTen = stringifyJson(character.advancedMovesTwoToTen);
     character.advancedMovesSixToTen = stringifyJson(character.advancedMovesSixToTen);
     character.bonds = stringifyJson(character.bonds);
+    character.race = stringifyJson(character.race);
     
     return character;
 }
@@ -154,7 +155,8 @@ function jsonCharacter(character: any) {
     character.advancedMovesTwoToTen = formatJson(character.advancedMovesTwoToTen);
     character.advancedMovesSixToTen = formatJson(character.advancedMovesSixToTen);
     character.bonds = formatJson(character.bonds);
-
+    character.race = formatJson(character.race);
+    
     return character;
 }
 

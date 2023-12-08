@@ -43,4 +43,10 @@ function saveEdit() {
 </script>
 
 <style scoped lang="scss">
+
+    button {
+        padding: 0;
+        padding-left: 2px;
+        margin-top: -15px;
+    }
 </style>

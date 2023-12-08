@@ -28,8 +28,15 @@ export const useGlobalStore = defineStore('globalStore', () => {
                 resolve(userId);
             }
             catch {
-                currentUser.value = null;
-                resolve(null);
+                try {
+                    const isAuthed = await isAuthenticated();
+                    if (!isAuthed) {
+                        throw("session expired");
+                    }
+                }
+                catch {
+                    await router.push({ name: "login" });
+                }
             }
         });
     }

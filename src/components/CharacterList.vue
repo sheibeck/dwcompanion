@@ -19,7 +19,6 @@ import { computed, onMounted, ref } from 'vue';
 import { useGlobalStore } from '@/stores/globalStore';
 import { useRouter } from 'vue-router';
 import { getCharactersWithProfessions, deleteCharacter } from '@/services/characterService';
-import type { Character } from '@/models';
 
 const globalStore = useGlobalStore();
 const router = useRouter();

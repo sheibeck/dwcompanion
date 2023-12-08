@@ -1,11 +1,11 @@
 <template>
-    <div class="container-fluid mb-2 moves">
+    <div class="p-1 mb-2 moves">
         <div class="bg-dark text-light fs-5 ps-1 mb-1">{{ getLabel }}</div>
         <div class="items">
             <div v-for="(move, index) in getMoves" :index="move.id" class="card m-1" :class="{'compact': index > 0}">
                 <div class="card-body p-0">
-                    <h5 class="card-title"><input type="checkbox" class="form-check-input" v-model="move.selected" /> {{ move.name }}</h5>
-                    <div class="card-text">
+                    <h5 class="card-title pb-0 mb-0"><input type="checkbox" class="form-check-input" v-model="move.selected" /> {{ move.name }}</h5>
+                    <div class="card-text form-text">
                         <EditableDescription :item="move.description" @save-item="(data) => move.description = data" />
                     </div>
                 </div>
@@ -71,13 +71,7 @@ ol, ul, dl, p {
             border: 0;
             
             .card-text {
-                line-height: 1em;
-
-                .description {
-                    p {
-                        margin-bottom: 5px !important;
-                    }
-                }
+            
             }
 
             .form-check-input {
@@ -97,7 +91,8 @@ ol, ul, dl, p {
 @media print {
     .moves {   
         .card-text {
-            font-size: .75em;
+            font-size: .9em;
+            line-height: 1.1em;
         }
     }
 }

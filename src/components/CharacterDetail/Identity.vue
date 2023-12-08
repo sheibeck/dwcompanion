@@ -1,5 +1,5 @@
 <template>
-    <div id="identity" class="container-fluid">
+    <div id="identity" class="">
         <div class="input-group mb-2 pe-md-2">
             <span class="input-group-text" id="name">Name</span>
             <input type="text" class="form-control" aria-label="Name" aria-describedby="name"

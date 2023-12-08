@@ -2,7 +2,7 @@
 <div class="small d-flex flex-fill justify-content-center">
 Assign these scores to your stats: 16(+2), 15(+1), 13(+1), 12(0), 9(0), 8(-1)
 </div>
-<div id="abilities" class="container-fluid d-flex-row">
+<div id="abilities" class="p-1 d-flex-row">
     <!-- score -->
     <div v-for="ability in character.abilityScores" class="mb-2 ability">
         <div class="border border-dark fs-5 p-1 d-flex justify-content-between">

@@ -13,10 +13,9 @@
       </div>
       <div class="card-body">
         <h4 class="card-title">{{ profession.name }}</h4>
-        <p class="card-text">
+        <div class="card-text">
           <VueShowdown :markdown="profession.description" />
-        </p>
-        
+        </div>
       </div>
     </div>
   </div>

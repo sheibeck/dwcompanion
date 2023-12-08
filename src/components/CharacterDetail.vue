@@ -31,7 +31,10 @@
                         <AbilityScores :character="character" />
                         <Moves :character="character" :moveType="MoveType.STARTING_MOVES" />
                     </div>
-                    <Bonds :character="character" />
+                    <div>
+                        <Bonds :character="character" />
+                        <Races :character="character" />
+                    </div>
                 </div>
             </div>
         </div>
@@ -53,6 +56,7 @@ import Alignment from '@/components/CharacterDetail/Alignment.vue';
 import AbilityScores from '@/components/CharacterDetail/AbilityScores.vue';
 import Bonds from '@/components/CharacterDetail/Bonds.vue';
 import Moves from '@/components/CharacterDetail/Moves.vue';
+import Races from '@/components/CharacterDetail/Races.vue';
 import { MoveType } from '@/enums/moveType';
 import * as lookupService from '@/services/lookupTableService';
 import { ProfessionType } from '@/enums/professionType';
@@ -82,10 +86,12 @@ async function setupCharacter() {
         return;
     }
 
+    globalStore.getUserId();
     character.value = await getCharacter(characterId);
 }
 
 async function getNewCharacter() {
+
     if (characterProfession) {
         const profLookupResult = await lookupService.getProfessionByName(characterProfession);
       
@@ -232,9 +238,6 @@ async function update() {
 }
 
 @media print {
-    .container-fluid {
-        margin-top: 5px !important;
-    }
     .character {
         margin: 0px !important;
         padding: 0px !important;

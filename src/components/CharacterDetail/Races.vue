@@ -1,30 +1,33 @@
 <template>
-    <div class="alignment">
-        <div class="bg-dark text-light fs-5 p-1">Alignment</div>
-        <div v-for="(alignment, index) in character.alignment" :key="alignment.id" class="input-group input-group-lg item" :class="{'compact': index > 0}">
+    <div class="p-1 blood">
+        <div class="bg-dark text-light fs-5 p-1">Blood</div>
+        <div v-for="(race, index) in character.race" :key="race.id" class="input-group input-group-lg item" :class="{'compact': index > 0}">
             <div class="input-group-text">
-                <input class="form-check-input mt-0" type="checkbox" v-model="alignment.selected"
-                    :aria-label="`Alignment checkbox for ${alignment.name}`">
+                <input class="form-check-input mt-0 p-0" type="checkbox" v-model="race.selected"
+                    :aria-label="`Blood checkbox for ${race.name}`">
             </div>
             <div class="form-text p-1">
-                <div class="fs-5 text-dark">{{ alignment.name }}</div>
-                <div class="form-text description">{{ alignment.description }}</div>
+                <div class="fs-5 p-0 m-0 name text-dark">
+                    <EditableDescription :item="race.name" @save-item="(data) => race.name = data" />
+                </div>
+                <EditableDescription :item="race.description" @save-item="(data) => race.description = data" />
             </div>
         </div>
     </div>
 </template>
 
 <script setup lang="ts">
-import { getAlignmentsByProfession } from '@/services/lookupTableService';
+import { getRaceByProfession } from '@/services/lookupTableService';
+import  EditableDescription from '@/components/CharacterDetail/EditableDescription.vue';
 
 const { character } = defineProps<{
     character: any;
 }>();
 
 async function initialize() {
-    if (!character.alignment || character.alignment.length === 0) {
-        const result = await getAlignmentsByProfession(character.profession.name);
-        character.alignment = result;
+    if (!character.race || character.race.length === 0) {
+        const result = await getRaceByProfession(character.profession.name);
+        character.race = result;
     }
 }
 
@@ -32,13 +35,19 @@ initialize();
 </script>
 
 <style scoped lang="scss">
- .alignment {
-    line-height: 1.25em;
+ .blood {
+    line-height: .9em;
+    
+    .name {
+        margin-bottom: -5px !important;
+    }
 
     .description {
-        line-height: .9em;
+      p {
+        margin-bottom: 0px !important;
+      }
     }
-    
+
     div {
         margin: 0px;
     }
@@ -54,7 +63,7 @@ initialize();
 }
 
 @media print {
-   .alignment {
+   .blood {
     
         .item {
             &.compact {
@@ -63,7 +72,7 @@ initialize();
             }
             
             .form-text {
-                
+                margin-top: -2px !important;
             }
     
             .input-group-text {
@@ -80,8 +89,9 @@ initialize();
         }
 
 
-        .name {
-            //font-size: .9em !important;
+        .description {
+            font-size: .9em !important;
+            line-height: .95em !important;
         }
 
         &.compact {

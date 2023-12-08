@@ -1,17 +1,18 @@
 <template>
-    <div class="container-fluid mb-2">
+    <div class="p-1 mt-0 mb-2">
         <div class="bg-dark text-light fs-5 ps-1">Bonds</div>
         <div v-for="(bond, index) in character.bonds" :key="bond.id" class="item" :class="{'compact': index > 0}">
             <div class="input-group input-group-sm">
                 <input type="text" class="form-control" v-model="bond.value" />
             </div>
-            <EditableDescription :item="bond.description"  @save-item="(data) => bond.description = data" />
+            <div class="form-text">
+                <EditableDescription :item="bond.description"  @save-item="(data) => bond.description = data" />
+            </div>
         </div>
     </div>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
 import  EditableDescription from '@/components/CharacterDetail/EditableDescription.vue';
 import { getBondsByProfession } from '@/services/lookupTableService';
 
@@ -31,10 +32,6 @@ initialize();
 </script>
 
 <style scoped lang="scss">
-    .container-fluid {
-        margin-top: 0px !important;
-    }
-
     .item {
         line-height: .9em;
 
@@ -61,7 +58,7 @@ initialize();
         }
 
         .description {
-            font-size: .75em !important;
+            font-size: .9em !important;
         }
     }
 </style>

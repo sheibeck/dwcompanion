@@ -1,5 +1,5 @@
 <template>
-    <div class="container-fluid mb-2 look">
+    <div class="p-1 mb-2 look">
         <div class="bg-dark text-light fs-5 p-1 mb-1">Look</div>
             <div v-for="(look, index) in character.look" :index="look.id" class="item" :class="{'compact': index > 0}">
             <div class="input-group input-group-sm">
@@ -33,10 +33,10 @@ initialize();
 
 <style scoped lang="scss">
 .look {
-    line-height: 1.25em;
+   
 
     .description {
-        line-height: .7em;
+        line-height: .9em;
     }
 
     .input-group {
@@ -62,11 +62,11 @@ initialize();
             }
 
             &.compact {
-                margin-top: -3px !important;
                 padding: 0px !important;
             }
 
             .description {
+                margin-top: 0px;
             }
         }
     }
