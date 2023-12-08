@@ -2,7 +2,8 @@
     <div v-if="!character">
         Loading ...
     </div>
-    <div v-else class="character container-fluid mt-3">
+    <div v-else class="character mt-2">
+        <div class="gradient-background"></div>
         <div class="page">
             <div class="sheet-label">
                 <div class="banner-top">
@@ -35,8 +36,9 @@
             </div>
         </div>
 
-        <div class="d-print-none action-bar">
-            <button type="button" @click="saveCharacter()">Save</button>
+        <div class="d-print-none action-bar d-flex justify-content-end border-top pt-2" v-if="isAuthenticated">
+            <a href="/" type="button" class="btn btn-secondary me-2">Close</a>
+            <button type="button" class="btn btn-dark" @click="saveCharacter()">Save</button>
         </div>
     </div>
 
@@ -44,9 +46,6 @@
 
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
-import { generateClient } from 'aws-amplify/api';
-import * as queries from '@/graphql/queries';
-import { jsonCharacter } from '@/services/characterService';
 import Identity from '@/components/CharacterDetail/Identity.vue';
 import Look from '@/components/CharacterDetail/Look.vue';
 import Combat from '@/components/CharacterDetail/Combat.vue';
@@ -57,7 +56,7 @@ import Moves from '@/components/CharacterDetail/Moves.vue';
 import { MoveType } from '@/enums/moveType';
 import * as lookupService from '@/services/lookupTableService';
 import { ProfessionType } from '@/enums/professionType';
-import { ToastActions, toast } from 'vue3-toastify';
+import { toast } from 'vue3-toastify';
 import { createNewCharacter, getCharacter } from '@/services/characterService';
 import { useGlobalStore } from '@/stores/globalStore';
 
@@ -67,11 +66,12 @@ const { characterId, characterProfession} = defineProps<{
 }>();
 
 const globalStore = useGlobalStore();
-const client = generateClient();
 const character = ref<any>(null);
+const isAuthenticated = ref(false);
 
 onMounted(async () => {
     await setupCharacter();
+    isAuthenticated.value = await globalStore.isAuthenticated();
 });
 
 async function setupCharacter() {
@@ -122,13 +122,21 @@ async function saveCharacter() {
 
 <style scoped lang="scss">
 .character {
-    .page {
-        display: grid;
-        grid-template-columns: auto;
-        height: 1012px;
-        break-inside: avoid;
+    .gradient-background {
+        background: linear-gradient(to bottom, lightgray, #fff);
+        height: 400px;
+        width: 100%;
+        position:absolute;
+        left: 0;
+        margin-top: -5px;
+        z-index: -1;
+    }
 
-       
+    .page {
+        background-color: transparent;
+        display: grid;
+        grid-template-columns: 1fr;
+        break-inside: avoid;
 
         .sheet-label {
             display: none;
@@ -149,7 +157,7 @@ async function saveCharacter() {
             .banner-bottom {
                 height: 100%;
                 width: 70px;
-                margin-top: -35px;
+                margin-top: -30px;
                 
                 img {
                     margin: 0px;
@@ -165,8 +173,8 @@ async function saveCharacter() {
 
     @media(min-width: 800px) {
         .page {
-            display: grid;
             grid-template-columns: 80px 1fr;
+            height: 1012px;
 
             .sheet-label {
                 display: grid;

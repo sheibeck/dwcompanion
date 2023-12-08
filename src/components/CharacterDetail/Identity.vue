@@ -28,6 +28,14 @@ const { character } = defineProps<{
     #identity {
         display: flex;
         flex-wrap: wrap;
+        .input-group-text {
+            background-color: white;
+            border-width: 0px;
+        }
+        .form-control {
+            background-color: white;
+            border-width: 0px;
+        }
     }
 
     @media(min-width: 800px) {
