@@ -6,12 +6,12 @@ Assign these scores to your stats: 16(+2), 15(+1), 13(+1), 12(0), 9(0), 8(-1)
     <!-- score -->
     <div v-for="ability in character.abilityScores" class="mb-2 ability">
         <div class="border border-dark fs-5 p-1 d-flex justify-content-between">
-            <span>{{ ability.name }}</span> <input type="text" class="form-control form-control text-center ability-value align-self-end" 
+            <span>{{ ability.name }}</span> <input type="number" min="1" max="18" class="pe-0 form-control form-control text-center ability-value align-self-end" 
                 v-model="ability.value" @change="updateBonus(ability)">
         </div>
         <div class="input-group input-group-lg bg-dark text-light">
             <span class="attr-label text-dark">{{ ability.shortName }}</span>
-            <input type="text" class="form-control fs-4 text-center attr-circle" v-model="ability.bonus">
+            <input type="text" disabled class="form-control fs-4 text-center attr-circle" v-model="ability.bonus">
             <div class="d-flex justify-content-end d-flex flex-fill debility">
                 <span class="form-check">
                     <input class="" type="checkbox" v-model="ability.debilitySelected"
@@ -49,7 +49,7 @@ function updateBonus(ability: any) {
 }
 
 function getAbilityScoreBonus(abilityScore: number): number {
-  if (abilityScore >= 1 && abilityScore <= 3) {
+  if (abilityScore <= 3) {
     return -3;
   } else if (abilityScore >= 4 && abilityScore <= 5) {
     return -2;
@@ -61,7 +61,7 @@ function getAbilityScoreBonus(abilityScore: number): number {
     return 1;
   } else if (abilityScore >= 16 && abilityScore <= 17) {
     return 2;
-  } else if (abilityScore === 18) {
+  } else if (abilityScore > 17) {
     return 3;
   } else {
     // Handle invalid ability scores or other cases
@@ -127,7 +127,7 @@ function getAbilityScoreBonus(abilityScore: number): number {
             
         .ability {
             .ability-value {
-                width: 40px;
+                width:60px;
                 max-height: 30px;
             }
         }
