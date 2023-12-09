@@ -212,10 +212,10 @@ async function saveCharacter() {
 }
 
 async function update() {
-    const updateChar = await updateCharacter(character.value);
+    const updatedCharacter = await updateCharacter(character.value);
 
-    if (updateChar) {
-        character.value = updateChar;
+    if (updatedCharacter) {
+        Object.assign(character.value, updatedCharacter); 
         toast(`Character saved.`);
     }
     else {
