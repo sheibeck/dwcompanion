@@ -147,10 +147,8 @@ export const onCreateGear = /* GraphQL */ `subscription OnCreateGear($filter: Mo
   onCreateGear(filter: $filter) {
     id
     description
-    weight
-    uses
-    tags
-    source
+    isStartingGear
+    profession
     createdAt
     updatedAt
     _version
@@ -167,10 +165,8 @@ export const onUpdateGear = /* GraphQL */ `subscription OnUpdateGear($filter: Mo
   onUpdateGear(filter: $filter) {
     id
     description
-    weight
-    uses
-    tags
-    source
+    isStartingGear
+    profession
     createdAt
     updatedAt
     _version
@@ -187,10 +183,8 @@ export const onDeleteGear = /* GraphQL */ `subscription OnDeleteGear($filter: Mo
   onDeleteGear(filter: $filter) {
     id
     description
-    weight
-    uses
-    tags
-    source
+    isStartingGear
+    profession
     createdAt
     updatedAt
     _version
@@ -285,6 +279,7 @@ export const onCreateBond = /* GraphQL */ `subscription OnCreateBond($filter: Mo
     profession
     value
     tags
+    source
     createdAt
     updatedAt
     _version
@@ -304,6 +299,7 @@ export const onUpdateBond = /* GraphQL */ `subscription OnUpdateBond($filter: Mo
     profession
     value
     tags
+    source
     createdAt
     updatedAt
     _version
@@ -323,6 +319,7 @@ export const onDeleteBond = /* GraphQL */ `subscription OnDeleteBond($filter: Mo
     profession
     value
     tags
+    source
     createdAt
     updatedAt
     _version
@@ -480,6 +477,7 @@ export const onCreateAlignment = /* GraphQL */ `subscription OnCreateAlignment($
     description
     selected
     profession
+    source
     createdAt
     updatedAt
     _version
@@ -499,6 +497,7 @@ export const onUpdateAlignment = /* GraphQL */ `subscription OnUpdateAlignment($
     description
     selected
     profession
+    source
     createdAt
     updatedAt
     _version
@@ -518,6 +517,7 @@ export const onDeleteAlignment = /* GraphQL */ `subscription OnDeleteAlignment($
     description
     selected
     profession
+    source
     createdAt
     updatedAt
     _version
@@ -537,6 +537,7 @@ export const onCreateLook = /* GraphQL */ `subscription OnCreateLook($filter: Mo
     description
     value
     profession
+    source
     createdAt
     updatedAt
     _version
@@ -556,6 +557,7 @@ export const onUpdateLook = /* GraphQL */ `subscription OnUpdateLook($filter: Mo
     description
     value
     profession
+    source
     createdAt
     updatedAt
     _version
@@ -575,6 +577,7 @@ export const onDeleteLook = /* GraphQL */ `subscription OnDeleteLook($filter: Mo
     description
     value
     profession
+    source
     createdAt
     updatedAt
     _version

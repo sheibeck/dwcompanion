@@ -54,7 +54,7 @@ type EagerSpell = {
   readonly selected?: boolean | null;
   readonly tags?: (string | null)[] | null;
   readonly source: string;
-  readonly profession: string;
+  readonly profession?: string | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -73,7 +73,7 @@ type LazySpell = {
   readonly selected?: boolean | null;
   readonly tags?: (string | null)[] | null;
   readonly source: string;
-  readonly profession: string;
+  readonly profession?: string | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -91,10 +91,9 @@ type EagerGear = {
   };
   readonly id: string;
   readonly description: string;
-  readonly weight: number;
-  readonly uses?: number | null;
-  readonly tags?: (string | null)[] | null;
-  readonly source: string;
+  readonly isStartingGear?: boolean | null;
+  readonly profession?: string | null;
+  readonly source?: string | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -106,10 +105,9 @@ type LazyGear = {
   };
   readonly id: string;
   readonly description: string;
-  readonly weight: number;
-  readonly uses?: number | null;
-  readonly tags?: (string | null)[] | null;
-  readonly source: string;
+  readonly isStartingGear?: boolean | null;
+  readonly profession?: string | null;
+  readonly source?: string | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -130,7 +128,7 @@ type EagerMove = {
   readonly description: string;
   readonly selected?: boolean | null;
   readonly selectedOnNew?: boolean | null;
-  readonly profession: string;
+  readonly profession?: string | null;
   readonly source: string;
   readonly isStartingMove?: boolean | null;
   readonly isAdvancedMove?: boolean | null;
@@ -150,7 +148,7 @@ type LazyMove = {
   readonly description: string;
   readonly selected?: boolean | null;
   readonly selectedOnNew?: boolean | null;
-  readonly profession: string;
+  readonly profession?: string | null;
   readonly source: string;
   readonly isStartingMove?: boolean | null;
   readonly isAdvancedMove?: boolean | null;
@@ -173,9 +171,10 @@ type EagerBond = {
   };
   readonly id: string;
   readonly description?: string | null;
-  readonly profession: string;
+  readonly profession?: string | null;
   readonly value?: string | null;
   readonly tags?: (string | null)[] | null;
+  readonly source?: string | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -187,9 +186,10 @@ type LazyBond = {
   };
   readonly id: string;
   readonly description?: string | null;
-  readonly profession: string;
+  readonly profession?: string | null;
   readonly value?: string | null;
   readonly tags?: (string | null)[] | null;
+  readonly source?: string | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -252,9 +252,9 @@ type EagerRace = {
   readonly id: string;
   readonly name?: string | null;
   readonly description?: string | null;
-  readonly profession: string;
+  readonly profession?: string | null;
   readonly selected: boolean;
-  readonly source: string;
+  readonly source?: string | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -267,9 +267,9 @@ type LazyRace = {
   readonly id: string;
   readonly name?: string | null;
   readonly description?: string | null;
-  readonly profession: string;
+  readonly profession?: string | null;
   readonly selected: boolean;
-  readonly source: string;
+  readonly source?: string | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -289,7 +289,8 @@ type EagerAlignment = {
   readonly name?: string | null;
   readonly description?: string | null;
   readonly selected?: boolean | null;
-  readonly profession: string;
+  readonly profession?: string | null;
+  readonly source?: string | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -303,7 +304,8 @@ type LazyAlignment = {
   readonly name?: string | null;
   readonly description?: string | null;
   readonly selected?: boolean | null;
-  readonly profession: string;
+  readonly profession?: string | null;
+  readonly source?: string | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -323,7 +325,8 @@ type EagerLook = {
   readonly name: string;
   readonly description: string;
   readonly value?: string | null;
-  readonly profession: string;
+  readonly profession?: string | null;
+  readonly source?: string | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -337,7 +340,8 @@ type LazyLook = {
   readonly name: string;
   readonly description: string;
   readonly value?: string | null;
-  readonly profession: string;
+  readonly profession?: string | null;
+  readonly source?: string | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }

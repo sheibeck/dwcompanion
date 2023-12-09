@@ -186,10 +186,8 @@ export const getGear = /* GraphQL */ `query GetGear($id: ID!) {
   getGear(id: $id) {
     id
     description
-    weight
-    uses
-    tags
-    source
+    isStartingGear
+    profession
     createdAt
     updatedAt
     _version
@@ -208,10 +206,8 @@ export const listGears = /* GraphQL */ `query ListGears(
     items {
       id
       description
-      weight
-      uses
-      tags
-      source
+      isStartingGear
+      profession
       createdAt
       updatedAt
       _version
@@ -240,10 +236,8 @@ export const syncGears = /* GraphQL */ `query SyncGears(
     items {
       id
       description
-      weight
-      uses
-      tags
-      source
+      isStartingGear
+      profession
       createdAt
       updatedAt
       _version
@@ -354,6 +348,7 @@ export const getBond = /* GraphQL */ `query GetBond($id: ID!) {
     profession
     value
     tags
+    source
     createdAt
     updatedAt
     _version
@@ -375,6 +370,7 @@ export const listBonds = /* GraphQL */ `query ListBonds(
       profession
       value
       tags
+      source
       createdAt
       updatedAt
       _version
@@ -406,6 +402,7 @@ export const syncBonds = /* GraphQL */ `query SyncBonds(
       profession
       value
       tags
+      source
       createdAt
       updatedAt
       _version
@@ -597,6 +594,7 @@ export const getAlignment = /* GraphQL */ `query GetAlignment($id: ID!) {
     description
     selected
     profession
+    source
     createdAt
     updatedAt
     _version
@@ -621,6 +619,7 @@ export const listAlignments = /* GraphQL */ `query ListAlignments(
       description
       selected
       profession
+      source
       createdAt
       updatedAt
       _version
@@ -655,6 +654,7 @@ export const syncAlignments = /* GraphQL */ `query SyncAlignments(
       description
       selected
       profession
+      source
       createdAt
       updatedAt
       _version
@@ -678,6 +678,7 @@ export const getLook = /* GraphQL */ `query GetLook($id: ID!) {
     description
     value
     profession
+    source
     createdAt
     updatedAt
     _version
@@ -699,6 +700,7 @@ export const listLooks = /* GraphQL */ `query ListLooks(
       description
       value
       profession
+      source
       createdAt
       updatedAt
       _version
@@ -730,6 +732,7 @@ export const syncLooks = /* GraphQL */ `query SyncLooks(
       description
       value
       profession
+      source
       createdAt
       updatedAt
       _version

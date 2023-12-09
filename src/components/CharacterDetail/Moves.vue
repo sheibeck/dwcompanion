@@ -1,6 +1,6 @@
 <template>
     <div class="p-1 mb-2 moves">
-        <div class="bg-dark text-light fs-5 ps-1 mb-1">{{ movesLabel }}</div>
+        <div class="bg-dark text-light fs-5 ps-1 mb-1 d-flex">{{ movesLabel }} <AddItem v-if="addItemType" :character="character" :item-type="addItemType" /></div>
         <div class="items">
             <div v-for="(move, index) in moves" :index="move.id" class="card m-1" :class="{'compact': index > 0}">
                 <div class="card-body p-0">
@@ -17,8 +17,9 @@
 <script setup lang="ts">
 import { MoveType } from '@/enums/moveType';
 import { getMovesByProfession } from '@/services/lookupTableService';
-import { computed, onMounted, ref } from 'vue';
-import  EditableDescription from '@/components/CharacterDetail/EditableDescription.vue';
+import { onMounted, ref } from 'vue';
+import EditableDescription from '@/components/CharacterDetail/EditableDescription.vue';
+import AddItem from '@/components/CharacterDetail/AddItem.vue';
 
 
 const { character, moveType } = defineProps<{
@@ -29,6 +30,7 @@ const { character, moveType } = defineProps<{
 const allMoves = ref<any>();
 const moves = ref<any>();
 const movesLabel = ref("");
+const addItemType = ref<String|null>(null);
 
 function getMovesByType(): any { 
     switch(moveType) {
@@ -41,18 +43,23 @@ function getMovesByType(): any {
             }
             moves.value = character.startingMoves;
             movesLabel.value = "Starting Moves";
+            addItemType.value = null;
             break;
         case MoveType.TWO_TO_TEN:
             if (!character.advancedMovesTwoToTen || character.advancedMovesTwoToTen.length === 0) {
                 character.advancedMovesTwoToTen = allMoves.value.filter( (m: any) => m.isTwoToTenMove == true);
             }
-            movesLabel.value = "Advanced Moves";
+            moves.value = character.advancedMovesTwoToTen;
+            movesLabel.value = "Advanced Moves - Levels 2 to 10";
+            addItemType.value = "TwoTenMove";
             break;
         case MoveType.SIX_TO_TEN:
             if (!character.advancedMovesSixToTen || character.advancedMovesSixToTen.length === 0) {
                 character.advancedMovesSixToTen = allMoves.value.filter( (m: any) => m.isSixToTenMove == true);
             }
-            movesLabel.value = "";
+            moves.value = character.advancedMovesSixToTen;
+            movesLabel.value = "Advanced Moves - Levels 6 to 10";
+            addItemType.value = "SixTenMove";
         break;
     }
 }

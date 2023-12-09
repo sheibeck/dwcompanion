@@ -15,16 +15,15 @@ type Spell @model @auth(rules: [{allow: private, operations: [read], provider: i
   selected: Boolean
   tags: [String]
   source: String!
-  profession: String!
+  profession: String
 }
 
 type Gear @model @auth(rules: [{allow: private, operations: [read], provider: iam}, {allow: private, operations: [read]}, {allow: public, operations: [read], provider: iam}]) {
   id: ID!
   description: String!
-  weight: Int!
-  uses: Int
-  tags: [String]
-  source: String!
+  isStartingGear: Boolean
+  profession: String
+  source: String
 }
 
 type Move @model @auth(rules: [{allow: private, operations: [read], provider: iam}, {allow: private, operations: [read]}, {allow: public, operations: [read], provider: iam}]) {
@@ -33,7 +32,7 @@ type Move @model @auth(rules: [{allow: private, operations: [read], provider: ia
   description: String!
   selected: Boolean
   selectedOnNew: Boolean
-  profession: String!
+  profession: String
   source: String!
   isStartingMove: Boolean
   isAdvancedMove: Boolean
@@ -44,9 +43,10 @@ type Move @model @auth(rules: [{allow: private, operations: [read], provider: ia
 type Bond @model @auth(rules: [{allow: private, operations: [read], provider: iam}, {allow: private, operations: [read]}, {allow: public, operations: [read], provider: iam}]) {
   id: ID!
   description: String
-  profession: String!
+  profession: String
   value: String
   tags: [String]
+  source: String
 }
 
 type AbilityScore @model @auth(rules: [{allow: private, operations: [read], provider: iam}, {allow: private, operations: [read]}, {allow: public, operations: [read], provider: iam}]) {
@@ -66,9 +66,9 @@ type Race @model @auth(rules: [{allow: private, operations: [read], provider: ia
   id: ID!
   name: String
   description: String
-  profession: String!
+  profession: String
   selected: Boolean!
-  source: String!
+  source: String
 }
 
 type Alignment @model @auth(rules: [{allow: private, operations: [read], provider: iam}, {allow: private, operations: [read]}, {allow: public, operations: [read], provider: iam}]) {
@@ -76,7 +76,8 @@ type Alignment @model @auth(rules: [{allow: private, operations: [read], provide
   name: String
   description: String
   selected: Boolean
-  profession: String!
+  profession: String
+  source: String
 }
 
 type Look @model @auth(rules: [{allow: private, operations: [read], provider: iam}, {allow: private, operations: [read]}, {allow: public, operations: [read], provider: iam}]) {
@@ -84,7 +85,8 @@ type Look @model @auth(rules: [{allow: private, operations: [read], provider: ia
   name: String!
   description: String!
   value: String
-  profession: String!
+  profession: String
+  source: String
 }
 
 type Character @model @auth(rules: [{allow: owner}, {allow: private, operations: [read], provider: iam}, {allow: private, operations: [read]}, {allow: public, operations: [read], provider: iam}]) {

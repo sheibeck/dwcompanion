@@ -1,6 +1,6 @@
 <template>
     <div class="alignment">
-        <div class="bg-dark text-light fs-5 p-1">Alignment</div>
+        <div class="bg-dark text-light fs-5 p-1 d-flex">Alignment <AddItem :character="character" item-type="Alignment" /></div>
         <div v-for="(alignment, index) in character.alignment" :key="alignment.id" class="input-group input-group-lg item" :class="{'compact': index > 0}">
             <div class="input-group-text">
                 <input class="form-check-input mt-0" type="checkbox" v-model="alignment.selected"
@@ -16,6 +16,7 @@
 
 <script setup lang="ts">
 import { getAlignmentsByProfession } from '@/services/lookupTableService';
+import  AddItem from '@/components/CharacterDetail/AddItem.vue';
 
 const { character } = defineProps<{
     character: any;

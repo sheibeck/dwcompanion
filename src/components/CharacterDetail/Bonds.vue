@@ -1,6 +1,6 @@
 <template>
     <div class="p-1 mt-0 mb-2">
-        <div class="bg-dark text-light fs-5 ps-1">Bonds</div>
+        <div class="bg-dark text-light fs-5 ps-1 d-flex">Bonds <AddItem :character="character" item-type="Bond" /> </div>
         <div v-for="(bond, index) in character.bonds" :key="bond.id" class="item" :class="{'compact': index > 0}">
             <div class="input-group input-group-sm">
                 <input type="text" class="form-control" v-model="bond.value" />
@@ -14,6 +14,7 @@
 
 <script setup lang="ts">
 import  EditableDescription from '@/components/CharacterDetail/EditableDescription.vue';
+import  AddItem from '@/components/CharacterDetail/AddItem.vue';
 import { getBondsByProfession } from '@/services/lookupTableService';
 
 const { character } = defineProps<{

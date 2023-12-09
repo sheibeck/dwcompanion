@@ -162,10 +162,8 @@ export const createGear = /* GraphQL */ `mutation CreateGear(
   createGear(input: $input, condition: $condition) {
     id
     description
-    weight
-    uses
-    tags
-    source
+    isStartingGear
+    profession
     createdAt
     updatedAt
     _version
@@ -185,10 +183,8 @@ export const updateGear = /* GraphQL */ `mutation UpdateGear(
   updateGear(input: $input, condition: $condition) {
     id
     description
-    weight
-    uses
-    tags
-    source
+    isStartingGear
+    profession
     createdAt
     updatedAt
     _version
@@ -208,10 +204,8 @@ export const deleteGear = /* GraphQL */ `mutation DeleteGear(
   deleteGear(input: $input, condition: $condition) {
     id
     description
-    weight
-    uses
-    tags
-    source
+    isStartingGear
+    profession
     createdAt
     updatedAt
     _version
@@ -318,6 +312,7 @@ export const createBond = /* GraphQL */ `mutation CreateBond(
     profession
     value
     tags
+    source
     createdAt
     updatedAt
     _version
@@ -340,6 +335,7 @@ export const updateBond = /* GraphQL */ `mutation UpdateBond(
     profession
     value
     tags
+    source
     createdAt
     updatedAt
     _version
@@ -362,6 +358,7 @@ export const deleteBond = /* GraphQL */ `mutation DeleteBond(
     profession
     value
     tags
+    source
     createdAt
     updatedAt
     _version
@@ -534,6 +531,7 @@ export const createAlignment = /* GraphQL */ `mutation CreateAlignment(
     description
     selected
     profession
+    source
     createdAt
     updatedAt
     _version
@@ -556,6 +554,7 @@ export const updateAlignment = /* GraphQL */ `mutation UpdateAlignment(
     description
     selected
     profession
+    source
     createdAt
     updatedAt
     _version
@@ -578,6 +577,7 @@ export const deleteAlignment = /* GraphQL */ `mutation DeleteAlignment(
     description
     selected
     profession
+    source
     createdAt
     updatedAt
     _version
@@ -600,6 +600,7 @@ export const createLook = /* GraphQL */ `mutation CreateLook(
     description
     value
     profession
+    source
     createdAt
     updatedAt
     _version
@@ -622,6 +623,7 @@ export const updateLook = /* GraphQL */ `mutation UpdateLook(
     description
     value
     profession
+    source
     createdAt
     updatedAt
     _version
@@ -644,6 +646,7 @@ export const deleteLook = /* GraphQL */ `mutation DeleteLook(
     description
     value
     profession
+    source
     createdAt
     updatedAt
     _version

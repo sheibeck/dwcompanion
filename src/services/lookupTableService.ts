@@ -124,3 +124,17 @@ export const getRaceByProfession = async(profession: ProfessionType) => {
 }
 
 
+export const getStartingGearByProfession = async(profession: ProfessionType) => {
+
+    const { data, errors }: any = await client.graphql({ query: queries.listGears,
+            variables: { 
+                filter: {
+                    and: [{ profession: { eq: profession } }, { isStartingGear: { eq: true } }]
+                  }
+            }
+        });
+
+    return data.listGears.items;
+}
+
+

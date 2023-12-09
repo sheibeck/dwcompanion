@@ -1,6 +1,6 @@
 <template>
     <div class="p-1 blood">
-        <div class="bg-dark text-light fs-5 p-1">Blood</div>
+        <div class="bg-dark text-light fs-5 p-1 d-flex">Blood  <AddItem :character="character" item-type="Race" /></div>
         <div v-for="(race, index) in character.race" :key="race.id" class="input-group input-group-lg item" :class="{'compact': index > 0}">
             <div class="input-group-text">
                 <input class="form-check-input mt-0 p-0" type="checkbox" v-model="race.selected"
@@ -19,6 +19,7 @@
 <script setup lang="ts">
 import { getRaceByProfession } from '@/services/lookupTableService';
 import  EditableDescription from '@/components/CharacterDetail/EditableDescription.vue';
+import AddItem from '@/components/CharacterDetail/AddItem.vue';
 
 const { character } = defineProps<{
     character: any;

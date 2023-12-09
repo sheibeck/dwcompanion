@@ -1,6 +1,6 @@
 <template>
     <div class="p-1 mb-2 look">
-        <div class="bg-dark text-light fs-5 p-1 mb-1">Look</div>
+        <div class="bg-dark text-light fs-5 p-1 mb-1 d-flex">Look <AddItem :character="character" item-type="Look" /></div>
             <div v-for="(look, index) in character.look" :index="look.id" class="item" :class="{'compact': index > 0}">
             <div class="input-group input-group-sm">
                 <span class="input-group-text fs-6 name">{{ look.name }}</span>
@@ -13,11 +13,11 @@
 
 <script setup lang="ts">
 import { getLooksByProfession } from '@/services/lookupTableService';
+import AddItem from '@/components/CharacterDetail/AddItem.vue';
 
 const { character } = defineProps<{
     character: any;
 }>();
-
 
 async function initialize() {
     if (!character.look || character.look.length === 0) {

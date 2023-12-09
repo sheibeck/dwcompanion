@@ -56,17 +56,17 @@
             <div class="sheet-gear">
                <div id="coin-gear">
                     <div class="coin">
-                        <div class="border border-dark fs-5 p-1 d-flex justify-content-between">
+                        <div class="bg-dark text-light fs-5 ps-1 mb-1 d-flex justify-content-between">
                             <span>Coin</span> 
                             <input type="number" min="0" class="pe-0 form-control form-control text-center coin-value align-self-end" 
                                 v-model="character.coing" />
                         </div>
                     </div>
-                    <div>
-                        Gear
+                    <div class="">
+                        <Gear :character="character" />
                     </div>
                 </div>
-                <div id="advanced-moves">
+                <div id="advanced-moves" class="ms-2">
                     <div>
                         <Moves :character="character" :moveType="MoveType.TWO_TO_TEN" />
                     </div>
@@ -97,6 +97,7 @@ import AbilityScores from '@/components/CharacterDetail/AbilityScores.vue';
 import Bonds from '@/components/CharacterDetail/Bonds.vue';
 import Moves from '@/components/CharacterDetail/Moves.vue';
 import Races from '@/components/CharacterDetail/Races.vue';
+import Gear from '@/components/CharacterDetail/Gear.vue';
 import { MoveType } from '@/enums/moveType';
 import * as lookupService from '@/services/lookupTableService';
 import { ProfessionType } from '@/enums/professionType';
@@ -104,6 +105,7 @@ import { toast } from 'vue3-toastify';
 import { createNewCharacter, getCharacter, updateCharacter } from '@/services/characterService';
 import { useGlobalStore } from '@/stores/globalStore';
 import { useRouter } from 'vue-router'
+import EditableDescription from './CharacterDetail/EditableDescription.vue';
 
 const { characterId, characterProfession} = defineProps<{
     characterId: string;

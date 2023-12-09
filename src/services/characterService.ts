@@ -137,12 +137,21 @@ function stringifyCharacter(character: any) {
     character.advancedMovesSixToTen = stringifyJson(character.advancedMovesSixToTen);
     character.bonds = stringifyJson(character.bonds);
     character.race = stringifyJson(character.race);
+    character.gear = stringifyJson(character.gear);
     
     return character;
 }
 
-function stringifyJson(thing: object) {
+function stringifyJson(thing: any) {
     if(!thing) return null;
+
+    delete thing['__typename'];
+    delete thing['updatedAt'];
+    delete thing['createdAt'];
+    delete thing['_lastChangedAt'];
+    delete thing['_deleted'];
+    delete thing['owner'];
+
     return JSON.stringify(thing);
 }
 
@@ -156,6 +165,7 @@ function jsonCharacter(character: any) {
     character.advancedMovesSixToTen = formatJson(character.advancedMovesSixToTen);
     character.bonds = formatJson(character.bonds);
     character.race = formatJson(character.race);
+    character.gear = formatJson(character.gear);
     
     return character;
 }

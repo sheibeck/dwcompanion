@@ -162,7 +162,7 @@ export const schema = {
                     "name": "profession",
                     "isArray": false,
                     "type": "String",
-                    "isRequired": true,
+                    "isRequired": false,
                     "attributes": []
                 },
                 "createdAt": {
@@ -235,33 +235,25 @@ export const schema = {
                     "isRequired": true,
                     "attributes": []
                 },
-                "weight": {
-                    "name": "weight",
+                "isStartingGear": {
+                    "name": "isStartingGear",
                     "isArray": false,
-                    "type": "Int",
-                    "isRequired": true,
-                    "attributes": []
-                },
-                "uses": {
-                    "name": "uses",
-                    "isArray": false,
-                    "type": "Int",
+                    "type": "Boolean",
                     "isRequired": false,
                     "attributes": []
                 },
-                "tags": {
-                    "name": "tags",
-                    "isArray": true,
+                "profession": {
+                    "name": "profession",
+                    "isArray": false,
                     "type": "String",
                     "isRequired": false,
-                    "attributes": [],
-                    "isArrayNullable": true
+                    "attributes": []
                 },
                 "source": {
                     "name": "source",
                     "isArray": false,
                     "type": "String",
-                    "isRequired": true,
+                    "isRequired": false,
                     "attributes": []
                 },
                 "createdAt": {
@@ -359,7 +351,7 @@ export const schema = {
                     "name": "profession",
                     "isArray": false,
                     "type": "String",
-                    "isRequired": true,
+                    "isRequired": false,
                     "attributes": []
                 },
                 "source": {
@@ -471,7 +463,7 @@ export const schema = {
                     "name": "profession",
                     "isArray": false,
                     "type": "String",
-                    "isRequired": true,
+                    "isRequired": false,
                     "attributes": []
                 },
                 "value": {
@@ -488,6 +480,13 @@ export const schema = {
                     "isRequired": false,
                     "attributes": [],
                     "isArrayNullable": true
+                },
+                "source": {
+                    "name": "source",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
                 },
                 "createdAt": {
                     "name": "createdAt",
@@ -697,7 +696,7 @@ export const schema = {
                     "name": "profession",
                     "isArray": false,
                     "type": "String",
-                    "isRequired": true,
+                    "isRequired": false,
                     "attributes": []
                 },
                 "selected": {
@@ -711,7 +710,7 @@ export const schema = {
                     "name": "source",
                     "isArray": false,
                     "type": "String",
-                    "isRequired": true,
+                    "isRequired": false,
                     "attributes": []
                 },
                 "createdAt": {
@@ -802,7 +801,14 @@ export const schema = {
                     "name": "profession",
                     "isArray": false,
                     "type": "String",
-                    "isRequired": true,
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "source": {
+                    "name": "source",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
                     "attributes": []
                 },
                 "createdAt": {
@@ -893,7 +899,14 @@ export const schema = {
                     "name": "profession",
                     "isArray": false,
                     "type": "String",
-                    "isRequired": true,
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "source": {
+                    "name": "source",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
                     "attributes": []
                 },
                 "createdAt": {
@@ -1198,5 +1211,5 @@ export const schema = {
     "enums": {},
     "nonModels": {},
     "codegenVersion": "3.4.4",
-    "version": "a743580829b2db7e1f48b0292f9cb38f"
+    "version": "caf0557eaea7123f16e9e639b4a7fb0e"
 };
