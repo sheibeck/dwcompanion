@@ -105,7 +105,6 @@ import { toast } from 'vue3-toastify';
 import { createNewCharacter, getCharacter, updateCharacter } from '@/services/characterService';
 import { useGlobalStore } from '@/stores/globalStore';
 import { useRouter } from 'vue-router'
-import EditableDescription from './CharacterDetail/EditableDescription.vue';
 
 const { characterId, characterProfession} = defineProps<{
     characterId: string;
@@ -172,9 +171,9 @@ async function getNewCharacter() {
         const profLookupResult = await lookupService.getProfessionByName(characterProfession);
       
         if (profLookupResult[0]) {
-            character.value = {
+            Object.assign(character.value, {
                 "profession": profLookupResult[0],
-            };
+            });
         }
         else {
             toast(`Could not find profession ${characterProfession}`);
@@ -215,7 +214,7 @@ async function update() {
     const updatedCharacter = await updateCharacter(character.value);
 
     if (updatedCharacter) {
-        Object.assign(character.value, updatedCharacter); 
+        //Object.assign(character.value, updatedCharacter); 
         toast(`Character saved.`);
     }
     else {

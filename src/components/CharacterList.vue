@@ -1,15 +1,17 @@
 <template>
     <div>
         <h1>Characters</h1>
-
-        <div v-if="hasCharacters">
-            <div v-for="character in characterList">
-                {{ character.name }} ({{ character.profession?.name ?? "Unknown" }}) 
-                <button class="btn btn-sm btn-dark" type="button" @click="viewCharacter(character.id)">View</button>
-                <button class="btn btn-sm btn-danger" type="button" @click="removeCharacter(character.id)">Delete</button>
+        <div class="d-flex">
+            <div v-for="character in characterList" class="card m-2" style="width: 18rem;">
+                <div class="card-body">
+                    <h5 class="card-title">{{ character.name }}</h5>
+                    <h6 class="card-subtitle mb-2 text-body-secondary">{{ character.profession?.name ?? "Unknown" }}</h6>
+                    <button class="btn btn-sm btn-dark me-3" type="button" @click="viewCharacter(character.id)">View</button>
+                    <button class="btn btn-sm btn-danger" type="button" @click="removeCharacter(character.id)">Delete</button>
+                </div>
             </div>
         </div>
-
+       
         <a href="/" class="btn btn-secondary">Create a Character</a>
     </div>
 </template>
@@ -49,5 +51,8 @@ async function removeCharacter(id: string) {
 }
 </script>
 
-<style>
+<style scoped lang="scss">
+    table {
+        font-size: 1.2em;
+    }
 </style>

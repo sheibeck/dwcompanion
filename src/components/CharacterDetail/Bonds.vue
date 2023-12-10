@@ -6,7 +6,10 @@
                 <input type="text" class="form-control" v-model="bond.value" />
             </div>
             <div class="form-text">
-                <EditableDescription :item="bond.description"  @save-item="(data) => bond.description = data" />
+                <EditableDescription :item="bond.description" :item-id="bond.id"
+                    @save-item="(data) => bond.description = data" 
+                    @delete-item="(id) => character.bonds.splice(character.bonds?.indexOf( (i : any) => i.id == id), 1)"
+                />
             </div>
         </div>
     </div>

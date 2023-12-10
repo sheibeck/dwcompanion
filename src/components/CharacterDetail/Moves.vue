@@ -2,11 +2,14 @@
     <div class="p-1 mb-2 moves">
         <div class="bg-dark text-light fs-5 ps-1 mb-1 d-flex">{{ movesLabel }} <AddItem v-if="addItemType" :character="character" :item-type="addItemType" /></div>
         <div class="items">
-            <div v-for="(move, index) in moves" :index="move.id" class="card m-1" :class="{'compact': index > 0}">
+            <div v-for="(move, index) in getMoveList" :index="move.id" class="card m-1" :class="{'compact': index > 0}">
                 <div class="card-body p-0">
                     <h5 class="card-title pb-0 mb-0"><input type="checkbox" class="form-check-input" v-model="move.selected" /> {{ move.name }}</h5>
                     <div class="card-text form-text">
-                        <EditableDescription :item="move.description" @save-item="(data) => move.description = data" />
+                        <EditableDescription :item="move.description" :item-id="move.id" edit-rows="10"
+                            @save-item="(data) => move.description = data"
+                            @delete-item="(id) => deleteItem(id)"
+                        />
                     </div>
                 </div>
             </div>
@@ -17,7 +20,7 @@
 <script setup lang="ts">
 import { MoveType } from '@/enums/moveType';
 import { getMovesByProfession } from '@/services/lookupTableService';
-import { onMounted, ref } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import EditableDescription from '@/components/CharacterDetail/EditableDescription.vue';
 import AddItem from '@/components/CharacterDetail/AddItem.vue';
 
@@ -32,32 +35,65 @@ const moves = ref<any>();
 const movesLabel = ref("");
 const addItemType = ref<String|null>(null);
 
+function deleteItem(id: String): any { 
+    switch(moveType) {
+        case MoveType.STARTING_MOVES:
+            character.startingMoves?.splice(character.startingMoves?.indexOf( (i : any) => i.id == id), 1)
+            break;
+        case MoveType.TWO_TO_TEN:
+            character.advancedMovesTwoToTen?.splice(character.advancedMovesTwoToTen?.indexOf( (i : any) => i.id == id), 1)
+            break;
+        case MoveType.SIX_TO_TEN:
+            character.advancedMovesSixToTen?.splice(character.advancedMovesSixToTen?.indexOf( (i : any) => i.id == id), 1)
+            break;
+    }
+}
+
+const getMoveList = computed(() =>{ 
+    switch(moveType) {
+        case MoveType.STARTING_MOVES:
+            return character.startingMoves;
+            break;
+
+        case MoveType.TWO_TO_TEN:
+            return character.advancedMovesTwoToTen;
+            break;
+
+        case MoveType.SIX_TO_TEN:
+            return character.advancedMovesSixToTen;
+        break;
+    }
+})
+
 function getMovesByType(): any { 
     switch(moveType) {
         case MoveType.STARTING_MOVES:
             if (!character.startingMoves || character.startingMoves.length === 0) {
-                character.startingMoves = allMoves.value.filter( (m: any) => m.isStartingMove == true);
+                const moves = allMoves.value.filter( (m: any) => m.isStartingMove == true);
+                character.startingMoves.push(moves);
                 character.startingMoves.forEach( (move: any) => {
                     move.selected = move.selectedOnNew;
                 });
             }
-            moves.value = character.startingMoves;
+
             movesLabel.value = "Starting Moves";
-            addItemType.value = null;
+            addItemType.value = "StartingMoves";
             break;
         case MoveType.TWO_TO_TEN:
             if (!character.advancedMovesTwoToTen || character.advancedMovesTwoToTen.length === 0) {
-                character.advancedMovesTwoToTen = allMoves.value.filter( (m: any) => m.isTwoToTenMove == true);
+                const moves = allMoves.value.filter( (m: any) => m.isTwoToTenMove == true);
+                character.advancedMovesTwoToTen.push(moves);
             }
-            moves.value = character.advancedMovesTwoToTen;
+ 
             movesLabel.value = "Advanced Moves - Levels 2 to 10";
             addItemType.value = "TwoTenMove";
             break;
         case MoveType.SIX_TO_TEN:
             if (!character.advancedMovesSixToTen || character.advancedMovesSixToTen.length === 0) {
-                character.advancedMovesSixToTen = allMoves.value.filter( (m: any) => m.isSixToTenMove == true);
+                const moves = allMoves.value.filter( (m: any) => m.isSixToTenMove == true);
+                character.advancedMovesSixToTen.push(moves);
             }
-            moves.value = character.advancedMovesSixToTen;
+
             movesLabel.value = "Advanced Moves - Levels 6 to 10";
             addItemType.value = "SixTenMove";
         break;

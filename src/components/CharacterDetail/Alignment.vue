@@ -7,8 +7,13 @@
                     :aria-label="`Alignment checkbox for ${alignment.name}`">
             </div>
             <div class="form-text p-1">
-                <div class="fs-5 text-dark">{{ alignment.name }}</div>
-                <div class="form-text description">{{ alignment.description }}</div>
+                <div class="fs-5 text-dark">
+                    <EditableDescription :item="alignment.name" :item-id="alignment.id"
+                            @save-item="(data) => alignment.name = data"
+                            @delete-item="(id) => character.alignment.splice(character.alignment?.indexOf( (i : any) => i.id == id), 1)"
+                        />
+                </div>
+                <EditableDescription :item-id="alignment.id" :item="alignment.description" @save-item="(data) => alignment.description = data" hide-delete=true />
             </div>
         </div>
     </div>
@@ -17,6 +22,7 @@
 <script setup lang="ts">
 import { getAlignmentsByProfession } from '@/services/lookupTableService';
 import  AddItem from '@/components/CharacterDetail/AddItem.vue';
+import EditableDescription from '@/components/CharacterDetail/EditableDescription.vue';
 
 const { character } = defineProps<{
     character: any;

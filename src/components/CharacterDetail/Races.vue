@@ -8,9 +8,12 @@
             </div>
             <div class="form-text p-1">
                 <div class="fs-5 p-0 m-0 name text-dark">
-                    <EditableDescription :item="race.name" @save-item="(data) => race.name = data" />
+                    <EditableDescription :item="race.name" :item-id="race.id"
+                        @save-item="(data) => race.name = data"
+                        @delete-item="(id) => character.race.splice(character.race?.indexOf( (i : any) => i.id == id), 1)"
+                    />
                 </div>
-                <EditableDescription :item="race.description" @save-item="(data) => race.description = data" />
+                <EditableDescription :item-id="race.id" :item="race.description" @save-item="(data) => race.description = data" hide-delete=true edit-rows="3" />
             </div>
         </div>
     </div>
@@ -18,7 +21,7 @@
 
 <script setup lang="ts">
 import { getRaceByProfession } from '@/services/lookupTableService';
-import  EditableDescription from '@/components/CharacterDetail/EditableDescription.vue';
+import EditableDescription from '@/components/CharacterDetail/EditableDescription.vue';
 import AddItem from '@/components/CharacterDetail/AddItem.vue';
 
 const { character } = defineProps<{

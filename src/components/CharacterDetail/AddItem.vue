@@ -7,12 +7,12 @@
 </template>
 
 <script setup lang="ts">
+import * as uuid from 'short-uuid';
 
 const { character, itemType} = defineProps<{
     character: any,
     itemType: String,
 }>();
-
 
 function addNew() {
     switch(itemType) {
@@ -20,43 +20,49 @@ function addNew() {
             if (!character.bonds) {
                 character.bonds = [];
             }
-            character.bonds.push({"description": "new bond", "value": "", "source": "Custom" });
+            character.bonds.push({"id": uuid.generate(), "description": "new bond", "value": "", "source": "Custom" });
             break;
         case "Alignment":
             if (!character.alignment) {
                 character.alignment = [];
             }
-            character.alignment.push({"name": "new alignment", "description": "alignment description", "selected": false, "source": "Custom" });
+            character.alignment.push({"id": uuid.generate(), "name": "new alignment", "description": "alignment description", "selected": false, "source": "Custom" });
             break;
         case "Race":
             if (!character.race) {
                 character.race = [];
             }
-            character.race.push({"name": "new blood", "description": "new blood description", "selected": false, "source": "Custom" });
+            character.race.push({"id": uuid.generate(), "name": "new blood", "description": "new blood description", "selected": false, "source": "Custom" });
             break;
         case "Look":
             if (!character.look) {
                 character.look = [];
             }
-            character.look.push({"name": "new look", "description": "new look options", "value": "", "source": "Custom" });
+            character.look.push({"id": uuid.generate(), "name": "new look", "description": "new look options", "value": "", "source": "Custom" });
             break;
         case "Gear":
             if (!character.gear) {
                 character.gear = [];
             }
-            character.gear.push({"description": "new gear", "source": "Custom" });
+            character.gear.push({"id": uuid.generate(), "description": "new gear", "source": "Custom" });
+            break;
+        case "StartingMoves":
+            if (!character.startingMoves) {
+                character.startingMoves = [];
+            }
+            character.startingMoves.push({"id": uuid.generate(), "name": "new starting move", "description": "new starting move description", "selected": false, "source": "Custom" });
             break;
         case "TwoTenMove":
             if (!character.advancedMovesTwoToTen) {
                 character.advancedMovesTwoToTen = [];
             }
-            character.advancedMovesTwoToTen.push({"name": "new advanced move", "description": "new advanced move description", "selected": false, "source": "Custom" });
+            character.advancedMovesTwoToTen.push({"id": uuid.generate(), "name": "new advanced move", "description": "new advanced move description", "selected": false, "source": "Custom" });
             break;
         case "SixTenMove":
             if (!character.advancedMovesSixToTen) {
                 character.advancedMovesTwoToTen = [];
             }
-            character.advancedMovesSixToTen.push({"name": "new advanced move", "description": "new advanced move description", "selected": false, "source": "Custom" });
+            character.advancedMovesSixToTen.push({"id": uuid.generate(), "name": "new advanced move", "description": "new advanced move description", "selected": false, "source": "Custom" });
             break;
     }
 }

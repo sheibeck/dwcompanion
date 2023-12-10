@@ -9,7 +9,10 @@
         </div>
         <div class="form-text text-end mb-2 label" id="gear-description">Max Load (9 + STR) / Current</div>
         <div v-for="(gear, index) in character.gear" class="form-text gear">
-            <EditableDescription :item="gear.description" @save-item="(data) => gear.description = data" :editRows="20" /> 
+            <EditableDescription :item="gear.description" :item-id="gear.id"
+                @save-item="(data) => gear.description = data" :editRows="20" 
+                @delete-item="(id) => character.gear.bonds.splice(character.gear.bonds?.indexOf( (i : any) => i.id == id), 1)"
+            /> 
         </div>
     </div>
 </template>

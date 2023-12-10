@@ -146,6 +146,10 @@ function stringifyCharacter(character: any) {
 function stringifyJson(thing: any) {
     if(!thing) return null;
 
+    if (thing.length == 0) {
+        return null;
+    }
+
     delete thing['__typename'];
     delete thing['updatedAt'];
     delete thing['createdAt'];
