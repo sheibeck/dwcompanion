@@ -3,7 +3,7 @@
 
   <div class="professions">
     <div class="card m-2 profession d-flex flex-md-row" v-for="(profession, idx) in professionList" :key="profession">
-      <div class="align-self-center flex-fill">
+      <div class="">
         <div>
           <img :src="`/professions/${profession.name.toLowerCase()}.png`" class="" :alt="`image of ${profession.name}`">
         </div>
