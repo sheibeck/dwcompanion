@@ -6,7 +6,7 @@
         <img alt="logo" class="img-fluid" src="@/assets/dwlogo.png" />
       </header>
 
-      <authenticator :login-mechanisms="['email', 'name']" :social-providers="['google']">
+      <authenticator :login-mechanisms="['email']" :social-providers="['google']">
       </authenticator>
     </div>
   </template>

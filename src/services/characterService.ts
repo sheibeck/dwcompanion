@@ -16,9 +16,6 @@ export const getCharactersWithProfessions = async(userId: string) => {
                 filter: {
                     userId: {
                         eq: userId
-                    },
-                    _deleted: {
-                        ne: true
                     }
                 } 
             } 
@@ -108,8 +105,7 @@ export async function deleteCharacter(id: any) {
         const { data, errors } = await client.graphql({ query: mutations.deleteCharacter,
             variables: { 
                     input: {
-                        id: character.id,
-                        _version: character._version
+                        id: character.id
                     }
                  
             } 

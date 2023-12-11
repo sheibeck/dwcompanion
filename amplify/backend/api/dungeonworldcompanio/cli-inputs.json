@@ -4,8 +4,20 @@
     "apiName": "dungeonworldcompanio",
     "serviceName": "AppSync",
     "defaultAuthType": {
-      "mode": "API_KEY",
-      "expirationTime": 7
-    }
+      "mode": "AMAZON_COGNITO_USER_POOLS",
+      "cognitoUserPoolId": "authdungeonworldcompaniob8bc0bb5b8bc0bb5"
+    },
+    "conflictResolution": {},
+    "additionalAuthTypes": [
+      {
+        "mode": "API_KEY",
+        "expirationTime": 365,
+        "apiKeyExpirationDate": "2024-12-10T20:01:20.756Z",
+        "keyDescription": "dwcompanion key"
+      },
+      {
+        "mode": "AWS_IAM"
+      }
+    ]
   }
 }
