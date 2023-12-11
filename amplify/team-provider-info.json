@@ -1,22 +1,4 @@
 {
-  "main": {
-    "awscloudformation": {
-      "AuthRoleName": "amplify-dungeonworldcomp-main-154703-authRole",
-      "UnauthRoleArn": "arn:aws:iam::210120940769:role/amplify-dungeonworldcomp-main-154703-unauthRole",
-      "AuthRoleArn": "arn:aws:iam::210120940769:role/amplify-dungeonworldcomp-main-154703-authRole",
-      "Region": "us-east-1",
-      "DeploymentBucketName": "amplify-dungeonworldcomp-main-154703-deployment",
-      "UnauthRoleName": "amplify-dungeonworldcomp-main-154703-unauthRole",
-      "StackName": "amplify-dungeonworldcomp-main-154703",
-      "StackId": "arn:aws:cloudformation:us-east-1:210120940769:stack/amplify-dungeonworldcomp-main-154703/8791c0c0-983c-11ee-a61a-0e28fdf732d9",
-      "AmplifyAppId": "d3e6jynefwsc7i"
-    },
-    "categories": {
-      "auth": {
-        "dungeonworldcompf878a003": {}
-      }
-    }
-  },
   "dev": {
     "awscloudformation": {
       "AuthRoleName": "amplify-dungeonworldcomp-dev-121356-authRole",
