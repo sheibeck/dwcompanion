@@ -10,14 +10,24 @@ export const useGlobalStore = defineStore('globalStore', () => {
     const currentUser = ref<string|null>(null);
    
     async function isAuthenticated() {
-        const session = await fetchAuthSession();        
-        if (session.userSub) {
-            currentUser.value = session.userSub;
-            return true;
+
+        try {
+            const session = await fetchAuthSession();        
+            if (session.userSub) {
+                currentUser.value = session.userSub;
+                return true;
+            }
+            else {
+                throw("Not authenticated");
+            }
+
+        }
+        catch {
+            currentUser.value = null;
+            await router.push({ name: "login" });
+            return false;
         }
 
-        currentUser.value = null;
-        return false;
     };
 
     async function getUserId() {

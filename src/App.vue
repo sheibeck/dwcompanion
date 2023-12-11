@@ -19,7 +19,7 @@
               <a class="nav-link" href="/characters">Characters</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/about">About</a>
+              <a class="nav-link" target="_blank" href="https://github.com/sheibeck/dwcompanion/wiki/Dungeon-World-Companion">Support</a>
             </li>
           </ul>
           <div class="d-flex">

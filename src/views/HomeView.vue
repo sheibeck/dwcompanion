@@ -8,7 +8,9 @@
           <img :src="`/professions/${profession.name.toLowerCase()}.png`" class="" :alt="`image of ${profession.name}`">
         </div>
         <div class="d-flex justify-content-center mt-2">
-          <button type="button" @click="createCharacter(profession.name)" class="btn btn-dark">Create a {{ profession.name }}</button>
+          <button type="button" @click="createCharacter(profession.name)" class="btn btn-dark">
+            <img src="@/assets/plus-solid.svg" :alt="`create a ${profession.name}`"/> Create a {{ profession.name }}
+          </button>
         </div>
       </div>
       <div class="card-body">
