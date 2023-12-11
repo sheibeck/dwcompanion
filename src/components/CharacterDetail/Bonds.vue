@@ -57,7 +57,7 @@ initialize();
     @media print {
         .item {
             &.compact {
-                margin-top: -20px;
+                line-height: .75em;
             }
         }
 

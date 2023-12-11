@@ -1,5 +1,5 @@
 <template>
-<div class="small d-flex flex-fill justify-content-center">
+<div class="small d-flex flex-fill justify-content-center text-secondary">
 Assign these scores to your stats: 16(+2), 15(+1), 13(+1), 12(0), 9(0), 8(-1)
 </div>
 <div id="abilities" class="p-1 d-flex-row">

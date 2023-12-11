@@ -64,10 +64,10 @@ initialize();
    .alignment {
     
         .item {
-            &.compact {
-                margin-top: -12px !important;
-                padding: 0px !important;
-            }
+            
+            line-height: .6em;
+            padding: 0px !important;
+        
             
             .form-text {
                 

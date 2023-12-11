@@ -2,7 +2,7 @@
 <template>
   <main>
     <!-- Navigation Bar -->
-    <nav class="navbar navbar-expand-lg bg-body-tertiary" data-bs-theme="dark">
+    <nav class="navbar navbar-expand-lg bg-body-tertiary d-print-none" data-bs-theme="dark">
       <div class="container-fluid">
         <a class="navbar-brand" href="#">
           <img alt="logo" class="nav-logo img-fluid" src="@/assets/dwlogo.png" />

@@ -4,14 +4,14 @@
         <div class="items">
             <div v-for="(move, index) in getMoveList" :index="move.id" class="card m-1" :class="{'compact': index > 0}">
                 <div class="card-body p-0">
-                    <h5 class="card-title pb-0 mb-0">
-                        <input type="checkbox" class="form-check-input" v-model="move.selected" /> 
+                    <h5 class="card-title pb-0 mb-0 d-flex">
+                        <input type="checkbox" class="form-check-input me-1" v-model="move.selected" /> 
                         <EditableDescription :item="move.name" :item-id="move.id" edit-rows="10"
                             @save-item="(data) => move.name = data"
                             @delete-item="(id) => deleteItem(id)"
                         />
                     </h5>
-                    <div class="card-text form-text">
+                    <div class="card-text form-text mt-0">
                         <EditableDescription :item="move.description" :hide-delete="true" :item-id="move.id" edit-rows="10"
                             @save-item="(data) => move.description = data"
                             @delete-item="(id) => deleteItem(id)"
@@ -168,7 +168,7 @@ ol, ul, dl, p {
     .moves {   
         .card-text {
             font-size: .9em;
-            line-height: 1.1em;
+            line-height: 1.0em;
         }
     }
 }
