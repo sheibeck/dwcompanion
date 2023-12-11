@@ -13,7 +13,7 @@
                             @delete-item="(id) => character.alignment.splice(character.alignment?.findIndex( (i : any) => i.id == id), 1)"
                         />
                 </div>
-                <EditableDescription :item-id="alignment.id" :item="alignment.description" @save-item="(data) => alignment.description = data" hide-delete=true />
+                <EditableDescription :item-id="alignment.id" :item="alignment.description" @save-item="(data) => alignment.description = data" :hide-delete=true />
             </div>
         </div>
     </div>

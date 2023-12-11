@@ -13,7 +13,7 @@
                         @delete-item="(id) => character.race.splice(character.race?.findIndex( (i : any) => i.id == id), 1)"
                     />
                 </div>
-                <EditableDescription :item-id="race.id" :item="race.description" @save-item="(data) => race.description = data" hide-delete=true edit-rows="3" />
+                <EditableDescription :item-id="race.id" :item="race.description" @save-item="(data) => race.description = data" :hide-delete=true edit-rows="3" />
             </div>
         </div>
     </div>

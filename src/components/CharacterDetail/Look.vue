@@ -12,7 +12,7 @@
                 <input type="text" class="form-control" v-model="look.value">
             </div>
             <div class="form-text">
-                <EditableDescription  :item-id="look.id" :item="look.description" @save-item="(data) => look.description = data" hide-delete=true />
+                <EditableDescription  :item-id="look.id" :item="look.description" @save-item="(data) => look.description = data" :hide-delete=true />
             </div>
         </div>
     </div>
