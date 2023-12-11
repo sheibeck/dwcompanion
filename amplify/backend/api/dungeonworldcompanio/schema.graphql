@@ -1,0 +1,118 @@
+type Profession @model @auth(rules: [{allow: private, operations: [read], provider: iam}, {allow: private, operations: [read]}, {allow: public, operations: [read], provider: iam}]) {
+  name: String!
+  description: String!
+  diceType: String!
+  source: String!
+}
+
+type Spell @model @auth(rules: [{allow: private, operations: [read], provider: iam}, {allow: private, operations: [read]}, {allow: public, operations: [read], provider: iam}]) {
+  id: ID!
+  name: String!
+  level: Int!
+  type: String!
+  ongoing: Boolean
+  description: String!
+  selected: Boolean
+  tags: [String]
+  source: String!
+  profession: String
+}
+
+type Gear @model @auth(rules: [{allow: private, operations: [read], provider: iam}, {allow: private, operations: [read]}, {allow: public, operations: [read], provider: iam}]) {
+  id: ID!
+  description: String!
+  isStartingGear: Boolean
+  profession: String
+  source: String
+}
+
+type Move @model @auth(rules: [{allow: private, operations: [read], provider: iam}, {allow: private, operations: [read]}, {allow: public, operations: [read], provider: iam}]) {
+  id: ID!
+  name: String!
+  description: String!
+  selected: Boolean
+  selectedOnNew: Boolean
+  profession: String
+  source: String!
+  isStartingMove: Boolean
+  isAdvancedMove: Boolean
+  isTwoToTenMove: Boolean
+  isSixToTenMove: Boolean
+}
+
+type Bond @model @auth(rules: [{allow: private, operations: [read], provider: iam}, {allow: private, operations: [read]}, {allow: public, operations: [read], provider: iam}]) {
+  id: ID!
+  description: String
+  profession: String
+  value: String
+  tags: [String]
+  source: String
+}
+
+type AbilityScore @model @auth(rules: [{allow: private, operations: [read], provider: iam}, {allow: private, operations: [read]}, {allow: public, operations: [read], provider: iam}]) {
+  id: ID!
+  name: String!
+  shortName: String!
+  debility: String!
+  debilityPenalty: String!
+  value: String!
+  bonus: Int!
+  debilityIsSelected: Boolean
+  sortOrder: Int
+  tags: [String]
+}
+
+type Race @model @auth(rules: [{allow: private, operations: [read], provider: iam}, {allow: private, operations: [read]}, {allow: public, operations: [read], provider: iam}]) {
+  id: ID!
+  name: String
+  description: String
+  profession: String
+  selected: Boolean!
+  source: String
+}
+
+type Alignment @model @auth(rules: [{allow: private, operations: [read], provider: iam}, {allow: private, operations: [read]}, {allow: public, operations: [read], provider: iam}]) {
+  id: ID!
+  name: String
+  description: String
+  selected: Boolean
+  profession: String
+  source: String
+}
+
+type Look @model @auth(rules: [{allow: private, operations: [read], provider: iam}, {allow: private, operations: [read]}, {allow: public, operations: [read], provider: iam}]) {
+  id: ID!
+  name: String!
+  description: String!
+  value: String
+  profession: String
+  source: String
+}
+
+type Character @model @auth(rules: [{allow: owner}, {allow: private, operations: [read], provider: iam}, {allow: private, operations: [read]}, {allow: public, operations: [read], provider: iam}]) {
+  userId: ID!
+  id: ID!
+  name: String!
+  level: Int
+  xp: Int
+  armor: Int
+  hitPointsMax: Int
+  hitPointsCurrent: Int
+  coin: Int
+  loadMax: Int
+  loadCurrent: Int
+  isTemplate: Boolean
+  tags: [String]
+  notes: [String]
+  gear: AWSJSON
+  startingMoves: AWSJSON
+  advancedMovesTwoToTen: AWSJSON
+  advancedMovesSixToTen: AWSJSON
+  bonds: AWSJSON
+  abilityScores: AWSJSON
+  race: AWSJSON
+  alignment: AWSJSON
+  look: AWSJSON
+  profession: AWSJSON
+  spells: AWSJSON
+} 

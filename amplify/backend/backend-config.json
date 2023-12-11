@@ -1,27 +1,15 @@
 {
   "api": {
-    "dungeonworldcomp": {
-      "dependsOn": [
-        {
-          "attributes": [
-            "UserPoolId"
-          ],
-          "category": "auth",
-          "resourceName": "dungeonworldcompf878a003"
-        }
-      ],
+    "dungeonworldcompanio": {
+      "dependsOn": [],
       "output": {
         "authConfig": {
-          "additionalAuthenticationProviders": [
-            {
-              "authenticationType": "AWS_IAM"
-            }
-          ],
+          "additionalAuthenticationProviders": [],
           "defaultAuthentication": {
-            "authenticationType": "AMAZON_COGNITO_USER_POOLS",
-            "userPoolConfig": {
-              "userPoolId": "authdungeonworldcompf878a003"
-            }
+            "apiKeyConfig": {
+              "apiKeyExpirationDays": 7
+            },
+            "authenticationType": "API_KEY"
           }
         }
       },
@@ -30,7 +18,7 @@
     }
   },
   "auth": {
-    "dungeonworldcompf878a003": {
+    "dungeonworldcompaniob8bc0bb5b8bc0bb5": {
       "customAuth": false,
       "dependsOn": [],
       "frontendAuthConfig": {
@@ -43,12 +31,9 @@
           "passwordPolicyMinLength": 8
         },
         "signupAttributes": [
-          "EMAIL",
-          "NAME"
+          "EMAIL"
         ],
-        "socialProviders": [
-          "GOOGLE"
-        ],
+        "socialProviders": [],
         "usernameAttributes": [
           "EMAIL"
         ],
@@ -58,17 +43,22 @@
       },
       "providerPlugin": "awscloudformation",
       "service": "Cognito"
-    }
-  },
-  "function": {},
-  "parameters": {
-    "AMPLIFY_auth_dungeonworldcompf878a003_googleClientId": {
-      "usedBy": [
+    },
+    "userPoolGroups": {
+      "dependsOn": [
         {
+          "attributes": [
+            "UserPoolId",
+            "AppClientIDWeb",
+            "AppClientID",
+            "IdentityPoolId"
+          ],
           "category": "auth",
-          "resourceName": "dungeonworldcompf878a003"
+          "resourceName": "dungeonworldcompaniob8bc0bb5b8bc0bb5"
         }
-      ]
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "Cognito-UserPool-Groups"
     }
   }
 }
