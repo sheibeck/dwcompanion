@@ -6,7 +6,7 @@
                 <span class="input-group-text fs-6 name">
                     <EditableDescription :item="look.name" :item-id="look.id" 
                             @save-item="(data) => look.name = data"
-                            @delete-item="(id) => character.look.splice(character.look?.indexOf( (i : any) => i.id == id), 1)"
+                            @delete-item="(id) => character.look.splice(character.look?.findIndex( (i : any) => i.id == id), 1)"
                         />
                 </span>
                 <input type="text" class="form-control" v-model="look.value">

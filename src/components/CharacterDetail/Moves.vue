@@ -4,9 +4,15 @@
         <div class="items">
             <div v-for="(move, index) in getMoveList" :index="move.id" class="card m-1" :class="{'compact': index > 0}">
                 <div class="card-body p-0">
-                    <h5 class="card-title pb-0 mb-0"><input type="checkbox" class="form-check-input" v-model="move.selected" /> {{ move.name }}</h5>
+                    <h5 class="card-title pb-0 mb-0">
+                        <input type="checkbox" class="form-check-input" v-model="move.selected" /> 
+                        <EditableDescription :item="move.name" :item-id="move.id" edit-rows="10"
+                            @save-item="(data) => move.name = data"
+                            @delete-item="(id) => deleteItem(id)"
+                        />
+                    </h5>
                     <div class="card-text form-text">
-                        <EditableDescription :item="move.description" :item-id="move.id" edit-rows="10"
+                        <EditableDescription :item="move.description" :hide-delete="true" :item-id="move.id" edit-rows="10"
                             @save-item="(data) => move.description = data"
                             @delete-item="(id) => deleteItem(id)"
                         />
@@ -38,13 +44,13 @@ const addItemType = ref<String|null>(null);
 function deleteItem(id: String): any { 
     switch(moveType) {
         case MoveType.STARTING_MOVES:
-            character.startingMoves?.splice(character.startingMoves?.indexOf( (i : any) => i.id == id), 1)
+            character.startingMoves?.splice(character.startingMoves?.findIndex( (i : any) => i.id == id), 1)
             break;
         case MoveType.TWO_TO_TEN:
-            character.advancedMovesTwoToTen?.splice(character.advancedMovesTwoToTen?.indexOf( (i : any) => i.id == id), 1)
+            character.advancedMovesTwoToTen?.splice(character.advancedMovesTwoToTen?.findIndex( (i : any) => i.id == id), 1)
             break;
         case MoveType.SIX_TO_TEN:
-            character.advancedMovesSixToTen?.splice(character.advancedMovesSixToTen?.indexOf( (i : any) => i.id == id), 1)
+            character.advancedMovesSixToTen?.splice(character.advancedMovesSixToTen?.findIndex( (i : any) => i.id == id), 1)
             break;
     }
 }
@@ -70,10 +76,14 @@ function getMovesByType(): any {
         case MoveType.STARTING_MOVES:
             if (!character.startingMoves || character.startingMoves.length === 0) {
                 const moves = allMoves.value.filter( (m: any) => m.isStartingMove == true);
-                character.startingMoves.push(moves);
-                character.startingMoves.forEach( (move: any) => {
-                    move.selected = move.selectedOnNew;
-                });
+                if (moves.length > 0) {
+                    character.startingMoves = [];
+
+                    moves.forEach((move: any) => {
+                        move.selected = move.selectedOnNew;
+                        character.startingMoves.push(moves);
+                    });
+                }
             }
 
             movesLabel.value = "Starting Moves";
@@ -82,7 +92,12 @@ function getMovesByType(): any {
         case MoveType.TWO_TO_TEN:
             if (!character.advancedMovesTwoToTen || character.advancedMovesTwoToTen.length === 0) {
                 const moves = allMoves.value.filter( (m: any) => m.isTwoToTenMove == true);
-                character.advancedMovesTwoToTen.push(moves);
+                if (moves.length > 0) {
+                    character.advancedMovesTwoToTen = [];
+                    moves.forEach((move: any) => {
+                        character.advancedMovesTwoToTen.push(moves);
+                    });
+                }
             }
  
             movesLabel.value = "Advanced Moves - Levels 2 to 10";
@@ -91,7 +106,12 @@ function getMovesByType(): any {
         case MoveType.SIX_TO_TEN:
             if (!character.advancedMovesSixToTen || character.advancedMovesSixToTen.length === 0) {
                 const moves = allMoves.value.filter( (m: any) => m.isSixToTenMove == true);
-                character.advancedMovesSixToTen.push(moves);
+                if (moves.length > 0) {
+                    character.advancedMovesSixToTen = [];
+                    moves.forEach((move: any) => {
+                        character.advancedMovesSixToTen.push(moves);
+                    });
+                }
             }
 
             movesLabel.value = "Advanced Moves - Levels 6 to 10";

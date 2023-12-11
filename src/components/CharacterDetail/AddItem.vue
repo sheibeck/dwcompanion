@@ -60,7 +60,7 @@ function addNew() {
             break;
         case "SixTenMove":
             if (!character.advancedMovesSixToTen) {
-                character.advancedMovesTwoToTen = [];
+                character.advancedMovesSixToTen = [];
             }
             character.advancedMovesSixToTen.push({"id": uuid.generate(), "name": "new advanced move", "description": "new advanced move description", "selected": false, "source": "Custom" });
             break;

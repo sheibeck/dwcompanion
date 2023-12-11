@@ -108,12 +108,12 @@ import { useRouter } from 'vue-router'
 
 const { characterId, characterProfession} = defineProps<{
     characterId: string;
-    characterProfession: ProfessionType | null;
+    characterProfession: ProfessionType | undefined | null;
 }>();
 
 const globalStore = useGlobalStore();
 const router = useRouter();
-const character = ref<any>(null);
+const character = ref<any>();
 const isAuthenticated = ref(false);
 const pageNumber = ref(1);
 const isPrinting = ref(false);
@@ -156,14 +156,14 @@ function nextPage() {
 }
 
 async function setupCharacter() {
-    if (characterId === "new-character" && characterProfession !== null) {
+    if (characterId === "new-character" && characterProfession) {
         await getNewCharacter();
         return;
     }
 
     globalStore.getUserId();
     character.value = await getCharacter(characterId);
-}
+} 
 
 async function getNewCharacter() {
 
@@ -171,9 +171,9 @@ async function getNewCharacter() {
         const profLookupResult = await lookupService.getProfessionByName(characterProfession);
       
         if (profLookupResult[0]) {
-            Object.assign(character.value, {
+            character.value = {
                 "profession": profLookupResult[0],
-            });
+            };
         }
         else {
             toast(`Could not find profession ${characterProfession}`);
@@ -182,7 +182,8 @@ async function getNewCharacter() {
 }
 
 async function saveCharacter() {
-    if (!character.value.id) {
+    const authenticated = await globalStore.isAuthenticated();
+    if (authenticated && !character.value.id) {
         const userId = await globalStore.getUserId();
         character.value.userId = userId;
 
@@ -214,7 +215,6 @@ async function update() {
     const updatedCharacter = await updateCharacter(character.value);
 
     if (updatedCharacter) {
-        //Object.assign(character.value, updatedCharacter); 
         toast(`Character saved.`);
     }
     else {

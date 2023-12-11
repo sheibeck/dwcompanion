@@ -23,7 +23,7 @@ function removeItem() {
     switch(itemType) {
         case "Bond":
             {
-                const idx = character.bonds?.indexOf( (i : any) => i.id == itemId);
+                const idx = character.bonds?.findIndex( (i : any) => i.id == itemId);
                 if (idx >= 0) {
                     character.bonds.splice(idx, 1);
                 }
@@ -31,7 +31,7 @@ function removeItem() {
             break;
         case "Alignment":
             {
-                const idx = character.alignment?.indexOf( (i : any) => i.id == itemId);
+                const idx = character.alignment?.findIndex( (i : any) => i.id == itemId);
                 if (idx >= 0) {
                     character.alignment.splice(idx, 1);
                 }
@@ -39,7 +39,7 @@ function removeItem() {
             break;
         case "Race":
             {
-                const idx = character.race?.indexOf( (i : any) => i.id == itemId);
+                const idx = character.race?.findIndex( (i : any) => i.id == itemId);
                 if (idx >= 0) {
                     character.race.splice(idx, 1);
                 }
@@ -47,7 +47,7 @@ function removeItem() {
             break;
         case "Look":
             {
-                const idx = character.look?.indexOf( (i : any) => i.id == itemId);
+                const idx = character.look?.findIndex( (i : any) => i.id == itemId);
                 if (idx >= 0) {
                     character.look.splice(idx, 1);
                 }
@@ -55,7 +55,7 @@ function removeItem() {
             break;
         case "Gear":
             {
-                const idx = character.gear?.indexOf( (i : any) => i.id == itemId);
+                const idx = character.gear?.findIndex( (i : any) => i.id == itemId);
                 if (idx >= 0) {
                     character.gear.splice(idx, 1);
                 }
@@ -63,7 +63,7 @@ function removeItem() {
             break;
         case "TwoTenMove":
             {
-                const idx = character.advancedMovesTwoToTen?.indexOf( (i : any) => i.id == itemId);
+                const idx = character.advancedMovesTwoToTen?.findIndex( (i : any) => i.id == itemId);
                 if (idx >= 0) {
                     character.advancedMovesTwoToTen.splice(idx, 1);
                 }
@@ -71,7 +71,7 @@ function removeItem() {
             break;
         case "SixTenMove":
             {
-                const idx = character.advancedMovesSixToTen?.indexOf( (i : any) => i.id == itemId);
+                const idx = character.advancedMovesSixToTen?.findIndex( (i : any) => i.id == itemId);
                 if (idx >= 0) {
                     character.advancedMovesSixToTen.splice(idx, 1);
                 }

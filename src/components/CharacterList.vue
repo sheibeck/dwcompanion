@@ -41,11 +41,13 @@ async function viewCharacter(id: string) {
 async function removeCharacter(id: string) {
     const confirmed = confirm("Are you sure you want to delete this character?");
 
-    if (confirmed) {
+    const authenticated = await globalStore.isAuthenticated();
+
+    if (authenticated && confirmed) {
         await deleteCharacter(id);
 
         const objectToRemove = characterList.value.find( (c: any) => c.id === id);
-        const idx = characterList.value.indexOf(objectToRemove);
+        const idx = characterList.value.findIndex(objectToRemove);
         characterList.value.splice(idx, 1);
     }
 }

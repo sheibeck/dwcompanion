@@ -11,7 +11,7 @@
         <div v-for="(gear, index) in character.gear" class="form-text gear">
             <EditableDescription :item="gear.description" :item-id="gear.id"
                 @save-item="(data) => gear.description = data" :editRows="20" 
-                @delete-item="(id) => character.gear.bonds.splice(character.gear.bonds?.indexOf( (i : any) => i.id == id), 1)"
+                @delete-item="(id) => character.gear.bonds.splice(character.gear.bonds?.findIndex( (i : any) => i.id == id), 1)"
             /> 
         </div>
     </div>

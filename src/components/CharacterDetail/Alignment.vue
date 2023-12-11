@@ -10,7 +10,7 @@
                 <div class="fs-5 text-dark">
                     <EditableDescription :item="alignment.name" :item-id="alignment.id"
                             @save-item="(data) => alignment.name = data"
-                            @delete-item="(id) => character.alignment.splice(character.alignment?.indexOf( (i : any) => i.id == id), 1)"
+                            @delete-item="(id) => character.alignment.splice(character.alignment?.findIndex( (i : any) => i.id == id), 1)"
                         />
                 </div>
                 <EditableDescription :item-id="alignment.id" :item="alignment.description" @save-item="(data) => alignment.description = data" hide-delete=true />

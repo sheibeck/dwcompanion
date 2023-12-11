@@ -10,7 +10,7 @@
                 <div class="fs-5 p-0 m-0 name text-dark">
                     <EditableDescription :item="race.name" :item-id="race.id"
                         @save-item="(data) => race.name = data"
-                        @delete-item="(id) => character.race.splice(character.race?.indexOf( (i : any) => i.id == id), 1)"
+                        @delete-item="(id) => character.race.splice(character.race?.findIndex( (i : any) => i.id == id), 1)"
                     />
                 </div>
                 <EditableDescription :item-id="race.id" :item="race.description" @save-item="(data) => race.description = data" hide-delete=true edit-rows="3" />

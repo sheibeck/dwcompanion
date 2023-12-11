@@ -8,7 +8,7 @@
             <div class="form-text">
                 <EditableDescription :item="bond.description" :item-id="bond.id"
                     @save-item="(data) => bond.description = data" 
-                    @delete-item="(id) => character.bonds.splice(character.bonds?.indexOf( (i : any) => i.id == id), 1)"
+                    @delete-item="(id) => character.bonds.splice(character.bonds?.findIndex( (i : any) => i.id == id), 1)"
                 />
             </div>
         </div>
