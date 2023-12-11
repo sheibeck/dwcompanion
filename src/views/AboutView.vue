@@ -1,15 +1,22 @@
 <template>
-  <div class="about">
-    <h1>This is an about page</h1>
+
+  <div class="d-flex flex-column align-items-center justify-content-center">
+    <div class="h1">Dungeon World Companion</div>
+    <div>
+      A tool for creating and managing your Dungeon World games.
+    </div>
+    <a alt="Dungeon World Companion" href="/">
+      <img alt="logo" class="img-fluid" src="@/assets/dwlogo.png" />
+    </a>
   </div>
+
 </template>
 
-<style>
-@media (min-width: 1024px) {
-  .about {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
+<style scoped lang="scss">
+  div {
+    img {
+      max-width: 500px !important;
+    }
   }
-}
+
 </style>

@@ -1,0 +1,322 @@
+{
+    "id": "46b97ebf-4b5f-4feb-a551-c3956e93d591",
+    "abilityScores": [
+     {
+      "id": "41aca5c0-43ee-4f89-9efd-a93785bcd1c7",
+      "bonus": 0,
+      "createdAt": "2023-12-05T00:05:09.922Z",
+      "debility": "Weak",
+      "debilityPenalty": "-1",
+      "name": "Strength",
+      "shortName": "STR",
+      "tags": [
+      ],
+      "updatedAt": "2023-12-05T00:05:09.922Z",
+      "value": "0",
+      "_lastChangedAt": 1701734709950,
+      "_version": 1,
+      "__typename": "AbilityScore"
+     },
+     {
+      "id": "498b8a10-7636-46ca-ae7f-e9c06d1c89e1",
+      "bonus": 0,
+      "createdAt": "2023-12-05T00:06:59.475Z",
+      "debility": "Sick",
+      "debilityPenalty": "-1",
+      "name": "Constitution",
+      "shortName": "CON",
+      "tags": [
+      ],
+      "updatedAt": "2023-12-05T00:06:59.475Z",
+      "value": "0",
+      "_lastChangedAt": 1701734819502,
+      "_version": 1,
+      "__typename": "AbilityScore"
+     },
+     {
+      "id": "09b43f9f-ffef-47de-ae55-3fb0c398b651",
+      "bonus": 0,
+      "createdAt": "2023-12-05T00:06:33.070Z",
+      "debility": "Shaky",
+      "debilityPenalty": "-1",
+      "name": "Dexterity",
+      "shortName": "DEX",
+      "tags": [
+      ],
+      "updatedAt": "2023-12-05T00:06:33.070Z",
+      "value": "0",
+      "_lastChangedAt": 1701734793094,
+      "_version": 1,
+      "__typename": "AbilityScore"
+     },
+     {
+      "id": "1d06f1cc-7ff6-4779-bd6b-5b2a5770ceae",
+      "bonus": 0,
+      "createdAt": "2023-12-05T00:07:13.254Z",
+      "debility": "Stunned",
+      "debilityPenalty": "-1",
+      "name": "Intelligence",
+      "shortName": "INT",
+      "tags": [
+      ],
+      "updatedAt": "2023-12-05T00:07:13.254Z",
+      "value": "0",
+      "_lastChangedAt": 1701734833282,
+      "_version": 1,
+      "__typename": "AbilityScore"
+     },
+     {
+      "id": "923ef4a5-77e0-42d2-837c-b0aa9599e7ec",
+      "bonus": 0,
+      "createdAt": "2023-12-05T00:07:35.376Z",
+      "debility": "Confused",
+      "debilityPenalty": "-1",
+      "name": "Wisdom",
+      "shortName": "WIS",
+      "tags": [
+      ],
+      "updatedAt": "2023-12-05T00:07:35.376Z",
+      "value": "0",
+      "_lastChangedAt": 1701734855398,
+      "_version": 1,
+      "__typename": "AbilityScore"
+     },
+     {
+      "id": "1dadfd01-59a1-4267-82b1-6907da1787e5",
+      "bonus": 0,
+      "createdAt": "2023-12-05T00:07:49.374Z",
+      "debility": "Scarred",
+      "debilityPenalty": "-1",
+      "name": "Charisma",
+      "shortName": "CHA",
+      "tags": [
+      ],
+      "updatedAt": "2023-12-05T00:07:49.374Z",
+      "value": "0",
+      "_lastChangedAt": 1701734869398,
+      "_version": 1,
+      "__typename": "AbilityScore"
+     }
+    ],
+    "alignment": [
+     {
+      "id": "65f4f9a9-e197-4978-9400-07b11246f40e",
+      "createdAt": "2023-12-04T23:58:26.192Z",
+      "description": "Perform your art to aid someone else.",
+      "name": "Good",
+      "profession": "Bard",
+      "selected": false,
+      "updatedAt": "2023-12-04T23:58:26.192Z",
+      "_lastChangedAt": 1701734306221,
+      "_version": 1,
+      "__typename": "Alignment"
+     },
+     {
+      "id": "fd9fc5c4-2a53-4b3c-ad55-972e87995994",
+      "createdAt": "2023-12-04T23:58:43.625Z",
+      "description": "Avoid a conflict or defuse a tense situation",
+      "name": "Neutral",
+      "profession": "Bard",
+      "selected": false,
+      "updatedAt": "2023-12-04T23:58:43.625Z",
+      "_lastChangedAt": 1701734323650,
+      "_version": 1,
+      "__typename": "Alignment"
+     },
+     {
+      "id": "58fcf1f3-38a7-4ff2-b7ac-abf194550af6",
+      "createdAt": "2023-12-04T23:59:15.536Z",
+      "description": "Spur others to significant and unplanned decisive action.",
+      "name": "Chaotic",
+      "profession": "Bard",
+      "selected": false,
+      "updatedAt": "2023-12-04T23:59:15.536Z",
+      "_lastChangedAt": 1701734355568,
+      "_version": 1,
+      "__typename": "Alignment"
+     },
+     {
+      "id": "5e7fc052-5a9e-4572-b131-4e1a71eb0b14",
+      "createdAt": "2023-12-04T23:59:56.448Z",
+      "description": null,
+      "name": "Custom",
+      "profession": "Any",
+      "selected": false,
+      "updatedAt": "2023-12-04T23:59:56.448Z",
+      "_lastChangedAt": 1701734396478,
+      "_version": 1,
+      "__typename": "Alignment"
+     }
+    ],
+    "armor": null,
+    "coin": null,
+    "createdAt": "2023-12-04T19:41:43.630Z",
+    "hitPointsCurrent": null,
+    "hitPointsMax": null,
+    "isTemplate": true,
+    "level": 1,
+    "loadCurrent": null,
+    "loadMax": null,
+    "look": [
+     {
+      "id": "5886be21-58b4-4f3e-8c87-45fd7e79de76",
+      "createdAt": "2023-12-04T21:16:50.291Z",
+      "description": "Fit, well-fed, thin",
+      "name": "BODY",
+      "profession": "Bard",
+      "updatedAt": "2023-12-04T21:16:50.291Z",
+      "value": null,
+      "_lastChangedAt": 1701724610321,
+      "_version": 1,
+      "__typename": "Look"
+     },
+     {
+      "id": "d37ec31a-88be-47af-b746-43e3ad564ad1",
+      "createdAt": "2023-12-04T21:16:50.572Z",
+      "description": "Knowing, fiery , joyous",
+      "name": "EYES",
+      "profession": "Bard",
+      "updatedAt": "2023-12-04T21:16:50.572Z",
+      "value": null,
+      "_lastChangedAt": 1701724610602,
+      "_version": 1,
+      "__typename": "Look"
+     },
+     {
+      "id": "be67994e-7676-4b18-a495-0449d8d67341",
+      "createdAt": "2023-12-04T21:16:50.823Z",
+      "description": "Fancy, wild, stylish cap",
+      "name": "HAIR",
+      "profession": "Bard",
+      "updatedAt": "2023-12-04T21:16:50.823Z",
+      "value": null,
+      "_lastChangedAt": 1701724610848,
+      "_version": 1,
+      "__typename": "Look"
+     },
+     {
+      "id": "22f28bc2-792b-4853-b0a4-697fc9de6484",
+      "createdAt": "2023-12-04T21:16:51.132Z",
+      "description": "Finery, traveling, poor",
+      "name": "CLOTHES",
+      "profession": "Bard",
+      "updatedAt": "2023-12-04T21:16:51.132Z",
+      "value": null,
+      "_lastChangedAt": 1701724611156,
+      "_version": 1,
+      "__typename": "Look"
+     }
+    ],
+    "name": "Bard",
+    "notes": [
+    ],
+    "profession": {
+     "description": "A charismatic storyteller and performer who inspires allies and disrupts enemies with music, magic, and wit.",
+     "diceType": "d4",
+     "name": "Bard",
+     "source": "DUNGEON_WORLD_CORE"
+    },
+    "race": [
+     {
+      "id": "bfa69e08-70d6-41c1-97c3-f77237e947c9",
+      "createdAt": "2023-12-05T00:18:35.491Z",
+      "description": "When you enter an important location (your call) you can ask the GM for one fact from the history of that location.",
+      "name": "Elf",
+      "profession": "Bard",
+      "selected": false,
+      "source": "Dungeon World Core",
+      "updatedAt": "2023-12-05T00:18:35.491Z",
+      "_lastChangedAt": 1701735515517,
+      "_version": 1,
+      "__typename": "Race"
+     },
+     {
+      "id": "4517636e-6302-407a-9b0e-a3467129ed28",
+      "createdAt": "2023-12-05T00:18:56.360Z",
+      "description": "When you first enter a civilized settlement someone who respects the custom of hospitality to minstrels will take you in as their guest.",
+      "name": "Human",
+      "profession": "Bard",
+      "selected": false,
+      "source": "Dungeon World Core",
+      "updatedAt": "2023-12-05T00:18:56.360Z",
+      "_lastChangedAt": 1701735536390,
+      "_version": 1,
+      "__typename": "Race"
+     },
+     {
+      "id": "fbf991ab-37f2-489a-86e2-69af02d9101c",
+      "createdAt": "2023-12-05T00:19:13.476Z",
+      "description": null,
+      "name": "Custom",
+      "profession": "Any",
+      "selected": false,
+      "source": "Dungeon World Core",
+      "updatedAt": "2023-12-05T00:19:13.476Z",
+      "_lastChangedAt": 1701735553500,
+      "_version": 1,
+      "__typename": "Race"
+     }
+    ],
+    "startingMoves": [
+     {
+      "id": "73e97ea3-7650-4918-9238-c23bbcf62600",
+      "createdAt": "2023-12-04T21:16:52.545Z",
+      "description": "When you weave a performance into a basic spell, choose an ally and an effect: \n\n  * Heal 1d8 damage\n  * +1d4 forward to damage\n  * Their mind is shaken clear of one enchantment  \n  * The next time someone successfully assists the target with aid, they get +2 instead of +1\n\nThen roll+CHA.\n  * On a 10+, the ally gets the selected effect.\n  * On a 7-9, your spell still works, but you draw unwanted attention or your magic reverberates to other targets affecting them as well, GM’s choice.",
+      "name": "Arcane Art",
+      "profession": "Bard",
+      "selected": true,
+      "source": "Dungeon World Core",
+      "updatedAt": "2023-12-04T22:51:12.550Z",
+      "_lastChangedAt": 1701730272591,
+      "_version": 7,
+      "__typename": "Move"
+     },
+     {
+      "id": "c9c73023-f3f0-45be-a41a-adddcdeb755b",
+      "createdAt": "2023-12-04T21:16:53.108Z",
+      "description": "Choose an area of expertise:\n\n  [ ] Spells and Magicks\n  [ ] The Dead and Undead\n  [ ] Grand Histories of the Known World\n  [ ] A Bestiary of Creatures Unusual\n  [ ] The Planar Spheres\n  [ ]  Legends of Heroes Past\n  [ ]  Gods and Their Servants\n\nWhen you first encounter an important creature, location, or item (your call) covered by your bardic lore you can ask the GM any one question about it; the GM will answer truthfully. The GM may then ask you what tale, song, or legend you heard that information in.",
+      "name": "Bardic Lore",
+      "profession": "Bard",
+      "selected": true,
+      "source": "Dungeon World Core",
+      "updatedAt": "2023-12-04T21:16:53.108Z",
+      "_lastChangedAt": 1701724613134,
+      "_version": 1,
+      "__typename": "Move"
+     },
+     {
+      "id": "a9e6dfe5-cdbf-43c6-8bdf-610e89880cfa",
+      "createdAt": "2023-12-04T21:16:52.804Z",
+      "description": "When you speak frankly with someone, you can ask their player a question from the list below. They must answer it truthfully, then they may ask you a question from the list (which you must answer truthfully).\n\n  * Whom do you serve?\n  * What do you wish I would do?\n  * How can I get you to _____?\n  * What are you really feeling right now?\n  * What do you most desire?",
+      "name": "Charming & Open",
+      "profession": "Bard",
+      "selected": true,
+      "source": "Dungeon World Core",
+      "updatedAt": "2023-12-04T21:16:52.804Z",
+      "_lastChangedAt": 1701724612833,
+      "_version": 1,
+      "__typename": "Move"
+     },
+     {
+      "id": "e6618cfd-47d3-46bb-bb9e-32452a415663",
+      "createdAt": "2023-12-04T21:16:53.421Z",
+      "description": "When you __return to a civilized settlement you’ve visited before__, tell the GM when you were last here. They’ll tell you how it’s changed since then.",
+      "name": "A Port In The Storm",
+      "profession": "Bard",
+      "selected": true,
+      "source": "Dungeon World Core",
+      "updatedAt": "2023-12-04T21:16:53.421Z",
+      "_lastChangedAt": 1701724613445,
+      "_version": 1,
+      "__typename": "Move"
+     }
+    ],
+    "tags": [
+    ],
+    "updatedAt": "2023-12-05T00:20:41.197Z",
+    "userId": "dec2f0ec-cb02-4425-acac-c78e241e224d",
+    "xp": null,
+    "_lastChangedAt": 1701735641239,
+    "_version": 12,
+    "__typename": "Character"
+   }

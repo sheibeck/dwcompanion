@@ -1,85 +1,74 @@
-<script setup lang="ts">
-import { RouterLink, RouterView } from 'vue-router'
-import HelloWorld from './components/HelloWorld.vue'
-</script>
 
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
+  <main>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg bg-body-tertiary d-print-none" data-bs-theme="dark">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">
+          <img alt="logo" class="nav-logo img-fluid" src="@/assets/dwlogo.png" />
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbartoggle" aria-controls="navbartoggle" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse p-2 bg-secondary m-0" id="navbartoggle">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link" href="/">Home</a>
+            </li>
+            <li v-if="isUserLoggedIn" class="nav-item">
+              <a class="nav-link" href="/characters">Characters</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/about">About</a>
+            </li>
+          </ul>
+          <div class="d-flex">
+            <button v-if="isUserLoggedIn" class="btn btn-secondary text-light btn-link" @click="globalStore.signOffUser()">Sign out</button>
+            <a v-else class="btn btn-secondary text-light" href="/login">Sign in</a>
+          </div>
+        </div>
+      </div>
+    </nav>
 
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-
-      <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
-      </nav>
+    <div class="container-fluid mt-lg-5 content">
+      <RouterView />
     </div>
-  </header>
-
-  <RouterView />
+  </main>
 </template>
 
-<style scoped>
-header {
-  line-height: 1.5;
-  max-height: 100vh;
-}
+<script setup lang="ts">
+import { RouterView, useRoute } from 'vue-router'
+import { useGlobalStore } from './stores/globalStore';
+import { computed, onMounted } from 'vue';
 
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
+const globalStore = useGlobalStore();
+const route = useRoute();
+const isLogin = computed(() => route.name === "login");
 
-nav {
-  width: 100%;
-  font-size: 12px;
-  text-align: center;
-  margin-top: 2rem;
-}
+onMounted(() => {
+  globalStore.getUserId();
+})
 
-nav a.router-link-exact-active {
-  color: var(--color-text);
-}
+const isUserLoggedIn = computed( () => {
+  const userId = globalStore.currentUser;
+  return userId !== null;
+})
 
-nav a.router-link-exact-active:hover {
-  background-color: transparent;
-}
+</script>
 
-nav a {
-  display: inline-block;
-  padding: 0 1rem;
-  border-left: 1px solid var(--color-border);
-}
 
-nav a:first-of-type {
-  border: 0;
-}
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
+<style lang="scss">
+  @import "./styles/main.scss";
 
   nav {
-    text-align: left;
-    margin-left: -1rem;
-    font-size: 1rem;
-
-    padding: 1rem 0;
-    margin-top: 1rem;
+    #navbartoggle {
+      z-index: 2;
+    }
   }
-}
+
+  @media print {
+    .content {
+        margin-top: 5px !important;
+    }
+  }
 </style>

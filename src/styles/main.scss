@@ -1,0 +1,43 @@
+@import "/node_modules/bootstrap/scss/bootstrap-reboot.scss";
+@import "/node_modules/bootstrap/scss/bootstrap.scss";
+@import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Londrina+Solid:wght@300;400&display=swap');
+
+body {
+    font-family: 'Londrina Solid', sans-serif;
+}
+
+h1 {
+    font-family: 'Cinzel Decorative', serif;
+}
+
+main {
+    .nav-logo {
+        height: 150px;
+        margin-top: 30px;
+    }
+
+    @media(max-width: 991px) {
+        .nav-logo {
+            margin-top: -10px;
+            height: 100px;
+        }
+    }
+
+    nav {
+        background-color: #181818;
+        max-height: 100px;
+        font-weight: 700;
+        font-family: 'Cinzel Decorative', serif;
+    }
+}
+
+
+// bootstrap overrides
+.form-check-input:checked {
+    background-color: black;
+    border-color: gray;
+}
+
+p {
+    margin-bottom: 8px !important;
+}
