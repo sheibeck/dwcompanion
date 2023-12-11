@@ -21,7 +21,7 @@
             </div>
             <div class="sheet-details">
                 <Identity :character="character" />
-                <div id="combat">
+                <div id="combat" class="flex-fill">
                     <Look :character="character" />
                     <Combat :character="character" />
                     <Alignment :character="character" />

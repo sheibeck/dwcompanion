@@ -1,5 +1,5 @@
 <template>
-    <div class="p-1 mb-2 look">
+    <div class="p-1 mb-2 look flex-fill">
         <div class="bg-dark text-light fs-5 p-1 mb-1 d-flex">Look <AddItem :character="character" item-type="Look" /></div>
             <div v-for="(look, index) in character.look" :index="look.id" class="item" :class="{'compact': index > 0}">
             <div class="input-group input-group-sm">

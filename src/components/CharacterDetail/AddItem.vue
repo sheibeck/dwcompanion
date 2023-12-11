@@ -1,6 +1,6 @@
 <template>
     <div class="editor d-print-none">
-        <button class="btn btn-link" type="button" @click="addNew()">
+        <button class="btn btn-link" type="button" @click="addNew()" :title="`Add new ${itemType}`">
             <img src="@/assets/plus-solid.svg" alt="add new item"/>
         </button>
     </div>

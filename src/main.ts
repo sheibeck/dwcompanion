@@ -6,6 +6,7 @@ import { Amplify } from 'aws-amplify';
 import awsconfig from './aws-exports'
 import "@aws-amplify/ui-vue/styles.css";
 import 'vue3-toastify/dist/index.css';
+import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import Vue3Toastify, { type ToastContainerOptions } from 'vue3-toastify';
 import { VueShowdownPlugin } from 'vue-showdown';
 

@@ -2,30 +2,35 @@
 <template>
   <main>
     <!-- Navigation Bar -->
-    <nav v-if="!isLogin" class="d-print-none navbar navbar-expand-lg bg-body-tertiary justify-content-between">
-      <a class="navbar-brand" href="#">
-        <img alt="logo" class="nav-logo img-fluid" src="@/assets/dwlogo.png" />
-      </a>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav">
-          <li class="nav-item p-2">
-            <a class="nav-link" href="/">Home</a>
-          </li>
-          <li v-if="isUserLoggedIn" class="nav-item p-2">
-            <a class="nav-link" href="/characters">Characters</a>
-          </li>
-          <li class="nav-item p-2">
-            <a class="nav-link" href="/about">About</a>
-          </li>
-        </ul>
-      </div>
-      <div class="ml-auto me-3">
-        <button v-if="isUserLoggedIn" class="btn btn-secondary text-light btn-link" @click="globalStore.signOffUser()">Sign out</button>
-        <a v-else class="btn btn-secondary text-light" href="/login">Sign in</a>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary" data-bs-theme="dark">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">
+          <img alt="logo" class="nav-logo img-fluid" src="@/assets/dwlogo.png" />
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbartoggle" aria-controls="navbartoggle" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse p-2 bg-secondary m-0" id="navbartoggle">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link" href="/">Home</a>
+            </li>
+            <li v-if="isUserLoggedIn" class="nav-item">
+              <a class="nav-link" href="/characters">Characters</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/about">About</a>
+            </li>
+          </ul>
+          <div class="d-flex">
+            <button v-if="isUserLoggedIn" class="btn btn-secondary text-light btn-link" @click="globalStore.signOffUser()">Sign out</button>
+            <a v-else class="btn btn-secondary text-light" href="/login">Sign in</a>
+          </div>
+        </div>
       </div>
     </nav>
 
-    <div class="container-fluid mt-5 content">
+    <div class="container-fluid mt-lg-5 content">
       <RouterView />
     </div>
   </main>
@@ -55,9 +60,15 @@ const isUserLoggedIn = computed( () => {
 <style lang="scss">
   @import "./styles/main.scss";
 
+  nav {
+    #navbartoggle {
+      z-index: 2;
+    }
+  }
+
   @media print {
-      .content {
-          margin-top: 5px !important;
-      }
+    .content {
+        margin-top: 5px !important;
+    }
   }
 </style>

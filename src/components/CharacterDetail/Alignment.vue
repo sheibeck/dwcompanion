@@ -1,5 +1,5 @@
 <template>
-    <div class="alignment">
+    <div class="alignment flex-fill">
         <div class="bg-dark text-light fs-5 p-1 d-flex">Alignment <AddItem :character="character" item-type="Alignment" /></div>
         <div v-for="(alignment, index) in character.alignment" :key="alignment.id" class="input-group input-group-lg item" :class="{'compact': index > 0}">
             <div class="input-group-text">

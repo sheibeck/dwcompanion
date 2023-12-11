@@ -1,9 +1,9 @@
 <template>
 
   <template v-if="auth.route !== 'authenticated'">
-    <div class="authentication justify-content-center vh-100">
+    <div class="authentication justify-content-center">
       <header>
-        <img alt="logo" class="logo" src="@/assets/dwlogo.png" />
+        <img alt="logo" class="img-fluid" src="@/assets/dwlogo.png" />
       </header>
 
       <authenticator :login-mechanisms="['email', 'name']" :social-providers="['google']">
@@ -43,10 +43,8 @@ onMounted(async () => {
     display: flex;
   }
 
-  .logo {
-    display: block;
-    margin: 0 auto 2rem;
-    max-width: 300px;
+  img {
+    max-height: 500px;
   }
 
   @media (min-width: 1024px) {

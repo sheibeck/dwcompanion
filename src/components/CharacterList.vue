@@ -1,8 +1,8 @@
 <template>
     <div>
         <h1>Characters</h1>
-        <div class="d-flex">
-            <div v-for="character in characterList" class="card m-2" style="width: 18rem;">
+        <div class="d-md-flex">
+            <div v-for="character in characterList" class="card m-2">
                 <div class="card-body">
                     <h5 class="card-title">{{ character.name }}</h5>
                     <h6 class="card-subtitle mb-2 text-body-secondary">{{ character.profession?.name ?? "Unknown" }}</h6>
