@@ -60,15 +60,5 @@
       "service": "Cognito"
     }
   },
-  "function": {},
-  "parameters": {
-    "AMPLIFY_auth_dungeonworldcompf878a003_googleClientId": {
-      "usedBy": [
-        {
-          "category": "auth",
-          "resourceName": "dungeonworldcompf878a003"
-        }
-      ]
-    }
-  }
+  "function": {}
 }
