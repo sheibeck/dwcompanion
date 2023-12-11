@@ -13,7 +13,9 @@
     },
     "categories": {
       "auth": {
-        "dungeonworldcompaniob8bc0bb5b8bc0bb5": {},
+        "dungeonworldcompaniob8bc0bb5b8bc0bb5": {
+          "googleClientId": "110657226307-cnoh4q4r2rho9n08ec7obk67fcmlivah.apps.googleusercontent.com"
+        },
         "userPoolGroups": {}
       },
       "api": {

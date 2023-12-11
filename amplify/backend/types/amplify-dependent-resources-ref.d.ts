@@ -10,8 +10,11 @@ export type AmplifyDependentResourcesAttributes = {
     "dungeonworldcompaniob8bc0bb5b8bc0bb5": {
       "AppClientID": "string",
       "AppClientIDWeb": "string",
+      "GoogleWebClient": "string",
+      "HostedUIDomain": "string",
       "IdentityPoolId": "string",
       "IdentityPoolName": "string",
+      "OAuthMetadata": "string",
       "UserPoolArn": "string",
       "UserPoolId": "string",
       "UserPoolName": "string"

@@ -53,7 +53,9 @@
         "signupAttributes": [
           "EMAIL"
         ],
-        "socialProviders": [],
+        "socialProviders": [
+          "GOOGLE"
+        ],
         "usernameAttributes": [
           "EMAIL"
         ],
@@ -79,6 +81,16 @@
       ],
       "providerPlugin": "awscloudformation",
       "service": "Cognito-UserPool-Groups"
+    }
+  },
+  "parameters": {
+    "AMPLIFY_auth_dungeonworldcompaniob8bc0bb5b8bc0bb5_googleClientId": {
+      "usedBy": [
+        {
+          "category": "auth",
+          "resourceName": "dungeonworldcompaniob8bc0bb5b8bc0bb5"
+        }
+      ]
     }
   }
 }
