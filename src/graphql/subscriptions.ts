@@ -149,6 +149,7 @@ export const onCreateGear = /* GraphQL */ `subscription OnCreateGear($filter: Mo
     description
     isStartingGear
     profession
+    source
     createdAt
     updatedAt
     _version
@@ -167,6 +168,7 @@ export const onUpdateGear = /* GraphQL */ `subscription OnUpdateGear($filter: Mo
     description
     isStartingGear
     profession
+    source
     createdAt
     updatedAt
     _version
@@ -185,6 +187,7 @@ export const onDeleteGear = /* GraphQL */ `subscription OnDeleteGear($filter: Mo
     description
     isStartingGear
     profession
+    source
     createdAt
     updatedAt
     _version

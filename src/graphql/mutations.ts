@@ -164,6 +164,7 @@ export const createGear = /* GraphQL */ `mutation CreateGear(
     description
     isStartingGear
     profession
+    source
     createdAt
     updatedAt
     _version
@@ -185,6 +186,7 @@ export const updateGear = /* GraphQL */ `mutation UpdateGear(
     description
     isStartingGear
     profession
+    source
     createdAt
     updatedAt
     _version
@@ -206,6 +208,7 @@ export const deleteGear = /* GraphQL */ `mutation DeleteGear(
     description
     isStartingGear
     profession
+    source
     createdAt
     updatedAt
     _version
