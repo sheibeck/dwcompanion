@@ -188,6 +188,7 @@ export const getGear = /* GraphQL */ `query GetGear($id: ID!) {
     description
     isStartingGear
     profession
+    source
     createdAt
     updatedAt
     _version
@@ -208,6 +209,7 @@ export const listGears = /* GraphQL */ `query ListGears(
       description
       isStartingGear
       profession
+      source
       createdAt
       updatedAt
       _version
@@ -238,6 +240,7 @@ export const syncGears = /* GraphQL */ `query SyncGears(
       description
       isStartingGear
       profession
+      source
       createdAt
       updatedAt
       _version
