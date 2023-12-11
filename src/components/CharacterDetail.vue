@@ -77,7 +77,7 @@
             </div>
         </div>
 
-        <div class="d-print-none action-bar d-flex justify-content-end border-top pt-2" v-if="isAuthenticated">
+        <div class="d-print-none action-bar d-flex justify-content-end border-top p-2 mt-5" v-if="isAuthenticated">
             <a href="/characters" type="button" class="btn btn-danger me-2">Close</a>
             <button type="button" class="btn btn-secondary me-2" @click="nextPage()"> View {{ pageLabel }}</button>
             <button type="button" class="btn btn-secondary me-2" @click="printCharacter()">Print</button>
@@ -339,6 +339,10 @@ function printCharacter() {
     .character {
         margin: 0px !important;
         padding: 0px !important;
+
+        .page {
+            padding: 10px;
+        }
     }
 }
 

@@ -83,7 +83,7 @@ function addNew() {
         button {
             padding: 0;
             padding-left: 5px;
-            margin-top: -7px;
+            margin-top: -3px;
         }
     }
 </style>

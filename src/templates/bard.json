@@ -313,6 +313,18 @@
     ],
     "tags": [
     ],
+    "gear": [
+        {
+            "id": "cd27535c-97cb-4687-8dad-37859888c64d",
+            "createdAt": "2023-12-11T22:44:12.120Z",
+            "description": "You have dungeon rations (5 uses, 1 weight). \n\nChoose one instrument, all are 0 weight for you:  \n\n- [ ] Your father’s mandolin, repaired \n- [ ] A fine lute, a gift from a noble \n- [ ] The pipes with which you courted your first love \n- [ ] A stolen horn A fiddle, never before played \n- [ ] A songbook in a forgotten tongue \n\nChoose your clothing:  \n\n- [ ] Leather armor (1 armor, 1 weight) \n- [ ] Ostentatious clothes (0 weight) \n\nChoose your armament:  \n\n- [ ] Dueling rapier (close, precise, 2 weight) \n- [ ] Worn bow (near, 2 weight), bundle of arrows (3 ammo, 1 weight), and short sword (close, 1 weight) \n\nChoose one:  \n- [ ] Adventuring gear (1 weight) \n- [ ] Bandages (0 weight) \n- [ ] Halfling pipeleaf (0 weight) \n- [ ] 3 coins",
+            "isStartingGear": true,
+            "profession": "Bard",
+            "source": "Dungeon World Core",
+            "updatedAt": "2023-12-11T22:44:12.120Z",
+            "__typename": "Gear"
+           }
+    ],
     "updatedAt": "2023-12-05T00:20:41.197Z",
     "userId": "dec2f0ec-cb02-4425-acac-c78e241e224d",
     "xp": null,

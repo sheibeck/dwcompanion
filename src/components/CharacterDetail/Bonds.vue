@@ -50,6 +50,7 @@ initialize();
             input {
                 border: unset;
                 border-bottom: 1px solid black;
+                max-height: 20px;
             }
         }
 }

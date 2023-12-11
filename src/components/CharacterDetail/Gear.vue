@@ -1,7 +1,7 @@
 <template>
     <div class="">
         <div class="input-group">
-            <span class="input-group-text w-50 fs-5 bg-dark text-light label d-flex">Starting Gear <AddItem :character="character" item-type="Gear" /></span>
+            <span class="input-group-text w-50 fs-5 bg-dark text-light label d-flex">Gear <AddItem :character="character" item-type="Gear" /></span>
             <input type="number" min="0" class="pe-0 form-control fs-5 text-center" aria-describedby="gear-description"
                 :value="character.loadMax">
             <input type="number" min="0" class="pe-0 form-control fs-5 text-center" aria-describedby="gear-description"
@@ -40,9 +40,17 @@ initialize();
 <style scoped lang="scss">
 
     .gear {
-        line-height: .5em
+        line-height: .9em;
     }
         
     @media print {
+        .card-title {
+            font-size: 1.1em;
+
+            input {
+                height: 10px !important;
+                width: 10px !important;
+            }
+        }
     }
 </style>

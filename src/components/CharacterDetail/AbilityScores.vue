@@ -77,7 +77,11 @@ function getAbilityScoreBonus(abilityScore: number): number {
     grid-template-columns: 50% 50%;
 
     .ability {
-        margin: 2px;
+        .fs-5 {
+            font-size: 1.0em !important;
+        }
+
+        margin: 1px;
 
         .debility {
             .form-check {
@@ -85,7 +89,7 @@ function getAbilityScoreBonus(abilityScore: number): number {
             }
 
             label {
-                font-size: .88em;
+                font-size: .8em;
             }
         }
     }
@@ -114,7 +118,7 @@ function getAbilityScoreBonus(abilityScore: number): number {
     .debility {
         
         label {
-            font-size: .88em;
+            font-size: .8em;
         }
     }
 }
