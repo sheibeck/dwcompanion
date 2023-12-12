@@ -189,6 +189,7 @@ export const onCreateMove = /* GraphQL */ `subscription OnCreateMove($filter: Mo
     isAdvancedMove
     isTwoToTenMove
     isSixToTenMove
+    isOverflow
     createdAt
     updatedAt
     __typename
@@ -211,6 +212,7 @@ export const onUpdateMove = /* GraphQL */ `subscription OnUpdateMove($filter: Mo
     isAdvancedMove
     isTwoToTenMove
     isSixToTenMove
+    isOverflow
     createdAt
     updatedAt
     __typename
@@ -233,6 +235,7 @@ export const onDeleteMove = /* GraphQL */ `subscription OnDeleteMove($filter: Mo
     isAdvancedMove
     isTwoToTenMove
     isSixToTenMove
+    isOverflow
     createdAt
     updatedAt
     __typename

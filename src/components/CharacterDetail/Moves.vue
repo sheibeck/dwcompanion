@@ -31,9 +31,10 @@ import EditableDescription from '@/components/CharacterDetail/EditableDescriptio
 import AddItem from '@/components/CharacterDetail/AddItem.vue';
 
 
-const { character, moveType } = defineProps<{
+const { character, moveType, isOverflow} = defineProps<{
     character: any;
     moveType: MoveType;
+    isOverflow?: Boolean;
 }>();
 
 const allMoves = ref<any>();
@@ -58,15 +59,15 @@ function deleteItem(id: String): any {
 const getMoveList = computed(() =>{ 
     switch(moveType) {
         case MoveType.STARTING_MOVES:
-            return character.startingMoves;
+            return character.startingMoves?.sort((a: any, b: any) => a.description.length - b.description.length);
             break;
 
         case MoveType.TWO_TO_TEN:
-            return character.advancedMovesTwoToTen;
+            return character.advancedMovesTwoToTen?.sort((a: any, b: any) => a.description.length - b.description.length);
             break;
 
         case MoveType.SIX_TO_TEN:
-            return character.advancedMovesSixToTen;
+            return character.advancedMovesSixToTen?.sort((a: any, b: any) => a.description.length - b.description.length);
         break;
     }
 })
@@ -75,7 +76,13 @@ function getMovesByType(): any {
     switch(moveType) {
         case MoveType.STARTING_MOVES:
             if (!character.startingMoves || character.startingMoves.length === 0) {
-                const moves = allMoves.value.filter( (m: any) => m.isStartingMove == true);
+                let moves;
+                if (isOverflow) {
+                    moves = allMoves.value.filter( (m: any) => m.isStartingMove == true && m.isOverflow == true)
+                }
+                else {
+                    moves = allMoves.value.filter( (m: any) => m.isStartingMove == true && !m.isOverflow)
+                }
                 if (moves.length > 0) {
                     character.startingMoves = [];
 

@@ -220,6 +220,7 @@ export type CreateMoveInput = {
   isAdvancedMove?: boolean | null,
   isTwoToTenMove?: boolean | null,
   isSixToTenMove?: boolean | null,
+  isOverflow?: boolean | null,
 };
 
 export type ModelMoveConditionInput = {
@@ -233,6 +234,7 @@ export type ModelMoveConditionInput = {
   isAdvancedMove?: ModelBooleanInput | null,
   isTwoToTenMove?: ModelBooleanInput | null,
   isSixToTenMove?: ModelBooleanInput | null,
+  isOverflow?: ModelBooleanInput | null,
   and?: Array< ModelMoveConditionInput | null > | null,
   or?: Array< ModelMoveConditionInput | null > | null,
   not?: ModelMoveConditionInput | null,
@@ -251,6 +253,7 @@ export type Move = {
   isAdvancedMove?: boolean | null,
   isTwoToTenMove?: boolean | null,
   isSixToTenMove?: boolean | null,
+  isOverflow?: boolean | null,
   createdAt: string,
   updatedAt: string,
 };
@@ -267,6 +270,7 @@ export type UpdateMoveInput = {
   isAdvancedMove?: boolean | null,
   isTwoToTenMove?: boolean | null,
   isSixToTenMove?: boolean | null,
+  isOverflow?: boolean | null,
 };
 
 export type DeleteMoveInput = {
@@ -720,6 +724,7 @@ export type ModelMoveFilterInput = {
   isAdvancedMove?: ModelBooleanInput | null,
   isTwoToTenMove?: ModelBooleanInput | null,
   isSixToTenMove?: ModelBooleanInput | null,
+  isOverflow?: ModelBooleanInput | null,
   and?: Array< ModelMoveFilterInput | null > | null,
   or?: Array< ModelMoveFilterInput | null > | null,
   not?: ModelMoveFilterInput | null,
@@ -956,6 +961,7 @@ export type ModelSubscriptionMoveFilterInput = {
   isAdvancedMove?: ModelSubscriptionBooleanInput | null,
   isTwoToTenMove?: ModelSubscriptionBooleanInput | null,
   isSixToTenMove?: ModelSubscriptionBooleanInput | null,
+  isOverflow?: ModelSubscriptionBooleanInput | null,
   and?: Array< ModelSubscriptionMoveFilterInput | null > | null,
   or?: Array< ModelSubscriptionMoveFilterInput | null > | null,
 };
@@ -1248,6 +1254,7 @@ export type CreateMoveMutation = {
     isAdvancedMove?: boolean | null,
     isTwoToTenMove?: boolean | null,
     isSixToTenMove?: boolean | null,
+    isOverflow?: boolean | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -1272,6 +1279,7 @@ export type UpdateMoveMutation = {
     isAdvancedMove?: boolean | null,
     isTwoToTenMove?: boolean | null,
     isSixToTenMove?: boolean | null,
+    isOverflow?: boolean | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -1296,6 +1304,7 @@ export type DeleteMoveMutation = {
     isAdvancedMove?: boolean | null,
     isTwoToTenMove?: boolean | null,
     isSixToTenMove?: boolean | null,
+    isOverflow?: boolean | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -1865,6 +1874,7 @@ export type GetMoveQuery = {
     isAdvancedMove?: boolean | null,
     isTwoToTenMove?: boolean | null,
     isSixToTenMove?: boolean | null,
+    isOverflow?: boolean | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -1892,6 +1902,7 @@ export type ListMovesQuery = {
       isAdvancedMove?: boolean | null,
       isTwoToTenMove?: boolean | null,
       isSixToTenMove?: boolean | null,
+      isOverflow?: boolean | null,
       createdAt: string,
       updatedAt: string,
     } | null >,
@@ -2388,6 +2399,7 @@ export type OnCreateMoveSubscription = {
     isAdvancedMove?: boolean | null,
     isTwoToTenMove?: boolean | null,
     isSixToTenMove?: boolean | null,
+    isOverflow?: boolean | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -2411,6 +2423,7 @@ export type OnUpdateMoveSubscription = {
     isAdvancedMove?: boolean | null,
     isTwoToTenMove?: boolean | null,
     isSixToTenMove?: boolean | null,
+    isOverflow?: boolean | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -2434,6 +2447,7 @@ export type OnDeleteMoveSubscription = {
     isAdvancedMove?: boolean | null,
     isTwoToTenMove?: boolean | null,
     isSixToTenMove?: boolean | null,
+    isOverflow?: boolean | null,
     createdAt: string,
     updatedAt: string,
   } | null,
