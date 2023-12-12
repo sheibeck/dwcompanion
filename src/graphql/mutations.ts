@@ -17,6 +17,7 @@ export const createProfession = /* GraphQL */ `mutation CreateProfession(
     description
     diceType
     source
+    healthBonus
     id
     createdAt
     updatedAt
@@ -36,6 +37,7 @@ export const updateProfession = /* GraphQL */ `mutation UpdateProfession(
     description
     diceType
     source
+    healthBonus
     id
     createdAt
     updatedAt
@@ -55,6 +57,7 @@ export const deleteProfession = /* GraphQL */ `mutation DeleteProfession(
     description
     diceType
     source
+    healthBonus
     id
     createdAt
     updatedAt
