@@ -10,7 +10,7 @@
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbartoggle" aria-controls="navbartoggle" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse p-2 bg-secondary m-0" id="navbartoggle">
+        <div class="collapse navbar-collapse bg-body-tertiary m-0" id="navbartoggle">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
               <a class="nav-link" href="/">Home</a>
@@ -19,7 +19,7 @@
               <a class="nav-link" href="/characters">Characters</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/about">About</a>
+              <a class="nav-link" target="_blank" href="https://github.com/sheibeck/dwcompanion/wiki/Dungeon-World-Companion">Support</a>
             </li>
           </ul>
           <div class="d-flex">

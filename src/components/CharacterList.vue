@@ -1,6 +1,11 @@
 <template>
     <div>
-        <h1>Characters</h1>
+        <div class="d-flex">
+            <h1>Characters</h1>
+            <div>
+                <a href="/" class="btn btn-secondary ms-2"><img src="@/assets/plus-solid.svg" alt="create a character"/> Create a Character</a>
+            </div>
+        </div>
         <div class="d-md-flex">
             <div v-for="character in characterList" class="card m-2">
                 <div class="card-body">
@@ -11,8 +16,6 @@
                 </div>
             </div>
         </div>
-       
-        <a href="/" class="btn btn-secondary">Create a Character</a>
     </div>
 </template>
 

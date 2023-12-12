@@ -1,7 +1,7 @@
 <template>
     <div class="p-1 mb-2 look flex-fill">
         <div class="bg-dark text-light fs-5 p-1 mb-1 d-flex">Look <AddItem :character="character" item-type="Look" /></div>
-            <div v-for="(look, index) in character.look" :index="look.id" class="item" :class="{'compact': index > 0}">
+            <div v-for="(look, index) in character.look" :index="look.id" class="item" :class="{'compact': index > -1}">
             <div class="input-group input-group-sm">
                 <span class="me-1 mt-2 fs-6 name">
                     <EditableDescription :item="look.name" :item-id="look.id" 
@@ -41,7 +41,8 @@ initialize();
 
 <style scoped lang="scss">
 .look {
-   
+    line-height: 1.25em;
+
     .item {
         line-height: .5em;
     }
@@ -66,11 +67,20 @@ initialize();
         .item {
             &.compact {
                 padding: 0px !important;
-                line-height: .75em;
+                line-height: .6em;
+
+                input {
+                    max-height: 20px;
+                }
             }
 
             .description {
                 margin-top: 0px;
+            }
+
+            .form-text {
+                padding-top: 0px;
+                margin-top: -2px;
             }
         }
     }

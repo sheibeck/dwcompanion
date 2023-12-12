@@ -1,8 +1,8 @@
 <template>
-    <div class="p-1 mb-2 moves">
-        <div class="bg-dark text-light fs-5 ps-1 mb-1 d-flex">{{ movesLabel }} <AddItem v-if="addItemType" :character="character" :item-type="addItemType" /></div>
+    <div class="p-1 mb-0 moves">
+        <div class="bg-dark text-light fs-5 ps-0 mb-0 d-flex">{{ movesLabel }} <AddItem v-if="addItemType" :character="character" :item-type="addItemType" /></div>
         <div class="items">
-            <div v-for="(move, index) in getMoveList" :index="move.id" class="card m-1" :class="{'compact': index > 0}">
+            <div v-for="(move, index) in getMoveList" :index="move.id" class="card" :class="{'compact': index > 0}">
                 <div class="card-body p-0">
                     <h5 class="card-title pb-0 mb-0 d-flex">
                         <input type="checkbox" class="form-check-input me-1" v-model="move.selected" /> 
@@ -81,7 +81,7 @@ function getMovesByType(): any {
 
                     moves.forEach((move: any) => {
                         move.selected = move.selectedOnNew;
-                        character.startingMoves.push(moves);
+                        character.startingMoves.push(move);
                     });
                 }
             }
@@ -95,7 +95,7 @@ function getMovesByType(): any {
                 if (moves.length > 0) {
                     character.advancedMovesTwoToTen = [];
                     moves.forEach((move: any) => {
-                        character.advancedMovesTwoToTen.push(moves);
+                        character.advancedMovesTwoToTen.push(move);
                     });
                 }
             }
@@ -109,7 +109,7 @@ function getMovesByType(): any {
                 if (moves.length > 0) {
                     character.advancedMovesSixToTen = [];
                     moves.forEach((move: any) => {
-                        character.advancedMovesSixToTen.push(moves);
+                        character.advancedMovesSixToTen.push(move);
                     });
                 }
             }
@@ -142,6 +142,7 @@ ol, ul, dl, p {
     .items {
         display:grid;
         grid-template-columns: 1fr;
+        column-gap: 2px;
 
         .card {
             border: 0;
@@ -151,8 +152,8 @@ ol, ul, dl, p {
             }
 
             .form-check-input {
-                width: 20px;
-                height: 20px;
+                width: 15px;
+                height: 15px;
             }
         }
     }
@@ -168,7 +169,8 @@ ol, ul, dl, p {
     .moves {   
         .card-text {
             font-size: .9em;
-            line-height: 1.0em;
+            line-height: .85em;
+            margin-top: -10px !important;;
         }
     }
 }
