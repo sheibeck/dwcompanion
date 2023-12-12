@@ -7,6 +7,7 @@ export type CreateProfessionInput = {
   description: string,
   diceType: string,
   source: string,
+  healthBonus?: number | null,
   id?: string | null,
 };
 
@@ -15,6 +16,7 @@ export type ModelProfessionConditionInput = {
   description?: ModelStringInput | null,
   diceType?: ModelStringInput | null,
   source?: ModelStringInput | null,
+  healthBonus?: ModelIntInput | null,
   and?: Array< ModelProfessionConditionInput | null > | null,
   or?: Array< ModelProfessionConditionInput | null > | null,
   not?: ModelProfessionConditionInput | null,
@@ -60,12 +62,25 @@ export type ModelSizeInput = {
   between?: Array< number | null > | null,
 };
 
+export type ModelIntInput = {
+  ne?: number | null,
+  eq?: number | null,
+  le?: number | null,
+  lt?: number | null,
+  ge?: number | null,
+  gt?: number | null,
+  between?: Array< number | null > | null,
+  attributeExists?: boolean | null,
+  attributeType?: ModelAttributeTypes | null,
+};
+
 export type Profession = {
   __typename: "Profession",
   name: string,
   description: string,
   diceType: string,
   source: string,
+  healthBonus?: number | null,
   id: string,
   createdAt: string,
   updatedAt: string,
@@ -76,6 +91,7 @@ export type UpdateProfessionInput = {
   description?: string | null,
   diceType?: string | null,
   source?: string | null,
+  healthBonus?: number | null,
   id: string,
 };
 
@@ -109,18 +125,6 @@ export type ModelSpellConditionInput = {
   and?: Array< ModelSpellConditionInput | null > | null,
   or?: Array< ModelSpellConditionInput | null > | null,
   not?: ModelSpellConditionInput | null,
-};
-
-export type ModelIntInput = {
-  ne?: number | null,
-  eq?: number | null,
-  le?: number | null,
-  lt?: number | null,
-  ge?: number | null,
-  gt?: number | null,
-  between?: Array< number | null > | null,
-  attributeExists?: boolean | null,
-  attributeType?: ModelAttributeTypes | null,
 };
 
 export type ModelBooleanInput = {
@@ -653,6 +657,7 @@ export type ModelProfessionFilterInput = {
   description?: ModelStringInput | null,
   diceType?: ModelStringInput | null,
   source?: ModelStringInput | null,
+  healthBonus?: ModelIntInput | null,
   and?: Array< ModelProfessionFilterInput | null > | null,
   or?: Array< ModelProfessionFilterInput | null > | null,
   not?: ModelProfessionFilterInput | null,
@@ -862,6 +867,7 @@ export type ModelSubscriptionProfessionFilterInput = {
   description?: ModelSubscriptionStringInput | null,
   diceType?: ModelSubscriptionStringInput | null,
   source?: ModelSubscriptionStringInput | null,
+  healthBonus?: ModelSubscriptionIntInput | null,
   and?: Array< ModelSubscriptionProfessionFilterInput | null > | null,
   or?: Array< ModelSubscriptionProfessionFilterInput | null > | null,
 };
@@ -879,6 +885,18 @@ export type ModelSubscriptionStringInput = {
   beginsWith?: string | null,
   in?: Array< string | null > | null,
   notIn?: Array< string | null > | null,
+};
+
+export type ModelSubscriptionIntInput = {
+  ne?: number | null,
+  eq?: number | null,
+  le?: number | null,
+  lt?: number | null,
+  ge?: number | null,
+  gt?: number | null,
+  between?: Array< number | null > | null,
+  in?: Array< number | null > | null,
+  notIn?: Array< number | null > | null,
 };
 
 export type ModelSubscriptionSpellFilterInput = {
@@ -909,18 +927,6 @@ export type ModelSubscriptionIDInput = {
   beginsWith?: string | null,
   in?: Array< string | null > | null,
   notIn?: Array< string | null > | null,
-};
-
-export type ModelSubscriptionIntInput = {
-  ne?: number | null,
-  eq?: number | null,
-  le?: number | null,
-  lt?: number | null,
-  ge?: number | null,
-  gt?: number | null,
-  between?: Array< number | null > | null,
-  in?: Array< number | null > | null,
-  notIn?: Array< number | null > | null,
 };
 
 export type ModelSubscriptionBooleanInput = {
@@ -1055,6 +1061,7 @@ export type CreateProfessionMutation = {
     description: string,
     diceType: string,
     source: string,
+    healthBonus?: number | null,
     id: string,
     createdAt: string,
     updatedAt: string,
@@ -1073,6 +1080,7 @@ export type UpdateProfessionMutation = {
     description: string,
     diceType: string,
     source: string,
+    healthBonus?: number | null,
     id: string,
     createdAt: string,
     updatedAt: string,
@@ -1091,6 +1099,7 @@ export type DeleteProfessionMutation = {
     description: string,
     diceType: string,
     source: string,
+    healthBonus?: number | null,
     id: string,
     createdAt: string,
     updatedAt: string,
@@ -1717,6 +1726,7 @@ export type GetProfessionQuery = {
     description: string,
     diceType: string,
     source: string,
+    healthBonus?: number | null,
     id: string,
     createdAt: string,
     updatedAt: string,
@@ -1738,6 +1748,7 @@ export type ListProfessionsQuery = {
       description: string,
       diceType: string,
       source: string,
+      healthBonus?: number | null,
       id: string,
       createdAt: string,
       updatedAt: string,
@@ -2199,6 +2210,7 @@ export type OnCreateProfessionSubscription = {
     description: string,
     diceType: string,
     source: string,
+    healthBonus?: number | null,
     id: string,
     createdAt: string,
     updatedAt: string,
@@ -2216,6 +2228,7 @@ export type OnUpdateProfessionSubscription = {
     description: string,
     diceType: string,
     source: string,
+    healthBonus?: number | null,
     id: string,
     createdAt: string,
     updatedAt: string,
@@ -2233,6 +2246,7 @@ export type OnDeleteProfessionSubscription = {
     description: string,
     diceType: string,
     source: string,
+    healthBonus?: number | null,
     id: string,
     createdAt: string,
     updatedAt: string,

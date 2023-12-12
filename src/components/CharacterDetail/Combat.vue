@@ -12,7 +12,7 @@
             <input type="text" class="form-control fs-5 text-center" aria-describedby="hitpoint-description"
                 v-model="character.hitPointsCurrent">
         </div>
-        <div class="form-text text-end mb-2 label" id="hitpoint-description">Max (8 + Constitution) / Current</div>
+        <div class="form-text text-end mb-2 label" id="hitpoint-description">Max ({{ character.profession.healthBonus }} + Constitution) / Current</div>
 
         <div class="input-group">
             <span class="input-group-text w-75 fs-5 bg-dark text-light label">Damage</span>
