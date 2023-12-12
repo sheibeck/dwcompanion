@@ -74,7 +74,7 @@
       "Google"
     ],
     "hostedUIProviderMeta": "[{\"ProviderName\":\"Google\",\"authorize_scopes\":\"openid email profile\",\"AttributeMapping\":{\"email\":\"email\",\"username\":\"sub\"}}]",
-    "oAuthMetadata": "{\"AllowedOAuthFlows\":[\"code\"],\"AllowedOAuthScopes\":[\"phone\",\"email\",\"openid\",\"profile\",\"aws.cognito.signin.user.admin\"],\"CallbackURLs\":[\"https://localhost:5173/\"],\"LogoutURLs\":[\"https://localhost:5173/\"]}",
+    "oAuthMetadata": "{\"AllowedOAuthFlows\":[\"code\"],\"AllowedOAuthScopes\":[\"phone\",\"email\",\"openid\",\"profile\",\"aws.cognito.signin.user.admin\"],\"CallbackURLs\":[\"https://localhost:5173/\",\"https://dungeon-world-companion.com/\",\"https://develop.d22ubsc9vqy9d1.amplifyapp.com/\"],\"LogoutURLs\":[\"https://localhost:5173/\",\"https://dungeon-world-companion.com/\",\"https://develop.d22ubsc9vqy9d1.amplifyapp.com/\"]}",
     "authProviders": []
   }
 }
