@@ -213,6 +213,7 @@ export const createMove = /* GraphQL */ `mutation CreateMove(
     isAdvancedMove
     isTwoToTenMove
     isSixToTenMove
+    isOverflow
     createdAt
     updatedAt
     __typename
@@ -238,6 +239,7 @@ export const updateMove = /* GraphQL */ `mutation UpdateMove(
     isAdvancedMove
     isTwoToTenMove
     isSixToTenMove
+    isOverflow
     createdAt
     updatedAt
     __typename
@@ -263,6 +265,7 @@ export const deleteMove = /* GraphQL */ `mutation DeleteMove(
     isAdvancedMove
     isTwoToTenMove
     isSixToTenMove
+    isOverflow
     createdAt
     updatedAt
     __typename

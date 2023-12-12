@@ -39,6 +39,7 @@ type Move @model @auth(rules: [{allow: private, operations: [read], provider: ia
   isAdvancedMove: Boolean
   isTwoToTenMove: Boolean
   isSixToTenMove: Boolean
+  isOverflow: Boolean
 }
 
 type Bond @model @auth(rules: [{allow: private, operations: [read], provider: iam}, {allow: private, operations: [read]}, {allow: public, operations: [read], provider: iam}]) {

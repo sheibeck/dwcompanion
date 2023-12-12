@@ -144,6 +144,7 @@ export const getMove = /* GraphQL */ `query GetMove($id: ID!) {
     isAdvancedMove
     isTwoToTenMove
     isSixToTenMove
+    isOverflow
     createdAt
     updatedAt
     __typename
@@ -168,6 +169,7 @@ export const listMoves = /* GraphQL */ `query ListMoves(
       isAdvancedMove
       isTwoToTenMove
       isSixToTenMove
+      isOverflow
       createdAt
       updatedAt
       __typename
