@@ -6,7 +6,7 @@
                 <input class="form-check-input mt-0" type="checkbox" v-model="alignment.selected"
                     :aria-label="`Alignment checkbox for ${alignment.name}`">
             </div>
-            <div class="form-text p-1">
+            <div class="form-text p-1 flex-fill">
                 <div class="fs-5 text-dark">
                     <EditableDescription :item="alignment.name" :item-id="alignment.id"
                             @save-item="(data) => alignment.name = data"

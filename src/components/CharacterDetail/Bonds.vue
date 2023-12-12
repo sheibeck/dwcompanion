@@ -1,6 +1,6 @@
 <template>
-    <div class="p-1 mt-0 mb-2">
-        <div class="bg-dark text-light fs-5 ps-1 d-flex">Bonds <AddItem :character="character" item-type="Bond" /> </div>
+    <div class="bonds flex-fill">
+        <div class="bg-dark text-light fs-5 p-1 d-flex">Bonds <AddItem :character="character" item-type="Bond" /> </div>
         <div v-for="(bond, index) in character.bonds" :key="bond.id" class="item" :class="{'compact': index > 0}">
             <div class="input-group input-group-sm">
                 <input type="text" class="form-control" v-model="bond.value" />
@@ -36,6 +36,10 @@ initialize();
 </script>
 
 <style scoped lang="scss">
+
+.bonds {
+    line-height: 1.25em;
+    
     .item {
         line-height: .9em;
 
@@ -53,6 +57,7 @@ initialize();
                 max-height: 20px;
             }
         }
+    }
 }
         
     @media print {

@@ -1,18 +1,18 @@
 <template>
-    <div id="identity" class="">
+    <div id="identity" class="" data-bs-theme="dark">
         <div class="input-group mb-2 pe-md-2">
-            <span class="input-group-text" id="name">Name</span>
-            <input type="text" class="form-control" aria-label="Name" aria-describedby="name"
+            <span class="input-group-text text-dark" id="name">Name</span>
+            <input type="text" class="form-control text-dark" aria-label="Name" aria-describedby="name"
                 v-model="character.name">
         </div>
         <div class="input-group mb-2 pe-md-2">
-            <span class="input-group-text" id="level">Level</span>
-            <input type="text" class="form-control" aria-label="Level"
+            <span class="input-group-text text-dark" id="level">Level</span>
+            <input type="text" class="form-control text-dark" aria-label="Level"
                 aria-describedby="level" v-model="character.level">
         </div>
         <div class="input-group mb-2">
-            <span class="input-group-text" id="xp">XP</span>
-            <input type="text" class="form-control" aria-label="XP" aria-describedby="xp"
+            <span class="input-group-text text-dark" id="xp">XP</span>
+            <input type="text" class="form-control text-dark" aria-label="XP" aria-describedby="xp"
                 v-model="character.xp">
         </div>
     </div>

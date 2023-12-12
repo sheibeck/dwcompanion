@@ -1,12 +1,12 @@
 <template>
-    <div class="p-1 blood">
+    <div class="blood flex-fill">
         <div class="bg-dark text-light fs-5 p-1 d-flex">Blood  <AddItem :character="character" item-type="Race" /></div>
         <div v-for="(race, index) in character.race" :key="race.id" class="input-group input-group-lg item" :class="{'compact': index > 0}">
             <div class="input-group-text">
                 <input class="form-check-input mt-0 p-0" type="checkbox" v-model="race.selected"
                     :aria-label="`Blood checkbox for ${race.name}`">
             </div>
-            <div class="form-text p-1">
+            <div class="form-text p-1 flex-fill">
                 <div class="fs-5 p-0 m-0 name text-dark">
                     <EditableDescription :item="race.name" :item-id="race.id"
                         @save-item="(data) => race.name = data"
@@ -40,16 +40,14 @@ initialize();
 
 <style scoped lang="scss">
  .blood {
-    line-height: .9em;
+    line-height: 1.25em;
     
     .name {
         margin-bottom: -5px !important;
     }
 
     .description {
-      p {
-        margin-bottom: 0px !important;
-      }
+        line-height: .9em;
     }
 
     div {
@@ -73,10 +71,6 @@ initialize();
             &.compact {
                 margin-top: -12px !important;
                 padding: 0px !important;
-            }
-            
-            .form-text {
-                margin-top: -2px !important;
             }
     
             .input-group-text {
