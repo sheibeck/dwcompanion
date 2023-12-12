@@ -10,6 +10,10 @@ import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import Vue3Toastify, { type ToastContainerOptions } from 'vue3-toastify';
 import { VueShowdownPlugin } from 'vue-showdown';
 
+
+awsconfig.oauth.redirectSignIn = `${window.location.origin}/`;
+awsconfig.oauth.redirectSignOut = `${window.location.origin}/`;
+
 Amplify.configure(awsconfig);
 
 const app = createApp(App);
