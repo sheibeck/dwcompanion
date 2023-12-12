@@ -1,17 +1,17 @@
 <template>
-    <div class="p-1 mb-0 moves">
-        <div class="bg-dark text-light fs-5 ps-0 mb-0 d-flex">{{ movesLabel }} <AddItem v-if="addItemType" :character="character" :item-type="addItemType" /></div>
+    <div class="moves flex-fill">
+        <div class="bg-dark text-light fs-5 p-1 d-flex mb-1">{{ movesLabel }} <AddItem v-if="addItemType" :character="character" :item-type="addItemType" /></div>
         <div class="items">
             <div v-for="(move, index) in getMoveList" :index="move.id" class="card" :class="{'compact': index > 0}">
                 <div class="card-body p-0">
                     <h5 class="card-title pb-0 mb-0 d-flex">
                         <input type="checkbox" class="form-check-input me-1" v-model="move.selected" /> 
-                        <EditableDescription :item="move.name" :item-id="move.id" edit-rows="10"
+                        <EditableDescription :item="move.name" :item-id="move.id"
                             @save-item="(data) => move.name = data"
                             @delete-item="(id) => deleteItem(id)"
                         />
                     </h5>
-                    <div class="card-text form-text mt-0">
+                    <div class="card-text form-text flex-fill mt-0">
                         <EditableDescription :item="move.description" :hide-delete="true" :item-id="move.id" edit-rows="10"
                             @save-item="(data) => move.description = data"
                             @delete-item="(id) => deleteItem(id)"
@@ -139,6 +139,8 @@ ol, ul, dl, p {
 }
 
 .moves {
+    line-height: 1.25em;
+    
     .items {
         display:grid;
         grid-template-columns: 1fr;
@@ -146,14 +148,11 @@ ol, ul, dl, p {
 
         .card {
             border: 0;
-            
-            .card-text {
-            
-            }
 
             .form-check-input {
-                width: 15px;
-                height: 15px;
+                margin-top: 0px;
+                width: 20px;
+                height: 20px;
             }
         }
     }
@@ -170,7 +169,6 @@ ol, ul, dl, p {
         .card-text {
             font-size: .9em;
             line-height: .85em;
-            margin-top: -10px !important;;
         }
     }
 }

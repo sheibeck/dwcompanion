@@ -2,13 +2,13 @@
   <h1>Create a Character</h1>
 
   <div class="professions">
-    <div class="card m-2 profession d-flex flex-md-row" v-for="(profession, idx) in professionList" :key="profession">
+    <div class="card m-1 profession d-flex flex-md-row p-1" v-for="(profession, idx) in professionList" :key="profession">
       <div class="">
         <div>
           <img :src="`/professions/${profession.name.toLowerCase()}.png`" class="" :alt="`image of ${profession.name}`">
         </div>
         <div class="d-flex justify-content-center mt-2">
-          <button type="button" @click="createCharacter(profession.name)" class="btn btn-dark">
+          <button type="button" @click="createCharacter(profession.name)" class="btn btn-secondary">
             <img src="@/assets/plus-solid.svg" :alt="`create a ${profession.name}`"/> Create a {{ profession.name }}
           </button>
         </div>

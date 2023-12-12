@@ -11,7 +11,7 @@
                 <div class="card-body">
                     <h5 class="card-title">{{ character.name }}</h5>
                     <h6 class="card-subtitle mb-2 text-body-secondary">{{ character.profession?.name ?? "Unknown" }}</h6>
-                    <button class="btn btn-sm btn-dark me-3" type="button" @click="viewCharacter(character.id)">View</button>
+                    <button class="btn btn-sm btn-secondary me-3" type="button" @click="viewCharacter(character.id)">View</button>
                     <button class="btn btn-sm btn-danger" type="button" @click="removeCharacter(character.id)">Delete</button>
                 </div>
             </div>
