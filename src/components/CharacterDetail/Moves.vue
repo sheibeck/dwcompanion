@@ -42,6 +42,18 @@ const moves = ref<any>();
 const movesLabel = ref("");
 const addItemType = ref<String|null>(null);
 
+function sortByHeight(a:any, b:any) {
+  const aLen = a.description.length;
+  const bLen = b.description.length;
+  const diff = aLen - bLen;
+  
+  if (diff === 0) {
+    return a; // Sort by text if lengths are equal
+  } else {
+    return diff > 0 ? -1 : 1; // Longer items first
+  }
+}
+
 function deleteItem(id: String): any { 
     switch(moveType) {
         case MoveType.STARTING_MOVES:
@@ -61,20 +73,20 @@ const getMoveList = computed(() =>{
         case MoveType.STARTING_MOVES:
     
             if (isOverflow) {
-                return character.startingMoves?.filter( (m: any) => m.isStartingMove == true && m.isOverflow == true);
+                return character.startingMoves?.filter((m: any) => m.isStartingMove == true && m.isOverflow == true);
             }
             else {
-                return character.startingMoves?.filter( (m: any) => m.isStartingMove == true && !m.isOverflow)
-                    .sort((a: any, b: any) => a.description.length + b.description.length);
+                return character.startingMoves?.filter((m: any) => m.isStartingMove == true && !m.isOverflow)
+                    .sort(sortByHeight);
             }
             break;
 
         case MoveType.TWO_TO_TEN:
-            return character.advancedMovesTwoToTen?.sort((a: any, b: any) => a.description.length - b.description.length);
+            return character.advancedMovesTwoToTen?.sort(sortByHeight);
             break;
 
         case MoveType.SIX_TO_TEN:
-            return character.advancedMovesSixToTen?.sort((a: any, b: any) => a.description.length - b.description.length);
+            return character.advancedMovesSixToTen?.sort(sortByHeight);
         break;
     }
 })
