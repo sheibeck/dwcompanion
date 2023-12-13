@@ -1,7 +1,7 @@
 <template>
     <div class="moves flex-fill">
-        <div class="bg-dark text-light fs-5 p-1 d-flex mb-1">{{ movesLabel }} <AddItem v-if="addItemType" :character="character" :item-type="addItemType" /></div>
-        <div class="items">
+        <div class="bg-dark text-light fs-5 p-1 d-flex mb-1">{{ movesLabel }} <AddItem v-if="addItemType && !isOverflow" :character="character" :item-type="addItemType" /></div>
+        <div class="items" :class="{'d-flex': isOverflow}">
             <div v-for="(move, index) in getMoveList" :index="move.id" class="card" :class="{'compact': index > 0}">
                 <div class="card-body p-0">
                     <h5 class="card-title pb-0 mb-0 d-flex">
@@ -59,7 +59,14 @@ function deleteItem(id: String): any {
 const getMoveList = computed(() =>{ 
     switch(moveType) {
         case MoveType.STARTING_MOVES:
-            return character.startingMoves?.sort((a: any, b: any) => a.description.length - b.description.length);
+    
+            if (isOverflow) {
+                return character.startingMoves?.filter( (m: any) => m.isStartingMove == true && m.isOverflow == true);
+            }
+            else {
+                return character.startingMoves?.filter( (m: any) => m.isStartingMove == true && !m.isOverflow)
+                    .sort((a: any, b: any) => a.description.length + b.description.length);
+            }
             break;
 
         case MoveType.TWO_TO_TEN:
@@ -76,13 +83,7 @@ function getMovesByType(): any {
     switch(moveType) {
         case MoveType.STARTING_MOVES:
             if (!character.startingMoves || character.startingMoves.length === 0) {
-                let moves;
-                if (isOverflow) {
-                    moves = allMoves.value.filter( (m: any) => m.isStartingMove == true && m.isOverflow == true)
-                }
-                else {
-                    moves = allMoves.value.filter( (m: any) => m.isStartingMove == true && !m.isOverflow)
-                }
+                let moves = allMoves.value.filter( (m: any) => m.isStartingMove == true);
                 if (moves.length > 0) {
                     character.startingMoves = [];
 

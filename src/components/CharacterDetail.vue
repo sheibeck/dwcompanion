@@ -34,11 +34,12 @@
                     <div>
                         <Bonds :character="character" />
                         <Races :character="character" />
+                        <Moves :character="character" v-if="hasOverflowMoves" :moveType="MoveType.STARTING_MOVES" :isOverflow=true />
                     </div>
                 </div>
             </div>
         </div>
-        <div class="page" v-if="pageNumber == 2 || isPrinting">
+        <div class="page" :class="{'page2': pageNumber == 2}" v-if="pageNumber == 2 || isPrinting">
             <div class="sheet-label">
                 <div class="banner-top">
                     <img src="@/assets/page-banner-top.png" alt="page banner top" />
@@ -117,6 +118,7 @@ const character = ref<any>();
 const isAuthenticated = ref(false);
 const pageNumber = ref(1);
 const isPrinting = ref(false);
+const hasOverflowMoves = computed(() => character.value.startingMoves?.filter( (m: any) => m.isOverflow == true).length > 0);
 
 window.onafterprint = function(){
    console.log("Printing completed...");
@@ -341,8 +343,12 @@ function printCharacter() {
         padding: 0px !important;
 
         .page {
-            padding: 10px;
+            padding-top: 10px;
+            &.page2 {
+                padding-top: 20px !important;
+            }
         }
+        
     }
 }
 
