@@ -17,6 +17,7 @@ export const onCreateProfession = /* GraphQL */ `subscription OnCreateProfession
     diceType
     source
     healthBonus
+    loadBonus
     id
     createdAt
     updatedAt
@@ -36,6 +37,7 @@ export const onUpdateProfession = /* GraphQL */ `subscription OnUpdateProfession
     diceType
     source
     healthBonus
+    loadBonus
     id
     createdAt
     updatedAt
@@ -55,6 +57,7 @@ export const onDeleteProfession = /* GraphQL */ `subscription OnDeleteProfession
     diceType
     source
     healthBonus
+    loadBonus
     id
     createdAt
     updatedAt
