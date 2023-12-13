@@ -15,6 +15,7 @@ export const getProfession = /* GraphQL */ `query GetProfession($id: ID!) {
     diceType
     source
     healthBonus
+    loadBonus
     id
     createdAt
     updatedAt
@@ -37,6 +38,7 @@ export const listProfessions = /* GraphQL */ `query ListProfessions(
       diceType
       source
       healthBonus
+      loadBonus
       id
       createdAt
       updatedAt

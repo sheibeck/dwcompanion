@@ -4,6 +4,7 @@ type Profession @model @auth(rules: [{allow: private, operations: [read], provid
   diceType: String!
   source: String!
   healthBonus: Int
+  loadBonus: Int
 }
 
 type Spell @model @auth(rules: [{allow: private, operations: [read], provider: iam}, {allow: private, operations: [read]}, {allow: public, operations: [read], provider: iam}]) {
