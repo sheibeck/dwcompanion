@@ -7,7 +7,7 @@
             <input type="number" min="0" class="pe-0 form-control fs-5 text-center" aria-describedby="gear-description"
                 v-model="character.loadCurrent">
         </div>
-        <div class="form-text text-end mb-2 label" id="gear-description">Max Load (9 + STR) / Current</div>
+        <div class="form-text text-end mb-2 label" id="gear-description">Max Load ({{character.profession.loadBonus}}+ STR) / Current</div>
         <div v-for="(gear, index) in character.gear" class="form-text gear">
             <EditableDescription :item="gear.description" :item-id="gear.id"
                 @save-item="(data) => gear.description = data" :editRows="20" 
