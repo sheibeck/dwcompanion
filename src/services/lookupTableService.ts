@@ -7,7 +7,7 @@ const client = generateClient();
 
 export const getProfessions = async() => {
 
-    const { data, errors} = await client.graphql({ query: queries.listProfessions});
+    const { data, errors} = await client.graphql({ query: queries.listProfessions, variables: { limit: 1000 } });
 
     const professions =  await data.listProfessions.items;
 
@@ -36,7 +36,8 @@ export const getProfessionByName = async(name: string) => {
                 name: {
                     eq: name
                 }
-            } 
+            },
+            limit: 1000,
         }
     });
 
@@ -60,7 +61,8 @@ export const getBondsByProfession = async(profession: ProfessionType) => {
                     profession: {
                         eq: profession
                     }
-                } 
+                },
+                limit: 1000,
             } 
         });
 
@@ -74,7 +76,8 @@ export const getMovesByProfession = async(profession: ProfessionType) => {
                     profession: {
                         eq: profession
                     }
-                } 
+                },
+                limit: 1000, 
             } 
         });
 
@@ -88,7 +91,8 @@ export const getLooksByProfession = async(profession: ProfessionType) => {
                     profession: {
                         eq: profession
                     }
-                } 
+                } ,
+                limit: 1000,
             } 
         });
 
@@ -102,7 +106,8 @@ export const getAlignmentsByProfession = async(profession: ProfessionType) => {
                     profession: {
                         eq: profession
                     }
-                } 
+                },
+                limit: 1000,
             } 
         });
 
@@ -116,7 +121,8 @@ export const getRaceByProfession = async(profession: ProfessionType) => {
             variables: { 
                 filter: {
                     or: [{ profession: { eq: profession } }, { profession: { eq: 'Any' } }]
-                  }
+                },
+                limit: 1000,
             }
         });
 
@@ -130,7 +136,8 @@ export const getStartingGearByProfession = async(profession: ProfessionType) => 
             variables: { 
                 filter: {
                     and: [{ profession: { eq: profession } }, { isStartingGear: { eq: true } }]
-                  }
+                },
+                limit: 1000,
             }
         });
 
