@@ -17,8 +17,9 @@ export const getCharactersWithProfessions = async(userId: string) => {
                     userId: {
                         eq: userId
                     }
-                } 
-            } 
+                },
+                limit: 1000,
+            }
         });
 
         const charList: any = characters.data.listCharacters.items;
