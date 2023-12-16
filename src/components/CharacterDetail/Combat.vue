@@ -16,7 +16,7 @@
 
         <div class="input-group">
             <span class="input-group-text w-75 fs-5 bg-dark text-light label">Damage</span>
-            <input type="text" disabled class="form-control fs-5 text-center" v-model="character.profession.diceType">
+            <input type="text" class="form-control fs-5 text-center" v-model="character.profession.diceType">
         </div>
     </div>
 </template>
