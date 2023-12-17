@@ -2,6 +2,7 @@
 import { generateClient } from 'aws-amplify/api';
 import * as queries from '@/graphql/queries';
 import type { ProfessionType } from '@/enums/professionType';
+import { capitalizeWords } from '@/services/utilsService';
 
 const client = generateClient();
 
@@ -34,7 +35,7 @@ export const getProfessionByName = async(name: string) => {
         variables: {
             filter: {
                 name: {
-                    eq: name
+                    eq: capitalizeWords(name)
                 }
             },
             limit: 1000,
@@ -59,7 +60,7 @@ export const getBondsByProfession = async(profession: ProfessionType) => {
             variables: { 
                 filter: {
                     profession: {
-                        eq: profession
+                        eq: capitalizeWords(profession)
                     }
                 },
                 limit: 1000,
@@ -74,7 +75,7 @@ export const getMovesByProfession = async(profession: ProfessionType) => {
     const { data } = await client.graphql({ query: queries.listMoves,
             variables: { filter: {
                     profession: {
-                        eq: profession
+                        eq: capitalizeWords(profession)
                     }
                 },
                 limit: 1000, 
@@ -89,7 +90,7 @@ export const getLooksByProfession = async(profession: ProfessionType) => {
     const { data } = await client.graphql({ query: queries.listLooks,
             variables: { filter: {
                     profession: {
-                        eq: profession
+                        eq: capitalizeWords(profession)
                     }
                 } ,
                 limit: 1000,
@@ -104,7 +105,7 @@ export const getAlignmentsByProfession = async(profession: ProfessionType) => {
     const { data, errors }: any = await client.graphql({ query: queries.listAlignments,
             variables: { filter: {
                     profession: {
-                        eq: profession
+                        eq: capitalizeWords(profession)
                     }
                 },
                 limit: 1000,
@@ -120,7 +121,7 @@ export const getRaceByProfession = async(profession: ProfessionType) => {
     const { data, errors }: any = await client.graphql({ query: queries.listRaces,
             variables: { 
                 filter: {
-                    or: [{ profession: { eq: profession } }, { profession: { eq: 'Any' } }]
+                    or: [{ profession: { eq: capitalizeWords(profession) } }, { profession: { eq: 'Any' } }]
                 },
                 limit: 1000,
             }
@@ -135,7 +136,7 @@ export const getStartingGearByProfession = async(profession: ProfessionType) => 
     const { data, errors }: any = await client.graphql({ query: queries.listGears,
             variables: { 
                 filter: {
-                    and: [{ profession: { eq: profession } }, { isStartingGear: { eq: true } }]
+                    and: [{ profession: { eq: capitalizeWords(profession) } }, { isStartingGear: { eq: true } }]
                 },
                 limit: 1000,
             }

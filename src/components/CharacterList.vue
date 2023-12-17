@@ -24,6 +24,7 @@ import { computed, onMounted, ref } from 'vue';
 import { useGlobalStore } from '@/stores/globalStore';
 import { useRouter } from 'vue-router';
 import { getCharactersWithProfessions, deleteCharacter } from '@/services/characterService';
+import { toast } from 'vue3-toastify';
 
 const globalStore = useGlobalStore();
 const router = useRouter();
@@ -49,9 +50,11 @@ async function removeCharacter(id: string) {
     if (authenticated && confirmed) {
         await deleteCharacter(id);
 
-        const objectToRemove = characterList.value.find( (c: any) => c.id === id);
-        const idx = characterList.value.findIndex(objectToRemove);
+        const characterToDelete = characterList.value.find( (c: any) => c.id === id);
+        const idx = characterList.value.findIndex( c => characterToDelete.id === id);
         characterList.value.splice(idx, 1);
+
+        toast(`Deleted character ${characterToDelete.name}`);
     }
 }
 </script>
