@@ -62,6 +62,7 @@ async function createCharacter(profession: string) {
   .professions {
     .profession {
       font-size: 1.1em;
+      background: linear-gradient(to bottom, #FDF8E9, #fff);
     }
   }
 
