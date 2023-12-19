@@ -86,7 +86,7 @@ const creatingFront = ref(false);
 const apiKey = ref<string | null>(localStorage.getItem('dungeonworld_fronts_api_key') || null);
 
 const isOwner = computed(()=> {  
-    return front.value.userId === userId.value || frontId == "new-front";
+    return front.value.userId === userId.value || frontId.value == "new-front";
 });
 
 const frontTemplate = `
