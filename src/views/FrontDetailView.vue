@@ -35,7 +35,7 @@
     <div class="mt-3">
         <div v-if="!isEditing" class="d-flex edit-controls open">
             <VueShowdown :markdown="front.description" class="description" />
-            <div class="edit-controls closed d-flex mt-0">
+            <div class="edit-controls closed d-flex mt-0 align-self-start">
                 <button class="btn btn-link d-print-none" type="button" @click="isEditing = true">
                     <img src="@/assets/pencil-solid.svg" alt="edit description"/>
                 </button>
@@ -45,7 +45,7 @@
         <div v-if="isEditing" class="d-flex d-print-none edit-controls open">
             <textarea type="text" class="form-control from-control-sm" ref="description" :rows="20" v-model="front.description"></textarea>
 
-            <div class="edit-controls d-flex">
+            <div class="edit-controls d-flex align-self-start">
                 <button class="btn btn-link" type="button" @click="saveDescription()">
                     <img src="@/assets/floppy-disk-solid.svg" alt="save description"/>
                 </button>
