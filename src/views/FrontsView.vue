@@ -51,10 +51,10 @@ async function removeFront(id: string) {
         await deleteFront(id);
 
         const frontToDelete = frontList.value.find( (c: any) => c.id === id);
-        const idx = frontList.value.findIndex( c => frontToDelete.id === id);
+        const idx = frontList.value.findIndex( c => c.id === id);
         frontList.value.splice(idx, 1);
 
-        toast(`Deleted front`);
+        toast(`Deleted front ${frontToDelete.name}`);
     }
 }
 </script>

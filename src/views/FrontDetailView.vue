@@ -128,33 +128,35 @@ async function setupFront() {
 
 
 async function save() {
-    const authenticated = await globalStore.isAuthenticated();
-    if (authenticated && !front.value.id) {
-        const userId = await globalStore.getUserId();
-        front.value.userId = userId;
+  saveDescription();
+  
+  const authenticated = await globalStore.isAuthenticated();
+  if (authenticated && !front.value.id) {
+      const userId = await globalStore.getUserId();
+      front.value.userId = userId;
 
-        if (!front.value.name || front.value.name.trim().length === 0) {
-            toast("You must give your front a name.")
-            return;
-        }
+      if (!front.value.name || front.value.name.trim().length === 0) {
+          toast("You must give your front a name.")
+          return;
+      }
 
-        const newFrontId = await createFront(front.value);
-        if (newFrontId) {
-            toast(`Created ${front.value.type} front: ${front.value.name}.`)
+      const newFrontId = await createFront(front.value);
+      if (newFrontId) {
+          toast(`Created ${front.value.type} front: ${front.value.name}.`)
 
-            setTimeout(async () => {
-                await router.push({ name: "front", params: { id: newFrontId }, replace: true });
-            }, 2000);
-            
-        }
-        else {
-            toast(`Failed to create front!`);
-        }
-    }
+          setTimeout(async () => {
+              await router.push({ name: "front", params: { id: newFrontId }, replace: true });
+          }, 2000);
+          
+      }
+      else {
+          toast(`Failed to create front!`);
+      }
+  }
 
-    else {
-        await update();
-    }
+  else {
+      await update();
+  }
 }
 
 function saveDescription() {

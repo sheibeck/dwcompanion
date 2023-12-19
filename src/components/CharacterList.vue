@@ -51,7 +51,7 @@ async function removeCharacter(id: string) {
         await deleteCharacter(id);
 
         const characterToDelete = characterList.value.find( (c: any) => c.id === id);
-        const idx = characterList.value.findIndex( c => characterToDelete.id === id);
+        const idx = characterList.value.findIndex( c => c.id === id);
         characterList.value.splice(idx, 1);
 
         toast(`Deleted character ${characterToDelete.name}`);
