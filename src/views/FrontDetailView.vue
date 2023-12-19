@@ -24,7 +24,7 @@
               v-model="front.name">
       </div>
        
-      <div class="d-print-none">
+      <div class="d-print-none" v-if="isOwner">
         <button type="button" class="m-1 btn btn-secondary" @click="generateFrontDescription()">Generate {{ front.type }} Front</button>
         <div v-if="creatingFront" class="d-flex">
           <span>Generating front, please do not navigate away from this page ... </span>
@@ -36,7 +36,7 @@
     <div class="mt-3">
         <div v-if="!isEditing" class="d-flex edit-controls open">
             <VueShowdown :markdown="front.description" class="description w-100" />
-            <div class="edit-controls closed d-flex mt-0 align-self-start">
+            <div class="edit-controls closed d-flex mt-0 align-self-start" v-if="isOwner">
                 <button class="btn btn-link d-print-none" type="button" @click="isEditing = true">
                     <img src="@/assets/pencil-solid.svg" alt="edit description"/>
                 </button>
@@ -57,13 +57,13 @@
     <div class="d-print-none action-bar d-flex justify-content-end border-top p-1 mt-5" v-if="isAuthenticated">
         <a href="/fronts" type="button" class="btn btn-danger me-2">Close</a>
         <button type="button" class="btn btn-secondary me-2" @click="print()">Print</button>
-        <button type="button" class="btn btn-dark" @click="save()">Save</button>
+        <button v-if="isOwner" type="button" class="btn btn-dark" @click="save()">Save</button>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { generateDungeonWorldFront, getFront, createFront, updateFront } from '@/services/frontsService';
 import { VueSpinnerHourglass } from 'vue3-spinners';
@@ -79,10 +79,15 @@ const router = useRouter();
 const frontId = ref<any>(route.params.id);
 const isEditing = ref(false);
 const isAuthenticated = ref(false);
+const userId = ref<null|String>(null);
 
 const front = ref();
 const creatingFront = ref(false);
 const apiKey = ref<string | null>(localStorage.getItem('dungeonworld_fronts_api_key') || null);
+
+const isOwner = computed(()=> {  
+    return front.value.userId === userId.value || frontId == "new-front";
+});
 
 const frontTemplate = `
 # Title
@@ -107,6 +112,7 @@ const frontTemplate = `
 
 onMounted(async () => {
   isAuthenticated.value = await globalStore.isAuthenticated();
+  userId.value = await globalStore.getUserId();
   await setupFront();
 })
 

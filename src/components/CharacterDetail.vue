@@ -82,7 +82,7 @@
             <a href="/characters" type="button" class="btn btn-danger me-2">Close</a>
             <button type="button" class="btn btn-secondary me-2" @click="nextPage()"> View {{ pageLabel }}</button>
             <button type="button" class="btn btn-secondary me-2" @click="printCharacter()">Print</button>
-            <button type="button" class="btn btn-dark" @click="saveCharacter()">Save</button>
+            <button v-if="isOwner" type="button" class="btn btn-dark" @click="saveCharacter()">Save</button>
         </div>
     </div>
 
@@ -118,7 +118,12 @@ const character = ref<any>();
 const isAuthenticated = ref(false);
 const pageNumber = ref(1);
 const isPrinting = ref(false);
+const userId = ref<null|String>(null);
 const hasOverflowMoves = computed(() => character.value.startingMoves?.filter( (m: any) => m.isOverflow == true).length > 0);
+
+const isOwner = computed(()=> {  
+    return character.value.userId === userId.value || characterId == "new-character";
+});
 
 window.onafterprint = function(){
    console.log("Printing completed...");
@@ -133,8 +138,9 @@ function setPrintOff() {
 }
 
 onMounted(async () => {
-    await setupCharacter();
     isAuthenticated.value = await globalStore.isAuthenticated();
+    userId.value = await globalStore.getUserId();
+    await setupCharacter();
     window.addEventListener('beforeprint', setPrintOn);
     window.addEventListener('afterprint', setPrintOff);
 });
@@ -163,7 +169,6 @@ async function setupCharacter() {
         return;
     }
 
-    globalStore.getUserId();
     character.value = await getCharacter(characterId);
 } 
 
@@ -186,8 +191,7 @@ async function getNewCharacter() {
 async function saveCharacter() {
     const authenticated = await globalStore.isAuthenticated();
     if (authenticated && !character.value.id) {
-        const userId = await globalStore.getUserId();
-        character.value.userId = userId;
+        character.value.userId = userId.value;
 
         if (!character.value.name || character.value.name.trim().length === 0) {
             toast("You must give your character a name.")
