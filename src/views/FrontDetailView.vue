@@ -28,13 +28,14 @@
         <button type="button" class="m-1 btn btn-secondary" @click="generateFrontDescription()">Generate {{ front.type }} Front</button>
         <div v-if="creatingFront" class="d-flex">
           <span>Generating front, please do not navigate away from this page ... </span>
-          <VueSpinnerHourglass v-if="creatingFront" />
+          <VueSpinnerHourglass class="w-25" v-if="creatingFront" />
         </div>
       </div>
     </div>
+    <div class="bg-warning w-100 small p-1 d-print-none rounded">The generate front button is experimental and will require you to have a ChatGPT Api Key.</div>
     <div class="mt-3">
         <div v-if="!isEditing" class="d-flex edit-controls open">
-            <VueShowdown :markdown="front.description" class="description" />
+            <VueShowdown :markdown="front.description" class="description w-100" />
             <div class="edit-controls closed d-flex mt-0 align-self-start">
                 <button class="btn btn-link d-print-none" type="button" @click="isEditing = true">
                     <img src="@/assets/pencil-solid.svg" alt="edit description"/>
