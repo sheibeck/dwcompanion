@@ -60,7 +60,4 @@ async function removeCharacter(id: string) {
 </script>
 
 <style scoped lang="scss">
-    table {
-        font-size: 1.2em;
-    }
 </style>

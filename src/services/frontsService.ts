@@ -89,17 +89,18 @@ export const getFronts = async(userId: string) => {
 export async function createFront(front: any) {
     
   try {
+
+      const newFront = JSON.parse(JSON.stringify(front));
       //don't mutate the original front;
-      front.id = uuid.generate();
+      newFront.id = uuid.generate();
       
-      const { data, errors } = await client.graphql({ query: mutations.createFronts,
+      const { data, errors } = await client.graphql({ query: mutations.createFront,
           variables: {
-              input: front
+              input: newFront
           }
       });
 
-      return front.id;
-     
+      return newFront.id;
   }
   catch(ex) {
       console.error(ex);
@@ -110,9 +111,17 @@ export async function createFront(front: any) {
 export async function updateFront(front: any) {
     
   try {
+      const updatedFront = JSON.parse(JSON.stringify(front));
+      delete updatedFront['__typename'];
+      delete updatedFront['updatedAt'];
+      delete updatedFront['createdAt'];
+      delete updatedFront['_lastChangedAt'];
+      delete updatedFront['_deleted'];
+      delete updatedFront['owner'];
+
       const { data, errors } = await client.graphql({ query: mutations.updateFront,
           variables: {
-              input: front
+              input: updatedFront
           }
       });
       

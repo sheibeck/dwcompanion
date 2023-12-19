@@ -3,13 +3,14 @@
         <div class="d-flex">
             <h1>Fronts</h1>
             <div>
-                <a href="/" class="btn btn-secondary ms-2"><img src="@/assets/plus-solid.svg" alt="create a front"/> Create a Front</a>
+                <a href="/front/new-front" class="btn btn-secondary ms-2"><img src="@/assets/plus-solid.svg" alt="create a front"/> Create a Front</a>
             </div>
         </div>
         <div class="d-md-flex">
             <div v-for="front in frontList" class="card m-2">
                 <div class="card-body">
-                    <h5 class="card-title">{{ front.title }}</h5>
+                    <h5 class="card-title">{{ front.name }}</h5>
+                    <h6 class="card-subtitle mb-2 text-body-secondary">{{ front.type }}</h6>
                     <button class="btn btn-sm btn-secondary me-3" type="button" @click="viewFront(front.id)">View</button>
                     <button class="btn btn-sm btn-danger" type="button" @click="removeFront(front.id)">Delete</button>
                 </div>
