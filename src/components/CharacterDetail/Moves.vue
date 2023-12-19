@@ -161,6 +161,7 @@ ol, ul, dl, p {
 .moves {
     line-height: 1.25em;
     
+    
     .items {
         display:grid;
         grid-template-columns: 1fr;
@@ -168,7 +169,8 @@ ol, ul, dl, p {
 
         .card {
             border: 0;
-
+            border-right: solid 1px black;
+            
             .form-check-input {
                 margin-top: 0px;
                 width: 20px;
