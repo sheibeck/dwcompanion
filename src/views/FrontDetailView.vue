@@ -2,24 +2,37 @@
   <h1 class="d-print-none">Front</h1>
 
   <div class="container-md" v-if="front">
-    <div class="form-check d-print-none">
-      <input class="form-check-input" type="radio" name="frontCampaign" value="Campaign" v-model="front.type" id="frontCampaign">
-      <label class="form-check-label" for="frontCampaign">
-        Campaign
-      </label>
+    <div class="d-md-flex border-bottom">
+      <div class="d-flex flex-wrap">
+        <div class="form-check d-print-none pb-2">
+          <input class="form-check-input" type="radio" name="frontCampaign" value="Campaign" v-model="front.type" id="frontCampaign">
+          <label class="form-check-label" for="frontCampaign">
+            Campaign
+          </label>
+        </div>
+        <div class="form-check d-print-none">
+          <input class="form-check-input" type="radio" name="frontAdventure" value="Adventure" v-model="front.type" id="frontAdventure" checked>
+          <label class="form-check-label" for="frontAdventure">
+            Adventure
+          </label>
+        </div>
+      </div>
+      
+      <div class="input-group mb-2 pe-md-2  d-print-none">
+          <span class="input-group-text text-dark" id="name">Name</span>
+          <input type="text" class="form-control text-dark" aria-label="Name" aria-describedby="name"
+              v-model="front.name">
+      </div>
+       
+      <div class="d-print-none">
+        <button type="button" class="m-1 btn btn-secondary" @click="generateFrontDescription()">Generate {{ front.type }} Front</button>
+        <div v-if="creatingFront" class="d-flex">
+          <span>Generating front, please do not navigate away from this page ... </span>
+          <VueSpinnerHourglass v-if="creatingFront" />
+        </div>
+      </div>
     </div>
-    <div class="form-check d-print-none">
-      <input class="form-check-input" type="radio" name="frontAdventure" value="Adventure" v-model="front.type" id="frontAdventure" checked>
-      <label class="form-check-label" for="frontAdventure">
-        Adventure
-      </label>
-    </div>
-    <div class="input-group mb-2 pe-md-2  d-print-none">
-        <span class="input-group-text text-dark" id="name">Name</span>
-        <input type="text" class="form-control text-dark" aria-label="Name" aria-describedby="name"
-            v-model="front.name">
-    </div>
-    <div class="editor">
+    <div class="mt-3">
         <div v-if="!isEditing" class="d-flex edit-controls open">
             <VueShowdown :markdown="front.description" class="description" />
             <div class="edit-controls closed d-flex mt-0">
@@ -27,21 +40,13 @@
                     <img src="@/assets/pencil-solid.svg" alt="edit description"/>
                 </button>
             </div>
-            
-            <div class="d-print-none">
-              <button type="button" class="m-1 btn btn-secondary" @click="generateFrontDescription()">Generate {{ front.type }} Front w/ AI</button>
-              <div v-if="creatingFront" class="d-flex">
-                <span>Generating front, please do not navigate away from this page ... </span>
-                <VueSpinnerHourglass v-if="creatingFront" />
-              </div>
-            </div>
         </div>
 
         <div v-if="isEditing" class="d-flex d-print-none edit-controls open">
             <textarea type="text" class="form-control from-control-sm" ref="description" :rows="20" v-model="front.description"></textarea>
 
             <div class="edit-controls d-flex">
-                <button class="btn btn-link" type="button" @click="isEditing=false">
+                <button class="btn btn-link" type="button" @click="saveDescription()">
                     <img src="@/assets/floppy-disk-solid.svg" alt="save description"/>
                 </button>
             </div>
@@ -135,7 +140,7 @@ async function save() {
 
         const newFrontId = await createFront(front.value);
         if (newFrontId) {
-            toast(`Created front ${front.value.name} the ${front.value.profession.name}.`)
+            toast(`Created ${front.value.type} front: ${front.value.name}.`)
 
             setTimeout(async () => {
                 await router.push({ name: "front", params: { id: newFrontId }, replace: true });
@@ -152,6 +157,11 @@ async function save() {
     }
 }
 
+function saveDescription() {
+  isEditing.value=false;
+  front.value.name = getFrontNameFromMarkdown(front.value.description);
+}
+
 async function update() {
     const updatedFront = await updateFront(front.value);
 
@@ -165,7 +175,7 @@ async function update() {
 
 
 const promptApiKey = () => {
-  const userApiKey = prompt('Enter your API key:');
+  const userApiKey = prompt('You must have a ChatGPT Api Key. Enter your API key here to use this feature:');
 
   if (userApiKey) {
     apiKey.value = userApiKey;
@@ -174,7 +184,12 @@ const promptApiKey = () => {
 }
 
 async function generateFrontDescription() {
-  isEditing.value = false;
+  const confirmed = confirm("Are you sure you want to generate a front description?");
+  if (!confirmed) {
+    return;
+  }
+
+  isEditing.value  = false;
   const frontType = front.value.type ?? FrontType.Adventure
 
   if (apiKey.value == null) {
