@@ -641,3 +641,63 @@ export const onDeleteCharacter = /* GraphQL */ `subscription OnDeleteCharacter(
   APITypes.OnDeleteCharacterSubscriptionVariables,
   APITypes.OnDeleteCharacterSubscription
 >;
+export const onCreateFront = /* GraphQL */ `subscription OnCreateFront(
+  $filter: ModelSubscriptionFrontFilterInput
+  $owner: String
+) {
+  onCreateFront(filter: $filter, owner: $owner) {
+    userId
+    id
+    type
+    name
+    description
+    createdAt
+    updatedAt
+    owner
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnCreateFrontSubscriptionVariables,
+  APITypes.OnCreateFrontSubscription
+>;
+export const onUpdateFront = /* GraphQL */ `subscription OnUpdateFront(
+  $filter: ModelSubscriptionFrontFilterInput
+  $owner: String
+) {
+  onUpdateFront(filter: $filter, owner: $owner) {
+    userId
+    id
+    type
+    name
+    description
+    createdAt
+    updatedAt
+    owner
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnUpdateFrontSubscriptionVariables,
+  APITypes.OnUpdateFrontSubscription
+>;
+export const onDeleteFront = /* GraphQL */ `subscription OnDeleteFront(
+  $filter: ModelSubscriptionFrontFilterInput
+  $owner: String
+) {
+  onDeleteFront(filter: $filter, owner: $owner) {
+    userId
+    id
+    type
+    name
+    description
+    createdAt
+    updatedAt
+    owner
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnDeleteFrontSubscriptionVariables,
+  APITypes.OnDeleteFrontSubscription
+>;

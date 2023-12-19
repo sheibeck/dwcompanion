@@ -25,7 +25,7 @@ const router = useRouter();
 onMounted(async () => {
   const userId = await globalStore.getUserId();
   if (userId) {
-    await router.push({ name: "characters" });
+    await router.push({ name: "home" });
   }
 })
 
