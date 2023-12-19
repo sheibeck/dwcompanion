@@ -710,3 +710,63 @@ export const deleteCharacter = /* GraphQL */ `mutation DeleteCharacter(
   APITypes.DeleteCharacterMutationVariables,
   APITypes.DeleteCharacterMutation
 >;
+export const createFront = /* GraphQL */ `mutation CreateFront(
+  $input: CreateFrontInput!
+  $condition: ModelFrontConditionInput
+) {
+  createFront(input: $input, condition: $condition) {
+    userId
+    id
+    type
+    name
+    description
+    createdAt
+    updatedAt
+    owner
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.CreateFrontMutationVariables,
+  APITypes.CreateFrontMutation
+>;
+export const updateFront = /* GraphQL */ `mutation UpdateFront(
+  $input: UpdateFrontInput!
+  $condition: ModelFrontConditionInput
+) {
+  updateFront(input: $input, condition: $condition) {
+    userId
+    id
+    type
+    name
+    description
+    createdAt
+    updatedAt
+    owner
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.UpdateFrontMutationVariables,
+  APITypes.UpdateFrontMutation
+>;
+export const deleteFront = /* GraphQL */ `mutation DeleteFront(
+  $input: DeleteFrontInput!
+  $condition: ModelFrontConditionInput
+) {
+  deleteFront(input: $input, condition: $condition) {
+    userId
+    id
+    type
+    name
+    description
+    createdAt
+    updatedAt
+    owner
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.DeleteFrontMutationVariables,
+  APITypes.DeleteFrontMutation
+>;

@@ -1,7 +1,7 @@
 <template>
   <h1>Create a Character</h1>
 
-  <div class="professions">
+  <div class="professions container-md">
     <div class="card m-1 profession d-flex flex-md-row p-1" v-for="(profession, idx) in professionList" :key="profession">
       <div class="align-self-center">
         <div>

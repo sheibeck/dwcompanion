@@ -119,3 +119,11 @@ type Character @model @auth(rules: [{allow: owner}, {allow: private, operations:
   profession: AWSJSON
   spells: AWSJSON
 } 
+
+type Front @model @auth(rules: [{allow: owner}, {allow: private, operations: [read], provider: iam}, {allow: private, operations: [read]}, {allow: public, operations: [read], provider: iam}]) {
+  userId: ID!
+  id: ID!
+  type: String!
+  name: String!
+  description: String!
+} 

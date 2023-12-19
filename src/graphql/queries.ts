@@ -463,3 +463,42 @@ export const listCharacters = /* GraphQL */ `query ListCharacters(
   APITypes.ListCharactersQueryVariables,
   APITypes.ListCharactersQuery
 >;
+export const getFront = /* GraphQL */ `query GetFront($id: ID!) {
+  getFront(id: $id) {
+    userId
+    id
+    type
+    name
+    description
+    createdAt
+    updatedAt
+    owner
+    __typename
+  }
+}
+` as GeneratedQuery<APITypes.GetFrontQueryVariables, APITypes.GetFrontQuery>;
+export const listFronts = /* GraphQL */ `query ListFronts(
+  $filter: ModelFrontFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listFronts(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      userId
+      id
+      type
+      name
+      description
+      createdAt
+      updatedAt
+      owner
+      __typename
+    }
+    nextToken
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.ListFrontsQueryVariables,
+  APITypes.ListFrontsQuery
+>;

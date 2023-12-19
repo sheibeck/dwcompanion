@@ -18,6 +18,9 @@
             <li v-if="isUserLoggedIn" class="nav-item">
               <a class="nav-link" href="/characters">Characters</a>
             </li>
+            <li v-if="isUserLoggedIn" class="nav-item">
+              <a class="nav-link" href="/fronts">Fronts</a>
+            </li>
             <li class="nav-item">
               <a class="nav-link" target="_blank" href="https://github.com/sheibeck/dwcompanion/wiki/Dungeon-World-Companion">Support</a>
             </li>

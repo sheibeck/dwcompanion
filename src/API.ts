@@ -660,6 +660,48 @@ export type DeleteCharacterInput = {
   id: string,
 };
 
+export type CreateFrontInput = {
+  userId: string,
+  id?: string | null,
+  type: string,
+  name: string,
+  description: string,
+};
+
+export type ModelFrontConditionInput = {
+  userId?: ModelIDInput | null,
+  type?: ModelStringInput | null,
+  name?: ModelStringInput | null,
+  description?: ModelStringInput | null,
+  and?: Array< ModelFrontConditionInput | null > | null,
+  or?: Array< ModelFrontConditionInput | null > | null,
+  not?: ModelFrontConditionInput | null,
+};
+
+export type Front = {
+  __typename: "Front",
+  userId: string,
+  id: string,
+  type: string,
+  name: string,
+  description: string,
+  createdAt: string,
+  updatedAt: string,
+  owner?: string | null,
+};
+
+export type UpdateFrontInput = {
+  userId?: string | null,
+  id: string,
+  type?: string | null,
+  name?: string | null,
+  description?: string | null,
+};
+
+export type DeleteFrontInput = {
+  id: string,
+};
+
 export type ModelProfessionFilterInput = {
   name?: ModelStringInput | null,
   description?: ModelStringInput | null,
@@ -872,6 +914,23 @@ export type ModelCharacterConnection = {
   nextToken?: string | null,
 };
 
+export type ModelFrontFilterInput = {
+  userId?: ModelIDInput | null,
+  id?: ModelIDInput | null,
+  type?: ModelStringInput | null,
+  name?: ModelStringInput | null,
+  description?: ModelStringInput | null,
+  and?: Array< ModelFrontFilterInput | null > | null,
+  or?: Array< ModelFrontFilterInput | null > | null,
+  not?: ModelFrontFilterInput | null,
+};
+
+export type ModelFrontConnection = {
+  __typename: "ModelFrontConnection",
+  items:  Array<Front | null >,
+  nextToken?: string | null,
+};
+
 export type ModelSubscriptionProfessionFilterInput = {
   name?: ModelSubscriptionStringInput | null,
   description?: ModelSubscriptionStringInput | null,
@@ -1059,6 +1118,16 @@ export type ModelSubscriptionCharacterFilterInput = {
   spells?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionCharacterFilterInput | null > | null,
   or?: Array< ModelSubscriptionCharacterFilterInput | null > | null,
+};
+
+export type ModelSubscriptionFrontFilterInput = {
+  userId?: ModelSubscriptionIDInput | null,
+  id?: ModelSubscriptionIDInput | null,
+  type?: ModelSubscriptionStringInput | null,
+  name?: ModelSubscriptionStringInput | null,
+  description?: ModelSubscriptionStringInput | null,
+  and?: Array< ModelSubscriptionFrontFilterInput | null > | null,
+  or?: Array< ModelSubscriptionFrontFilterInput | null > | null,
 };
 
 export type CreateProfessionMutationVariables = {
@@ -1733,6 +1802,63 @@ export type DeleteCharacterMutation = {
   } | null,
 };
 
+export type CreateFrontMutationVariables = {
+  input: CreateFrontInput,
+  condition?: ModelFrontConditionInput | null,
+};
+
+export type CreateFrontMutation = {
+  createFront?:  {
+    __typename: "Front",
+    userId: string,
+    id: string,
+    type: string,
+    name: string,
+    description: string,
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type UpdateFrontMutationVariables = {
+  input: UpdateFrontInput,
+  condition?: ModelFrontConditionInput | null,
+};
+
+export type UpdateFrontMutation = {
+  updateFront?:  {
+    __typename: "Front",
+    userId: string,
+    id: string,
+    type: string,
+    name: string,
+    description: string,
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type DeleteFrontMutationVariables = {
+  input: DeleteFrontInput,
+  condition?: ModelFrontConditionInput | null,
+};
+
+export type DeleteFrontMutation = {
+  deleteFront?:  {
+    __typename: "Front",
+    userId: string,
+    id: string,
+    type: string,
+    name: string,
+    description: string,
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
 export type GetProfessionQueryVariables = {
   id: string,
 };
@@ -2213,6 +2339,48 @@ export type ListCharactersQuery = {
       look?: string | null,
       profession?: string | null,
       spells?: string | null,
+      createdAt: string,
+      updatedAt: string,
+      owner?: string | null,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type GetFrontQueryVariables = {
+  id: string,
+};
+
+export type GetFrontQuery = {
+  getFront?:  {
+    __typename: "Front",
+    userId: string,
+    id: string,
+    type: string,
+    name: string,
+    description: string,
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type ListFrontsQueryVariables = {
+  filter?: ModelFrontFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ListFrontsQuery = {
+  listFronts?:  {
+    __typename: "ModelFrontConnection",
+    items:  Array< {
+      __typename: "Front",
+      userId: string,
+      id: string,
+      type: string,
+      name: string,
+      description: string,
       createdAt: string,
       updatedAt: string,
       owner?: string | null,
@@ -2860,6 +3028,63 @@ export type OnDeleteCharacterSubscription = {
     look?: string | null,
     profession?: string | null,
     spells?: string | null,
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type OnCreateFrontSubscriptionVariables = {
+  filter?: ModelSubscriptionFrontFilterInput | null,
+  owner?: string | null,
+};
+
+export type OnCreateFrontSubscription = {
+  onCreateFront?:  {
+    __typename: "Front",
+    userId: string,
+    id: string,
+    type: string,
+    name: string,
+    description: string,
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type OnUpdateFrontSubscriptionVariables = {
+  filter?: ModelSubscriptionFrontFilterInput | null,
+  owner?: string | null,
+};
+
+export type OnUpdateFrontSubscription = {
+  onUpdateFront?:  {
+    __typename: "Front",
+    userId: string,
+    id: string,
+    type: string,
+    name: string,
+    description: string,
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type OnDeleteFrontSubscriptionVariables = {
+  filter?: ModelSubscriptionFrontFilterInput | null,
+  owner?: string | null,
+};
+
+export type OnDeleteFrontSubscription = {
+  onDeleteFront?:  {
+    __typename: "Front",
+    userId: string,
+    id: string,
+    type: string,
+    name: string,
+    description: string,
     createdAt: string,
     updatedAt: string,
     owner?: string | null,
