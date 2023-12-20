@@ -39,7 +39,7 @@
                 </div>
             </div>
         </div>
-        <div class="page" :class="{'page2': pageNumber == 2}" v-if="pageNumber == 2 || isPrinting">
+        <div class="page page2" v-if="pageNumber == 2 || isPrinting">
             <div class="sheet-label">
                 <div class="banner-top">
                     <img src="@/assets/page-banner-top.png" alt="page banner top" />
@@ -345,11 +345,12 @@ function printCharacter() {
     .character {
         margin: 0px !important;
         padding: 0px !important;
+        margin-left: -5px !important;
 
         .page {
             padding-top: 10px;
             &.page2 {
-                padding-top: 20px !important;
+                padding-top: 20px;
             }
         }
         
