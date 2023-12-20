@@ -345,11 +345,12 @@ function printCharacter() {
     .character {
         margin: 0px !important;
         padding: 0px !important;
+        margin-left: -5px !important;
 
         .page {
             padding-top: 10px;
             &.page2 {
-                padding-top: 20px !important;
+                padding-top: 25px;
             }
         }
         
