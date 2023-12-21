@@ -49,7 +49,6 @@ onMounted(async () => {
   }
 })
 
-
 async function createCharacter(profession: string) {
   await router.push({ name: "character", params: { id: "new-character", profession: profession } });
 }
