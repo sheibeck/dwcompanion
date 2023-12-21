@@ -32,7 +32,7 @@ watch(() => auth.route, async () => {
 
 async function routeUserToProperPage() {
   const userId = await globalStore.getUserId();
-  if (userId !== "guest") {
+  if (userId) {
     await router.push({ name: "home" });
   }
 }

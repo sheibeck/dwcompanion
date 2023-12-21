@@ -19,7 +19,7 @@ export const useGlobalStore = defineStore('globalStore', () => {
             }
             else {
                 //is a guest user
-                return true;
+                throw("guest users not allowed");
             }
 
         }
@@ -39,17 +39,10 @@ export const useGlobalStore = defineStore('globalStore', () => {
                 resolve(userId);
             }
             catch {
-                try {
-                    const isAuthed = await isAuthenticated();
-                    if (!isAuthed) {
-                        throw("session expired");
-                    }
-
-                    resolve("guest");
-                }
-                catch {
-                    await router.push({ name: "login" });
-                }
+               
+                    currentUser.value = null;
+                    resolve(null);    
+               
             }
         });
     }
