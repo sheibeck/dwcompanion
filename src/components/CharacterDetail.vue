@@ -3,6 +3,11 @@
         Loading ...
     </div>
     <div v-else class="character mt-2">
+        <div class="d-print-none d-flex justify-content-center" v-if="isGuest"> 
+            <span class="text-danger">
+                You must <a href="/login">sign in</a> to save characters. While not logged in, data you enter will be lost if you navigate away from this page.
+            </span>
+        </div>
         <div class="gradient-background"></div>
         <div class="page page1" v-if="pageNumber == 1 || isPrinting">
             <div class="sheet-label">
@@ -122,7 +127,11 @@ const userId = ref<null|String>(null);
 const hasOverflowMoves = computed(() => character.value.startingMoves?.filter( (m: any) => m.isOverflow == true).length > 0);
 
 const isOwner = computed(()=> {  
-    return character.value.userId === userId.value || characterId == "new-character";
+    return userId.value !== "guest" && (character.value.userId === userId.value || characterId == "new-character");
+});
+
+const isGuest = computed(()=> {
+  return userId.value === "guest";
 });
 
 window.onafterprint = function(){
