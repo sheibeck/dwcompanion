@@ -28,9 +28,7 @@ import { toast } from 'vue3-toastify';
 
 const globalStore = useGlobalStore();
 const router = useRouter();
-
 const frontList = ref<Array<any>>([]);
-const hasFronts = computed(() => frontList.value?.length > 0);
 const userId = ref()
 
 onMounted(async () => {
