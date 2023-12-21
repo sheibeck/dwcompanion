@@ -81,7 +81,7 @@
       </div>
     </div>
 
-    <div class="d-print-none action-bar d-flex justify-content-end p-1 border-top" v-if="isAuthenticated">
+    <div class="d-print-none action-bar d-flex justify-content-end p-1 border-top">
         <a href="/fronts" type="button" class="btn btn-danger me-2">Close</a>
         <button type="button" class="btn btn-secondary me-2" @click="print()">Print</button>
         <button v-if="isOwner" type="button" class="btn btn-dark" @click="save()">Save</button>
@@ -113,11 +113,11 @@ const creatingFront = ref(false);
 const apiKey = ref<string | null>(localStorage.getItem('dungeonworld_fronts_api_key') || null);
 
 const isOwner = computed(()=> {  
-    return userId.value !== "guest" && (front.value.userId === userId.value || frontId.value == "new-front");
+    return userId.value !== null && (front.value.userId === userId.value || frontId.value == "new-front");
 });
 
 const isGuest = computed(()=> {
-  return userId.value === "guest";
+  return userId.value == null;
 });
 
 const frontTemplate = `

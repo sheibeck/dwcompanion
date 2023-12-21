@@ -83,7 +83,7 @@
             </div>
         </div>
 
-        <div class="d-print-none action-bar d-flex justify-content-end border-top p-1 mt-5" v-if="isAuthenticated">
+        <div class="d-print-none action-bar d-flex justify-content-end border-top p-1 mt-5">
             <a href="/characters" type="button" class="btn btn-danger me-2">Close</a>
             <button type="button" class="btn btn-secondary me-2" @click="nextPage()"> View {{ pageLabel }}</button>
             <button type="button" class="btn btn-secondary me-2" @click="printCharacter()">Print</button>
@@ -127,11 +127,11 @@ const userId = ref<null|String>(null);
 const hasOverflowMoves = computed(() => character.value.startingMoves?.filter( (m: any) => m.isOverflow == true).length > 0);
 
 const isOwner = computed(()=> {  
-    return userId.value !== "guest" && (character.value.userId === userId.value || characterId == "new-character");
+    return userId.value !== null && (character.value.userId === userId.value || characterId == "new-character");
 });
 
 const isGuest = computed(()=> {
-  return userId.value === "guest";
+  return userId.value == null;
 });
 
 window.onafterprint = function(){
