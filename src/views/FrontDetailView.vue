@@ -2,6 +2,12 @@
   <h1 class="d-print-none">Front</h1>
 
   <div class="container-md" v-if="front">
+    <div class="d-print-none d-flex justify-content-center" v-if="isGuest"> 
+        <span class="text-danger">
+            You must <a href="/login">sign in</a> to save fronts. While not logged in, data you enter will be lost if you navigate away from this page.
+        </span>
+    </div>
+    
     <div class="d-md-flex border-bottom">
       <div class="d-flex flex-wrap">
         <div class="form-check d-print-none pb-2">
@@ -86,7 +92,11 @@ const creatingFront = ref(false);
 const apiKey = ref<string | null>(localStorage.getItem('dungeonworld_fronts_api_key') || null);
 
 const isOwner = computed(()=> {  
-    return front.value.userId === userId.value || frontId.value == "new-front";
+    return userId.value !== "guest" && (front.value.userId === userId.value || frontId.value == "new-front");
+});
+
+const isGuest = computed(()=> {
+  return userId.value === "guest";
 });
 
 const frontTemplate = `

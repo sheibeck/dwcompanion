@@ -18,7 +18,8 @@ export const useGlobalStore = defineStore('globalStore', () => {
                 return true;
             }
             else {
-                throw("Not authenticated");
+                //is a guest user
+                return true;
             }
 
         }
@@ -43,6 +44,8 @@ export const useGlobalStore = defineStore('globalStore', () => {
                     if (!isAuthed) {
                         throw("session expired");
                     }
+
+                    resolve("guest");
                 }
                 catch {
                     await router.push({ name: "login" });

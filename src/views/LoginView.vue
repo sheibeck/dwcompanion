@@ -15,7 +15,7 @@
 <script setup lang="ts">
 import { Authenticator, useAuthenticator } from '@aws-amplify/ui-vue';
 import { useGlobalStore } from '@/stores/globalStore';
-import { onMounted } from 'vue';
+import { onMounted, watch } from 'vue';
 import { useRouter } from 'vue-router';
   
 const auth = useAuthenticator();
@@ -23,11 +23,19 @@ const globalStore = useGlobalStore();
 const router = useRouter();
 
 onMounted(async () => {
+  await routeUserToProperPage();
+})
+
+watch(() => auth.route, async () => {
+  await routeUserToProperPage();
+})
+
+async function routeUserToProperPage() {
   const userId = await globalStore.getUserId();
-  if (userId) {
+  if (userId !== "guest") {
     await router.push({ name: "home" });
   }
-})
+}
 
 </script>
 
