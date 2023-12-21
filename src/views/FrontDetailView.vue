@@ -148,7 +148,7 @@ onMounted(async () => {
 })
 
 async function setupFront() {
-    const userId = globalStore.getUserId();
+    const userId = await globalStore.getUserId();
 
     if (frontId.value === "new-front") {
         const newFront = {

@@ -47,8 +47,8 @@ import { computed, onMounted } from 'vue';
 const globalStore = useGlobalStore();
 const route = useRoute();
 
-onMounted(() => {
-  globalStore.getUserId();
+onMounted(async () => {
+  await globalStore.getUserId();
 })
 
 const isUserLoggedIn = computed( () => {
