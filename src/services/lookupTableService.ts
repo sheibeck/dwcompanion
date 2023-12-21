@@ -8,11 +8,7 @@ const client = generateClient();
 
 export const getProfessions = async() => {
 
-    const { data, errors} = await client.graphql({ 
-        query: queries.listProfessions, 
-        variables: { limit: 1000 },
-        authMode: 'iam',
-    });
+    const { data, errors} = await client.graphql({ query: queries.listProfessions, variables: { limit: 1000 } });
 
     const professions =  await data.listProfessions.items;
 
@@ -27,10 +23,7 @@ export const getProfessions = async() => {
 
 export const getAbilityScores = async() => {
 
-    const { data, errors} = await client.graphql({ 
-        query: queries.listAbilityScores,
-        authMode: 'iam',
-    });
+    const { data, errors} = await client.graphql({ query: queries.listAbilityScores});
 
     return data.listAbilityScores.items.sort((a, b) => (a?.sortOrder ?? 0) - (b?.sortOrder ?? 0));
 }
@@ -46,8 +39,7 @@ export const getProfessionByName = async(name: string) => {
                 }
             },
             limit: 1000,
-        },
-        authMode: 'iam',
+        }
     });
 
     const professsions =  await result.data.listProfessions.items;
@@ -72,8 +64,7 @@ export const getBondsByProfession = async(profession: ProfessionType) => {
                     }
                 },
                 limit: 1000,
-            },
-            authMode: 'iam',
+            } 
         });
 
     return data.listBonds.items;
@@ -88,8 +79,7 @@ export const getMovesByProfession = async(profession: ProfessionType) => {
                     }
                 },
                 limit: 1000, 
-            },
-            authMode: 'iam',
+            } 
         });
 
     return await data.listMoves.items;
@@ -104,8 +94,7 @@ export const getLooksByProfession = async(profession: ProfessionType) => {
                     }
                 } ,
                 limit: 1000,
-            },
-            authMode: 'iam', 
+            } 
         });
 
     return data.listLooks.items;
@@ -120,8 +109,7 @@ export const getAlignmentsByProfession = async(profession: ProfessionType) => {
                     }
                 },
                 limit: 1000,
-            },
-            authMode: 'iam',
+            } 
         });
 
     return data.listAlignments.items;
@@ -136,8 +124,7 @@ export const getRaceByProfession = async(profession: ProfessionType) => {
                     or: [{ profession: { eq: capitalizeWords(profession) } }, { profession: { eq: 'Any' } }]
                 },
                 limit: 1000,
-            },
-            authMode: 'iam',
+            }
         });
 
     return data.listRaces.items;
@@ -152,8 +139,7 @@ export const getStartingGearByProfession = async(profession: ProfessionType) => 
                     and: [{ profession: { eq: capitalizeWords(profession) } }, { isStartingGear: { eq: true } }]
                 },
                 limit: 1000,
-            },
-            authMode: 'iam',
+            }
         });
 
     return data.listGears.items;
