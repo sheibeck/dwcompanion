@@ -144,7 +144,8 @@ export async function updateFront(front: any) {
 export async function getFront(id: string) {
   const { data, errors } = await client.graphql({
       query: queries.getFront,
-      variables: { id: id }
+      variables: { id: id },
+      authMode: 'iam',
   });
 
   const front = data.getFront;
