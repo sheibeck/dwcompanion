@@ -5,7 +5,7 @@
     <div class="card m-1 profession d-flex flex-md-row p-1" v-for="(profession, idx) in professionList" :key="profession">
       <div class="align-self-center">
         <div>
-          <img loading="lazy" :src="`/professions/${profession.name.toLowerCase()}.png`" class="" :alt="`image of ${profession.name}`">
+          <img loading="lazy" :src="`/professions/${profession.name.toLowerCase()}.png`" style="min-height: 190px;" class="" :alt="`image of ${profession.name}`">
         </div>
         <div class="d-flex justify-content-center mt-2">
           <button type="button" @click="createCharacter(profession.name)" class="btn btn-secondary">
