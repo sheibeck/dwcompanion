@@ -1,60 +1,87 @@
 <template>
   <h1 class="d-print-none">Front</h1>
 
-  <div class="container-md" v-if="front">
-    <div class="d-md-flex border-bottom">
-      <div class="d-flex flex-wrap">
-        <div class="form-check d-print-none pb-2">
-          <input class="form-check-input" type="radio" name="frontCampaign" value="Campaign" v-model="front.type" id="frontCampaign">
-          <label class="form-check-label" for="frontCampaign">
-            Campaign
-          </label>
-        </div>
-        <div class="form-check d-print-none">
-          <input class="form-check-input" type="radio" name="frontAdventure" value="Adventure" v-model="front.type" id="frontAdventure" checked>
-          <label class="form-check-label" for="frontAdventure">
-            Adventure
-          </label>
-        </div>
+  <div class="container-md front" v-if="front">
+    <div class="d-print-none d-flex justify-content-center" v-if="isGuest"> 
+        <span class="text-danger">
+            You must <a href="/login">sign in</a> to save fronts. While not logged in, data you enter will be lost if you navigate away from this page.
+        </span>
+    </div>
+    
+    <div class="gradient-background"></div>
+    <div class="page">
+      <div class="sheet-label">
+          <div class="banner-top">
+              <img src="@/assets/page-banner-top.png" alt="page banner top" />
+          </div>
+          <div class="banner-middle">
+              <div class="rotated-text">
+                  Front
+              </div>
+          </div>
+          <div class="banner-bottom">
+              <img src="@/assets/page-banner-bottom.png" alt="page banner bottom" />
+              <img class="banner-bottom-fill" src="@/assets/page-banner-bottom-fill.png" alt="page banner bottom fill" />
+          </div>
       </div>
-      
-      <div class="input-group mb-2 pe-md-2  d-print-none">
-          <span class="input-group-text text-dark" id="name">Name</span>
-          <input type="text" class="form-control text-dark" aria-label="Name" aria-describedby="name"
-              v-model="front.name">
-      </div>
-       
-      <div class="d-print-none" v-if="isOwner">
-        <button type="button" class="m-1 btn btn-secondary" @click="generateFrontDescription()">Generate {{ front.type }} Front</button>
-        <div v-if="creatingFront" class="d-flex">
-          <span>Generating front, please do not navigate away from this page ... </span>
-          <VueSpinnerHourglass class="w-25" v-if="creatingFront" />
+      <div class="front-detail">
+        <div class="meta-data d-print-none border-bottom border-black pb-2">
+          <div class="d-flex flex-wrap pb-1">
+            <div class="form-check me-2">
+              <input class="form-check-input" type="radio" name="frontCampaign" value="Campaign" v-model="front.type" id="frontCampaign">
+              <label class="form-check-label" for="frontCampaign">
+                Campaign
+              </label>
+            </div>
+            <div class="form-check d-print-none">
+              <input class="form-check-input" type="radio" name="frontAdventure" value="Adventure" v-model="front.type" id="frontAdventure" checked>
+              <label class="form-check-label" for="frontAdventure">
+                Adventure
+              </label>
+            </div>
+          </div>
+          
+          <div class="input-group mb-2 pe-md-2">
+              <span class="input-group-text text-dark" id="name">Name</span>
+              <input type="text" class="form-control text-dark" aria-label="Name" aria-describedby="name"
+                  v-model="front.name">
+          </div>
+          
+          <div class="" v-if="isOwner">
+            <button type="button" class="m-1 btn btn-secondary" @click="generateFrontDescription()">Generate {{ front.type }} Front</button>
+            <div v-if="creatingFront" class="d-flex">
+              <span>Generating front, please do not navigate away from this page ... </span>
+              <VueSpinnerHourglass class="w-25" v-if="creatingFront" />
+            </div>
+          </div>
+
+          <div class="bg-warning w-100 small p-1 rounded">The generate front button is experimental and will require you to have a ChatGPT Api Key.</div>
+        </div>
+
+        <div class="mt-3 front-content">
+          <div v-if="!isEditing" class="d-flex edit-controls open">
+              <VueShowdown :markdown="front.description" class="description w-100" />
+              <div class="edit-controls closed d-flex mt-0 align-self-start" v-if="isOwner">
+                  <button class="btn btn-link d-print-none" type="button" @click="isEditing = true">
+                      <img src="@/assets/pencil-solid.svg" alt="edit description"/>
+                  </button>
+              </div>
+          </div>
+
+          <div v-if="isEditing" class="d-flex d-print-none edit-controls open">
+              <textarea type="text" class="form-control from-control-sm" ref="description" :rows="20" v-model="front.description"></textarea>
+
+              <div class="edit-controls d-flex align-self-start">
+                  <button class="btn btn-link" type="button" @click="saveDescription()">
+                      <img src="@/assets/floppy-disk-solid.svg" alt="save description"/>
+                  </button>
+              </div>
+          </div>
         </div>
       </div>
     </div>
-    <div class="bg-warning w-100 small p-1 d-print-none rounded">The generate front button is experimental and will require you to have a ChatGPT Api Key.</div>
-    <div class="mt-3">
-        <div v-if="!isEditing" class="d-flex edit-controls open">
-            <VueShowdown :markdown="front.description" class="description w-100" />
-            <div class="edit-controls closed d-flex mt-0 align-self-start" v-if="isOwner">
-                <button class="btn btn-link d-print-none" type="button" @click="isEditing = true">
-                    <img src="@/assets/pencil-solid.svg" alt="edit description"/>
-                </button>
-            </div>
-        </div>
 
-        <div v-if="isEditing" class="d-flex d-print-none edit-controls open">
-            <textarea type="text" class="form-control from-control-sm" ref="description" :rows="20" v-model="front.description"></textarea>
-
-            <div class="edit-controls d-flex align-self-start">
-                <button class="btn btn-link" type="button" @click="saveDescription()">
-                    <img src="@/assets/floppy-disk-solid.svg" alt="save description"/>
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <div class="d-print-none action-bar d-flex justify-content-end border-top p-1 mt-5" v-if="isAuthenticated">
+    <div class="d-print-none action-bar d-flex justify-content-end p-1 border-top">
         <a href="/fronts" type="button" class="btn btn-danger me-2">Close</a>
         <button type="button" class="btn btn-secondary me-2" @click="print()">Print</button>
         <button v-if="isOwner" type="button" class="btn btn-dark" @click="save()">Save</button>
@@ -86,7 +113,11 @@ const creatingFront = ref(false);
 const apiKey = ref<string | null>(localStorage.getItem('dungeonworld_fronts_api_key') || null);
 
 const isOwner = computed(()=> {  
-    return front.value.userId === userId.value || frontId.value == "new-front";
+    return userId.value !== null && (front.value.userId === userId.value || frontId.value == "new-front");
+});
+
+const isGuest = computed(()=> {
+  return userId.value == null;
 });
 
 const frontTemplate = `
@@ -117,7 +148,7 @@ onMounted(async () => {
 })
 
 async function setupFront() {
-    const userId = globalStore.getUserId();
+    const userId = await globalStore.getUserId();
 
     if (frontId.value === "new-front") {
         const newFront = {
@@ -240,4 +271,83 @@ function print() {
 </script>
 
 <style scoped lang="scss">
+
+.front {
+  .gradient-background {
+      background: linear-gradient(to bottom, lightgray, #fff);
+      height: 400px;
+      width: 100%;
+      position:absolute;
+      left: 0;
+      margin-top: -5px;
+      z-index: -1;
+  }
+
+  .page {
+    background-color: transparent;
+    display: grid;
+    grid-template-columns: 1fr;
+    break-inside: avoid;
+
+    .sheet-label {
+      display: none;
+      grid-template-rows: auto 600px 1fr;
+      font-weight: 700;
+      font-family: 'Cinzel Decorative', serif;
+      height: 100%;
+
+      .banner-middle {
+          .rotated-text {
+              width: 600px;
+              transform: translate(-43%, 270%) rotate(-90deg);
+              font-size: 60px;
+              text-align: center;
+          }
+      }
+
+      .banner-bottom {
+          height: 100%;
+          width: 70px;
+          margin-top: -30px;
+          
+          img {
+              margin: 0px;
+          }
+
+          &-fill {
+              height: 100%;
+              width: 79px;
+          }
+      }
+    }
+  }
+
+  @media(min-width: 800px) {
+    .page {
+      grid-template-columns: 80px 1fr;
+      grid-column-gap: 15px;
+      height: 1012px;
+      page-break-after: always;
+
+      .sheet-label {
+          display: grid;
+      }
+    }  
+  }
+}
+
+@media print {
+    .front {   
+      margin: 0px;
+      padding: 0px;
+
+      .page {
+        padding-top: 10px;
+
+        .front-content {
+          margin-top: 0px !important;
+        }
+      }
+    }
+}
 </style>
