@@ -93,7 +93,8 @@ export async function updateCharacter(character: any) {
 export async function getCharacter(id: string) {
     const { data, errors } = await client.graphql({
         query: queries.getCharacter,
-        variables: { id: id }
+        variables: { id: id },
+        authMode: 'iam',
     });
 
     const character = data.getCharacter;
