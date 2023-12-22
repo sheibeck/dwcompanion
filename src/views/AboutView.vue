@@ -6,7 +6,7 @@
       A tool for creating and managing your Dungeon World games.
     </div>
     <a alt="Dungeon World Companion" href="/">
-      <img alt="logo" class="img-fluid" src="@/assets/dwlogo.png" />
+      <img loading="lazy" alt="logo" class="img-fluid" src="@/assets/dwlogo.png" />
     </a>
   </div>
 

@@ -12,7 +12,7 @@
         <div class="page page1" v-if="pageNumber == 1 || isPrinting">
             <div class="sheet-label">
                 <div class="banner-top">
-                    <img src="@/assets/page-banner-top.png" alt="page banner top" />
+                    <img loading="lazy" src="@/assets/page-banner-top.png" alt="page banner top" />
                 </div>
                 <div class="banner-middle">
                     <div class="rotated-text">
@@ -20,8 +20,8 @@
                     </div>
                 </div>
                 <div class="banner-bottom">
-                    <img src="@/assets/page-banner-bottom.png" alt="page banner bottom" />
-                    <img class="banner-bottom-fill" src="@/assets/page-banner-bottom-fill.png" alt="page banner bottom fill" />
+                    <img loading="lazy" src="@/assets/page-banner-bottom.png" alt="page banner bottom" />
+                    <img loading="lazy" class="banner-bottom-fill" src="@/assets/page-banner-bottom-fill.png" alt="page banner bottom fill" />
                 </div>
             </div>
             <div class="sheet-details">
@@ -47,7 +47,7 @@
         <div class="page page2" v-if="pageNumber == 2 || isPrinting">
             <div class="sheet-label">
                 <div class="banner-top">
-                    <img src="@/assets/page-banner-top.png" alt="page banner top" />
+                    <img loading="lazy" src="@/assets/page-banner-top.png" alt="page banner top" />
                 </div>
                 <div class="banner-middle">
                     <div class="rotated-text">
@@ -55,8 +55,8 @@
                     </div>
                 </div>
                 <div class="banner-bottom">
-                    <img src="@/assets/page-banner-bottom.png" alt="page banner bottom" />
-                    <img class="banner-bottom-fill" src="@/assets/page-banner-bottom-fill.png" alt="page banner bottom fill" />
+                    <img loading="lazy" src="@/assets/page-banner-bottom.png" alt="page banner bottom" />
+                    <img loading="lazy" class="banner-bottom-fill" src="@/assets/page-banner-bottom-fill.png" alt="page banner bottom fill" />
                 </div>
             </div>
             <div class="sheet-gear">
