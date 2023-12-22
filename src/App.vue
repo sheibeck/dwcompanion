@@ -10,23 +10,31 @@
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbartoggle" aria-controls="navbartoggle" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse bg-body-tertiary m-0" id="navbartoggle">
+        <div class="collapse navbar-collapse bg-body-tertiary p-2" id="navbartoggle">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
-              <a class="nav-link" href="/">Home</a>
+              <a class="nav-link" href="/">
+                <img src="@/assets/house-solid.svg" alt="home icon" class="filter-light" /> Home
+              </a>
             </li>
             <li v-if="isUserLoggedIn" class="nav-item">
-              <a class="nav-link" href="/characters">Characters</a>
+              <a class="nav-link" href="/characters">
+                <img src="@/assets/users-solid.svg" alt="characters icon" class="filter-light" /> Characters
+              </a>
             </li>
             <li v-if="isUserLoggedIn" class="nav-item">
-              <a class="nav-link" href="/fronts">Fronts</a>
+              <a class="nav-link" href="/fronts">
+                <img src="@/assets/book-open-solid.svg" alt="characters icon" class="filter-light" /> Fronts
+              </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" target="_blank" href="https://github.com/sheibeck/dwcompanion/wiki/Dungeon-World-Companion">Support</a>
+              <a class="nav-link" target="_blank" href="https://github.com/sheibeck/dwcompanion/wiki/Dungeon-World-Companion">
+                <img src="@/assets/bug-solid.svg" alt="characters icon" class="filter-light" /> Support
+              </a>
             </li>
             <li class="nav-item">
               <button class="nav-link" @click="copyCurrentUrlToClipboard()">
-                <img src="@/assets/share-nodes-solid.svg" alt="share" class="filter-light" />
+                <img src="@/assets/share-nodes-solid.svg" alt="share icon" class="filter-light" /> Share
               </button>
             </li>
           </ul>
