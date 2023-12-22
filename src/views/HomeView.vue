@@ -5,16 +5,16 @@
     <div class="card m-1 profession d-flex flex-md-row p-1" v-for="(profession, idx) in professionList" :key="profession">
       <div class="align-self-center">
         <div>
-          <img :src="`/professions/${profession.name.toLowerCase()}.png`" class="" :alt="`image of ${profession.name}`">
+          <img loading="lazy" :src="`/professions/${profession.name.toLowerCase()}.png`" style="min-height: 190px;" class="" :alt="`image of ${profession.name}`">
         </div>
         <div class="d-flex justify-content-center mt-2">
           <button type="button" @click="createCharacter(profession.name)" class="btn btn-secondary">
-            <img src="@/assets/plus-solid.svg" :alt="`create a ${profession.name}`"/> Create a {{ profession.name }}
+            <img loading="lazy" src="@/assets/plus-solid.svg" alt="plus icon"/> Create a {{ profession.name }}
           </button>
         </div>
       </div>
       <div class="card-body">
-        <h4 class="card-title">{{ profession.name }}</h4>
+        <h2 class="card-title">{{ profession.name }}</h2>
         <div class="card-text">
           <VueShowdown :markdown="profession.description" />
         </div>
@@ -43,12 +43,7 @@ const getProfessionList = async () => {
 
 onMounted(async () => {
   const isAuthenticated = await globalStore.isAuthenticated();
-  // if (!isAuthenticated) {
-  //   await router.push({name: "login"});
-  // }
-  // else {
-    getProfessionList();
-  // }
+  getProfessionList();
 })
 
 async function createCharacter(profession: string) {
@@ -58,8 +53,6 @@ async function createCharacter(profession: string) {
 </script>
 
 <style scoped lang="scss">
-
-
   .professions {
     .profession {
       font-size: 1.1em;

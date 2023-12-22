@@ -3,7 +3,7 @@
   <template v-if="auth.route !== 'authenticated'">
     <div class="authentication justify-content-center">
       <header>
-        <img alt="logo" class="img-fluid" src="@/assets/dwlogo.png" />
+        <img loading="lazy" alt="logo" class="img-fluid" src="@/assets/dwlogo.png" />
       </header>
 
       <authenticator :login-mechanisms="['email']" :social-providers="['google']">

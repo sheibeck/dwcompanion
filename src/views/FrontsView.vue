@@ -3,7 +3,7 @@
         <div class="d-flex">
             <h1>Fronts</h1>
             <div>
-                <a href="/front/new-front" class="btn btn-secondary ms-2"><img src="@/assets/plus-solid.svg" alt="create a front"/> Create a Front</a>
+                <a href="/front/new-front" class="btn btn-secondary ms-2"><img src="@/assets/plus-solid.svg" alt="plus icon"/> Create a Front</a>
             </div>
         </div>
         <div class="d-md-flex">
