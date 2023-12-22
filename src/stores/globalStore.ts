@@ -25,26 +25,22 @@ export const useGlobalStore = defineStore('globalStore', () => {
         }
         catch {
             currentUser.value = null;
-            await router.push({ name: "login" });
+            //await router.push({ name: "login" });
             return false;
         }
 
     };
 
     async function getUserId() {
-        return new Promise<string|null>(async (resolve) => {
-            try {
-                const { username, userId, signInDetails } = await getCurrentUser();
-                currentUser.value = userId;
-                resolve(userId);
-            }
-            catch {
-               
-                    currentUser.value = null;
-                    resolve(null);    
-               
-            }
-        });
+        try {
+            const { username, userId, signInDetails } = await getCurrentUser();
+            currentUser.value = userId;
+            return userId;
+        }
+        catch {
+            currentUser.value = null;
+            return null;    
+        }
     }
 
     async function signOffUser() {

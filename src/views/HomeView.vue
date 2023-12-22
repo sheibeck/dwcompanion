@@ -29,10 +29,12 @@ import { getProfessions } from '@/services/lookupTableService';
 import { VueShowdown } from 'vue-showdown';
 import { onMounted, ref } from 'vue';
 import { useGlobalStore } from '@/stores/globalStore';
+import { useAuthenticator } from '@aws-amplify/ui-vue';
 
 const router = useRouter();
 const professionList = ref();
 const globalStore = useGlobalStore();
+const auth = useAuthenticator();
 
 const getProfessionList = async () => {
   const list = await getProfessions();
@@ -41,12 +43,12 @@ const getProfessionList = async () => {
 
 onMounted(async () => {
   const isAuthenticated = await globalStore.isAuthenticated();
-  if (!isAuthenticated) {
-    await router.push({name: "login"});
-  }
-  else {
+  // if (!isAuthenticated) {
+  //   await router.push({name: "login"});
+  // }
+  // else {
     getProfessionList();
-  }
+  // }
 })
 
 async function createCharacter(profession: string) {
