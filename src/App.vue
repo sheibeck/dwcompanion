@@ -24,6 +24,11 @@
             <li class="nav-item">
               <a class="nav-link" target="_blank" href="https://github.com/sheibeck/dwcompanion/wiki/Dungeon-World-Companion">Support</a>
             </li>
+            <li class="nav-item">
+              <button class="nav-link" @click="copyCurrentUrlToClipboard()">
+                <img src="@/assets/share-nodes-solid.svg" alt="share" class="filter-light" />
+              </button>
+            </li>
           </ul>
           <div class="d-flex">
             <button v-if="isUserLoggedIn" class="btn btn-secondary text-light btn-link" @click="globalStore.signOffUser()">Sign out</button>
@@ -40,12 +45,12 @@
 </template>
 
 <script setup lang="ts">
-import { RouterView, useRoute } from 'vue-router'
+import { RouterView } from 'vue-router'
 import { useGlobalStore } from './stores/globalStore';
 import { computed, onMounted } from 'vue';
+import { toast } from 'vue3-toastify';
 
 const globalStore = useGlobalStore();
-const route = useRoute();
 
 onMounted(async () => {
   await globalStore.getUserId();
@@ -55,6 +60,22 @@ const isUserLoggedIn = computed( () => {
   const userId = globalStore.currentUser;
   return userId !== null;
 })
+
+function copyCurrentUrlToClipboard(): void {
+  // Get the current URL
+  const currentUrl = window.location.href;
+
+  // Use the Clipboard API to copy the URL
+  navigator.clipboard.writeText(currentUrl)
+      .then(() => {
+          console.log('Current URL copied to clipboard successfully.');
+      })
+      .catch(err => {
+          console.error('Failed to copy the URL to clipboard: ', err);
+      });
+
+  toast("Url copied");
+}
 
 </script>
 
@@ -66,6 +87,10 @@ const isUserLoggedIn = computed( () => {
     #navbartoggle {
       z-index: 2;
     }
+  }
+
+  .filter-light{
+    filter: invert(50%) saturate(100%) hue-rotate(86deg) brightness(100%) contrast(100%);
   }
 
   @media print {

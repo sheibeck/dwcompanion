@@ -5,7 +5,7 @@
             <input type="text" class="form-control text-dark" aria-label="Name" aria-describedby="name"
                 v-model="character.name"> 
                 <button class="ps-0 btn btn-link d-print-none" type="button" @click="getName()">
-                    <img src="@/assets/dice-solid.svg" alt="random name"/>
+                    <img src="@/assets/dice-solid.svg" alt="random name" height="20" />
                 </button>
         </div>
         <div class="input-group mb-2 pe-md-2">
