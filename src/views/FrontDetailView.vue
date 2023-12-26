@@ -28,13 +28,13 @@
         <div class="meta-data d-print-none border-bottom border-black pb-2">
           <div class="d-flex flex-wrap pb-1">
             <div class="form-check me-2">
-              <input class="form-check-input" type="radio" name="frontCampaign" value="Campaign" v-model="front.type" id="frontCampaign">
+              <input class="form-check-input" type="radio" name="front" value="Campaign" v-model="front.type" id="frontCampaign">
               <label class="form-check-label" for="frontCampaign">
                 Campaign
               </label>
             </div>
             <div class="form-check d-print-none">
-              <input class="form-check-input" type="radio" name="frontAdventure" value="Adventure" v-model="front.type" id="frontAdventure" checked>
+              <input class="form-check-input" type="radio" name="front" value="Adventure" v-model="front.type" id="frontAdventure">
               <label class="form-check-label" for="frontAdventure">
                 Adventure
               </label>
@@ -59,7 +59,7 @@
         </div>
 
         <div class="mt-3 front-content">
-          <div v-if="!isEditing" class="d-flex edit-controls open">
+          <div v-if="!isEditing" class="d-flex">
               <VueShowdown :markdown="front.description" class="description w-100" />
               <div class="edit-controls closed d-flex mt-0 align-self-start" v-if="isOwner">
                   <button class="btn btn-link d-print-none" type="button" @click="isEditing = true">
@@ -68,10 +68,10 @@
               </div>
           </div>
 
-          <div v-if="isEditing" class="d-flex d-print-none edit-controls open">
+          <div v-if="isEditing" class="d-flex d-print-none">
               <textarea type="text" class="form-control from-control-sm" ref="description" :rows="20" v-model="front.description"></textarea>
 
-              <div class="edit-controls d-flex align-self-start">
+              <div class="d-flex align-self-start">
                   <button class="btn btn-link" type="button" @click="saveDescription()">
                       <img src="@/assets/floppy-disk-solid.svg" alt="save description"/>
                   </button>
@@ -124,21 +124,21 @@ const frontTemplate = `
 # Title
 ## Danger Name
   * __Impulse__: Impulse description
-  * __Moves__:
+  * __Grim Portents__: 1-3 for adventure, 3-5 for campaign 
+    - [ ] Portent
+    - [ ] Portent
+    - [ ] Etc.
+  * __Impending Doom__: Impending doom description/example
+  * __Moves__: a list of moves
     * Move
     * Move
     * etc
-  * __Impending Doom__: Impending doom description/example
-## Grim Portents
-  1. Portent
-  2. Portent
-  3. Etc
 ## Stakes
   1. Stake
   2. Stake
   3. Stake
 ## Cast
-  __name__: description
+  * __cast member__: description and a leading body part
 `
 
 onMounted(async () => {
@@ -287,7 +287,6 @@ function print() {
     background-color: transparent;
     display: grid;
     grid-template-columns: 1fr;
-    break-inside: avoid;
 
     .sheet-label {
       display: none;
@@ -295,6 +294,7 @@ function print() {
       font-weight: 700;
       font-family: 'Cinzel Decorative', serif;
       height: 100%;
+      max-height: 1012px;
 
       .banner-middle {
           .rotated-text {
@@ -326,9 +326,7 @@ function print() {
     .page {
       grid-template-columns: 80px 1fr;
       grid-column-gap: 15px;
-      height: 1012px;
-      page-break-after: always;
-
+      
       .sheet-label {
           display: grid;
       }
@@ -337,12 +335,19 @@ function print() {
 }
 
 @media print {
+    
+  
     .front {   
       margin: 0px;
       padding: 0px;
 
       .page {
         padding-top: 10px;
+        height: 1012px;
+
+        p, ul, ol, h2 {
+          page-break-inside: avoid;
+        }
 
         .front-content {
           margin-top: 0px !important;
