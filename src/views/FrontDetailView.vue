@@ -124,21 +124,21 @@ const frontTemplate = `
 # Title
 ## Danger Name
   * __Impulse__: Impulse description
-  * __Moves__:
+  * __Grim Portents__: 1-3 for adventure, 3-5 for campaign 
+    - [ ] Portent
+    - [ ] Portent
+    - [ ] Etc.
+  * __Impending Doom__: Impending doom description/example
+  * __Moves__: a list of moves
     * Move
     * Move
     * etc
-  * __Impending Doom__: Impending doom description/example
-## Grim Portents
-  1. Portent
-  2. Portent
-  3. Etc
 ## Stakes
   1. Stake
   2. Stake
   3. Stake
 ## Cast
-  __name__: description
+  * __cast member__: description and a leading body part
 `
 
 onMounted(async () => {
