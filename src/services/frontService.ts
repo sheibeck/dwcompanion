@@ -8,7 +8,7 @@ const client = generateClient();
 const ASSISTANT_ID = 'asst_YKT1efTUEMyxgY9aZ6eiXsU9'; // ai assistant id
 
 function getApiKey() {
-  return localStorage.getItem('dungeonworld_fronts_api_key') ?? null;
+  return localStorage.getItem('dungeonworldcompanion_apikey') ?? null;
 }
 
 export async function generateDungeonWorldFront(frontType: String) {
