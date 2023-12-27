@@ -32,6 +32,11 @@
                     <img src="@/assets/book-open-solid.svg" alt="fronts icon" class="filter-light" /> Fronts
                   </a>
                 </li>
+                <li>
+                  <a class="dropdown-item" target="_blank" href="/steadings">
+                    <img src="@/assets/tree-city-solid.svg" alt="steadings icon" class="filter-light" /> Steadings
+                  </a>
+                </li>
               </ul>
             </li>
             <li class="nav-item dropdown">

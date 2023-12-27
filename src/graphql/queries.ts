@@ -502,3 +502,45 @@ export const listFronts = /* GraphQL */ `query ListFronts(
   APITypes.ListFrontsQueryVariables,
   APITypes.ListFrontsQuery
 >;
+export const getSteading = /* GraphQL */ `query GetSteading($id: ID!) {
+  getSteading(id: $id) {
+    userId
+    id
+    type
+    name
+    description
+    createdAt
+    updatedAt
+    owner
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.GetSteadingQueryVariables,
+  APITypes.GetSteadingQuery
+>;
+export const listSteadings = /* GraphQL */ `query ListSteadings(
+  $filter: ModelSteadingFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listSteadings(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      userId
+      id
+      type
+      name
+      description
+      createdAt
+      updatedAt
+      owner
+      __typename
+    }
+    nextToken
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.ListSteadingsQueryVariables,
+  APITypes.ListSteadingsQuery
+>;

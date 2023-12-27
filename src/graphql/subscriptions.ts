@@ -701,3 +701,63 @@ export const onDeleteFront = /* GraphQL */ `subscription OnDeleteFront(
   APITypes.OnDeleteFrontSubscriptionVariables,
   APITypes.OnDeleteFrontSubscription
 >;
+export const onCreateSteading = /* GraphQL */ `subscription OnCreateSteading(
+  $filter: ModelSubscriptionSteadingFilterInput
+  $owner: String
+) {
+  onCreateSteading(filter: $filter, owner: $owner) {
+    userId
+    id
+    type
+    name
+    description
+    createdAt
+    updatedAt
+    owner
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnCreateSteadingSubscriptionVariables,
+  APITypes.OnCreateSteadingSubscription
+>;
+export const onUpdateSteading = /* GraphQL */ `subscription OnUpdateSteading(
+  $filter: ModelSubscriptionSteadingFilterInput
+  $owner: String
+) {
+  onUpdateSteading(filter: $filter, owner: $owner) {
+    userId
+    id
+    type
+    name
+    description
+    createdAt
+    updatedAt
+    owner
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnUpdateSteadingSubscriptionVariables,
+  APITypes.OnUpdateSteadingSubscription
+>;
+export const onDeleteSteading = /* GraphQL */ `subscription OnDeleteSteading(
+  $filter: ModelSubscriptionSteadingFilterInput
+  $owner: String
+) {
+  onDeleteSteading(filter: $filter, owner: $owner) {
+    userId
+    id
+    type
+    name
+    description
+    createdAt
+    updatedAt
+    owner
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnDeleteSteadingSubscriptionVariables,
+  APITypes.OnDeleteSteadingSubscription
+>;

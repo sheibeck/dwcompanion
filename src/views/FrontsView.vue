@@ -20,10 +20,10 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted, ref } from 'vue';
+import { onMounted, ref } from 'vue';
 import { useGlobalStore } from '@/stores/globalStore';
 import { useRouter } from 'vue-router';
-import { getFronts, deleteFront } from '@/services/frontsService';
+import { getFronts, deleteFront } from '@/services/frontService';
 import { toast } from 'vue3-toastify';
 
 const globalStore = useGlobalStore();

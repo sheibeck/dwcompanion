@@ -35,6 +35,16 @@ const router = createRouter({
       component: () => import('../views/FrontDetailView.vue')
     },
     {
+      path: '/steadings',
+      name: 'steadings',
+      component: () => import('../views/SteadingsView.vue')
+    },
+    {
+      path: '/steading/:id',
+      name: 'steading',
+      component: () => import('../views/SteadingDetailView.vue')
+    },
+    {
       path: '/about',
       name: 'about',
       component: () => import('../views/AboutView.vue')
