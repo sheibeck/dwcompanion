@@ -23,17 +23,17 @@
               </a>
               <ul class="dropdown-menu">
                 <li>
-                  <a class="dropdown-item" target="_blank" href="/characters">
+                  <a class="dropdown-item" href="/characters">
                     <img src="@/assets/users-solid.svg" alt="characters icon" class="filter-light" /> Characters
                   </a>
                 </li>
                 <li>
-                  <a class="dropdown-item" target="_blank" href="/fronts">
+                  <a class="dropdown-item" href="/fronts">
                     <img src="@/assets/book-open-solid.svg" alt="fronts icon" class="filter-light" /> Fronts
                   </a>
                 </li>
                 <li>
-                  <a class="dropdown-item" target="_blank" href="/steadings">
+                  <a class="dropdown-item" href="/steadings">
                     <img src="@/assets/tree-city-solid.svg" alt="steadings icon" class="filter-light" /> Steadings
                   </a>
                 </li>
