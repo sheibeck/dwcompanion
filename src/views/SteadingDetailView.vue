@@ -127,7 +127,7 @@ const userId = ref<null|String>(null);
 
 const steading = ref();
 const creatingSteading = ref(false);
-const apiKey = ref<string | null>(localStorage.getItem('dungeonworld_steadings_api_key') || null);
+const apiKey = ref<string | null>(localStorage.getItem('dungeonworldcompanion_apikey') || null);
 
 const isOwner = computed(()=> {  
     return userId.value !== null && (steading.value.userId === userId.value || steadingId.value == "new-steading");

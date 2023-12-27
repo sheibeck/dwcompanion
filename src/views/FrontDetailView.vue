@@ -115,7 +115,7 @@ const userId = ref<null|String>(null);
 
 const front = ref();
 const creatingFront = ref(false);
-const apiKey = ref<string | null>(localStorage.getItem('dungeonworld_fronts_api_key') || null);
+const apiKey = ref<string | null>(localStorage.getItem('dungeonworldcompanion_apikey') || null);
 
 const isOwner = computed(()=> {  
     return userId.value !== null && (front.value.userId === userId.value || frontId.value == "new-front");
