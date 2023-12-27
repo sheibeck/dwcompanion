@@ -140,7 +140,6 @@ const isGuest = computed(()=> {
 const steadingTemplate = `
 # Steading Name
   * __Type__: Steading Type
-  * __Population:__: Steading Population
 
 ### Tags
 __Prosperity:__ (list any prosperity tags)
