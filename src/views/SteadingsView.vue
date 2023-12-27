@@ -3,7 +3,7 @@
         <div class="d-flex">
             <h1>Steadings</h1>
             <div>
-                <a href="/steading/new-steading" class="btn btn-secondary ms-2"><img src="@/assets/plus-solid.svg" alt="plus icon"/> Create a Steading</a>
+                <a href="/steading/new-steading" class="btn btn-secondary ms-2"><img src="@/assets/plus-solid.svg" alt="plus icon" class="filter-white" /> Create a Steading</a>
             </div>
         </div>
         <div class="d-md-flex">

@@ -1,5 +1,10 @@
 <template>
-  <h1 class="d-print-none">Front</h1>
+  <h1 class="d-print-none d-flex">
+    Front
+    <div>
+        <a href="/fronts/" class="btn btn-secondary ms-2"><img src="@/assets/book-solid.svg" alt="plus icon" class="filter-white" /> My Fronts</a>
+    </div>
+  </h1>
 
   <div class="container-md front" v-if="front">
     <div class="d-print-none d-flex justify-content-center" v-if="isGuest"> 
@@ -33,7 +38,7 @@
                 Campaign
               </label>
             </div>
-            <div class="form-check d-print-none">
+            <div class="form-check me-2">
               <input class="form-check-input" type="radio" name="front" value="Adventure" v-model="front.type" id="frontAdventure">
               <label class="form-check-label" for="frontAdventure">
                 Adventure
@@ -257,7 +262,7 @@ function getFrontNameFromMarkdown(markdownText: string): string | null {
   for (const line of lines) {
     const trimmedLine = line.trim();
     if (trimmedLine !== '') {
-      return trimmedLine.replace("#", "");
+      return trimmedLine.replace("#", "").trim();
     }
   }
 

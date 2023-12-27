@@ -1,5 +1,10 @@
 <template>
-  <h1 class="d-print-none">Steading</h1>
+  <h1 class="d-print-none d-flex">
+    Steading
+    <div>
+        <a href="/steadings/" class="btn btn-secondary ms-2"><img src="@/assets/tree-city-solid.svg" alt="plus icon" class="filter-white" /> My Steadings</a>
+    </div>
+  </h1>
 
   <div class="container-md steading" v-if="steading">
     <div class="d-print-none d-flex justify-content-center" v-if="isGuest"> 
@@ -33,19 +38,19 @@
                 Village
               </label>
             </div>
-            <div class="form-check d-print-none">
+            <div class="form-check me-2">
               <input class="form-check-input" type="radio" name="steading" value="Town" v-model="steading.type" id="steadingTown">
               <label class="form-check-label" for="steadingTown">
                 Town
               </label>
             </div>
-            <div class="form-check d-print-none">
+            <div class="form-check me-2">
               <input class="form-check-input" type="radio" name="steading" value="Keep" v-model="steading.type" id="steadingKeep">
               <label class="form-check-label" for="steadingKeep">
                 Keep
               </label>
             </div>
-            <div class="form-check d-print-none">
+            <div class="form-check me-2">
               <input class="form-check-input" type="radio" name="steading" value="City" v-model="steading.type" id="steadingCity">
               <label class="form-check-label" for="steadingCity">
                 City
@@ -137,38 +142,41 @@ const steadingTemplate = `
   * __Type__: Steading Type
   * __Population:__: Steading Population
 
-## Tags:
-### Prosperity: (list any prosperity tags)
-  * __Tag Name__: description of tag
-  * __Tag Name__: description of tag
-  * Etc.
-### Population:  (list any population tags)
-  * __Tag Name__: description of tag
-  * __Tag Name__: description of tag
-  * Etc.
-### Defenses:  (list any defense tags)
-  * __Tag Name__: description of tag
-  * __Tag Name__: description of tag
-  * Etc.
-### Other tags:  (list any other tags)
+### Tags
+__Prosperity:__ (list any prosperity tags)
   * __Tag Name__: description of tag
   * __Tag Name__: description of tag
   * Etc.
 
-## Notable NPCs:
+__Population:__  (list any population tags)
+  * __Tag Name__: description of tag
+  * __Tag Name__: description of tag
+  * Etc.
+
+__Defenses:__  (list any defense tags)
+  * __Tag Name__: description of tag
+  * __Tag Name__: description of tag
+  * Etc.
+
+__Other:__  (list any other tags)
+  * __Tag Name__: description of tag
+  * __Tag Name__: description of tag
+  * Etc.
+
+### Notable NPCs
   * __NPC Name__: description
   * __NPC Name__: description
   * Etc.
 
-## Nearby locations
+### Nearby locations
 List any locations, landmarks or other important things near this steadings location
   * __Location name__: location description
   * Etc.
 
-## Problem:
+### Problem
 Choose one problem for this steading
 
-## Custom Moves:
+### Custom Moves
 List any custom moves appropriate to this steading
 `
 
@@ -288,7 +296,7 @@ function getSteadingNameFromMarkdown(markdownText: string): string | null {
   for (const line of lines) {
     const trimmedLine = line.trim();
     if (trimmedLine !== '') {
-      return trimmedLine.replace("#", "");
+      return trimmedLine.replace("#", "").trim();
     }
   }
 

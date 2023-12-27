@@ -3,7 +3,7 @@
         <div class="d-flex">
             <h1>Characters</h1>
             <div>
-                <a href="/" class="btn btn-secondary ms-2"><img src="@/assets/plus-solid.svg" alt="plus icon"/> Create a Character</a>
+                <a href="/" class="btn btn-secondary ms-2"><img src="@/assets/plus-solid.svg" alt="plus icon" class="filter-white" /> Create a Character</a>
             </div>
         </div>
         <div class="d-md-flex">

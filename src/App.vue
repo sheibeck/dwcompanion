@@ -136,6 +136,10 @@ function copyCurrentUrlToClipboard(): void {
     filter: invert(50%) saturate(100%) hue-rotate(86deg) brightness(100%) contrast(100%);
   }
 
+  .filter-white{
+    filter: invert(50%) saturate(100%) hue-rotate(86deg) brightness(125%) contrast(100%);
+  }
+
   @media print {
     .content {
         margin-top: 5px !important;
