@@ -1,15 +1,15 @@
 <template>
   <h1 class="d-print-none d-flex">
-    Front
+    Steading
     <div>
-        <a href="/fronts/" class="btn btn-secondary ms-2"><img src="@/assets/book-open-solid.svg" alt="plus icon" class="filter-white" /> My Fronts</a>
+        <a href="/steadings/" class="btn btn-secondary ms-2"><img src="@/assets/tree-city-solid.svg" alt="plus icon" class="filter-white" /> My Steadings</a>
     </div>
   </h1>
 
-  <div class="container-md front" v-if="front">
+  <div class="container-md steading" v-if="steading">
     <div class="d-print-none d-flex justify-content-center" v-if="isGuest"> 
         <span class="text-danger">
-            You must <a href="/login">sign in</a> to save fronts. While not logged in, data you enter will be lost if you navigate away from this page.
+            You must <a href="/login">sign in</a> to save steadings. While not logged in, data you enter will be lost if you navigate away from this page.
         </span>
     </div>
     
@@ -21,7 +21,7 @@
           </div>
           <div class="banner-middle">
               <div class="rotated-text">
-                  Front
+                  Steading
               </div>
           </div>
           <div class="banner-bottom">
@@ -29,19 +29,31 @@
               <img loading="lazy" class="banner-bottom-fill" src="@/assets/page-banner-bottom-fill.png" alt="page banner bottom fill" />
           </div>
       </div>
-      <div class="front-detail">
+      <div class="steading-detail">
         <div class="meta-data d-print-none border-bottom border-black pb-2">
           <div class="d-flex flex-wrap pb-1">
             <div class="form-check me-2">
-              <input class="form-check-input" type="radio" name="front" value="Campaign" v-model="front.type" id="frontCampaign">
-              <label class="form-check-label" for="frontCampaign">
-                Campaign
+              <input class="form-check-input" type="radio" name="steading" value="Village" v-model="steading.type" id="steadingVillage">
+              <label class="form-check-label" for="steadingVillage">
+                Village
               </label>
             </div>
             <div class="form-check me-2">
-              <input class="form-check-input" type="radio" name="front" value="Adventure" v-model="front.type" id="frontAdventure">
-              <label class="form-check-label" for="frontAdventure">
-                Adventure
+              <input class="form-check-input" type="radio" name="steading" value="Town" v-model="steading.type" id="steadingTown">
+              <label class="form-check-label" for="steadingTown">
+                Town
+              </label>
+            </div>
+            <div class="form-check me-2">
+              <input class="form-check-input" type="radio" name="steading" value="Keep" v-model="steading.type" id="steadingKeep">
+              <label class="form-check-label" for="steadingKeep">
+                Keep
+              </label>
+            </div>
+            <div class="form-check me-2">
+              <input class="form-check-input" type="radio" name="steading" value="City" v-model="steading.type" id="steadingCity">
+              <label class="form-check-label" for="steadingCity">
+                City
               </label>
             </div>
           </div>
@@ -49,23 +61,23 @@
           <div class="input-group mb-2 pe-md-2">
               <span class="input-group-text text-dark" id="name">Name</span>
               <input type="text" class="form-control text-dark" aria-label="Name" aria-describedby="name"
-                  v-model="front.name">
+                  v-model="steading.name">
           </div>
           
           <div class="" v-if="isOwner">
-            <button type="button" class="m-1 btn btn-secondary" @click="generateFrontDescription()">Generate {{ front.type }} Front</button>
-            <div v-if="creatingFront" class="d-flex">
-              <span>Generating front, please do not navigate away from this page ... </span>
-              <VueSpinnerHourglass class="w-25" v-if="creatingFront" />
+            <button type="button" class="m-1 btn btn-secondary" @click="generateSteadingDescription()">Generate a {{ steading.type }}</button>
+            <div v-if="creatingSteading" class="d-flex">
+              <span>Generating steading, please do not navigate away from this page ... </span>
+              <VueSpinnerHourglass class="w-25" v-if="creatingSteading" />
             </div>
           </div>
 
-          <div class="bg-warning w-100 small p-1 rounded">The generate front button is experimental and will require you to have a ChatGPT Api Key.</div>
+          <div class="bg-warning w-100 small p-1 rounded">The generate steading button is experimental and will require you to have a ChatGPT Api Key.</div>
         </div>
 
-        <div class="mt-3 front-content">
+        <div class="mt-3 steading-content">
           <div v-if="!isEditing" class="d-flex">
-              <VueShowdown :markdown="front.description" class="description w-100" />
+              <VueShowdown :markdown="steading.description" class="description w-100" />
               <div class="edit-controls closed d-flex mt-0 align-self-start" v-if="isOwner">
                   <button class="btn btn-link d-print-none" type="button" @click="isEditing = true">
                       <img src="@/assets/pencil-solid.svg" alt="edit description"/>
@@ -74,7 +86,7 @@
           </div>
 
           <div v-if="isEditing" class="d-flex d-print-none">
-              <textarea type="text" class="form-control from-control-sm" ref="description" :rows="20" v-model="front.description"></textarea>
+              <textarea type="text" class="form-control from-control-sm" ref="description" :rows="20" v-model="steading.description"></textarea>
 
               <div class="d-flex align-self-start">
                   <button class="btn btn-link" type="button" @click="saveDescription()">
@@ -87,7 +99,7 @@
     </div>
 
     <div class="d-print-none action-bar d-flex justify-content-end p-1 border-top">
-        <a href="/fronts" type="button" class="btn btn-danger me-2">Close</a>
+        <a href="/steadings" type="button" class="btn btn-danger me-2">Close</a>
         <button type="button" class="btn btn-secondary me-2" @click="print()">Print</button>
         <button v-if="isOwner" type="button" class="btn btn-dark" @click="save()">Save</button>
     </div>
@@ -97,10 +109,10 @@
 <script setup lang="ts">
 import { computed, onMounted, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
-import { generateDungeonWorldFront, getFront, createFront, updateFront } from '@/services/frontService';
+import { generateDungeonWorldSteading, getSteading, createSteading, updateSteading } from '@/services/steadingService';
 import { VueSpinnerHourglass } from 'vue3-spinners';
 import { useGlobalStore } from '@/stores/globalStore';
-import { FrontType } from '@/enums/frontType';
+import { SteadingType } from '@/enums/steadingType';
 import { VueShowdown } from 'vue-showdown';
 import { toast } from 'vue3-toastify';
 
@@ -108,65 +120,87 @@ import { toast } from 'vue3-toastify';
 const globalStore = useGlobalStore();
 const route = useRoute();
 const router = useRouter();
-const frontId = ref<any>(route.params.id);
+const steadingId = ref<any>(route.params.id);
 const isEditing = ref(false);
 const isAuthenticated = ref(false);
 const userId = ref<null|String>(null);
 
-const front = ref();
-const creatingFront = ref(false);
-const apiKey = ref<string | null>(localStorage.getItem('dungeonworld_fronts_api_key') || null);
+const steading = ref();
+const creatingSteading = ref(false);
+const apiKey = ref<string | null>(localStorage.getItem('dungeonworld_steadings_api_key') || null);
 
 const isOwner = computed(()=> {  
-    return userId.value !== null && (front.value.userId === userId.value || frontId.value == "new-front");
+    return userId.value !== null && (steading.value.userId === userId.value || steadingId.value == "new-steading");
 });
 
 const isGuest = computed(()=> {
   return userId.value == null;
 });
 
-const frontTemplate = `
-# Title
-## Danger Name
-  * __Impulse__: Impulse description
-  * __Grim Portents__: 1-3 for adventure, 3-5 for campaign 
-    - [ ] Portent
-    - [ ] Portent
-    - [ ] Etc.
-  * __Impending Doom__: Impending doom description/example
-  * __Moves__: a list of moves
-    * Move
-    * Move
-    * etc
-## Stakes
-  1. Stake
-  2. Stake
-  3. Stake
-## Cast
-  * __cast member__: description and a leading body part
+const steadingTemplate = `
+# Steading Name
+  * __Type__: Steading Type
+  * __Population:__: Steading Population
+
+### Tags
+__Prosperity:__ (list any prosperity tags)
+  * __Tag Name__: description of tag
+  * __Tag Name__: description of tag
+  * Etc.
+
+__Population:__  (list any population tags)
+  * __Tag Name__: description of tag
+  * __Tag Name__: description of tag
+  * Etc.
+
+__Defenses:__  (list any defense tags)
+  * __Tag Name__: description of tag
+  * __Tag Name__: description of tag
+  * Etc.
+
+__Other:__  (list any other tags)
+  * __Tag Name__: description of tag
+  * __Tag Name__: description of tag
+  * Etc.
+
+### Notable NPCs
+  * __NPC Name__: description
+  * __NPC Name__: description
+  * Etc.
+
+### Nearby locations
+List any locations, landmarks or other important things near this steadings location
+  * __Location name__: location description
+  * Etc.
+
+### Problem
+Choose one problem for this steading
+
+### Custom Moves
+List any custom moves appropriate to this steading
 `
 
 onMounted(async () => {
   isAuthenticated.value = await globalStore.isAuthenticated();
   userId.value = await globalStore.getUserId();
-  await setupFront();
+  await setupSteading();
 })
 
-async function setupFront() {
+async function setupSteading() {
     const userId = await globalStore.getUserId();
 
-    if (frontId.value === "new-front") {
-        const newFront = {
-          type: FrontType.Adventure,
-          name: "New Front",
-          description: frontTemplate,
+    if (steadingId.value === "new-steading") {
+        const newSteading = {
+          type: SteadingType.Village,
+          name: "New Steading",
+          description: steadingTemplate,
           userId: userId,
         }
-        front.value = newFront;
+        steading.value = newSteading;
         return;
     }
     
-    front.value = await getFront(frontId.value);
+    steading.value = await getSteading(steadingId.value);
 } 
 
 
@@ -174,26 +208,26 @@ async function save() {
   saveDescription();
   
   const authenticated = await globalStore.isAuthenticated();
-  if (authenticated && !front.value.id) {
+  if (authenticated && !steading.value.id) {
       const userId = await globalStore.getUserId();
-      front.value.userId = userId;
+      steading.value.userId = userId;
 
-      if (!front.value.name || front.value.name.trim().length === 0) {
-          toast("You must give your front a name.")
+      if (!steading.value.name || steading.value.name.trim().length === 0) {
+          toast("You must give your steading a name.")
           return;
       }
 
-      const newFrontId = await createFront(front.value);
-      if (newFrontId) {
-          toast(`Created ${front.value.type} front: ${front.value.name}.`)
+      const newSteadingId = await createSteading(steading.value);
+      if (newSteadingId) {
+          toast(`Created ${steading.value.type} steading: ${steading.value.name}.`)
 
           setTimeout(async () => {
-              await router.push({ name: "front", params: { id: newFrontId }, replace: true });
+              await router.push({ name: "steading", params: { id: newSteadingId }, replace: true });
           }, 2000);
           
       }
       else {
-          toast(`Failed to create front!`);
+          toast(`Failed to create steading!`);
       }
   }
 
@@ -204,17 +238,17 @@ async function save() {
 
 function saveDescription() {
   isEditing.value=false;
-  front.value.name = getFrontNameFromMarkdown(front.value.description);
+  steading.value.name = getSteadingNameFromMarkdown(steading.value.description);
 }
 
 async function update() {
-    const updatedFront = await updateFront(front.value);
+    const updatedSteading = await updateSteading(steading.value);
 
-    if (updatedFront) {
-        toast(`Front saved.`);
+    if (updatedSteading) {
+        toast(`Steading saved.`);
     }
     else {
-        toast('There was a problem saving front!');
+        toast('There was a problem saving steading!');
     }
 }
 
@@ -224,39 +258,39 @@ const promptApiKey = () => {
 
   if (userApiKey) {
     apiKey.value = userApiKey;
-    localStorage.setItem('dungeonworld_fronts_api_key', userApiKey);
+    localStorage.setItem('dungeonworld_steadings_api_key', userApiKey);
   }
 }
 
-async function generateFrontDescription() {
-  const confirmed = confirm("Are you sure you want to generate a front description?");
+async function generateSteadingDescription() {
+  const confirmed = confirm("Are you sure you want to generate a steading description?");
   if (!confirmed) {
     return;
   }
 
   isEditing.value  = false;
-  const frontType = front.value.type ?? FrontType.Adventure
+  const steadingType = steading.value.type ?? SteadingType.Village
 
   if (apiKey.value == null) {
     promptApiKey();
   }
   else {
-    creatingFront.value = true;
+    creatingSteading.value = true;
 
     try {
-      const frontMd = await generateDungeonWorldFront(frontType);
-      front.value.description = frontMd;
-      front.value.name = getFrontNameFromMarkdown(frontMd);
+      const steadingMd = await generateDungeonWorldSteading(steadingType);
+      steading.value.description = steadingMd;
+      steading.value.name = getSteadingNameFromMarkdown(steadingMd);
     }
     catch(ex: any) {
-      toast(`There was an error generating your front: ${ex}`);
+      toast(`There was an error generating your steading: ${ex}`);
     }
 
-    creatingFront.value = false;
+    creatingSteading.value = false;
   }
 }
 
-function getFrontNameFromMarkdown(markdownText: string): string | null {
+function getSteadingNameFromMarkdown(markdownText: string): string | null {
   const lines = markdownText.split('\n');
 
   for (const line of lines) {
@@ -277,7 +311,7 @@ function print() {
 
 <style scoped lang="scss">
 
-.front {
+.steading {
   .gradient-background {
       background: linear-gradient(to bottom, lightgray, #fff);
       height: 400px;
@@ -342,7 +376,7 @@ function print() {
 @media print {
     
   
-    .front {   
+    .steading {   
       margin: 0px;
       padding: 0px;
 
@@ -354,7 +388,7 @@ function print() {
           page-break-inside: avoid;
         }
 
-        .front-content {
+        .steading-content {
           margin-top: 0px !important;
         }
       }

@@ -3,7 +3,7 @@
         <div class="d-flex">
             <h1>Fronts</h1>
             <div>
-                <a href="/front/new-front" class="btn btn-secondary ms-2"><img src="@/assets/plus-solid.svg" alt="plus icon"/> Create a Front</a>
+                <a href="/front/new-front" class="btn btn-secondary ms-2"><img src="@/assets/plus-solid.svg" alt="plus icon" class="filter-white" /> Create a Front</a>
             </div>
         </div>
         <div class="d-md-flex">
@@ -20,10 +20,10 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted, ref } from 'vue';
+import { onMounted, ref } from 'vue';
 import { useGlobalStore } from '@/stores/globalStore';
 import { useRouter } from 'vue-router';
-import { getFronts, deleteFront } from '@/services/frontsService';
+import { getFronts, deleteFront } from '@/services/frontService';
 import { toast } from 'vue3-toastify';
 
 const globalStore = useGlobalStore();

@@ -770,3 +770,63 @@ export const deleteFront = /* GraphQL */ `mutation DeleteFront(
   APITypes.DeleteFrontMutationVariables,
   APITypes.DeleteFrontMutation
 >;
+export const createSteading = /* GraphQL */ `mutation CreateSteading(
+  $input: CreateSteadingInput!
+  $condition: ModelSteadingConditionInput
+) {
+  createSteading(input: $input, condition: $condition) {
+    userId
+    id
+    type
+    name
+    description
+    createdAt
+    updatedAt
+    owner
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.CreateSteadingMutationVariables,
+  APITypes.CreateSteadingMutation
+>;
+export const updateSteading = /* GraphQL */ `mutation UpdateSteading(
+  $input: UpdateSteadingInput!
+  $condition: ModelSteadingConditionInput
+) {
+  updateSteading(input: $input, condition: $condition) {
+    userId
+    id
+    type
+    name
+    description
+    createdAt
+    updatedAt
+    owner
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.UpdateSteadingMutationVariables,
+  APITypes.UpdateSteadingMutation
+>;
+export const deleteSteading = /* GraphQL */ `mutation DeleteSteading(
+  $input: DeleteSteadingInput!
+  $condition: ModelSteadingConditionInput
+) {
+  deleteSteading(input: $input, condition: $condition) {
+    userId
+    id
+    type
+    name
+    description
+    createdAt
+    updatedAt
+    owner
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.DeleteSteadingMutationVariables,
+  APITypes.DeleteSteadingMutation
+>;

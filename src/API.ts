@@ -702,6 +702,48 @@ export type DeleteFrontInput = {
   id: string,
 };
 
+export type CreateSteadingInput = {
+  userId: string,
+  id?: string | null,
+  type: string,
+  name: string,
+  description: string,
+};
+
+export type ModelSteadingConditionInput = {
+  userId?: ModelIDInput | null,
+  type?: ModelStringInput | null,
+  name?: ModelStringInput | null,
+  description?: ModelStringInput | null,
+  and?: Array< ModelSteadingConditionInput | null > | null,
+  or?: Array< ModelSteadingConditionInput | null > | null,
+  not?: ModelSteadingConditionInput | null,
+};
+
+export type Steading = {
+  __typename: "Steading",
+  userId: string,
+  id: string,
+  type: string,
+  name: string,
+  description: string,
+  createdAt: string,
+  updatedAt: string,
+  owner?: string | null,
+};
+
+export type UpdateSteadingInput = {
+  userId?: string | null,
+  id: string,
+  type?: string | null,
+  name?: string | null,
+  description?: string | null,
+};
+
+export type DeleteSteadingInput = {
+  id: string,
+};
+
 export type ModelProfessionFilterInput = {
   name?: ModelStringInput | null,
   description?: ModelStringInput | null,
@@ -931,6 +973,23 @@ export type ModelFrontConnection = {
   nextToken?: string | null,
 };
 
+export type ModelSteadingFilterInput = {
+  userId?: ModelIDInput | null,
+  id?: ModelIDInput | null,
+  type?: ModelStringInput | null,
+  name?: ModelStringInput | null,
+  description?: ModelStringInput | null,
+  and?: Array< ModelSteadingFilterInput | null > | null,
+  or?: Array< ModelSteadingFilterInput | null > | null,
+  not?: ModelSteadingFilterInput | null,
+};
+
+export type ModelSteadingConnection = {
+  __typename: "ModelSteadingConnection",
+  items:  Array<Steading | null >,
+  nextToken?: string | null,
+};
+
 export type ModelSubscriptionProfessionFilterInput = {
   name?: ModelSubscriptionStringInput | null,
   description?: ModelSubscriptionStringInput | null,
@@ -1128,6 +1187,16 @@ export type ModelSubscriptionFrontFilterInput = {
   description?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionFrontFilterInput | null > | null,
   or?: Array< ModelSubscriptionFrontFilterInput | null > | null,
+};
+
+export type ModelSubscriptionSteadingFilterInput = {
+  userId?: ModelSubscriptionIDInput | null,
+  id?: ModelSubscriptionIDInput | null,
+  type?: ModelSubscriptionStringInput | null,
+  name?: ModelSubscriptionStringInput | null,
+  description?: ModelSubscriptionStringInput | null,
+  and?: Array< ModelSubscriptionSteadingFilterInput | null > | null,
+  or?: Array< ModelSubscriptionSteadingFilterInput | null > | null,
 };
 
 export type CreateProfessionMutationVariables = {
@@ -1859,6 +1928,63 @@ export type DeleteFrontMutation = {
   } | null,
 };
 
+export type CreateSteadingMutationVariables = {
+  input: CreateSteadingInput,
+  condition?: ModelSteadingConditionInput | null,
+};
+
+export type CreateSteadingMutation = {
+  createSteading?:  {
+    __typename: "Steading",
+    userId: string,
+    id: string,
+    type: string,
+    name: string,
+    description: string,
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type UpdateSteadingMutationVariables = {
+  input: UpdateSteadingInput,
+  condition?: ModelSteadingConditionInput | null,
+};
+
+export type UpdateSteadingMutation = {
+  updateSteading?:  {
+    __typename: "Steading",
+    userId: string,
+    id: string,
+    type: string,
+    name: string,
+    description: string,
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type DeleteSteadingMutationVariables = {
+  input: DeleteSteadingInput,
+  condition?: ModelSteadingConditionInput | null,
+};
+
+export type DeleteSteadingMutation = {
+  deleteSteading?:  {
+    __typename: "Steading",
+    userId: string,
+    id: string,
+    type: string,
+    name: string,
+    description: string,
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
 export type GetProfessionQueryVariables = {
   id: string,
 };
@@ -2376,6 +2502,48 @@ export type ListFrontsQuery = {
     __typename: "ModelFrontConnection",
     items:  Array< {
       __typename: "Front",
+      userId: string,
+      id: string,
+      type: string,
+      name: string,
+      description: string,
+      createdAt: string,
+      updatedAt: string,
+      owner?: string | null,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type GetSteadingQueryVariables = {
+  id: string,
+};
+
+export type GetSteadingQuery = {
+  getSteading?:  {
+    __typename: "Steading",
+    userId: string,
+    id: string,
+    type: string,
+    name: string,
+    description: string,
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type ListSteadingsQueryVariables = {
+  filter?: ModelSteadingFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ListSteadingsQuery = {
+  listSteadings?:  {
+    __typename: "ModelSteadingConnection",
+    items:  Array< {
+      __typename: "Steading",
       userId: string,
       id: string,
       type: string,
@@ -3080,6 +3248,63 @@ export type OnDeleteFrontSubscriptionVariables = {
 export type OnDeleteFrontSubscription = {
   onDeleteFront?:  {
     __typename: "Front",
+    userId: string,
+    id: string,
+    type: string,
+    name: string,
+    description: string,
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type OnCreateSteadingSubscriptionVariables = {
+  filter?: ModelSubscriptionSteadingFilterInput | null,
+  owner?: string | null,
+};
+
+export type OnCreateSteadingSubscription = {
+  onCreateSteading?:  {
+    __typename: "Steading",
+    userId: string,
+    id: string,
+    type: string,
+    name: string,
+    description: string,
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type OnUpdateSteadingSubscriptionVariables = {
+  filter?: ModelSubscriptionSteadingFilterInput | null,
+  owner?: string | null,
+};
+
+export type OnUpdateSteadingSubscription = {
+  onUpdateSteading?:  {
+    __typename: "Steading",
+    userId: string,
+    id: string,
+    type: string,
+    name: string,
+    description: string,
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type OnDeleteSteadingSubscriptionVariables = {
+  filter?: ModelSubscriptionSteadingFilterInput | null,
+  owner?: string | null,
+};
+
+export type OnDeleteSteadingSubscription = {
+  onDeleteSteading?:  {
+    __typename: "Steading",
     userId: string,
     id: string,
     type: string,

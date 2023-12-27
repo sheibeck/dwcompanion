@@ -17,25 +17,60 @@
                 <img src="@/assets/house-solid.svg" alt="home icon" class="filter-light" /> Home
               </a>
             </li>
-            <li v-if="isUserLoggedIn" class="nav-item">
-              <a class="nav-link" href="/characters">
-                <img src="@/assets/users-solid.svg" alt="characters icon" class="filter-light" /> Characters
+            <li class="nav-item dropdown" v-if="isUserLoggedIn">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <img src="@/assets/user-solid.svg" alt="my stuff icon" class="filter-light" /> My Stuff
               </a>
+              <ul class="dropdown-menu">
+                <li>
+                  <a class="dropdown-item" target="_blank" href="/characters">
+                    <img src="@/assets/users-solid.svg" alt="characters icon" class="filter-light" /> Characters
+                  </a>
+                </li>
+                <li>
+                  <a class="dropdown-item" target="_blank" href="/fronts">
+                    <img src="@/assets/book-open-solid.svg" alt="fronts icon" class="filter-light" /> Fronts
+                  </a>
+                </li>
+                <li>
+                  <a class="dropdown-item" target="_blank" href="/steadings">
+                    <img src="@/assets/tree-city-solid.svg" alt="steadings icon" class="filter-light" /> Steadings
+                  </a>
+                </li>
+              </ul>
             </li>
-            <li v-if="isUserLoggedIn" class="nav-item">
-              <a class="nav-link" href="/fronts">
-                <img src="@/assets/book-open-solid.svg" alt="characters icon" class="filter-light" /> Fronts
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <img src="@/assets/toolbox-solid.svg" alt="tool icon" class="filter-light" /> Tools
               </a>
+              <ul class="dropdown-menu">
+                <li>
+                  <a class="dropdown-item" target="_blank" href="https://dungeon-world.com/downloads/Dungeon_World_Play_Sheets.pdf">
+                    <img src="@/assets/file-pdf-solid.svg" alt="play sheets icon" class="filter-light" /> Play Sheets
+                  </a>
+                </li>
+                <li>
+                  <a class="dropdown-item" target="_blank" href="https://www.dungeonworldsrd.com/">
+                    <img src="@/assets/folder-open-solid.svg" alt="srd icon" class="filter-light" /> SRD
+                  </a>
+                </li>
+                <li>
+                  <a class="dropdown-item" target="_blank" href="https://watabou.github.io/">
+                    <img src="@/assets/map-solid.svg" alt="map icon" class="filter-light" /> Map Making
+                  </a>
+                </li>
+                <li>
+                  <button class="dropdown-item" @click="copyCurrentUrlToClipboard()">
+                    <img src="@/assets/share-nodes-solid.svg" alt="share icon" class="filter-light" /> Share
+                  </button>
+                </li>
+              </ul>
             </li>
+           
             <li class="nav-item">
               <a class="nav-link" target="_blank" href="https://github.com/sheibeck/dwcompanion/wiki/Dungeon-World-Companion">
                 <img src="@/assets/bug-solid.svg" alt="characters icon" class="filter-light" /> Support
               </a>
-            </li>
-            <li class="nav-item">
-              <button class="nav-link" @click="copyCurrentUrlToClipboard()">
-                <img src="@/assets/share-nodes-solid.svg" alt="share icon" class="filter-light" /> Share
-              </button>
             </li>
           </ul>
           <div class="d-flex">
@@ -99,6 +134,10 @@ function copyCurrentUrlToClipboard(): void {
 
   .filter-light{
     filter: invert(50%) saturate(100%) hue-rotate(86deg) brightness(100%) contrast(100%);
+  }
+
+  .filter-white{
+    filter: invert(50%) saturate(100%) hue-rotate(86deg) brightness(125%) contrast(100%);
   }
 
   @media print {

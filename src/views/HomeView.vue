@@ -9,7 +9,7 @@
         </div>
         <div class="d-flex justify-content-center mt-2">
           <button type="button" @click="createCharacter(profession.name)" class="btn btn-secondary">
-            <img loading="lazy" src="@/assets/plus-solid.svg" alt="plus icon"/> Create a {{ profession.name }}
+            <img loading="lazy" src="@/assets/plus-solid.svg" alt="plus icon" class="filter-white" /> Create a {{ profession.name }}
           </button>
         </div>
       </div>

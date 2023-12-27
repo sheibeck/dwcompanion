@@ -38,19 +38,20 @@ main {
     border-color: gray;
 }
 
-
-p {
-    margin-bottom: 5px !important;
-    line-height: .95em !important
-}
-ul {
-    margin-bottom: 2px !important;
-}
-li {
-    line-height: .95em !important;
-}
-input[type=checkbox] {
-    border: 2px solid;
+.page {
+    p {
+        margin-bottom: 5px !important;
+        line-height: .95em !important
+    }
+    ul {
+        margin-bottom: 2px !important;
+    }
+    li {
+        line-height: .95em !important;
+    }
+    input[type=checkbox] {
+        border: 2px solid;
+    }
 }
 
 @media print {
