@@ -8,7 +8,7 @@ const client = generateClient();
 const ASSISTANT_ID = 'asst_5k2lrxeTWUaaNZdrHbAEYFGa'; // ai assistant id
 
 function getApiKey() {
-  return localStorage.getItem('dungeonworld_steadings_api_key') ?? null;
+  return localStorage.getItem('dungeonworldcompanion_apikey') ?? null;
 }
 
 export async function generateDungeonWorldSteading(steadingType: String) {
