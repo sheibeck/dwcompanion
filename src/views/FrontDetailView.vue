@@ -103,6 +103,7 @@ import { useGlobalStore } from '@/stores/globalStore';
 import { FrontType } from '@/enums/frontType';
 import { VueShowdown } from 'vue-showdown';
 import { toast } from 'vue3-toastify';
+import { apiKeyName } from '@/services/openAiService';
 
 
 const globalStore = useGlobalStore();
@@ -115,10 +116,10 @@ const userId = ref<null|String>(null);
 
 const front = ref();
 const creatingFront = ref(false);
-const apiKey = ref<string | null>(localStorage.getItem('dungeonworldcompanion_apikey') || null);
+const apiKey = ref<string | null>(localStorage.getItem(apiKeyName) || null);
 
 const isOwner = computed(()=> {  
-    return userId.value !== null && (front.value.userId === userId.value || frontId.value == "new-front");
+    return userId.value !== null && (front.value?.userId === userId.value || frontId.value == "new-front");
 });
 
 const isGuest = computed(()=> {
@@ -224,7 +225,7 @@ const promptApiKey = () => {
 
   if (userApiKey) {
     apiKey.value = userApiKey;
-    localStorage.setItem('dungeonworld_fronts_api_key', userApiKey);
+    localStorage.setItem(apiKeyName, userApiKey);
   }
 }
 

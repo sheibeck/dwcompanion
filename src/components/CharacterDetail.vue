@@ -127,7 +127,7 @@ const userId = ref<null|String>(null);
 const hasOverflowMoves = computed(() => character.value.startingMoves?.filter( (m: any) => m.isOverflow == true).length > 0);
 
 const isOwner = computed(()=> {  
-    return userId.value !== null && (character.value.userId === userId.value || characterId == "new-character");
+    return userId.value !== null && (character.value?.userId === userId.value || characterId == "new-character");
 });
 
 const isGuest = computed(()=> {
