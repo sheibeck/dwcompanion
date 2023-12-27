@@ -2,7 +2,7 @@
   <h1 class="d-print-none d-flex">
     Front
     <div>
-        <a href="/fronts/" class="btn btn-secondary ms-2"><img src="@/assets/book-solid.svg" alt="plus icon" class="filter-white" /> My Fronts</a>
+        <a href="/fronts/" class="btn btn-secondary ms-2"><img src="@/assets/book-open-solid.svg" alt="plus icon" class="filter-white" /> My Fronts</a>
     </div>
   </h1>
 
