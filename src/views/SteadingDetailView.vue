@@ -1,7 +1,7 @@
 <template>
   <h1 class="d-print-none d-flex">
     Steading
-    <div>
+    <div v-if="isOwner">
         <a href="/steadings/" class="btn btn-secondary ms-2"><img src="@/assets/tree-city-solid.svg" alt="plus icon" class="filter-white" /> My Steadings</a>
     </div>
   </h1>

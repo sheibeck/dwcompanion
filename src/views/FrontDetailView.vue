@@ -1,7 +1,7 @@
 <template>
   <h1 class="d-print-none d-flex">
     Front
-    <div>
+    <div v-if="isOwner">
         <a href="/fronts/" class="btn btn-secondary ms-2"><img src="@/assets/book-open-solid.svg" alt="plus icon" class="filter-white" /> My Fronts</a>
     </div>
   </h1>
