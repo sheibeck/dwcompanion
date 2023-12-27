@@ -115,6 +115,7 @@ import { useGlobalStore } from '@/stores/globalStore';
 import { SteadingType } from '@/enums/steadingType';
 import { VueShowdown } from 'vue-showdown';
 import { toast } from 'vue3-toastify';
+import { apiKeyName } from '@/services/openAiService';
 
 
 const globalStore = useGlobalStore();
@@ -127,10 +128,10 @@ const userId = ref<null|String>(null);
 
 const steading = ref();
 const creatingSteading = ref(false);
-const apiKey = ref<string | null>(localStorage.getItem('dungeonworldcompanion_apikey') || null);
+const apiKey = ref<string | null>(localStorage.getItem(apiKeyName) || null);
 
 const isOwner = computed(()=> {  
-    return userId.value !== null && (steading.value.userId === userId.value || steadingId.value == "new-steading");
+    return userId.value !== null && (steading.value?.userId === userId.value || steadingId.value == "new-steading");
 });
 
 const isGuest = computed(()=> {
@@ -257,7 +258,7 @@ const promptApiKey = () => {
 
   if (userApiKey) {
     apiKey.value = userApiKey;
-    localStorage.setItem('dungeonworld_steadings_api_key', userApiKey);
+    localStorage.setItem(apiKeyName, userApiKey);
   }
 }
 

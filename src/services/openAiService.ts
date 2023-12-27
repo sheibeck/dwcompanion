@@ -1,0 +1,1 @@
+export const apiKeyName="dungeonworldcompanion_apikey";

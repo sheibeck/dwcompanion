@@ -3,12 +3,13 @@ import { generateClient } from 'aws-amplify/api';
 import * as queries from '@/graphql/queries';
 import * as mutations from '@/graphql/mutations';
 import * as uuid from 'short-uuid';
+import { apiKeyName } from "./openAiService";
 
 const client = generateClient();
 const ASSISTANT_ID = 'asst_5k2lrxeTWUaaNZdrHbAEYFGa'; // ai assistant id
 
 function getApiKey() {
-  return localStorage.getItem('dungeonworldcompanion_apikey') ?? null;
+  return localStorage.getItem(apiKeyName) ?? null;
 }
 
 export async function generateDungeonWorldSteading(steadingType: String) {
