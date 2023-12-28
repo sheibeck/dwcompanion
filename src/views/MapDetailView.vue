@@ -1,7 +1,7 @@
 <template>
-    <div class="mb-1 d-print-none d-flex" v-if="isOwner">
+    <div class="mb-1 d-print-none d-flex">
         <h1 v-if="map">{{ map.name }}</h1>
-        <button class="btn btn-secondary text-light ms-auto" @click="showMapSettings()">
+        <button v-if="isOwner" class="btn btn-secondary text-light ms-auto" @click="showMapSettings()">
             <img src="@/assets/gear-solid.svg" alt="share icon" class="filter-white" /> Map Settings
         </button>
     </div>
@@ -9,10 +9,10 @@
     <div v-if="isLoadingMap">
         Loading map ...
     </div>
-    <div v-if="!map?.mapFile">
+    <div v-if="!map?.mapFile && !isGuest">
         Upload an SVG file in the Map Settings to get started!
     </div>
-    <div class="d-flex text-muted" v-if="map?.mapFile">
+    <div class="d-flex text-muted" v-if="map?.mapFile && !isGuest">
         <div>Click anywhere on the map to add a point of interest.</div>
         <div class="ms-auto">Click an existing location icon to edit it.</div>
     </div>
@@ -25,8 +25,8 @@
            >
             <div class="">
                 <div class="d-flex justify-content-center align-items-center">
-                    <div @click.stop="location.showtools=!location.showtools">
-                        <img height="50" :src="`/maps/${getLocationTypeIconName(location)}.png`" />
+                    <div @click.stop="toggleLocationTools(location)">
+                        <img height="60" :src="`/maps/${getLocationTypeIconName(location)}.png`" />
                     </div>
                     <div v-if="location.showtools" class="toolbar">
                         <button class="btn btn-link" type="button" @click.stop="editLocation(location.id)">
@@ -72,7 +72,7 @@
                 </div>
 
                 <div class="form-group" v-if="locationModalType === LocationType.Steading">
-                    <label for="steadingSelect">Choose a Steading</label>
+                    <label for="steadingSelect">Choose a Steading / <a href="/steading/new-steading" target="blank">Create a Steading</a></label>
                     <select class="form-select" id="steadingSelect" v-model="selectedSteadingId">
                         <option v-for="steading in steadings" :key="steading.id" :value="steading.id">
                             {{ steading.name }}
@@ -167,6 +167,11 @@
         return userId.value !== null && (map.value?.userId === userId.value || mapId.value == "new-map");
     });
 
+    const isGuest = computed(()=> {
+        return userId.value == null;
+    });
+
+
     const isEditingLocation = ref(false);
 
     onMounted(async () => {
@@ -181,7 +186,7 @@
             keyboard: false
         });
 
-        await fetchSteadings();
+        steadings.value = await listSteadings();
         await setupMap();
     });
 
@@ -217,6 +222,10 @@
     } 
 
     function addLocation(event: any) {
+        if (!isOwner.value) {
+            return;
+        }
+
         const x = event.offsetX;
         const y = event.offsetY;
 
@@ -291,11 +300,13 @@
         }
     }
 
-    async function fetchSteadings() {
+    async function listSteadings() {
         const userId = await globalStore.getUserId();
         if (userId) {
-            steadings.value = await getSteadings(userId);
+            const steadingList = await getSteadings(userId);
+            return steadingList;
         }
+        return null;
     }
 
     function getLocationTypeIconName(location: any) {
@@ -377,12 +388,14 @@
       locationX.value = null;
       locationY.value = null;
       locationModalName.value = null;
-      locationModalType.value = LocationType.Danger;
+      locationModalType.value = LocationType.Unknown;
       isEditingLocation.value = false;
     }
 
     function showMapSettings() {
-        mapSettingsModal.value.show();
+        if (!isGuest.value) {
+            mapSettingsModal.value.show();
+        }
     }
 
     async function saveMapSettings() {
@@ -451,61 +464,38 @@
 
     const uploadFile = async () => {
         const file = mapFileUpload.value.files[0];
-        let fileNotExists = false;
-
-        //check if this map already exists
-        // To check for existence of a file
-
         try {
-            const result = await getUrl({
+            const result = await uploadData({
                 key: getUniqueMapFileName(file.name),
-                options: {
-                    validateObjectExistence: true // defaults to false
-                }
-            });
-        }
-        catch(ex) {
-            fileNotExists = true;
-        }
-
-        if (!fileNotExists) {
-            map.value.mapFile = getUniqueMapFileName(file.name);
-            await getSvg();
-        }
-        else {
-            try {
-                const result = await uploadData({
-                    key: getUniqueMapFileName(file.name),
-                    data: file,
-                    options:  {
-                        contentType: "image/svg+xml", 
-                        onProgress: async ({ transferredBytes, totalBytes }) => {
-                            if (totalBytes) {
-                                uploadProgress.value = 
-                                    `Upload progress ${
-                                    Math.round(transferredBytes / totalBytes) * 100
-                                    } %`;
-                            }
+                data: file,
+                options:  {
+                    contentType: "image/svg+xml", 
+                    onProgress: async ({ transferredBytes, totalBytes }) => {
+                        if (totalBytes) {
+                            uploadProgress.value = 
+                                `Upload progress ${
+                                Math.round(transferredBytes / totalBytes) * 100
+                                } %`;
                         }
                     }
-                });
+                }
+            });
 
-                await waitForTransferComplete(result, 
-                    async (completedResult: any) => {
-                        const result = await completedResult.result;
-                        map.value.mapFile = result.key;
-                        toast(`Uploaded map file.`);
-                        save();
-                        getSvg();
-                    },
-                    (error: any) => {
-                        toast(`Error uploading map: ${error}`);
-                    }
-                );
-            } catch (error) {
-                console.error('Error uploading file:', error);
-                toast(`Error uploading file: ${error}`);
-            }
+            await waitForTransferComplete(result, 
+                async (completedResult: any) => {
+                    const result = await completedResult.result;
+                    map.value.mapFile = result.key;
+                    toast(`Uploaded map file.`);
+                    save();
+                    getSvg();
+                },
+                (error: any) => {
+                    toast(`Error uploading map: ${error}`);
+                }
+            );
+        } catch (error) {
+            console.error('Error uploading file:', error);
+            toast(`Error uploading file: ${error}`);
         }
     }
 
@@ -533,6 +523,13 @@
         }
     }
 
+    function toggleLocationTools(location: any) {
+        if (!isOwner.value) {
+            return;
+        }
+        
+        location.showtools=!location.showtools;
+    }
 
 </script>
 

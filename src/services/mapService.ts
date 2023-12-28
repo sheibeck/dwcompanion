@@ -32,6 +32,13 @@ export async function updateMap(map: any) {
     
   try {
       const updatedMap = JSON.parse(JSON.stringify(map));
+
+      updatedMap.locations.forEach((obj: any) => {
+        if ('showtools' in obj) {
+            delete obj.showtools;
+        }
+      });
+
       updatedMap.locations = JSON.stringify(updatedMap.locations);
 
       delete updatedMap['__typename'];
@@ -61,7 +68,6 @@ export async function updateMap(map: any) {
 
 }
 
-
 export const getMaps = async(userId: string) => {
   const result: any = [];
 
@@ -86,8 +92,6 @@ export const getMaps = async(userId: string) => {
 
   return result;
 }
-
-
 
 // Fetch a single record by its identifier
 export async function getMap(id: string) {
