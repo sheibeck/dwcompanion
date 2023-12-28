@@ -141,5 +141,5 @@ type Map @model @auth(rules: [{allow: owner}, {allow: private, operations: [read
   id: ID!
   name: String!
   mapFile: String!
-  locations: [AWSJSON]
+  locations: AWSJSON
 } 

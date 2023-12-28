@@ -1,5 +1,5 @@
 <template>
-    <div class="mb-1 d-print-none">
+    <div class="mb-1 d-print-none" v-if="isOwner">
         <button class="btn btn-secondary text-light" @click="showMapSettings()">
             <img src="@/assets/gear-solid.svg" alt="share icon" class="filter-white" /> Map Settings
         </button>
@@ -7,15 +7,19 @@
 
         </div>
     </div>
-    <div class="map-container m-0 p-0" v-if="map.mapFile">
+   
+    <div v-if="isLoadingMap">
+        Loading map ...
+    </div>
+    <div class="map-container m-0 p-0" v-if="map">
         <div class="map" @click="addLocation($event)">
-            <img :src="mapUrl" alt="map image" v-if="mapUrl" />
+            <img :src="mapUrl" alt="map image" v-if="mapUrl && !isLoadingMap" />
         </div>
         <div class="overlay" :class="{'showTip': steadingInfo !== null}" v-for="location in map.locations" :key="location.id"
             :style="{ left: location.x + 'px', top: location.y + 'px' }"
            >
             <div class="">
-                <div class="">
+                <div class="d-flex justify-content-center align-items-center">
                     <div @click.stop="location.showtools=!location.showtools">
                         <img height="50" :src="`/maps/${getLocationTypeIconName(location)}.png`" />
                     </div>
@@ -89,12 +93,12 @@
                     <h5 class="modal-title" id="mapSettingsModalLabel">Map Settings</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body">
+                <div class="modal-body" v-if="map">
                     <div class="form-group">
                         <label for="locationType">Map Name</label>
                         <input type="text" class="form-control" v-model="map.name" placeholder="Map Name">
                     </div>
-                    <div class="form-group">
+                    <div class="form-group" v-if="mapId !== 'new-map'">
                         <label for="mapFileUpload">SVG Map</label>
                         <input type="file" id="mapFileUpload" ref="mapFileUpload" />
                         <div id="svgHelp" class="small form-text text-muted">
@@ -106,7 +110,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-secondary" @click="closeMapSettings()">Close</button>
                     <button type="button" class="btn btn-primary" @click="saveMapSettings()">Save</button>
                 </div>
             </div>
@@ -117,16 +121,20 @@
 <script setup lang="ts">
     import { getSteadings } from '@/services/steadingService';
     import Modal from 'bootstrap/js/dist/modal';
-    import { onMounted, ref } from 'vue';
+    import { computed, onMounted, ref, watch } from 'vue';
     import { useGlobalStore } from '@/stores/globalStore';
     import * as uuid from 'short-uuid';
     import { LocationType } from '@/enums/locationType';
     import { toast } from 'vue3-toastify';
     import { uploadData, getUrl, remove } from '@aws-amplify/storage'
+    import { useRoute, useRouter } from 'vue-router';
+    import { createMap, getMap, updateMap } from '@/services/mapService';
 
     const globalStore = useGlobalStore();
-    const map = ref<any>({"id": "blahblah", "name": "New Map", "mapFile": null, "locations": []});
+    const route = useRoute();
+    const router = useRouter();
 
+    const map = ref<any>();
     const mapUrl = ref();
     const steadingInfo = ref<any>(null);
     const steadings = ref<any>();
@@ -138,15 +146,27 @@
     const locationY = ref();
     const locationModalType = ref(LocationType.Danger);
     const locationModalName = ref();
-
     const uploadProgress = ref();
     const mapSettingsModalEl = ref();
     const mapSettingsModal = ref();
-
     const mapFileUpload = ref();
 
+    const isLoadingMap = ref(true);
 
-    onMounted(() => {
+    const mapId = computed(() => route.params.id.toString() );
+
+    const isAuthenticated = ref(false);
+    const userId = ref<null|String>(null);
+
+    const isOwner = computed(()=> {  
+        return userId.value !== null && (map.value?.userId === userId.value || mapId.value == "new-map");
+    });
+
+
+    onMounted(async () => {
+        isAuthenticated.value = await globalStore.isAuthenticated();
+        userId.value = await globalStore.getUserId();
+
         locationSelectionModal.value = new Modal(locationSelectionModalEl.value, {
             keyboard: false
         });
@@ -155,9 +175,40 @@
             keyboard: false
         });
 
-        fetchSteadings();
-        getSvg();
+        await fetchSteadings();
+        await setupMap();
     });
+
+    watch(route, async (to, from) => {
+        await setupMap();
+    });
+        
+    async function setupMap() {
+        const userId = await globalStore.getUserId();
+
+        if (mapId.value === "new-map") {
+            const newMap = {
+                name: "",
+                userId: userId,
+                locations: [],
+                mapFile: "",
+            }
+
+            map.value = newMap;
+
+            showMapSettings();
+            return;
+        }
+        
+        map.value = await getMap(mapId.value);
+
+        if (!map.value.mapFile) {
+            showMapSettings();
+        }
+        else {
+            await getSvg();
+        }
+    } 
 
     function addLocation(event: any) {
         const x = event.offsetX;
@@ -186,13 +237,50 @@
             const idx = getMapLocationIndexById(locationId);
             if (idx > -1) {
                 map.value.locations.splice(idx, 1);
-                saveMap();
+                save();
             }
         }
     }
 
-    async function saveMap() {
-        alert("not implementd");
+    async function save() {
+        const authenticated = await globalStore.isAuthenticated();
+        if (authenticated && mapId.value === "new-map") {
+            const userId = await globalStore.getUserId();
+            map.value.userId = userId;
+
+            if (!map.value.name || map.value.name.trim().length === 0) {
+                toast("Map must have a name.")
+                return;
+            }
+
+            const newMapId = await createMap(map.value);
+            if (newMapId) {
+                toast(`Created map: ${map.value.name}.`)
+
+                setTimeout(async () => {
+                    await router.push({ name: "map", params: { id: newMapId }, replace: true });
+                }, 2000);
+                
+            }
+            else {
+                toast(`Failed to create map!`);
+            }
+        }
+
+        else {
+            await update();
+        }
+    }
+
+    async function update() {
+        const updatedMap = await updateMap(map.value);
+
+        if (updatedMap) {
+            toast(`Map saved.`);
+        }
+        else {
+            toast('There was a problem saving map!');
+        }
     }
 
     async function fetchSteadings() {
@@ -263,9 +351,14 @@
                 }
             }
         
+            if ('showtools' in location) {
+                delete location.showtools;
+            }
+            
             map.value.locations.push(location);
         }
-      
+        //save map
+        save();
         closeLocationModal();
     }
 
@@ -289,17 +382,28 @@
             return;
         }
 
-        if (mapFileUpload.value.files.length > 0) {
+        if (mapFileUpload.value?.files?.length > 0) {
             const file = mapFileUpload.value.files[0];
-            if (map.value.mapFile && map.value.mapFile !== file.name) {
+
+            const fileType = file.type;
+            if (fileType !== 'image/svg+xml') {
+                toast('File must be an SVG');
+                return;
+            }
+
+            if (map.value.mapFile && map.value.mapFile !== getUniqueMapFileName(file.name)) {
                 await deleteSvg(map.value.mapFile);
             }
             await uploadFile();
         }
 
         //save map
-
+        save();
         closeMapSettings();
+    }
+
+    function getUniqueMapFileName(fileName: string) {
+        return `${map.value.id}_${fileName}`;
     }
 
     function closeMapSettings() {
@@ -316,6 +420,8 @@
 
     
     const getSvg = async () => {
+        isLoadingMap.value = true;
+
         if (!map.value.mapFile) {
             showMapSettings();
             return;
@@ -330,6 +436,8 @@
         } catch (error) {
             console.error('Error retrieving file:', error);
         }
+
+        isLoadingMap.value = false;
     }
 
     const uploadFile = async () => {
@@ -341,7 +449,7 @@
 
         try {
             const result = await getUrl({
-                key: file.name,
+                key: getUniqueMapFileName(file.name),
                 options: {
                     validateObjectExistence: true // defaults to false
                 }
@@ -352,17 +460,17 @@
         }
 
         if (!fileNotExists) {
-            map.value.mapFile = file.name;
+            map.value.mapFile = getUniqueMapFileName(file.name);
             await getSvg();
         }
         else {
             try {
                 const result = await uploadData({
-                    key: file.name,
+                    key: getUniqueMapFileName(file.name),
                     data: file,
                     options:  {
                         contentType: "image/svg+xml", 
-                        onProgress: ({ transferredBytes, totalBytes }) => {
+                        onProgress: async ({ transferredBytes, totalBytes }) => {
                             if (totalBytes) {
                                 uploadProgress.value = 
                                     `Upload progress ${
@@ -373,11 +481,13 @@
                     }
                 });
 
-                waitForTransferComplete(result, 
-                    (completedResult: any) => {
-                        map.value.mapFile = completedResult.result.key;
+                await waitForTransferComplete(result, 
+                    async (completedResult: any) => {
+                        const result = await completedResult.result;
+                        map.value.mapFile = result.key;
+                        toast(`Uploaded map file.`);
+                        save();
                         getSvg();
-                        toast(`Uploaded Map`);
                     },
                     (error: any) => {
                         toast(`Error uploading map: ${error}`);
@@ -390,7 +500,7 @@
         }
     }
 
-    function waitForTransferComplete(result:any , callback: any, errorCallback: any) {
+    async function waitForTransferComplete(result:any , callback: any, errorCallback: any) {
         if (result.state !== 'IN_PROGRESS') {
             // If the transfer is no longer in progress, invoke the callback with the result
             if (result.state === 'SUCCESS') {
@@ -421,6 +531,7 @@
 .map-container {
   position: relative;
   overflow: scroll;
+  min-height: 200px;
 }
 
 .overlay {

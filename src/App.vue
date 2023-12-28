@@ -37,6 +37,11 @@
                     <img src="@/assets/tree-city-solid.svg" alt="steadings icon" class="filter-light" /> Steadings
                   </a>
                 </li>
+                <li>
+                  <a class="dropdown-item" href="/maps">
+                    <img src="@/assets/map-solid.svg" alt="steadings icon" class="filter-light" /> Maps
+                  </a>
+                </li>
               </ul>
             </li>
             <li class="nav-item dropdown">

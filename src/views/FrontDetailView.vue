@@ -171,7 +171,6 @@ async function setupFront() {
     front.value = await getFront(frontId.value);
 } 
 
-
 async function save() {
   saveDescription();
   
