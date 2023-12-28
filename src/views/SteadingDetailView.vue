@@ -115,9 +115,10 @@ import { useGlobalStore } from '@/stores/globalStore';
 import { SteadingType } from '@/enums/steadingType';
 import { VueShowdown } from 'vue-showdown';
 import { toast } from 'vue3-toastify';
-import { apiKeyName } from '@/services/openAiService';
+import { getApiKey } from '@/services/openAiService';
+import { defineEmits } from 'vue';
 
-
+const emit = defineEmits(['openUserSettingsModal']);
 const globalStore = useGlobalStore();
 const route = useRoute();
 const router = useRouter();
@@ -128,7 +129,6 @@ const userId = ref<null|String>(null);
 
 const steading = ref();
 const creatingSteading = ref(false);
-const apiKey = ref<string | null>(localStorage.getItem(apiKeyName) || null);
 
 const isOwner = computed(()=> {  
     return userId.value !== null && (steading.value?.userId === userId.value || steadingId.value == "new-steading");
@@ -252,16 +252,6 @@ async function update() {
     }
 }
 
-
-const promptApiKey = () => {
-  const userApiKey = prompt('You must have a ChatGPT Api Key. Enter your API key here to use this feature:');
-
-  if (userApiKey) {
-    apiKey.value = userApiKey;
-    localStorage.setItem(apiKeyName, userApiKey);
-  }
-}
-
 async function generateSteadingDescription() {
   const confirmed = confirm("Are you sure you want to generate a steading description?");
   if (!confirmed) {
@@ -271,8 +261,8 @@ async function generateSteadingDescription() {
   isEditing.value  = false;
   const steadingType = steading.value.type ?? SteadingType.Village
 
-  if (apiKey.value == null) {
-    promptApiKey();
+  if (!getApiKey()) {
+    emit('openUserSettingsModal');
   }
   else {
     creatingSteading.value = true;

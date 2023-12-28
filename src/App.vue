@@ -75,28 +75,70 @@
           </ul>
           <div class="d-flex">
             <button v-if="isUserLoggedIn" class="btn btn-secondary text-light btn-link" @click="globalStore.signOffUser()">Sign out</button>
-            <a v-else class="btn btn-secondary text-light" href="/login">Sign in</a>
+            <button v-if="isUserLoggedIn" class="btn btn-secondary text-light btn-link" @click="showUserSettings()">
+              <img src="@/assets/gear-solid.svg" alt="share icon" class="filter-light" />
+            </button>
+            <a v-if="!isUserLoggedIn" class="btn btn-secondary text-light" href="/login">Sign in</a>
           </div>
         </div>
       </div>
     </nav>
 
     <div class="container-fluid mt-lg-5 content">
-      <RouterView />
+      <RouterView @open-user-settings-modal="showUserSettings" />
     </div>
   </main>
+
+  
+    <!-- Modal -->
+    <div class="modal fade" id="userInfoModal" ref="userInfoModalElement" tabindex="-1" aria-labelledby="userInfoModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="userInfoModalLabel">User Information</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+              <label for="exampleInputEmail1">Open AI Api Key</label>
+              <input type="text" class="form-control" v-model="openAiApiKey" aria-describedby="openAiApiKeyHelp" placeholder="Enter api key">
+              <small id="openAiApiKeyHelp" class="form-text text-muted">
+                This key is stored on locally only and is never shared. 
+                <a href="https://platform.openai.com/api-keys" target="blank">
+                  Open Ai Api Keys <img src="@/assets/up-right-from-square-solid.svg" alt="plus icon" height="12" class="filter-blue" />
+                </a>
+              </small>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" @click="saveUserInfo()">Save</button>
+          </div>
+        </div>
+      </div>
+    </div>
 </template>
 
 <script setup lang="ts">
 import { RouterView } from 'vue-router'
 import { useGlobalStore } from './stores/globalStore';
-import { computed, onMounted } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import { toast } from 'vue3-toastify';
+import { opanAiApiKeyStorageName } from './services/openAiService';
+import Modal from 'bootstrap/js/dist/modal';
 
 const globalStore = useGlobalStore();
+const openAiApiKey = ref();
+const userInfoModalElement = ref();
+const userInfoModal = ref();
 
 onMounted(async () => {
   await globalStore.getUserId();
+  openAiApiKey.value = localStorage.getItem(opanAiApiKeyStorageName) ?? null;
+
+  userInfoModal.value = new Modal(userInfoModalElement.value, {
+      keyboard: false
+  });
 })
 
 const isUserLoggedIn = computed( () => {
@@ -120,6 +162,19 @@ function copyCurrentUrlToClipboard(): void {
   toast("Url copied");
 }
 
+function showUserSettings() {
+  userInfoModal.value.show();
+}
+
+function closeModal() {
+  userInfoModal.value.hide();
+}
+
+function saveUserInfo() {
+  localStorage.setItem(opanAiApiKeyStorageName, openAiApiKey.value);
+  closeModal();
+}
+
 </script>
 
 
@@ -138,6 +193,10 @@ function copyCurrentUrlToClipboard(): void {
 
   .filter-white{
     filter: invert(50%) saturate(100%) hue-rotate(86deg) brightness(125%) contrast(100%);
+  }
+
+  .filter-blue {
+    filter: invert(35%) sepia(100%) saturate(3000%) hue-rotate(210deg) brightness(100%) contrast(97%);
   }
 
   @media print {
