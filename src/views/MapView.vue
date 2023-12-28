@@ -3,9 +3,13 @@
         <button class="btn btn-secondary text-light" @click="showMapSettings()">
             <img src="@/assets/gear-solid.svg" alt="share icon" class="filter-white" /> Map Settings
         </button>
+        <div ref="uploadProgress">
+
+        </div>
     </div>
-    <div class="map-container m-0 p-0">
-        <div class="map" v-html="map.svg" @click="addLocation($event)">
+    <div class="map-container m-0 p-0" v-if="map.mapFile">
+        <div class="map" @click="addLocation($event)">
+            <img :src="mapUrl" alt="map image" v-if="mapUrl" />
         </div>
         <div class="overlay" :class="{'showTip': steadingInfo !== null}" v-for="location in map.locations" :key="location.id"
             :style="{ left: location.x + 'px', top: location.y + 'px' }"
@@ -91,15 +95,14 @@
                         <input type="text" class="form-control" v-model="map.name" placeholder="Map Name">
                     </div>
                     <div class="form-group">
-                        <label for="exampleInputEmail1">SVG Map</label>
-                        <textarea class="form-control" v-model="map.svg" aria-describedby="svgHelp" placeholder="SVG">
-                        </textarea>
-                        <small id="svgHelp" class="form-text text-muted">
-                            Copy the contents of an SVG file here. You can make an export SVG maps at
+                        <label for="mapFileUpload">SVG Map</label>
+                        <input type="file" id="mapFileUpload" ref="mapFileUpload" />
+                        <div id="svgHelp" class="small form-text text-muted">
+                            Upload an SVG file of your map. <br/> You can create and export SVG maps at
                             <a href="https://watabou.itch.io/perilous-shores" target="blank">
                                 Perilous Shores <img src="@/assets/up-right-from-square-solid.svg" alt="plus icon" height="12" class="filter-blue" />
                             </a>
-                        </small>
+                        </div>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -117,13 +120,14 @@
     import { onMounted, ref } from 'vue';
     import { useGlobalStore } from '@/stores/globalStore';
     import * as uuid from 'short-uuid';
-    import { sampleMapSvg } from '@/services/svgSample';
     import { LocationType } from '@/enums/locationType';
-import { toast } from 'vue3-toastify';
+    import { toast } from 'vue3-toastify';
+    import { uploadData, getUrl, remove } from '@aws-amplify/storage'
 
     const globalStore = useGlobalStore();
-    const map = ref<any>({"id": "blahblah", "name": "New Map", "svg": sampleMapSvg, "locations": []})
+    const map = ref<any>({"id": "blahblah", "name": "New Map", "mapFile": null, "locations": []});
 
+    const mapUrl = ref();
     const steadingInfo = ref<any>(null);
     const steadings = ref<any>();
     const selectedLocationId = ref();
@@ -135,8 +139,11 @@ import { toast } from 'vue3-toastify';
     const locationModalType = ref(LocationType.Danger);
     const locationModalName = ref();
 
+    const uploadProgress = ref();
     const mapSettingsModalEl = ref();
     const mapSettingsModal = ref();
+
+    const mapFileUpload = ref();
 
 
     onMounted(() => {
@@ -149,7 +156,7 @@ import { toast } from 'vue3-toastify';
         });
 
         fetchSteadings();
-        loadSvg();
+        getSvg();
     });
 
     function addLocation(event: any) {
@@ -186,12 +193,6 @@ import { toast } from 'vue3-toastify';
 
     async function saveMap() {
         alert("not implementd");
-    }
-
-    async function loadSvg() {
-        if (!map.value.svg) {
-            showMapSettings();
-        }
     }
 
     async function fetchSteadings() {
@@ -282,8 +283,21 @@ import { toast } from 'vue3-toastify';
         mapSettingsModal.value.show();
     }
 
-    function saveMapSettings() {
-        alert("not implemented");
+    async function saveMapSettings() {
+        if (!map.value.name) {
+            toast("Map must have a name");
+            return;
+        }
+
+        if (mapFileUpload.value.files.length > 0) {
+            const file = mapFileUpload.value.files[0];
+            if (map.value.mapFile && map.value.mapFile !== file.name) {
+                await deleteSvg(map.value.mapFile);
+            }
+            await uploadFile();
+        }
+
+        //save map
 
         closeMapSettings();
     }
@@ -299,6 +313,107 @@ import { toast } from 'vue3-toastify';
     function getMapLocationIndexById(id: string) {
         return map.value.locations.findIndex( (x: any) => x.id == id);
     }
+
+    
+    const getSvg = async () => {
+        if (!map.value.mapFile) {
+            showMapSettings();
+            return;
+        }
+
+        try {
+            const result = await getUrl({
+                key: map.value.mapFile,
+            });
+
+            mapUrl.value = result.url.href;
+        } catch (error) {
+            console.error('Error retrieving file:', error);
+        }
+    }
+
+    const uploadFile = async () => {
+        const file = mapFileUpload.value.files[0];
+        let fileNotExists = false;
+
+        //check if this map already exists
+        // To check for existence of a file
+
+        try {
+            const result = await getUrl({
+                key: file.name,
+                options: {
+                    validateObjectExistence: true // defaults to false
+                }
+            });
+        }
+        catch(ex) {
+            fileNotExists = true;
+        }
+
+        if (!fileNotExists) {
+            map.value.mapFile = file.name;
+            await getSvg();
+        }
+        else {
+            try {
+                const result = await uploadData({
+                    key: file.name,
+                    data: file,
+                    options:  {
+                        contentType: "image/svg+xml", 
+                        onProgress: ({ transferredBytes, totalBytes }) => {
+                            if (totalBytes) {
+                                uploadProgress.value = 
+                                    `Upload progress ${
+                                    Math.round(transferredBytes / totalBytes) * 100
+                                    } %`;
+                            }
+                        }
+                    }
+                });
+
+                waitForTransferComplete(result, 
+                    (completedResult: any) => {
+                        map.value.mapFile = completedResult.result.key;
+                        getSvg();
+                        toast(`Uploaded Map`);
+                    },
+                    (error: any) => {
+                        toast(`Error uploading map: ${error}`);
+                    }
+                );
+            } catch (error) {
+                console.error('Error uploading file:', error);
+                toast(`Error uploading file: ${error}`);
+            }
+        }
+    }
+
+    function waitForTransferComplete(result:any , callback: any, errorCallback: any) {
+        if (result.state !== 'IN_PROGRESS') {
+            // If the transfer is no longer in progress, invoke the callback with the result
+            if (result.state === 'SUCCESS') {
+                callback(result);
+            } else {
+                errorCallback(new Error('Transfer failed with state: ' + result.state));
+            }
+        } else {
+            // If the transfer is still in progress, check again after a delay
+            setTimeout(() => waitForTransferComplete(result, callback, errorCallback), 1000);
+        }
+    }
+
+
+    const deleteSvg = async (fileName: string) => {
+        try {
+            const result = await remove({ key: fileName });
+            mapUrl.value = null;
+        } catch (error) {
+            console.error('Error retrieving file:', error);
+        }
+    }
+
 
 </script>
 

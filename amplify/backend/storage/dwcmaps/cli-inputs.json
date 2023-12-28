@@ -1,0 +1,14 @@
+{
+  "resourceName": "dwcmaps",
+  "policyUUID": "dcd5f15c",
+  "bucketName": "dungeonworldcompanionmaps",
+  "storageAccess": "authAndGuest",
+  "guestAccess": [
+    "READ"
+  ],
+  "authAccess": [
+    "CREATE_AND_UPDATE",
+    "READ",
+    "DELETE"
+  ]
+}

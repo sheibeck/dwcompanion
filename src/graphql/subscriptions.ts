@@ -761,3 +761,63 @@ export const onDeleteSteading = /* GraphQL */ `subscription OnDeleteSteading(
   APITypes.OnDeleteSteadingSubscriptionVariables,
   APITypes.OnDeleteSteadingSubscription
 >;
+export const onCreateMap = /* GraphQL */ `subscription OnCreateMap(
+  $filter: ModelSubscriptionMapFilterInput
+  $owner: String
+) {
+  onCreateMap(filter: $filter, owner: $owner) {
+    userId
+    id
+    name
+    mapFile
+    locations
+    createdAt
+    updatedAt
+    owner
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnCreateMapSubscriptionVariables,
+  APITypes.OnCreateMapSubscription
+>;
+export const onUpdateMap = /* GraphQL */ `subscription OnUpdateMap(
+  $filter: ModelSubscriptionMapFilterInput
+  $owner: String
+) {
+  onUpdateMap(filter: $filter, owner: $owner) {
+    userId
+    id
+    name
+    mapFile
+    locations
+    createdAt
+    updatedAt
+    owner
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnUpdateMapSubscriptionVariables,
+  APITypes.OnUpdateMapSubscription
+>;
+export const onDeleteMap = /* GraphQL */ `subscription OnDeleteMap(
+  $filter: ModelSubscriptionMapFilterInput
+  $owner: String
+) {
+  onDeleteMap(filter: $filter, owner: $owner) {
+    userId
+    id
+    name
+    mapFile
+    locations
+    createdAt
+    updatedAt
+    owner
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnDeleteMapSubscriptionVariables,
+  APITypes.OnDeleteMapSubscription
+>;

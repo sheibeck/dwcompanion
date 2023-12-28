@@ -22,5 +22,11 @@ export type AmplifyDependentResourcesAttributes = {
     "userPoolGroups": {
       "dungeonworldcompanionGroupRole": "string"
     }
+  },
+  "storage": {
+    "dwcmaps": {
+      "BucketName": "string",
+      "Region": "string"
+    }
   }
 }

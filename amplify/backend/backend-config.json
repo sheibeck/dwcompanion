@@ -90,5 +90,12 @@
         }
       ]
     }
+  },
+  "storage": {
+    "dwcmaps": {
+      "dependsOn": [],
+      "providerPlugin": "awscloudformation",
+      "service": "S3"
+    }
   }
 }

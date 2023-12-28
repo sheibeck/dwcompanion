@@ -830,3 +830,63 @@ export const deleteSteading = /* GraphQL */ `mutation DeleteSteading(
   APITypes.DeleteSteadingMutationVariables,
   APITypes.DeleteSteadingMutation
 >;
+export const createMap = /* GraphQL */ `mutation CreateMap(
+  $input: CreateMapInput!
+  $condition: ModelMapConditionInput
+) {
+  createMap(input: $input, condition: $condition) {
+    userId
+    id
+    name
+    mapFile
+    locations
+    createdAt
+    updatedAt
+    owner
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.CreateMapMutationVariables,
+  APITypes.CreateMapMutation
+>;
+export const updateMap = /* GraphQL */ `mutation UpdateMap(
+  $input: UpdateMapInput!
+  $condition: ModelMapConditionInput
+) {
+  updateMap(input: $input, condition: $condition) {
+    userId
+    id
+    name
+    mapFile
+    locations
+    createdAt
+    updatedAt
+    owner
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.UpdateMapMutationVariables,
+  APITypes.UpdateMapMutation
+>;
+export const deleteMap = /* GraphQL */ `mutation DeleteMap(
+  $input: DeleteMapInput!
+  $condition: ModelMapConditionInput
+) {
+  deleteMap(input: $input, condition: $condition) {
+    userId
+    id
+    name
+    mapFile
+    locations
+    createdAt
+    updatedAt
+    owner
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.DeleteMapMutationVariables,
+  APITypes.DeleteMapMutation
+>;

@@ -544,3 +544,35 @@ export const listSteadings = /* GraphQL */ `query ListSteadings(
   APITypes.ListSteadingsQueryVariables,
   APITypes.ListSteadingsQuery
 >;
+export const getMap = /* GraphQL */ `query GetMap($id: ID!) {
+  getMap(id: $id) {
+    userId
+    id
+    name
+    mapFile
+    locations
+    createdAt
+    updatedAt
+    owner
+    __typename
+  }
+}
+` as GeneratedQuery<APITypes.GetMapQueryVariables, APITypes.GetMapQuery>;
+export const listMaps = /* GraphQL */ `query ListMaps($filter: ModelMapFilterInput, $limit: Int, $nextToken: String) {
+  listMaps(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      userId
+      id
+      name
+      mapFile
+      locations
+      createdAt
+      updatedAt
+      owner
+      __typename
+    }
+    nextToken
+    __typename
+  }
+}
+` as GeneratedQuery<APITypes.ListMapsQueryVariables, APITypes.ListMapsQuery>;

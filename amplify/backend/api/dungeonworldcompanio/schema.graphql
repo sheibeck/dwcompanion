@@ -135,3 +135,11 @@ type Steading @model @auth(rules: [{allow: owner}, {allow: private, operations: 
   name: String!
   description: String!
 } 
+
+type Map @model @auth(rules: [{allow: owner}, {allow: private, operations: [read], provider: iam}, {allow: private, operations: [read]}, {allow: public, operations: [read], provider: iam}]) {
+  userId: ID!
+  id: ID!
+  name: String!
+  mapFile: String!
+  locations: [AWSJSON]
+} 
