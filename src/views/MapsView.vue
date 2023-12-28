@@ -50,13 +50,15 @@ async function removeMap(id: string) {
         await deleteMap(id);
 
         const mapToDelete = mapList.value.find( (c: any) => c.id === id);
+        await deleteSvg(mapToDelete.mapFile);
+        
         const idx = mapList.value.findIndex( c => c.id === id);
         mapList.value.splice(idx, 1);
 
+        
         toast(`Deleted map ${mapToDelete.name}`);
     }
 }
-
 
 const deleteSvg = async (fileName: string) => {
     try {

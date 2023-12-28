@@ -1,15 +1,20 @@
 <template>
-    <div class="mb-1 d-print-none" v-if="isOwner">
-        <button class="btn btn-secondary text-light" @click="showMapSettings()">
+    <div class="mb-1 d-print-none d-flex" v-if="isOwner">
+        <h1 v-if="map">{{ map.name }}</h1>
+        <button class="btn btn-secondary text-light ms-auto" @click="showMapSettings()">
             <img src="@/assets/gear-solid.svg" alt="share icon" class="filter-white" /> Map Settings
         </button>
-        <div ref="uploadProgress">
-
-        </div>
     </div>
    
     <div v-if="isLoadingMap">
         Loading map ...
+    </div>
+    <div v-if="!map?.mapFile">
+        Upload an SVG file in the Map Settings to get started!
+    </div>
+    <div class="d-flex text-muted" v-if="map?.mapFile">
+        <div>Click anywhere on the map to add a point of interest.</div>
+        <div class="ms-auto">Click an existing location icon to edit it.</div>
     </div>
     <div class="map-container m-0 p-0" v-if="map">
         <div class="map" @click="addLocation($event)">
@@ -47,7 +52,7 @@
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="locationSelectionModalLabel">Location Settings</h5>
+            <h5 class="modal-title" id="locationSelectionModalLabel"><span v-if="isEditingLocation">Edit</span><span v-else>Add</span> Location</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
@@ -94,7 +99,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body" v-if="map">
-                    <div class="form-group">
+                    <div class="form-group pb-1">
                         <label for="locationType">Map Name</label>
                         <input type="text" class="form-control" v-model="map.name" placeholder="Map Name">
                     </div>
@@ -102,7 +107,7 @@
                         <label for="mapFileUpload">SVG Map</label>
                         <input type="file" id="mapFileUpload" ref="mapFileUpload" />
                         <div id="svgHelp" class="small form-text text-muted">
-                            Upload an SVG file of your map. <br/> You can create and export SVG maps at
+                            Upload an SVG file of a map. <br/> You can create and export SVG maps at
                             <a href="https://watabou.itch.io/perilous-shores" target="blank">
                                 Perilous Shores <img src="@/assets/up-right-from-square-solid.svg" alt="plus icon" height="12" class="filter-blue" />
                             </a>
@@ -151,7 +156,7 @@
     const mapSettingsModal = ref();
     const mapFileUpload = ref();
 
-    const isLoadingMap = ref(true);
+    const isLoadingMap = ref(false);
 
     const mapId = computed(() => route.params.id.toString() );
 
@@ -162,6 +167,7 @@
         return userId.value !== null && (map.value?.userId === userId.value || mapId.value == "new-map");
     });
 
+    const isEditingLocation = ref(false);
 
     onMounted(async () => {
         isAuthenticated.value = await globalStore.isAuthenticated();
@@ -221,6 +227,8 @@
     }
 
     function editLocation(locationId: string) {
+        isEditingLocation.value = true;
+
         const location = getMapLocationById(locationId);
         locationModalName.value = location.name;
         locationModalType.value = location.type as LocationType;
@@ -370,6 +378,7 @@
       locationY.value = null;
       locationModalName.value = null;
       locationModalType.value = LocationType.Danger;
+      isEditingLocation.value = false;
     }
 
     function showMapSettings() {
