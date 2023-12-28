@@ -3,14 +3,10 @@ import { generateClient } from 'aws-amplify/api';
 import * as queries from '@/graphql/queries';
 import * as mutations from '@/graphql/mutations';
 import * as uuid from 'short-uuid';
-import { apiKeyName } from "./openAiService";
+import { getApiKey, opanAiApiKeyStorageName } from "./openAiService";
 
 const client = generateClient();
 const ASSISTANT_ID = 'asst_YKT1efTUEMyxgY9aZ6eiXsU9'; // ai assistant id
-
-function getApiKey() {
-  return localStorage.getItem(apiKeyName) ?? null;
-}
 
 export async function generateDungeonWorldFront(frontType: String) {
 

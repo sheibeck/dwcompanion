@@ -1,5 +1,4 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import * as Auth from 'aws-amplify/auth';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -43,6 +42,16 @@ const router = createRouter({
       path: '/steading/:id',
       name: 'steading',
       component: () => import('../views/SteadingDetailView.vue')
+    },
+    {
+      path: '/maps',
+      name: 'maps',
+      component: () => import('../views/MapsView.vue')
+    },
+    {
+      path: '/map/:id',
+      name: 'map',
+      component: () => import('../views/MapDetailView.vue')
     },
     {
       path: '/about',

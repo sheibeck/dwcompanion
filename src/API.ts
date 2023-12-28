@@ -744,6 +744,48 @@ export type DeleteSteadingInput = {
   id: string,
 };
 
+export type CreateMapInput = {
+  userId: string,
+  id?: string | null,
+  name: string,
+  mapFile: string,
+  locations?: string | null,
+};
+
+export type ModelMapConditionInput = {
+  userId?: ModelIDInput | null,
+  name?: ModelStringInput | null,
+  mapFile?: ModelStringInput | null,
+  locations?: ModelStringInput | null,
+  and?: Array< ModelMapConditionInput | null > | null,
+  or?: Array< ModelMapConditionInput | null > | null,
+  not?: ModelMapConditionInput | null,
+};
+
+export type Map = {
+  __typename: "Map",
+  userId: string,
+  id: string,
+  name: string,
+  mapFile: string,
+  locations?: string | null,
+  createdAt: string,
+  updatedAt: string,
+  owner?: string | null,
+};
+
+export type UpdateMapInput = {
+  userId?: string | null,
+  id: string,
+  name?: string | null,
+  mapFile?: string | null,
+  locations?: string | null,
+};
+
+export type DeleteMapInput = {
+  id: string,
+};
+
 export type ModelProfessionFilterInput = {
   name?: ModelStringInput | null,
   description?: ModelStringInput | null,
@@ -990,6 +1032,23 @@ export type ModelSteadingConnection = {
   nextToken?: string | null,
 };
 
+export type ModelMapFilterInput = {
+  userId?: ModelIDInput | null,
+  id?: ModelIDInput | null,
+  name?: ModelStringInput | null,
+  mapFile?: ModelStringInput | null,
+  locations?: ModelStringInput | null,
+  and?: Array< ModelMapFilterInput | null > | null,
+  or?: Array< ModelMapFilterInput | null > | null,
+  not?: ModelMapFilterInput | null,
+};
+
+export type ModelMapConnection = {
+  __typename: "ModelMapConnection",
+  items:  Array<Map | null >,
+  nextToken?: string | null,
+};
+
 export type ModelSubscriptionProfessionFilterInput = {
   name?: ModelSubscriptionStringInput | null,
   description?: ModelSubscriptionStringInput | null,
@@ -1197,6 +1256,16 @@ export type ModelSubscriptionSteadingFilterInput = {
   description?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionSteadingFilterInput | null > | null,
   or?: Array< ModelSubscriptionSteadingFilterInput | null > | null,
+};
+
+export type ModelSubscriptionMapFilterInput = {
+  userId?: ModelSubscriptionIDInput | null,
+  id?: ModelSubscriptionIDInput | null,
+  name?: ModelSubscriptionStringInput | null,
+  mapFile?: ModelSubscriptionStringInput | null,
+  locations?: ModelSubscriptionStringInput | null,
+  and?: Array< ModelSubscriptionMapFilterInput | null > | null,
+  or?: Array< ModelSubscriptionMapFilterInput | null > | null,
 };
 
 export type CreateProfessionMutationVariables = {
@@ -1985,6 +2054,63 @@ export type DeleteSteadingMutation = {
   } | null,
 };
 
+export type CreateMapMutationVariables = {
+  input: CreateMapInput,
+  condition?: ModelMapConditionInput | null,
+};
+
+export type CreateMapMutation = {
+  createMap?:  {
+    __typename: "Map",
+    userId: string,
+    id: string,
+    name: string,
+    mapFile: string,
+    locations?: string | null,
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type UpdateMapMutationVariables = {
+  input: UpdateMapInput,
+  condition?: ModelMapConditionInput | null,
+};
+
+export type UpdateMapMutation = {
+  updateMap?:  {
+    __typename: "Map",
+    userId: string,
+    id: string,
+    name: string,
+    mapFile: string,
+    locations?: string | null,
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type DeleteMapMutationVariables = {
+  input: DeleteMapInput,
+  condition?: ModelMapConditionInput | null,
+};
+
+export type DeleteMapMutation = {
+  deleteMap?:  {
+    __typename: "Map",
+    userId: string,
+    id: string,
+    name: string,
+    mapFile: string,
+    locations?: string | null,
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
 export type GetProfessionQueryVariables = {
   id: string,
 };
@@ -2549,6 +2675,48 @@ export type ListSteadingsQuery = {
       type: string,
       name: string,
       description: string,
+      createdAt: string,
+      updatedAt: string,
+      owner?: string | null,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type GetMapQueryVariables = {
+  id: string,
+};
+
+export type GetMapQuery = {
+  getMap?:  {
+    __typename: "Map",
+    userId: string,
+    id: string,
+    name: string,
+    mapFile: string,
+    locations?: string | null,
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type ListMapsQueryVariables = {
+  filter?: ModelMapFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ListMapsQuery = {
+  listMaps?:  {
+    __typename: "ModelMapConnection",
+    items:  Array< {
+      __typename: "Map",
+      userId: string,
+      id: string,
+      name: string,
+      mapFile: string,
+      locations?: string | null,
       createdAt: string,
       updatedAt: string,
       owner?: string | null,
@@ -3310,6 +3478,63 @@ export type OnDeleteSteadingSubscription = {
     type: string,
     name: string,
     description: string,
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type OnCreateMapSubscriptionVariables = {
+  filter?: ModelSubscriptionMapFilterInput | null,
+  owner?: string | null,
+};
+
+export type OnCreateMapSubscription = {
+  onCreateMap?:  {
+    __typename: "Map",
+    userId: string,
+    id: string,
+    name: string,
+    mapFile: string,
+    locations?: string | null,
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type OnUpdateMapSubscriptionVariables = {
+  filter?: ModelSubscriptionMapFilterInput | null,
+  owner?: string | null,
+};
+
+export type OnUpdateMapSubscription = {
+  onUpdateMap?:  {
+    __typename: "Map",
+    userId: string,
+    id: string,
+    name: string,
+    mapFile: string,
+    locations?: string | null,
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type OnDeleteMapSubscriptionVariables = {
+  filter?: ModelSubscriptionMapFilterInput | null,
+  owner?: string | null,
+};
+
+export type OnDeleteMapSubscription = {
+  onDeleteMap?:  {
+    __typename: "Map",
+    userId: string,
+    id: string,
+    name: string,
+    mapFile: string,
+    locations?: string | null,
     createdAt: string,
     updatedAt: string,
     owner?: string | null,

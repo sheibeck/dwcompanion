@@ -4,6 +4,9 @@
     <div v-if="isOwner">
         <a href="/steadings/" class="btn btn-secondary ms-2"><img src="@/assets/tree-city-solid.svg" alt="plus icon" class="filter-white" /> My Steadings</a>
     </div>
+    <button v-if="isOwner" class="btn btn-secondary text-light ms-auto" @click="settingsModal.show()">
+        <img src="@/assets/gear-solid.svg" alt="share icon" class="filter-white" /> Settings
+    </button>
   </h1>
 
   <div class="container-md steading" v-if="steading">
@@ -30,51 +33,6 @@
           </div>
       </div>
       <div class="steading-detail">
-        <div class="meta-data d-print-none border-bottom border-black pb-2">
-          <div class="d-flex flex-wrap pb-1">
-            <div class="form-check me-2">
-              <input class="form-check-input" type="radio" name="steading" value="Village" v-model="steading.type" id="steadingVillage">
-              <label class="form-check-label" for="steadingVillage">
-                Village
-              </label>
-            </div>
-            <div class="form-check me-2">
-              <input class="form-check-input" type="radio" name="steading" value="Town" v-model="steading.type" id="steadingTown">
-              <label class="form-check-label" for="steadingTown">
-                Town
-              </label>
-            </div>
-            <div class="form-check me-2">
-              <input class="form-check-input" type="radio" name="steading" value="Keep" v-model="steading.type" id="steadingKeep">
-              <label class="form-check-label" for="steadingKeep">
-                Keep
-              </label>
-            </div>
-            <div class="form-check me-2">
-              <input class="form-check-input" type="radio" name="steading" value="City" v-model="steading.type" id="steadingCity">
-              <label class="form-check-label" for="steadingCity">
-                City
-              </label>
-            </div>
-          </div>
-          
-          <div class="input-group mb-2 pe-md-2">
-              <span class="input-group-text text-dark" id="name">Name</span>
-              <input type="text" class="form-control text-dark" aria-label="Name" aria-describedby="name"
-                  v-model="steading.name">
-          </div>
-          
-          <div class="" v-if="isOwner">
-            <button type="button" class="m-1 btn btn-secondary" @click="generateSteadingDescription()">Generate a {{ steading.type }}</button>
-            <div v-if="creatingSteading" class="d-flex">
-              <span>Generating steading, please do not navigate away from this page ... </span>
-              <VueSpinnerHourglass class="w-25" v-if="creatingSteading" />
-            </div>
-          </div>
-
-          <div class="bg-warning w-100 small p-1 rounded">The generate steading button is experimental and will require you to have a ChatGPT Api Key.</div>
-        </div>
-
         <div class="mt-3 steading-content">
           <div v-if="!isEditing" class="d-flex">
               <VueShowdown :markdown="steading.description" class="description w-100" />
@@ -104,6 +62,70 @@
         <button v-if="isOwner" type="button" class="btn btn-dark" @click="save()">Save</button>
     </div>
   </div>
+
+       
+  <!-- Modal -->
+  <div class="modal fade" ref="settingsModalEl" tabindex="-1" aria-labelledby="settingsModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <h5 class="modal-title" id="settingsModalLabel">Steading Settings</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <div class="meta-data" v-if="steading">
+                  <div class="d-flex flex-wrap pb-1">
+                    <label class="me-2">Steading Type:</label>
+                    <div class="form-check me-2">
+                      <input class="form-check-input" type="radio" name="steading" value="Village" v-model="steading.type" id="steadingVillage">
+                      <label class="form-check-label" for="steadingVillage">
+                        Village
+                      </label>
+                    </div>
+                    <div class="form-check me-2">
+                      <input class="form-check-input" type="radio" name="steading" value="Town" v-model="steading.type" id="steadingTown">
+                      <label class="form-check-label" for="steadingTown">
+                        Town
+                      </label>
+                    </div>
+                    <div class="form-check me-2">
+                      <input class="form-check-input" type="radio" name="steading" value="Keep" v-model="steading.type" id="steadingKeep">
+                      <label class="form-check-label" for="steadingKeep">
+                        Keep
+                      </label>
+                    </div>
+                    <div class="form-check me-2">
+                      <input class="form-check-input" type="radio" name="steading" value="City" v-model="steading.type" id="steadingCity">
+                      <label class="form-check-label" for="steadingCity">
+                        City
+                      </label>
+                    </div>
+                  </div>
+                  
+                  <div class="input-group mb-2 pe-md-2">
+                      <span class="input-group-text text-dark" id="name">Name</span>
+                      <input type="text" class="form-control text-dark" aria-label="Name" aria-describedby="name"
+                          v-model="steading.name">
+                  </div>
+                  
+                  <div class="" v-if="isOwner">
+                    <button type="button" class="m-1 btn btn-secondary" @click="generateSteadingDescription()">Generate {{ steading.type }} Content</button>
+                    <div v-if="creatingSteading" class="d-flex">
+                      <span>Generating steading, please do not navigate away from this page ... </span>
+                      <VueSpinnerHourglass class="w-25" v-if="creatingSteading" />
+                    </div>
+                  </div>
+
+                  <div class="bg-warning w-100 small p-1 rounded">The generate button is experimental and will require you to have a ChatGPT Api Key. Click on the user settings cog in the header to get more information.</div>
+                </div>
+               
+              </div>
+              <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" @click="settingsModal.hide()">Close</button>
+              </div>
+          </div>
+      </div>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -115,9 +137,11 @@ import { useGlobalStore } from '@/stores/globalStore';
 import { SteadingType } from '@/enums/steadingType';
 import { VueShowdown } from 'vue-showdown';
 import { toast } from 'vue3-toastify';
-import { apiKeyName } from '@/services/openAiService';
+import { getApiKey } from '@/services/openAiService';
+import { defineEmits } from 'vue';
+import Modal from 'bootstrap/js/dist/modal';
 
-
+const emit = defineEmits(['openUserSettingsModal']);
 const globalStore = useGlobalStore();
 const route = useRoute();
 const router = useRouter();
@@ -128,7 +152,8 @@ const userId = ref<null|String>(null);
 
 const steading = ref();
 const creatingSteading = ref(false);
-const apiKey = ref<string | null>(localStorage.getItem(apiKeyName) || null);
+const settingsModalEl = ref();
+const settingsModal = ref();
 
 const isOwner = computed(()=> {  
     return userId.value !== null && (steading.value?.userId === userId.value || steadingId.value == "new-steading");
@@ -183,6 +208,11 @@ List any custom moves appropriate to this steading
 onMounted(async () => {
   isAuthenticated.value = await globalStore.isAuthenticated();
   userId.value = await globalStore.getUserId();
+
+  settingsModal.value = new Modal(settingsModalEl.value, {
+      keyboard: false
+  });
+
   await setupSteading();
 })
 
@@ -252,16 +282,6 @@ async function update() {
     }
 }
 
-
-const promptApiKey = () => {
-  const userApiKey = prompt('You must have a ChatGPT Api Key. Enter your API key here to use this feature:');
-
-  if (userApiKey) {
-    apiKey.value = userApiKey;
-    localStorage.setItem(apiKeyName, userApiKey);
-  }
-}
-
 async function generateSteadingDescription() {
   const confirmed = confirm("Are you sure you want to generate a steading description?");
   if (!confirmed) {
@@ -271,8 +291,8 @@ async function generateSteadingDescription() {
   isEditing.value  = false;
   const steadingType = steading.value.type ?? SteadingType.Village
 
-  if (apiKey.value == null) {
-    promptApiKey();
+  if (!getApiKey()) {
+    emit('openUserSettingsModal');
   }
   else {
     creatingSteading.value = true;

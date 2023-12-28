@@ -103,8 +103,10 @@ import { useGlobalStore } from '@/stores/globalStore';
 import { FrontType } from '@/enums/frontType';
 import { VueShowdown } from 'vue-showdown';
 import { toast } from 'vue3-toastify';
-import { apiKeyName } from '@/services/openAiService';
+import { getApiKey } from '@/services/openAiService';
+import { defineEmits } from 'vue';
 
+const emit = defineEmits(['openUserSettingsModal']);
 
 const globalStore = useGlobalStore();
 const route = useRoute();
@@ -116,7 +118,6 @@ const userId = ref<null|String>(null);
 
 const front = ref();
 const creatingFront = ref(false);
-const apiKey = ref<string | null>(localStorage.getItem(apiKeyName) || null);
 
 const isOwner = computed(()=> {  
     return userId.value !== null && (front.value?.userId === userId.value || frontId.value == "new-front");
@@ -170,7 +171,6 @@ async function setupFront() {
     front.value = await getFront(frontId.value);
 } 
 
-
 async function save() {
   saveDescription();
   
@@ -219,16 +219,6 @@ async function update() {
     }
 }
 
-
-const promptApiKey = () => {
-  const userApiKey = prompt('You must have a ChatGPT Api Key. Enter your API key here to use this feature:');
-
-  if (userApiKey) {
-    apiKey.value = userApiKey;
-    localStorage.setItem(apiKeyName, userApiKey);
-  }
-}
-
 async function generateFrontDescription() {
   const confirmed = confirm("Are you sure you want to generate a front description?");
   if (!confirmed) {
@@ -238,8 +228,8 @@ async function generateFrontDescription() {
   isEditing.value  = false;
   const frontType = front.value.type ?? FrontType.Adventure
 
-  if (apiKey.value == null) {
-    promptApiKey();
+  if (!getApiKey()) {
+    emit('openUserSettingsModal');
   }
   else {
     creatingFront.value = true;

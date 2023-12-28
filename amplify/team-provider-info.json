@@ -20,6 +20,9 @@
       },
       "api": {
         "dungeonworldcompanio": {}
+      },
+      "storage": {
+        "dwcmaps": {}
       }
     }
   }
