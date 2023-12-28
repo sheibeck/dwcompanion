@@ -1,15 +1,30 @@
 <template>
-    <div class="map-container" @click="addLocation($event)">
-        <div class="map" v-html="svgContent">
+    <div class="map-container">
+        <div class="map" v-html="svgContent" @click="addLocation($event)">
         </div>
         <div class="overlay" :class="{'showTip': steadingInfo !== null}" v-for="location in locations" :key="location.id"
             :style="{ left: location.x + 'px', top: location.y + 'px' }"
            >
             <div class="">
-                <span v-if="!location.steading_id">{{ location.name }}</span>
-                <a v-else target="blank" :href="`/steading/${location.steading_id}`">
-                    {{ location.name }} <img src="@/assets/up-right-from-square-solid.svg" alt="plus icon" class="" />
-                </a>
+                <div class="">
+                    <div @click.stop="location.showtools=!location.showtools">
+                        <img height="50" :src="`/maps/${location.type.toLowerCase()}.png`" />
+                    </div>
+                    <div v-if="location.showtools" class="toolbar">
+                        <button class="btn btn-link" type="button" @click.stop="alert('edit')">
+                            <img src="@/assets/pencil-solid.svg" alt="edit description"/>
+                        </button>
+                        <button class="btn btn-link" type="button" @click.stop="alert('delete')">
+                            <img src="@/assets/trash-solid.svg" alt="delete item"/>
+                        </button>
+                    </div>
+                </div>
+                <div class="location-label">
+                    <span v-if="!location.steading_id">{{ location.name }}</span>
+                    <a v-else target="blank" :href="`/steading/${location.steading_id}`">
+                        {{ location.name }} <img src="@/assets/up-right-from-square-solid.svg" alt="plus icon" class="" />
+                    </a>
+                </div>
             </div>
         </div>
     </div>
@@ -46,7 +61,7 @@
     import * as uuid from 'short-uuid';
 
     const globalStore = useGlobalStore();
-    const locations = ref<any>([{"id":1,"steading_id":"rWdvPuTC9LYuGhCS5hJW2U", "steading_type": "town", "name":"swamp","x":434,"y":529}]);
+    const locations = ref<any>([{"id":1,"steading_id":"rWdvPuTC9LYuGhCS5hJW2U", "type": "town", "name":"swamp","x":434,"y":529}]);
     const svgContent = ref<any>();
     const steadingInfo = ref<any>(null);
     const steadings = ref<any>();
@@ -95,7 +110,17 @@
       const selectedSteading = steadings.value.find( (x: any) => x.id === selectedSteadingId.value);
       if (selectedSteading) {
         console.log('Selected Steading:', selectedSteading);
-        locations.value.push({ "id": uuid.generate(), "name": selectedSteading.name, "steading_id": selectedSteading.id, "steading_type": selectedSteading.type, "x": locationX.value, "y": locationY.value });
+
+        const location = { 
+            "id": uuid.generate(), 
+            "name": selectedSteading.name, 
+            "steading_id": selectedSteading.id, 
+            "type": selectedSteading.type, 
+            "x": locationX.value, 
+            "y": locationY.value,
+            "notes": "",
+        };
+        locations.value.push(location);
       }
       closeModal();
     }
@@ -109,7 +134,7 @@
 
 </script>
 
-<style>
+<style lang="scss">
 .map-container {
   position: relative;
   width: 100%; /* Adjust based on your SVG size */
@@ -119,10 +144,15 @@
 .overlay {
   position: absolute;
   cursor: pointer;
-  border: 1px solid #000;
-  padding: 5px;
-  border-radius: 3px;
-  background-color: #fff;
+  .location-label {
+    border: 1px solid #000;
+    padding: 5px;
+    border-radius: 3px;
+    background-color: #fff;
+  }
+  .toolbar {
+    background-color: #fff;
+  }
 }
 
 </style>
