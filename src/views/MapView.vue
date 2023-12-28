@@ -1,8 +1,13 @@
 <template>
+    <div class="mb-1">
+        <button class="btn btn-secondary text-light" @click="showMapSettings()">
+            <img src="@/assets/gear-solid.svg" alt="share icon" class="filter-white" /> Map Settings
+        </button>
+    </div>
     <div class="map-container">
-        <div class="map" v-html="svgContent" @click="addLocation($event)">
+        <div class="map" v-html="map.svg" @click="addLocation($event)">
         </div>
-        <div class="overlay" :class="{'showTip': steadingInfo !== null}" v-for="location in locations" :key="location.id"
+        <div class="overlay" :class="{'showTip': steadingInfo !== null}" v-for="location in map.locations" :key="location.id"
             :style="{ left: location.x + 'px', top: location.y + 'px' }"
            >
             <div class="">
@@ -30,26 +35,73 @@
     </div>
 
     <!-- Modal -->
-    <div class="modal fade" id="steadingModal" ref="steadingModalElement" tabindex="-1" aria-labelledby="steadingModalLabel" aria-hidden="true">
+    <div class="modal fade" ref="locationSelectionModalEl" tabindex="-1" aria-labelledby="locationSelectionModalLabel" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="steadingModalLabel">Select a Steading</h5>
+            <h5 class="modal-title" id="locationSelectionModalLabel">Add a Location</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
-            <select class="form-select" v-model="selectedSteadingId">
-              <option v-for="steading in steadings" :key="steading.id" :value="steading.id">
-                {{ steading.name }}
-              </option>
-            </select>
+            <form>
+                <div class="form-group">
+                    <label for="locationType">Location Type</label>
+                    <select class="form-select" id="locationType">
+                        <option value="steading">
+                            Steading
+                        </option>
+                        <option value="danger">
+                            Danger
+                        </option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="steadingSelect">Choose a Steading</label>
+                    <select class="form-select" id="steadingSelect" v-model="selectedSteadingId">
+                        <option v-for="steading in steadings" :key="steading.id" :value="steading.id">
+                            {{ steading.name }}
+                        </option>
+                    </select>
+                </div>
+            </form>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary" @click="confirmSelection">Select</button>
+            <button type="button" class="btn btn-primary" @click="saveLocation()">Save</button>
           </div>
         </div>
       </div>
+    </div>
+
+        
+    <!-- Modal -->
+    <div class="modal fade" ref="mapSettingsModalEl" tabindex="-1" aria-labelledby="mapSettingsModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title" id="mapSettingsModalLabel">Map Settings</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                <div class="form-group">
+                    <label for="exampleInputEmail1">SVG Map</label>
+                    <textarea class="form-control" v-model="map.svg" aria-describedby="svgHelp" placeholder="SVG">
+                    </textarea>
+                    <small id="svgHelp" class="form-text text-muted">
+                        Copy the contents of an SVG file here. You can make an export SVG maps at
+                        <a href="https://watabou.itch.io/perilous-shores" target="blank">
+                            Perilous Shores <img src="@/assets/up-right-from-square-solid.svg" alt="plus icon" height="12" class="filter-blue" />
+                        </a>
+                    </small>
+                </div>
+                </div>
+                <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" @click="saveMapSettings()">Save</button>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
   
@@ -59,26 +111,34 @@
     import { onMounted, ref } from 'vue';
     import { useGlobalStore } from '@/stores/globalStore';
     import * as uuid from 'short-uuid';
+    import { sampleMapSvg } from '@/services/svgSample';
 
     const globalStore = useGlobalStore();
-    const locations = ref<any>([{"id":1,"steading_id":"rWdvPuTC9LYuGhCS5hJW2U", "type": "town", "name":"swamp","x":434,"y":529}]);
-    const svgContent = ref<any>();
+    const map = ref<any>({"id": "blahblah", "svg": sampleMapSvg, "locations": [{"id":1,"steading_id":"rWdvPuTC9LYuGhCS5hJW2U", "type": "town", "name":"swamp","x":434,"y":529}]})
+
     const steadingInfo = ref<any>(null);
     const steadings = ref<any>();
     const selectedSteadingId = ref();
-    const steadingModalElement = ref();
-    const steadingModal = ref();
+    const locationSelectionModalEl = ref();
+    const locationSelectionModal = ref();
     const locationX = ref();
     const locationY = ref();
 
+    const mapSettingsModalEl = ref();
+    const mapSettingsModal = ref();
+
 
     onMounted(() => {
-        fetchSteadings();
-        loadSvg();
-
-        steadingModal.value = new Modal(steadingModalElement.value, {
+        locationSelectionModal.value = new Modal(locationSelectionModalEl.value, {
             keyboard: false
         });
+
+        mapSettingsModal.value = new Modal(mapSettingsModalEl.value, {
+            keyboard: false
+        });
+
+        fetchSteadings();
+        loadSvg();
     });
 
     function addLocation(event: any) {
@@ -88,15 +148,17 @@
         locationX.value = x;
         locationY.value = y;
         
-        steadingModal.value.show();
+        locationSelectionModal.value.show();
+    }
+
+    function editLocation(event: any) {
+        locationSelectionModal.value.show();
     }
 
     async function loadSvg() {
-        fetch('/maps/galmoth_lake.svg')
-            .then(response => response.text())
-            .then(svgData => {
-                svgContent.value = svgData;
-            });
+        if (!map.value.svg) {
+            showMapSettings();
+        }
     }
 
     async function fetchSteadings() {
@@ -106,10 +168,9 @@
         }
     }
     
-    function confirmSelection() {
+    function saveLocation() {
       const selectedSteading = steadings.value.find( (x: any) => x.id === selectedSteadingId.value);
       if (selectedSteading) {
-        console.log('Selected Steading:', selectedSteading);
 
         const location = { 
             "id": uuid.generate(), 
@@ -120,16 +181,30 @@
             "y": locationY.value,
             "notes": "",
         };
-        locations.value.push(location);
+        map.value.locations.push(location);
       }
-      closeModal();
+      closeLocationModal();
     }
 
-    function closeModal() {
-      steadingModal.value.hide();
+    function closeLocationModal() {
+      locationSelectionModal.value.hide();
       selectedSteadingId.value = null;
       locationX.value = null;
       locationY.value = null;
+    }
+
+    function showMapSettings() {
+        mapSettingsModal.value.show();
+    }
+
+    function saveMapSettings() {
+        alert("not implemented");
+
+        closeMapSettings();
+    }
+
+    function closeMapSettings() {
+        mapSettingsModal.value.hide();
     }
 
 </script>

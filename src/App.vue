@@ -89,34 +89,34 @@
     </div>
   </main>
 
-  
-    <!-- Modal -->
-    <div class="modal fade" id="userInfoModal" ref="userInfoModalElement" tabindex="-1" aria-labelledby="userInfoModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="userInfoModalLabel">User Information</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+
+  <!-- Modal -->
+  <div class="modal fade" id="userInfoModal" ref="userInfoModalElement" tabindex="-1" aria-labelledby="userInfoModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="userInfoModalLabel">User Information</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="exampleInputEmail1">Open AI Api Key</label>
+            <input type="text" class="form-control" v-model="openAiApiKey" aria-describedby="openAiApiKeyHelp" placeholder="Enter api key">
+            <small id="openAiApiKeyHelp" class="form-text text-muted">
+              This key is stored on locally only and is never shared. 
+              <a href="https://platform.openai.com/api-keys" target="blank">
+                Open Ai Api Keys <img src="@/assets/up-right-from-square-solid.svg" alt="plus icon" height="12" class="filter-blue" />
+              </a>
+            </small>
           </div>
-          <div class="modal-body">
-            <div class="form-group">
-              <label for="exampleInputEmail1">Open AI Api Key</label>
-              <input type="text" class="form-control" v-model="openAiApiKey" aria-describedby="openAiApiKeyHelp" placeholder="Enter api key">
-              <small id="openAiApiKeyHelp" class="form-text text-muted">
-                This key is stored on locally only and is never shared. 
-                <a href="https://platform.openai.com/api-keys" target="blank">
-                  Open Ai Api Keys <img src="@/assets/up-right-from-square-solid.svg" alt="plus icon" height="12" class="filter-blue" />
-                </a>
-              </small>
-            </div>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary" @click="saveUserInfo()">Save</button>
-          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" @click="saveUserInfo()">Save</button>
         </div>
       </div>
     </div>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -191,8 +191,8 @@ function saveUserInfo() {
     filter: invert(50%) saturate(100%) hue-rotate(86deg) brightness(100%) contrast(100%);
   }
 
-  .filter-white{
-    filter: invert(50%) saturate(100%) hue-rotate(86deg) brightness(125%) contrast(100%);
+  .filter-white {
+    filter: invert(100%) saturate(0%);
   }
 
   .filter-blue {
