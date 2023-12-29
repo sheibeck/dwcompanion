@@ -122,6 +122,7 @@
               </div>
               <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" @click="settingsModal.hide()">Close</button>
+                  <button type="button" class="btn btn-dark" @click="save()">Save</button>
               </div>
           </div>
       </div>
@@ -227,6 +228,8 @@ async function setupSteading() {
           userId: userId,
         }
         steading.value = newSteading;
+
+        settingsModal.value.show();
         return;
     }
     
@@ -260,10 +263,11 @@ async function save() {
           toast(`Failed to create steading!`);
       }
   }
-
   else {
       await update();
   }
+
+  settingsModal.value.hide();
 }
 
 function saveDescription() {

@@ -13,9 +13,7 @@ import { VueShowdownPlugin } from 'vue-showdown';
 awsconfig.oauth.redirectSignIn = `${window.location.origin}/`;
 awsconfig.oauth.redirectSignOut = `${window.location.origin}/`;
 
-
 Amplify.configure(awsconfig);
-
 
 const app = createApp(App);
 
