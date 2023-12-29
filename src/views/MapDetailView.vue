@@ -47,7 +47,7 @@
         </div>
     </div>
 
-    <!-- Modal -->
+    <!-- Location Modal -->
     <div class="modal fade" ref="locationSelectionModalEl" tabindex="-1" aria-labelledby="locationSelectionModalLabel" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
@@ -79,6 +79,11 @@
                         </option>
                     </select>
                 </div>
+
+                <div class="form-group">
+                    <label for="locationType">Location Notes</label>
+                    <textarea type="text" class="form-control" v-model="locationModalNotes" placeholder="Location Notes"></textarea>
+                </div>
             </form>
           </div>
           <div class="modal-footer">
@@ -90,7 +95,7 @@
     </div>
 
         
-    <!-- Modal -->
+    <!-- Map Modal -->
     <div class="modal fade" ref="mapSettingsModalEl" tabindex="-1" aria-labelledby="mapSettingsModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -151,6 +156,7 @@
     const locationY = ref();
     const locationModalType = ref(LocationType.Danger);
     const locationModalName = ref();
+    const locationModalNotes = ref();
     const uploadProgress = ref();
     const mapSettingsModalEl = ref();
     const mapSettingsModal = ref();
@@ -240,6 +246,7 @@
 
         const location = getMapLocationById(locationId);
         locationModalName.value = location.name;
+        locationModalNotes.value = location.notes;
         locationModalType.value = location.type as LocationType;
         selectedLocationId.value = locationId;
         selectedSteadingId.value = location?.steading_id;
@@ -332,6 +339,7 @@
               
                 map.value.locations[mapLocationIdx].name = locationModalName.value;
                 map.value.locations[mapLocationIdx].type = locationModalType.value;
+                map.value.locations[mapLocationIdx].notes = locationModalNotes.value;
             
                 if (locationModalType.value === LocationType.Steading) {
                     if (selectedSteading) {
@@ -349,13 +357,13 @@
         else {
             const location = {
                 "id": uuid.generate(), 
-                "name": locationModalName.value, 
+                "name": locationModalName.value,
+                "notes": locationModalNotes.value, 
                 "steading_id": null, 
                 "steading_type": null, 
                 "type": locationModalType.value,
                 "x": locationX.value, 
                 "y": locationY.value,
-                "notes": "",
             }
             
             if (locationModalType.value === LocationType.Steading) {
@@ -388,6 +396,7 @@
       locationX.value = null;
       locationY.value = null;
       locationModalName.value = null;
+      locationModalNotes.value = null;
       locationModalType.value = LocationType.Unknown;
       isEditingLocation.value = false;
     }
@@ -534,6 +543,11 @@
 </script>
 
 <style lang="scss">
+
+.btn-secondary {
+    max-height: 40px;
+}
+
 .map-container {
   position: relative;
   overflow: scroll;
