@@ -4,6 +4,9 @@
     <div v-if="isOwner">
         <a href="/fronts/" class="btn btn-secondary ms-2"><img src="@/assets/book-open-solid.svg" alt="plus icon" class="filter-white" /> My Fronts</a>
     </div>
+    <button v-if="isOwner" class="btn btn-secondary text-light ms-auto" @click="settingsModal.show()">
+        <img src="@/assets/gear-solid.svg" alt="share icon" class="filter-white" /> Settings
+    </button>
   </h1>
 
   <div class="container-md front" v-if="front">
@@ -30,39 +33,6 @@
           </div>
       </div>
       <div class="front-detail">
-        <div class="meta-data d-print-none border-bottom border-black pb-2">
-          <div class="d-flex flex-wrap pb-1">
-            <div class="form-check me-2">
-              <input class="form-check-input" type="radio" name="front" value="Campaign" v-model="front.type" id="frontCampaign">
-              <label class="form-check-label" for="frontCampaign">
-                Campaign
-              </label>
-            </div>
-            <div class="form-check me-2">
-              <input class="form-check-input" type="radio" name="front" value="Adventure" v-model="front.type" id="frontAdventure">
-              <label class="form-check-label" for="frontAdventure">
-                Adventure
-              </label>
-            </div>
-          </div>
-          
-          <div class="input-group mb-2 pe-md-2">
-              <span class="input-group-text text-dark" id="name">Name</span>
-              <input type="text" class="form-control text-dark" aria-label="Name" aria-describedby="name"
-                  v-model="front.name">
-          </div>
-          
-          <div class="" v-if="isOwner">
-            <button type="button" class="m-1 btn btn-secondary" @click="generateFrontDescription()">Generate {{ front.type }} Front</button>
-            <div v-if="creatingFront" class="d-flex">
-              <span>Generating front, please do not navigate away from this page ... </span>
-              <VueSpinnerHourglass class="w-25" v-if="creatingFront" />
-            </div>
-          </div>
-
-          <div class="bg-warning w-100 small p-1 rounded">The generate front button is experimental and will require you to have a ChatGPT Api Key.</div>
-        </div>
-
         <div class="mt-3 front-content">
           <div v-if="!isEditing" class="d-flex">
               <VueShowdown :markdown="front.description" class="description w-100" />
@@ -92,6 +62,57 @@
         <button v-if="isOwner" type="button" class="btn btn-dark" @click="save()">Save</button>
     </div>
   </div>
+
+    <!-- Modal -->
+    <div class="modal fade" ref="settingsModalEl" tabindex="-1" aria-labelledby="settingsModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <h5 class="modal-title" id="settingsModalLabel">Front Settings</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <div class="meta-data" v-if="front">
+                  <div class="d-flex flex-wrap pb-1">
+                    <label class="me-2">Front Type:</label>
+                    <div class="form-check me-2">
+                      <input class="form-check-input" type="radio" name="front" value="Campaign" v-model="front.type" id="frontCampaign">
+                      <label class="form-check-label" for="frontCampaign">
+                        Campaign
+                      </label>
+                    </div>
+                    <div class="form-check me-2">
+                      <input class="form-check-input" type="radio" name="front" value="Adventure" v-model="front.type" id="frontAdventure">
+                      <label class="form-check-label" for="frontAdventure">
+                        Adventure
+                      </label>
+                    </div>
+                  </div>
+                  
+                  <div class="input-group mb-2 pe-md-2">
+                      <span class="input-group-text text-dark" id="name">Name</span>
+                      <input type="text" class="form-control text-dark" aria-label="Name" aria-describedby="name"
+                          v-model="front.name">
+                  </div>
+                  
+                  <div class="" v-if="isOwner">
+                    <button type="button" class="m-1 btn btn-secondary" @click="generateFrontDescription()">Generate {{ front.type }} Front</button>
+                    <div v-if="creatingFront" class="d-flex">
+                      <span>Generating front, please do not navigate away from this page ... </span>
+                      <VueSpinnerHourglass class="w-25" v-if="creatingFront" />
+                    </div>
+                  </div>
+
+                  <div class="bg-warning w-100 small p-1 rounded">The generate front button is experimental and will require you to have a ChatGPT Api Key.</div>
+                </div>
+              </div>
+              <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" @click="settingsModal.hide()">Close</button>
+                  <button type="button" class="btn btn-dark" @click="save()">Save</button>
+              </div>
+          </div>
+      </div>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -105,6 +126,7 @@ import { VueShowdown } from 'vue-showdown';
 import { toast } from 'vue3-toastify';
 import { getApiKey } from '@/services/openAiService';
 import { defineEmits } from 'vue';
+import Modal from 'bootstrap/js/dist/modal';
 
 const emit = defineEmits(['openUserSettingsModal']);
 
@@ -118,6 +140,8 @@ const userId = ref<null|String>(null);
 
 const front = ref();
 const creatingFront = ref(false);
+const settingsModalEl = ref();
+const settingsModal = ref();
 
 const isOwner = computed(()=> {  
     return userId.value !== null && (front.value?.userId === userId.value || frontId.value == "new-front");
@@ -151,6 +175,11 @@ const frontTemplate = `
 onMounted(async () => {
   isAuthenticated.value = await globalStore.isAuthenticated();
   userId.value = await globalStore.getUserId();
+
+  settingsModal.value = new Modal(settingsModalEl.value, {
+      keyboard: false
+  });
+
   await setupFront();
 })
 
@@ -165,6 +194,8 @@ async function setupFront() {
           userId: userId,
         }
         front.value = newFront;
+        
+        settingsModal.value.show();
         return;
     }
     

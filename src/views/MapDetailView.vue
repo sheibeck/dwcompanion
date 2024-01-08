@@ -39,8 +39,8 @@
                 </div>
                 <div class="location-label">
                     <span v-if="!location.steading_id">{{ location.name }}</span>
-                    <a v-else target="blank" :href="`/steading/${location.steading_id}`">
-                        {{ location.name }} <img src="@/assets/up-right-from-square-solid.svg" alt="plus icon" class="" />
+                    <a v-else target="_blank" :href="`/steading/${location.steading_id}`">
+                        {{ location.name }} <img src="@/assets/up-right-from-square-solid.svg" alt="plus icon" height="12" class="filter-blue" />
                     </a>
                 </div>
             </div>
@@ -61,7 +61,7 @@
                     <label for="locationType">Location Type</label>
                     <select class="form-select" v-model="locationModalType">
                         <option v-for="locationType in LocationType" :key="locationType" :value="locationType">
-                            {{ locationType }}
+                            {{  getLocationTypeSelectLabel(locationType)  }}
                         </option>
                     </select>
                 </div>
@@ -72,10 +72,10 @@
                 </div>
 
                 <div class="form-group" v-if="locationModalType === LocationType.Steading">
-                    <label for="steadingSelect">Choose a Steading / <a href="/steading/new-steading" target="blank">Create a Steading</a></label>
-                    <select class="form-select" id="steadingSelect" v-model="selectedSteadingId">
+                    <label for="steadingSelect">Choose a Steading / <a href="/steading/new-steading" target="_blank">Create a Steading <img src="@/assets/up-right-from-square-solid.svg" alt="plus icon" height="12" class="filter-blue" /></a></label>
+                    <select class="form-select" id="steadingSelect" v-model="selectedSteadingId" @click="refreshSteadings()">
                         <option v-for="steading in steadings" :key="steading.id" :value="steading.id">
-                            {{ steading.name }}
+                            {{ steading.name }} ({{ steading.type }})
                         </option>
                     </select>
                 </div>
@@ -113,7 +113,7 @@
                         <input type="file" id="mapFileUpload" ref="mapFileUpload" />
                         <div id="svgHelp" class="small form-text text-muted">
                             Upload an SVG file of a map. <br/> You can create and export SVG maps at
-                            <a href="https://watabou.itch.io/perilous-shores" target="blank">
+                            <a href="https://watabou.itch.io/perilous-shores" target="_blank">
                                 Perilous Shores <img src="@/assets/up-right-from-square-solid.svg" alt="plus icon" height="12" class="filter-blue" />
                             </a>
                         </div>
@@ -161,13 +161,10 @@
     const mapSettingsModalEl = ref();
     const mapSettingsModal = ref();
     const mapFileUpload = ref();
-
-    const isLoadingMap = ref(false);
-
-    const mapId = computed(() => route.params.id.toString() );
-
+    const isLoadingMap = ref(false);  
     const isAuthenticated = ref(false);
     const userId = ref<null|String>(null);
+    const isEditingLocation = ref(false);
 
     const isOwner = computed(()=> {  
         return userId.value !== null && (map.value?.userId === userId.value || mapId.value == "new-map");
@@ -177,8 +174,7 @@
         return userId.value == null;
     });
 
-
-    const isEditingLocation = ref(false);
+    const mapId = computed(() => route.params.id.toString() );
 
     onMounted(async () => {
         isAuthenticated.value = await globalStore.isAuthenticated();
@@ -192,9 +188,17 @@
             keyboard: false
         });
 
-        steadings.value = await listSteadings();
+        await refreshSteadings();
         await setupMap();
     });
+
+    function getLocationTypeSelectLabel(locationType: any) {
+        return locationType == LocationType.Steading ? "Steading (link to Steading)" : locationType;
+    }
+
+    async function refreshSteadings() {
+        steadings.value = await listSteadings();
+    }
 
     watch(route, async (to, from) => {
         await setupMap();
@@ -239,6 +243,10 @@
         locationY.value = y;
         
         locationSelectionModal.value.show();
+    }
+
+    function selectSteadingEventHandler(item: any) {
+        const x = 1;
     }
 
     function editLocation(locationId: string) {
@@ -311,7 +319,15 @@
         const userId = await globalStore.getUserId();
         if (userId) {
             const steadingList = await getSteadings(userId);
-            return steadingList;
+            return steadingList.sort((a: any, b: any) => {
+                if (a.name < b.name) {
+                    return -1;
+                }
+                if (a.name > b.name) {
+                    return 1;
+                }
+                return 0;
+            });
         }
         return null;
     }

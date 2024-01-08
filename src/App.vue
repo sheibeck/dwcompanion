@@ -39,7 +39,7 @@
                 </li>
                 <li>
                   <a class="dropdown-item" href="/maps">
-                    <img src="@/assets/map-solid.svg" alt="steadings icon" class="filter-light" /> Maps
+                    <img src="@/assets/map-location-dot-solid.svg" alt="steadings icon" class="filter-light" /> Maps
                   </a>
                 </li>
               </ul>
@@ -109,7 +109,7 @@
             <input type="text" class="form-control" v-model="openAiApiKey" aria-describedby="openAiApiKeyHelp" placeholder="Enter api key">
             <small id="openAiApiKeyHelp" class="form-text text-muted">
               This key is stored on locally only and is never shared. 
-              <a href="https://platform.openai.com/api-keys" target="blank">
+              <a href="https://platform.openai.com/api-keys" target="_blank">
                 Open Ai Api Keys <img src="@/assets/up-right-from-square-solid.svg" alt="plus icon" height="12" class="filter-blue" />
               </a>
             </small>
