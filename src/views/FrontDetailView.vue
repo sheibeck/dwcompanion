@@ -194,6 +194,8 @@ async function setupFront() {
           userId: userId,
         }
         front.value = newFront;
+        
+        settingsModal.value.show();
         return;
     }
     
