@@ -360,7 +360,7 @@
                 if (locationModalType.value === LocationType.Steading) {
                     if (selectedSteading) {
                         map.value.locations[mapLocationIdx].name = selectedSteading.name;
-                        map.value.locations[mapLocationIdx].steading_id == selectedSteading.id ?? null;
+                        map.value.locations[mapLocationIdx].steading_id = selectedSteading.id;
                         map.value.locations[mapLocationIdx].steading_type = selectedSteading.type;
                     }
                     else {
@@ -368,10 +368,14 @@
                         return;
                     }
                 }
+                else {
+                    map.value.locations[mapLocationIdx].steading_id = null;
+                    map.value.locations[mapLocationIdx].steading_type = null;
+                }
             }
         }
         else {
-            const location = {
+            const mapLocation = {
                 "id": uuid.generate(), 
                 "name": locationModalName.value,
                 "notes": locationModalNotes.value, 
@@ -384,9 +388,9 @@
             
             if (locationModalType.value === LocationType.Steading) {
                 if (selectedSteading) {
-                    location.name = selectedSteading.name;
-                    location.steading_id = selectedSteading.id;
-                    location.steading_type = selectedSteading.type;
+                    mapLocation.name = selectedSteading.name;
+                    mapLocation.steading_id = selectedSteading.id;
+                    mapLocation.steading_type = selectedSteading.type;
                 }
                 else {
                     toast("You must choose a Steading.");
@@ -394,11 +398,11 @@
                 }
             }
         
-            if ('showtools' in location) {
-                delete location.showtools;
+            if ('showtools' in mapLocation) {
+                delete mapLocation.showtools;
             }
             
-            map.value.locations.push(location);
+            map.value.locations.push(mapLocation);
         }
         //save map
         save();
