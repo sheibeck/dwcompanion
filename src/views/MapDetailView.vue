@@ -129,7 +129,7 @@
 </template>
   
 <script setup lang="ts">
-    import { getSteadings } from '@/services/steadingService';
+    import { getSteading, getSteadings, updateSteading } from '@/services/steadingService';
     import Modal from 'bootstrap/js/dist/modal';
     import { computed, onMounted, ref, watch } from 'vue';
     import { useGlobalStore } from '@/stores/globalStore';
@@ -245,10 +245,6 @@
         locationSelectionModal.value.show();
     }
 
-    function selectSteadingEventHandler(item: any) {
-        const x = 1;
-    }
-
     function editLocation(locationId: string) {
         isEditingLocation.value = true;
 
@@ -342,6 +338,9 @@
     }
     
     function saveLocation() {
+        let steadingIdNew = null;
+        let steadingIdOld = null;
+
         if (locationModalType.value !== LocationType.Steading && !locationModalName.value) {
             toast("Location must have a name.");
             return;
@@ -360,7 +359,14 @@
                 if (locationModalType.value === LocationType.Steading) {
                     if (selectedSteading) {
                         map.value.locations[mapLocationIdx].name = selectedSteading.name;
+
+                        if (map.value.locations[mapLocationIdx].steading_id !== null) {
+                            steadingIdOld = map.value.locations[mapLocationIdx].steading_id;
+                        }
+
                         map.value.locations[mapLocationIdx].steading_id = selectedSteading.id;
+                        steadingIdNew = selectedSteading.id;
+
                         map.value.locations[mapLocationIdx].steading_type = selectedSteading.type;
                     }
                     else {
@@ -369,7 +375,11 @@
                     }
                 }
                 else {
-                    map.value.locations[mapLocationIdx].steading_id = null;
+                    if (map.value.locations[mapLocationIdx].steading_id !== null) {
+                        steadingIdOld = map.value.locations[mapLocationIdx].steading_id;
+                        map.value.locations[mapLocationIdx].steading_id = null;
+                    }
+
                     map.value.locations[mapLocationIdx].steading_type = null;
                 }
             }
@@ -391,6 +401,7 @@
                     mapLocation.name = selectedSteading.name;
                     mapLocation.steading_id = selectedSteading.id;
                     mapLocation.steading_type = selectedSteading.type;
+                    steadingIdOld = selectedSteading.id;
                 }
                 else {
                     toast("You must choose a Steading.");
@@ -406,8 +417,55 @@
         }
         //save map
         save();
+        
+        if (steadingIdOld || steadingIdNew) {
+            updateSteadings(steadingIdNew, steadingIdOld);
+        }
+
         closeLocationModal();
     }
+
+    async function updateSteadings(steadingIdNew: string, steadingIdOld: string) {
+        const steadingMapString = `${map.value.id}|${map.value.name}`;
+
+        if (steadingIdNew == steadingIdOld) {
+            return;
+        }
+
+        if (steadingIdNew) {
+            const newSteading = await getSteading(steadingIdNew);
+        
+            if (newSteading) {
+                if (!newSteading?.maps) {
+                    newSteading.maps = [steadingMapString];
+                }
+                else {
+                    //account for name changes on maps
+                    const idx = newSteading?.maps?.findIndex(m => m?.startsWith(map.value.id)) ?? -1;
+                    if (idx === -1) {
+                        newSteading?.maps?.splice(idx, 1);
+                    }
+                    newSteading?.maps.push(steadingMapString);
+                }
+
+                updateSteading(newSteading);
+            }
+        }
+
+        if (steadingIdOld) {
+            const oldSteading = await getSteading(steadingIdOld);
+
+            if (oldSteading) {
+                const idx = oldSteading?.maps?.findIndex(m => m?.startsWith(map.value.id)) ?? -1;
+                if (idx !== -1 ) {
+                    oldSteading?.maps?.splice(idx, 1);
+                    updateSteading(oldSteading);
+                }
+            }
+        }
+
+    }
+    
 
     function closeLocationModal() {
       locationSelectionModal.value.hide();

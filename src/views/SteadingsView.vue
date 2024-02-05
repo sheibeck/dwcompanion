@@ -11,6 +11,16 @@
                 <div class="card-body">
                     <h5 class="card-title">{{ steading.name }}</h5>
                     <h6 class="card-subtitle mb-2 text-body-secondary">{{ steading.type }}</h6>
+                
+                    <div class="card-header" v-if="steading.maps && steading.maps.length > 0">
+                        Maps:
+                    </div>
+                    <ul class="list-group list-group-flush" v-for="map in steading.maps">
+                        <li class="list-group-item">
+                            <a target="_blank" :href="`/map/${getMapId(map)}`">{{ getMapName(map) }}</a>
+                        </li>
+                    </ul>
+
                     <button class="btn btn-sm btn-secondary me-3" type="button" @click="viewSteading(steading.id)">View</button>
                     <button class="btn btn-sm btn-danger" type="button" @click="removeSteading(steading.id)">Delete</button>
                 </div>
@@ -20,7 +30,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted, ref } from 'vue';
+import { onMounted, ref } from 'vue';
 import { useGlobalStore } from '@/stores/globalStore';
 import { useRouter } from 'vue-router';
 import { getSteadings, deleteSteading } from '@/services/steadingService';
@@ -55,6 +65,15 @@ async function removeSteading(id: string) {
         toast(`Deleted steading ${steadingToDelete.name}`);
     }
 }
+
+function getMapName(map: string) {
+    return map.split("|")[1];
+}
+
+function getMapId(map: string) {
+    return map.split("|")[0];
+}
+
 </script>
 
 <style scoped lang="scss">
