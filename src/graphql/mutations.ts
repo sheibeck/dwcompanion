@@ -720,6 +720,7 @@ export const createFront = /* GraphQL */ `mutation CreateFront(
     type
     name
     description
+    steadings
     createdAt
     updatedAt
     owner
@@ -740,6 +741,7 @@ export const updateFront = /* GraphQL */ `mutation UpdateFront(
     type
     name
     description
+    steadings
     createdAt
     updatedAt
     owner
@@ -760,6 +762,7 @@ export const deleteFront = /* GraphQL */ `mutation DeleteFront(
     type
     name
     description
+    steadings
     createdAt
     updatedAt
     owner
@@ -780,6 +783,7 @@ export const createSteading = /* GraphQL */ `mutation CreateSteading(
     type
     name
     description
+    maps
     createdAt
     updatedAt
     owner
@@ -800,6 +804,7 @@ export const updateSteading = /* GraphQL */ `mutation UpdateSteading(
     type
     name
     description
+    maps
     createdAt
     updatedAt
     owner
@@ -820,6 +825,7 @@ export const deleteSteading = /* GraphQL */ `mutation DeleteSteading(
     type
     name
     description
+    maps
     createdAt
     updatedAt
     owner

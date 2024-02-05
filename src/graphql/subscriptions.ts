@@ -651,6 +651,7 @@ export const onCreateFront = /* GraphQL */ `subscription OnCreateFront(
     type
     name
     description
+    steadings
     createdAt
     updatedAt
     owner
@@ -671,6 +672,7 @@ export const onUpdateFront = /* GraphQL */ `subscription OnUpdateFront(
     type
     name
     description
+    steadings
     createdAt
     updatedAt
     owner
@@ -691,6 +693,7 @@ export const onDeleteFront = /* GraphQL */ `subscription OnDeleteFront(
     type
     name
     description
+    steadings
     createdAt
     updatedAt
     owner
@@ -711,6 +714,7 @@ export const onCreateSteading = /* GraphQL */ `subscription OnCreateSteading(
     type
     name
     description
+    maps
     createdAt
     updatedAt
     owner
@@ -731,6 +735,7 @@ export const onUpdateSteading = /* GraphQL */ `subscription OnUpdateSteading(
     type
     name
     description
+    maps
     createdAt
     updatedAt
     owner
@@ -751,6 +756,7 @@ export const onDeleteSteading = /* GraphQL */ `subscription OnDeleteSteading(
     type
     name
     description
+    maps
     createdAt
     updatedAt
     owner
