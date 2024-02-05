@@ -11,6 +11,16 @@
                 <div class="card-body">
                     <h5 class="card-title">{{ front.name }}</h5>
                     <h6 class="card-subtitle mb-2 text-body-secondary">{{ front.type }}</h6>
+
+                    <div class="card-header" v-if="front.steadings && front.steadings.length > 0">
+                        Steadings:
+                    </div>
+                    <ul class="list-group list-group-flush" v-for="steading in front.steadings">
+                        <li class="list-group-item">
+                            <a target="_blank" :href="`/steading/${getSteadingId(steading)}`">{{ getSteadingName(steading) }}</a>
+                        </li>
+                    </ul>
+
                     <button class="btn btn-sm btn-secondary me-3" type="button" @click="viewFront(front.id)">View</button>
                     <button class="btn btn-sm btn-danger" type="button" @click="removeFront(front.id)">Delete</button>
                 </div>
@@ -55,6 +65,15 @@ async function removeFront(id: string) {
         toast(`Deleted front ${frontToDelete.name}`);
     }
 }
+
+function getSteadingName(steading: string) {
+    return steading.split("|")[1];
+}
+
+function getSteadingId(steading: string) {
+    return steading.split("|")[0];
+}
+
 </script>
 
 <style scoped lang="scss">
