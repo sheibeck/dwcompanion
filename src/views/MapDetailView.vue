@@ -29,13 +29,13 @@
                         <img height="60" :src="`/maps/${getLocationTypeIconName(location)}.png`" />
                     </div>
                     <div v-if="location.showtools" class="toolbar">
-                        <button class="btn btn-link px-1" type="button" @click.stop="editLocation(location.id)">
+                        <button class="btn btn-link px-1" type="button" @click.stop="editLocation(location.id)" title="Edit Location">
                             <img src="@/assets/pencil-solid.svg" alt="edit description"/>
                         </button>
-                        <button class="btn btn-link px-1" type="button" @click.stop="markPartyLocation(location.id)">
+                        <button class="btn btn-link px-1" type="button" @click.stop="markPartyLocation(location.id)" title="Set Party Location">
                             <img src="@/assets/star-solid.svg" alt="party location"/>
                         </button>
-                        <button class="btn btn-link px-1" type="button" @click.stop="deleteLocation(location.id)">
+                        <button class="btn btn-link px-1" type="button" @click.stop="deleteLocation(location.id)" title="Delete Location">
                             <img src="@/assets/trash-solid.svg" alt="delete item"/>
                         </button>
                     </div>
@@ -95,7 +95,11 @@
                         :delay="0"
                         :searchable="true"
                         placeholder="Enter a front name (case-sensitive)"
-                    />
+                    >
+                        <template v-slot:option="{ option }">
+                            {{ option.label }} ( {{ option.type }} )
+                        </template>
+                    </Multiselect>
                   
                 </div>
 
@@ -200,7 +204,7 @@
     const searchFronts = async (query: string) : Promise<Array<FrontItem>> => {   
         const uid = userId?.value ?? "";
         const fronts =  await queryFronts(uid.toString(), query);
-        const mappedFronts: Array<FrontItem> = fronts.map((front: any) => ({ value: front.id, label: front.name }));
+        const mappedFronts: Array<FrontItem> = fronts.map((front: any) => ({ value: front.id, label: front.name, type: front.type }));
         return mappedFronts;
     }
 
