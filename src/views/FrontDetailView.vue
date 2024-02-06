@@ -94,17 +94,6 @@
                       <input type="text" class="form-control text-dark" aria-label="Name" aria-describedby="name"
                           v-model="front.name">
                   </div>
-
-                  <div class="input-group mb-2 pe-md-2">
-                      <span class="text-dark" id="name">Associated Steadings:</span>
-                        
-                      <Multiselect
-                        v-model="front.steadings"
-                        mode="tags"
-                        :close-on-select="false"
-                        :options="steadingNames"
-                      />
-                  </div>
                   
                   <hr />
 
@@ -138,8 +127,6 @@ import { toast } from 'vue3-toastify';
 import { getApiKey } from '@/services/openAiService';
 import { defineEmits } from 'vue';
 import Modal from 'bootstrap/js/dist/modal';
-import Multiselect from '@vueform/multiselect'
-import { getSteadings } from '@/services/steadingService';
 
 const emit = defineEmits(['openUserSettingsModal']);
 
@@ -150,9 +137,6 @@ const frontId = ref<any>(route.params.id);
 const isEditing = ref(false);
 const isAuthenticated = ref(false);
 const userId = ref<null|String>(null);
-const steadings = ref<any>();
-
-const steadingNames = computed(() => steadings.value.map((steading: any) => `${steading.id}|${steading.name}` ));
 
 const front = ref();
 const creatingFront = ref(false);
@@ -196,7 +180,6 @@ onMounted(async () => {
       keyboard: false
   });
 
-  await refreshSteadings();
   await setupFront();
 })
 
@@ -311,28 +294,6 @@ function getFrontNameFromMarkdown(markdownText: string): string | null {
 function print() {
   window.print();
 }
-
-async function refreshSteadings() {
-    steadings.value = await listSteadings();
-}
-
-async function listSteadings() {
-    const userId = await globalStore.getUserId();
-    if (userId) {
-        const steadingList = await getSteadings(userId);
-        return steadingList.sort((a: any, b: any) => {
-            if (a.name < b.name) {
-                return -1;
-            }
-            if (a.name > b.name) {
-                return 1;
-            }
-            return 0;
-        });
-    }
-    return null;
-}
-
 </script>
 
 <style scoped lang="scss">

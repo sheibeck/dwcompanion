@@ -12,12 +12,12 @@
                     <h5 class="card-title">{{ steading.name }}</h5>
                     <h6 class="card-subtitle mb-2 text-body-secondary">{{ steading.type }}</h6>
                 
-                    <div class="card-header" v-if="steading.maps && steading.maps.length > 0">
+                    <div class="card-header" v-if="filteredMapsBySteading(steading.id)">
                         Maps:
                     </div>
-                    <ul class="list-group list-group-flush" v-for="map in steading.maps">
+                    <ul class="list-group list-group-flush" v-for="map in filteredMapsBySteading(steading.id)">
                         <li class="list-group-item">
-                            <a target="_blank" :href="`/map/${getMapId(map)}`">{{ getMapName(map) }}</a>
+                            <a target="_blank" :href="`/map/${map.id}`">{{ map.name }}</a>
                         </li>
                     </ul>
 
@@ -30,24 +30,34 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import { useGlobalStore } from '@/stores/globalStore';
 import { useRouter } from 'vue-router';
 import { getSteadings, deleteSteading } from '@/services/steadingService';
 import { toast } from 'vue3-toastify';
+import { getMaps } from '@/services/mapService';
 
 const globalStore = useGlobalStore();
 const router = useRouter();
 const steadingList = ref<Array<any>>([]);
 const userId = ref()
+const maps = ref();
 
 onMounted(async () => {
     userId.value = globalStore.currentUser;
     steadingList.value = await getSteadings(userId.value);
+    maps.value = await getMaps(userId.value);
 });
 
 async function viewSteading(id: string) {
     await router.push({ name: "steading", params: { id: id } });
+}
+
+// Function to filter maps based on steading id
+const filteredMapsBySteading = (id: string) => {
+  return maps.value?.filter((map: any) => {
+    return map.locations.some((loc: any) => loc.steading_id === id);
+  });
 }
 
 async function removeSteading(id: string) {
@@ -65,15 +75,6 @@ async function removeSteading(id: string) {
         toast(`Deleted steading ${steadingToDelete.name}`);
     }
 }
-
-function getMapName(map: string) {
-    return map.split("|")[1];
-}
-
-function getMapId(map: string) {
-    return map.split("|")[0];
-}
-
 </script>
 
 <style scoped lang="scss">

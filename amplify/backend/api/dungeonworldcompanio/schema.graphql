@@ -126,7 +126,6 @@ type Front @model @auth(rules: [{allow: owner}, {allow: private, operations: [re
   type: String!
   name: String!
   description: String!
-  steadings: [String]
 } 
 
 type Steading @model @auth(rules: [{allow: owner}, {allow: private, operations: [read], provider: iam}, {allow: private, operations: [read]}, {allow: public, operations: [read], provider: iam}]) {
@@ -135,7 +134,6 @@ type Steading @model @auth(rules: [{allow: owner}, {allow: private, operations: 
   type: String!
   name: String!
   description: String!
-  maps: [String]
 } 
 
 type Map @model @auth(rules: [{allow: owner}, {allow: private, operations: [read], provider: iam}, {allow: private, operations: [read]}, {allow: public, operations: [read], provider: iam}]) {

@@ -12,12 +12,12 @@
                     <h5 class="card-title">{{ front.name }}</h5>
                     <h6 class="card-subtitle mb-2 text-body-secondary">{{ front.type }}</h6>
 
-                    <div class="card-header" v-if="front.steadings && front.steadings.length > 0">
-                        Steadings:
+                    <div class="card-header" v-if="filteredMapByFronts(front.id)">
+                        Maps:
                     </div>
-                    <ul class="list-group list-group-flush" v-for="steading in front.steadings">
+                    <ul class="list-group list-group-flush" v-for="map in filteredMapByFronts(front.id)">
                         <li class="list-group-item">
-                            <a target="_blank" :href="`/steading/${getSteadingId(steading)}`">{{ getSteadingName(steading) }}</a>
+                            <a target="_blank" :href="`/map/${map.id}`">{{ map.name }}</a>
                         </li>
                     </ul>
 
@@ -35,16 +35,28 @@ import { useGlobalStore } from '@/stores/globalStore';
 import { useRouter } from 'vue-router';
 import { getFronts, deleteFront } from '@/services/frontService';
 import { toast } from 'vue3-toastify';
+import { getSteading } from '@/services/steadingService';
+import { getMaps } from '@/services/mapService';
 
 const globalStore = useGlobalStore();
 const router = useRouter();
 const frontList = ref<Array<any>>([]);
 const userId = ref()
+const maps = ref();
 
 onMounted(async () => {
     userId.value = globalStore.currentUser;
     frontList.value = await getFronts(userId.value);
+
+    maps.value = await getMaps(userId.value);
 });
+
+// Function to filter maps based on front id
+const filteredMapByFronts = (id: string) => {
+  return maps.value?.filter((map: any) => {
+    return map.locations.some((loc: any) => loc.fronts?.includes(id));
+  });
+}
 
 async function viewFront(id: string) {
     await router.push({ name: "front", params: { id: id } });
@@ -66,12 +78,25 @@ async function removeFront(id: string) {
     }
 }
 
-function getSteadingName(steading: string) {
-    return steading.split("|")[1];
+async function getMapDetails() {
+    try {
+        // Fetch steading details asynchronously for each front
+        await Promise.all(frontList.value.map(front => fetchSteadingDetails(front, front.steadings)));
+    } catch (error) {
+        console.error('Error fetching data:', error);
+    }
 }
 
-function getSteadingId(steading: string) {
-    return steading.split("|")[0];
+async function fetchSteadingDetails(front: any, steadingIds: Array<string>) {
+    try {
+        // Update steadingDetails
+        steadingIds.forEach((steadingId) => async () => {
+            const steading = await getSteading(steadingId);
+            front["steadingDetails"] = steading;
+        });
+    } catch (error) {
+        console.error('Error fetching steading details:', error);
+    }
 }
 
 </script>

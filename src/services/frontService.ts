@@ -3,7 +3,7 @@ import { generateClient } from 'aws-amplify/api';
 import * as queries from '@/graphql/queries';
 import * as mutations from '@/graphql/mutations';
 import * as uuid from 'short-uuid';
-import { getApiKey, opanAiApiKeyStorageName } from "./openAiService";
+import { getApiKey } from "./openAiService";
 
 const client = generateClient();
 const ASSISTANT_ID = 'asst_YKT1efTUEMyxgY9aZ6eiXsU9'; // ai assistant id
@@ -74,6 +74,41 @@ export const getFronts = async(userId: string) => {
 
       const frontList: any = fronts.data.listFronts.items;
       return frontList;
+  }
+  catch(ex) {
+      console.error(ex);
+  }
+
+  return result;
+}
+
+export const queryFronts = async(userId: string, query: string) => {
+  const result: any = [];
+
+  try {
+      const fronts = await client.graphql({ query: queries.listFronts,
+          variables: { 
+              filter: {
+                  userId: {
+                      eq: userId
+                  },
+                  name: {
+                    contains: query
+                  }
+              },
+              limit: 1000,
+          }
+      });
+
+      const frontList: any = fronts.data.listFronts.items;
+
+      if (frontList.length > 0) {
+        return frontList;
+      } 
+      else {
+        return await getFronts(userId);
+      }
+      
   }
   catch(ex) {
       console.error(ex);

@@ -81,6 +81,22 @@
                 </div>
 
                 <div class="form-group">
+                    <label for="frontSelect">Choose Fronts / <a href="/front/new-front" target="_blank">Create a Front <img src="@/assets/up-right-from-square-solid.svg" alt="plus icon" height="12" class="filter-blue" /></a></label>
+                   
+                    <Multiselect
+                        v-model="selectedFronts"
+                        mode="tags"
+                        :close-on-select="false"
+                        :options="async (query: string) => { return await searchFronts(query) }"
+                        :limit="10"
+                        :delay="0"
+                        :searchable="true"
+                        placeholder="Enter a front name (case-sensitive)"
+                    />
+                  
+                </div>
+
+                <div class="form-group">
                     <label for="locationType">Location Notes</label>
                     <textarea type="text" class="form-control" v-model="locationModalNotes" placeholder="Location Notes"></textarea>
                 </div>
@@ -129,7 +145,7 @@
 </template>
   
 <script setup lang="ts">
-    import { getSteading, getSteadings, updateSteading } from '@/services/steadingService';
+    import { getSteadings } from '@/services/steadingService';
     import Modal from 'bootstrap/js/dist/modal';
     import { computed, onMounted, ref, watch } from 'vue';
     import { useGlobalStore } from '@/stores/globalStore';
@@ -139,6 +155,8 @@
     import { uploadData, getUrl, remove } from '@aws-amplify/storage'
     import { useRoute, useRouter } from 'vue-router';
     import { createMap, getMap, updateMap } from '@/services/mapService';
+    import Multiselect from '@vueform/multiselect';
+    import { getFront, queryFronts } from '@/services/frontService';
 
     const globalStore = useGlobalStore();
     const route = useRoute();
@@ -150,6 +168,7 @@
     const steadings = ref<any>();
     const selectedLocationId = ref();
     const selectedSteadingId = ref();
+    const selectedFronts = ref();
     const locationSelectionModalEl = ref();
     const locationSelectionModal = ref();
     const locationX = ref();
@@ -173,6 +192,13 @@
     const isGuest = computed(()=> {
         return userId.value == null;
     });
+
+    const searchFronts = async (query: string) : Promise<Array<FrontItem>> => {   
+        const uid = userId?.value ?? "";
+        const fronts =  await queryFronts(uid.toString(), query);
+        const mappedFronts: Array<FrontItem> = fronts.map((front: any) => ({ value: front.id, label: front.name }));
+        return mappedFronts;
+    }
 
     const mapId = computed(() => route.params.id.toString() );
 
@@ -245,7 +271,7 @@
         locationSelectionModal.value.show();
     }
 
-    function editLocation(locationId: string) {
+    async function editLocation(locationId: string) {
         isEditingLocation.value = true;
 
         const location = getMapLocationById(locationId);
@@ -255,8 +281,32 @@
         selectedLocationId.value = locationId;
         selectedSteadingId.value = location?.steading_id;
 
+        const mappedFronts = await fetchFrontData(location?.fronts)
+
+        // Set the fetched front data to the fronts ref
+        // selectedFronts.value.splice(0, selectedFronts.value.length);
+        // selectedFronts.value.push(...mappedFronts);
+        selectedFronts.value = mappedFronts;
+
         locationSelectionModal.value.show();
     }
+
+    interface FrontItem {
+        value: string;
+        label: string;
+    }
+
+    const fetchFrontData = async (frontIds: string[]) => {
+        try {
+            // Fetch front data for each front ID asynchronously using Promise.all()
+            const frontPromises = frontIds.map(frontId => getFront(frontId));
+            const frontData = await Promise.all(frontPromises);
+            const mappedFronts = frontData.map((front: any) => front.id);
+            return mappedFronts;
+        } catch (error) {
+            console.error('Error fetching front data:', error);
+        }
+    };
 
     function deleteLocation(locationId: string) {
         const confirmed = confirm("Are you sure you want to delete this location?");
@@ -338,8 +388,6 @@
     }
     
     function saveLocation() {
-        let steadingIdNew = null;
-        let steadingIdOld = null;
 
         if (locationModalType.value !== LocationType.Steading && !locationModalName.value) {
             toast("Location must have a name.");
@@ -348,6 +396,7 @@
 
         const selectedSteading = steadings.value.find( (x: any) => x.id === selectedSteadingId.value);
 
+        //handle editing a location
         if (selectedLocationId.value) {
             const mapLocationIdx = getMapLocationIndexById(selectedLocationId.value);
             if (mapLocationIdx > -1) {
@@ -356,17 +405,11 @@
                 map.value.locations[mapLocationIdx].type = locationModalType.value;
                 map.value.locations[mapLocationIdx].notes = locationModalNotes.value;
             
+                //handle steadings
                 if (locationModalType.value === LocationType.Steading) {
                     if (selectedSteading) {
                         map.value.locations[mapLocationIdx].name = selectedSteading.name;
-
-                        if (map.value.locations[mapLocationIdx].steading_id !== null) {
-                            steadingIdOld = map.value.locations[mapLocationIdx].steading_id;
-                        }
-
                         map.value.locations[mapLocationIdx].steading_id = selectedSteading.id;
-                        steadingIdNew = selectedSteading.id;
-
                         map.value.locations[mapLocationIdx].steading_type = selectedSteading.type;
                     }
                     else {
@@ -376,15 +419,20 @@
                 }
                 else {
                     if (map.value.locations[mapLocationIdx].steading_id !== null) {
-                        steadingIdOld = map.value.locations[mapLocationIdx].steading_id;
                         map.value.locations[mapLocationIdx].steading_id = null;
                     }
 
                     map.value.locations[mapLocationIdx].steading_type = null;
                 }
+
+                 //update fronts
+                if (selectedFronts.value) {
+                    map.value.locations[mapLocationIdx].fronts = selectedFronts.value;
+                }
             }
         }
         else {
+            //otherwise we are adding a new location
             const mapLocation = {
                 "id": uuid.generate(), 
                 "name": locationModalName.value,
@@ -394,6 +442,7 @@
                 "type": locationModalType.value,
                 "x": locationX.value, 
                 "y": locationY.value,
+                "fronts": new Array<FrontItem>(),
             }
             
             if (locationModalType.value === LocationType.Steading) {
@@ -401,12 +450,16 @@
                     mapLocation.name = selectedSteading.name;
                     mapLocation.steading_id = selectedSteading.id;
                     mapLocation.steading_type = selectedSteading.type;
-                    steadingIdOld = selectedSteading.id;
                 }
                 else {
                     toast("You must choose a Steading.");
                     return;
                 }
+            }
+
+            //update fronts
+            if (selectedFronts.value) {
+                mapLocation.fronts = selectedFronts.value;
             }
         
             if ('showtools' in mapLocation) {
@@ -415,57 +468,11 @@
             
             map.value.locations.push(mapLocation);
         }
+
         //save map
         save();
-        
-        if (steadingIdOld || steadingIdNew) {
-            updateSteadings(steadingIdNew, steadingIdOld);
-        }
-
         closeLocationModal();
     }
-
-    async function updateSteadings(steadingIdNew: string, steadingIdOld: string) {
-        const steadingMapString = `${map.value.id}|${map.value.name}`;
-
-        if (steadingIdNew == steadingIdOld) {
-            return;
-        }
-
-        if (steadingIdNew) {
-            const newSteading = await getSteading(steadingIdNew);
-        
-            if (newSteading) {
-                if (!newSteading?.maps) {
-                    newSteading.maps = [steadingMapString];
-                }
-                else {
-                    //account for name changes on maps
-                    const idx = newSteading?.maps?.findIndex(m => m?.startsWith(map.value.id)) ?? -1;
-                    if (idx === -1) {
-                        newSteading?.maps?.splice(idx, 1);
-                    }
-                    newSteading?.maps.push(steadingMapString);
-                }
-
-                updateSteading(newSteading);
-            }
-        }
-
-        if (steadingIdOld) {
-            const oldSteading = await getSteading(steadingIdOld);
-
-            if (oldSteading) {
-                const idx = oldSteading?.maps?.findIndex(m => m?.startsWith(map.value.id)) ?? -1;
-                if (idx !== -1 ) {
-                    oldSteading?.maps?.splice(idx, 1);
-                    updateSteading(oldSteading);
-                }
-            }
-        }
-
-    }
-    
 
     function closeLocationModal() {
       locationSelectionModal.value.hide();

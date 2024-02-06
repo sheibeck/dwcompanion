@@ -470,7 +470,6 @@ export const getFront = /* GraphQL */ `query GetFront($id: ID!) {
     type
     name
     description
-    steadings
     createdAt
     updatedAt
     owner
@@ -490,7 +489,6 @@ export const listFronts = /* GraphQL */ `query ListFronts(
       type
       name
       description
-      steadings
       createdAt
       updatedAt
       owner
@@ -511,7 +509,6 @@ export const getSteading = /* GraphQL */ `query GetSteading($id: ID!) {
     type
     name
     description
-    maps
     createdAt
     updatedAt
     owner
@@ -534,7 +531,6 @@ export const listSteadings = /* GraphQL */ `query ListSteadings(
       type
       name
       description
-      maps
       createdAt
       updatedAt
       owner
