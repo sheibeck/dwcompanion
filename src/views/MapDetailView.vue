@@ -20,7 +20,7 @@
         <div class="map" @click="addLocation($event)">
             <img :src="mapUrl" alt="map image" v-if="mapUrl && !isLoadingMap" />
         </div>
-        <div class="overlay" :class="{'showTip': steadingInfo !== null}" v-for="location in map.locations" :key="location.id"
+        <div class="overlay" v-for="location in map.locations" :key="location.id"
             :style="{ left: location.x + 'px', top: location.y + 'px' }"
            >
             <div>
@@ -33,7 +33,7 @@
                             <img src="@/assets/pencil-solid.svg" alt="edit description"/>
                         </button>
                         <button class="btn btn-link px-1" type="button" @click.stop="markPartyLocation(location.id)" title="Set Party Location">
-                            <img src="@/assets/star-solid.svg" alt="party location"/>
+                            <img src="@/assets/star-solid.svg" alt="party location" />
                         </button>
                         <button class="btn btn-link px-1" type="button" @click.stop="deleteLocation(location.id)" title="Delete Location">
                             <img src="@/assets/trash-solid.svg" alt="delete item"/>
@@ -43,7 +43,7 @@
                 <div class="location-label">
                     <span v-if="!location.steading_id">{{ location.name }}</span>
                     <a v-else target="_blank" :href="`/steading/${location.steading_id}`">
-                        {{ location.name }} <img src="@/assets/up-right-from-square-solid.svg" alt="plus icon" height="12" class="filter-blue" />
+                        {{ getSteadingName(location.steading_id) }} <img src="@/assets/up-right-from-square-solid.svg" alt="plus icon" height="12" class="filter-blue" />
                     </a>
                 </div>
             </div>
@@ -171,7 +171,6 @@
 
     const map = ref<any>();
     const mapUrl = ref();
-    const steadingInfo = ref<any>(null);
     const steadings = ref<any>();
     const selectedLocationId = ref();
     const selectedSteadingId = ref();
@@ -191,7 +190,6 @@
     const isAuthenticated = ref(false);
     const userId = ref<null|String>(null);
     const isEditingLocation = ref(false);
-    const partyLocationId = ref();
 
     const isOwner = computed(()=> {  
         return userId.value !== null && (map.value?.userId === userId.value || mapId.value == "new-map");
@@ -228,6 +226,10 @@
 
     function getLocationTypeSelectLabel(locationType: any) {
         return locationType == LocationType.Steading ? "Steading (link to Steading)" : locationType;
+    }
+
+    function getSteadingName(id: string) {
+        return steadings.value.find((steading:any) => steading.id === id)?.name;
     }
 
     async function refreshSteadings() {
@@ -269,6 +271,8 @@
         if (!isOwner.value) {
             return;
         }
+
+        isEditingLocation.value = true;
 
         const x = event.offsetX;
         const y = event.offsetY;
@@ -652,10 +656,15 @@
 <style lang="scss">
 
 .party-location {
-    border: outset 3px orange;
-    -moz-box-shadow: 1px 2px 3px rgba(0,0,0,.5);
-    box-shadow: 0 0 20px rgba(165, 0, 0, 1.0);
-    border-radius: 30px;
+    display: inline-block; /* Ensures the div fits around the image */
+    border-radius: 50%; /* Rounds the container to a circle */
+    overflow: hidden; /* Clips the shadow to the container */
+    box-shadow: 0 0 10px 5px rgba(255, 38, 0, 0.7); /* Orange highlight shadow */
+}
+
+.party-location img {
+    border-radius: 50%; /* Rounds the image to a circle */
+    overflow: hidden; /* Clips the shadow to the image */
 }
 
 .btn-secondary {
@@ -669,17 +678,20 @@
 }
 
 .overlay {
-  position: absolute;
-  cursor: pointer;
-  .location-label {
-    border: 1px solid #000;
-    padding: 5px;
-    border-radius: 3px;
-    background-color: #fff;
-  }
-  .toolbar {
-    background-color: #fff;
-  }
+    position: absolute;
+        cursor: pointer;
+        .location-label {
+        border: 1px solid #000;
+        padding: 5px;
+        border-radius: 3px;
+        background-color: #fff;
+    }
+
+    .toolbar {
+        background: linear-gradient(to bottom, white, silver); /* Gradient from white to silver */
+        border: 2px solid rgba(0, 0, 0, 0.2); /* Border with some transparency */
+        border-radius: 5px; /* Rounded corners */
+    }
 }
 
 </style>
