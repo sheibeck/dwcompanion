@@ -23,16 +23,19 @@
         <div class="overlay" :class="{'showTip': steadingInfo !== null}" v-for="location in map.locations" :key="location.id"
             :style="{ left: location.x + 'px', top: location.y + 'px' }"
            >
-            <div class="">
+            <div>
                 <div class="d-flex justify-content-center align-items-center">
-                    <div @click.stop="toggleLocationTools(location)">
+                    <div @click.stop="toggleLocationTools(location)" :class="{'party-location': location.currentPartyLocation}">
                         <img height="60" :src="`/maps/${getLocationTypeIconName(location)}.png`" />
                     </div>
                     <div v-if="location.showtools" class="toolbar">
-                        <button class="btn btn-link" type="button" @click.stop="editLocation(location.id)">
+                        <button class="btn btn-link px-1" type="button" @click.stop="editLocation(location.id)">
                             <img src="@/assets/pencil-solid.svg" alt="edit description"/>
                         </button>
-                        <button class="btn btn-link" type="button" @click.stop="deleteLocation(location.id)">
+                        <button class="btn btn-link px-1" type="button" @click.stop="markPartyLocation(location.id)">
+                            <img src="@/assets/star-solid.svg" alt="party location"/>
+                        </button>
+                        <button class="btn btn-link px-1" type="button" @click.stop="deleteLocation(location.id)">
                             <img src="@/assets/trash-solid.svg" alt="delete item"/>
                         </button>
                     </div>
@@ -56,7 +59,7 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
-            <form>
+            <form v-if="isEditingLocation">
                 <div class="form-group">
                     <label for="locationType">Location Type</label>
                     <select class="form-select" v-model="locationModalType">
@@ -184,6 +187,7 @@
     const isAuthenticated = ref(false);
     const userId = ref<null|String>(null);
     const isEditingLocation = ref(false);
+    const partyLocationId = ref();
 
     const isOwner = computed(()=> {  
         return userId.value !== null && (map.value?.userId === userId.value || mapId.value == "new-map");
@@ -271,6 +275,24 @@
         locationSelectionModal.value.show();
     }
 
+    async function markPartyLocation(locationId: string) {
+        const locations = map.value.locations;
+        const currentPartyLocationIndex = map.value.locations.findIndex((location: any) => location.currentPartyLocation == true);
+        const newPartyLocationIndex = map.value.locations.findIndex((location: any) => location.id === locationId);
+
+        if (currentPartyLocationIndex !== -1) {
+            // Remove currentPartyLocation flag from the current party location
+            locations[currentPartyLocationIndex].currentPartyLocation = false;
+        }
+
+        if (newPartyLocationIndex !== -1) {
+            // Add currentPartyLocation flag to the new party location
+            locations[newPartyLocationIndex].currentPartyLocation = true;
+        }   
+
+        save();
+    }
+
     async function editLocation(locationId: string) {
         isEditingLocation.value = true;
 
@@ -282,10 +304,6 @@
         selectedSteadingId.value = location?.steading_id;
 
         const mappedFronts = await fetchFrontData(location?.fronts)
-
-        // Set the fetched front data to the fronts ref
-        // selectedFronts.value.splice(0, selectedFronts.value.length);
-        // selectedFronts.value.push(...mappedFronts);
         selectedFronts.value = mappedFronts;
 
         locationSelectionModal.value.show();
@@ -628,6 +646,13 @@
 </script>
 
 <style lang="scss">
+
+.party-location {
+    border: outset 3px orange;
+    -moz-box-shadow: 1px 2px 3px rgba(0,0,0,.5);
+    box-shadow: 0 0 20px rgba(165, 0, 0, 1.0);
+    border-radius: 30px;
+}
 
 .btn-secondary {
     max-height: 40px;
