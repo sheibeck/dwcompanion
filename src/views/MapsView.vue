@@ -11,7 +11,22 @@
                 <div class="card-body">
                     <h5 class="card-title">{{ map.name }}</h5>
                     <h6 class="card-subtitle mb-2 text-body-secondary">{{ map.type }}</h6>
-                    <button class="btn btn-sm btn-secondary me-3" type="button" @click="viewMap(map.id)">View</button>
+
+                    <div class="card-header">
+                        Fronts:
+                    </div>
+                    <ul class="list-group list-group-flush" v-if="frontsByMapData[map.id].length == 0">
+                        <li class="list-group-item">
+                            No fronts found on this map.
+                        </li>
+                    </ul>
+                    <ul class="list-group list-group-flush" v-for="front in frontsByMapData[map.id]">
+                        <li class="list-group-item">
+                            <a target="_blank" :href="`/front/${front.id}`">{{ front.name }}</a>
+                        </li>
+                    </ul>
+
+                    <button class="btn btn-sm btn-secondary me-3 ms-1" type="button" @click="viewMap(map.id)">View</button>
                     <button class="btn btn-sm btn-danger" type="button" @click="removeMap(map.id)">Delete</button>
                 </div>
             </div>
@@ -26,19 +41,40 @@ import { useRouter } from 'vue-router';
 import { getMaps, deleteMap } from '@/services/mapService';
 import { toast } from 'vue3-toastify';
 import { remove } from '@aws-amplify/storage'
+import { getFront } from '@/services/frontService';
 
 const globalStore = useGlobalStore();
 const router = useRouter();
 const mapList = ref<Array<any>>([]);
 const userId = ref()
+const frontsByMapData = ref<any>({});
 
 onMounted(async () => {
     userId.value = globalStore.currentUser;
     mapList.value = await getMaps(userId.value);
+
+    for (const map of mapList.value) {
+        frontsByMapData.value[map.id] = await frontsByMap(map);
+    }
 });
 
 async function viewMap(id: string) {
     await router.push({ name: "map", params: { id: id } });
+}
+
+async function frontsByMap(map: any): Promise<any[]> {
+    const listOfFronts: any[] = [];
+    
+    if (map.locations) {
+        await Promise.all(map.locations.flatMap(async (location: any) => {
+            if (location.fronts) {
+                const fronts = await Promise.all(location.fronts.map((frontId: string) => getFront(frontId)));
+                listOfFronts.push(...fronts.filter(front => front !== null));
+            }
+        }));
+    }
+    
+    return listOfFronts;
 }
 
 async function removeMap(id: string) {

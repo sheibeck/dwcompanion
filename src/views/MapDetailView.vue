@@ -20,19 +20,22 @@
         <div class="map" @click="addLocation($event)">
             <img :src="mapUrl" alt="map image" v-if="mapUrl && !isLoadingMap" />
         </div>
-        <div class="overlay" :class="{'showTip': steadingInfo !== null}" v-for="location in map.locations" :key="location.id"
+        <div class="overlay" v-for="location in map.locations" :key="location.id"
             :style="{ left: location.x + 'px', top: location.y + 'px' }"
            >
-            <div class="">
+            <div>
                 <div class="d-flex justify-content-center align-items-center">
-                    <div @click.stop="toggleLocationTools(location)">
+                    <div @click.stop="toggleLocationTools(location)" :class="{'party-location': location.currentPartyLocation}">
                         <img height="60" :src="`/maps/${getLocationTypeIconName(location)}.png`" />
                     </div>
                     <div v-if="location.showtools" class="toolbar">
-                        <button class="btn btn-link" type="button" @click.stop="editLocation(location.id)">
+                        <button class="btn btn-link px-1" type="button" @click.stop="editLocation(location.id)" title="Edit Location">
                             <img src="@/assets/pencil-solid.svg" alt="edit description"/>
                         </button>
-                        <button class="btn btn-link" type="button" @click.stop="deleteLocation(location.id)">
+                        <button class="btn btn-link px-1" type="button" @click.stop="markPartyLocation(location.id)" title="Set Party Location">
+                            <img src="@/assets/star-solid.svg" alt="party location" />
+                        </button>
+                        <button class="btn btn-link px-1" type="button" @click.stop="deleteLocation(location.id)" title="Delete Location">
                             <img src="@/assets/trash-solid.svg" alt="delete item"/>
                         </button>
                     </div>
@@ -40,7 +43,7 @@
                 <div class="location-label">
                     <span v-if="!location.steading_id">{{ location.name }}</span>
                     <a v-else target="_blank" :href="`/steading/${location.steading_id}`">
-                        {{ location.name }} <img src="@/assets/up-right-from-square-solid.svg" alt="plus icon" height="12" class="filter-blue" />
+                        {{ getSteadingName(location.steading_id) }} <img src="@/assets/up-right-from-square-solid.svg" alt="plus icon" height="12" class="filter-blue" />
                     </a>
                 </div>
             </div>
@@ -56,7 +59,7 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
-            <form>
+            <form v-if="isEditingLocation">
                 <div class="form-group">
                     <label for="locationType">Location Type</label>
                     <select class="form-select" v-model="locationModalType">
@@ -78,6 +81,26 @@
                             {{ steading.name }} ({{ steading.type }})
                         </option>
                     </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="frontSelect">Choose Fronts / <a href="/front/new-front" target="_blank">Create a Front <img src="@/assets/up-right-from-square-solid.svg" alt="plus icon" height="12" class="filter-blue" /></a></label>
+                   
+                    <Multiselect
+                        v-model="selectedFronts"
+                        mode="tags"
+                        :close-on-select="false"
+                        :options="async (query: string) => { return await searchFronts(query) }"
+                        :limit="10"
+                        :delay="0"
+                        :searchable="true"
+                        placeholder="Enter a front name (case-sensitive)"
+                    >
+                        <template v-slot:option="{ option }">
+                            {{ option["label"] }} ( {{ option["type"] }} )
+                        </template>
+                    </Multiselect>
+                  
                 </div>
 
                 <div class="form-group">
@@ -139,6 +162,8 @@
     import { uploadData, getUrl, remove } from '@aws-amplify/storage'
     import { useRoute, useRouter } from 'vue-router';
     import { createMap, getMap, updateMap } from '@/services/mapService';
+    import Multiselect from '@vueform/multiselect';
+    import { getFront, queryFronts } from '@/services/frontService';
 
     const globalStore = useGlobalStore();
     const route = useRoute();
@@ -146,10 +171,10 @@
 
     const map = ref<any>();
     const mapUrl = ref();
-    const steadingInfo = ref<any>(null);
     const steadings = ref<any>();
     const selectedLocationId = ref();
     const selectedSteadingId = ref();
+    const selectedFronts = ref();
     const locationSelectionModalEl = ref();
     const locationSelectionModal = ref();
     const locationX = ref();
@@ -174,6 +199,13 @@
         return userId.value == null;
     });
 
+    const searchFronts = async (query: string) : Promise<Array<FrontItem>> => {   
+        const uid = userId?.value ?? "";
+        const fronts =  await queryFronts(uid.toString(), query);
+        const mappedFronts: Array<FrontItem> = fronts.map((front: any) => ({ value: front.id, label: front.name, type: front.type }));
+        return mappedFronts;
+    }
+
     const mapId = computed(() => route.params.id.toString() );
 
     onMounted(async () => {
@@ -194,6 +226,10 @@
 
     function getLocationTypeSelectLabel(locationType: any) {
         return locationType == LocationType.Steading ? "Steading (link to Steading)" : locationType;
+    }
+
+    function getSteadingName(id: string) {
+        return steadings.value.find((steading:any) => steading.id === id)?.name;
     }
 
     async function refreshSteadings() {
@@ -236,6 +272,8 @@
             return;
         }
 
+        isEditingLocation.value = true;
+
         const x = event.offsetX;
         const y = event.offsetY;
 
@@ -245,11 +283,25 @@
         locationSelectionModal.value.show();
     }
 
-    function selectSteadingEventHandler(item: any) {
-        const x = 1;
+    async function markPartyLocation(locationId: string) {
+        const locations = map.value.locations;
+        const currentPartyLocationIndex = map.value.locations.findIndex((location: any) => location.currentPartyLocation == true);
+        const newPartyLocationIndex = map.value.locations.findIndex((location: any) => location.id === locationId);
+
+        if (currentPartyLocationIndex !== -1) {
+            // Remove currentPartyLocation flag from the current party location
+            locations[currentPartyLocationIndex].currentPartyLocation = false;
+        }
+
+        if (newPartyLocationIndex !== -1) {
+            // Add currentPartyLocation flag to the new party location
+            locations[newPartyLocationIndex].currentPartyLocation = true;
+        }   
+
+        save();
     }
 
-    function editLocation(locationId: string) {
+    async function editLocation(locationId: string) {
         isEditingLocation.value = true;
 
         const location = getMapLocationById(locationId);
@@ -259,8 +311,28 @@
         selectedLocationId.value = locationId;
         selectedSteadingId.value = location?.steading_id;
 
+        const mappedFronts = await fetchFrontData(location?.fronts)
+        selectedFronts.value = mappedFronts;
+
         locationSelectionModal.value.show();
     }
+
+    interface FrontItem {
+        value: string;
+        label: string;
+    }
+
+    const fetchFrontData = async (frontIds: string[]) => {
+        try {
+            // Fetch front data for each front ID asynchronously using Promise.all()
+            const frontPromises = frontIds.map(frontId => getFront(frontId));
+            const frontData = await Promise.all(frontPromises);
+            const mappedFronts = frontData.map((front: any) => front.id);
+            return mappedFronts;
+        } catch (error) {
+            console.error('Error fetching front data:', error);
+        }
+    };
 
     function deleteLocation(locationId: string) {
         const confirmed = confirm("Are you sure you want to delete this location?");
@@ -342,6 +414,7 @@
     }
     
     function saveLocation() {
+
         if (locationModalType.value !== LocationType.Steading && !locationModalName.value) {
             toast("Location must have a name.");
             return;
@@ -349,6 +422,7 @@
 
         const selectedSteading = steadings.value.find( (x: any) => x.id === selectedSteadingId.value);
 
+        //handle editing a location
         if (selectedLocationId.value) {
             const mapLocationIdx = getMapLocationIndexById(selectedLocationId.value);
             if (mapLocationIdx > -1) {
@@ -357,10 +431,11 @@
                 map.value.locations[mapLocationIdx].type = locationModalType.value;
                 map.value.locations[mapLocationIdx].notes = locationModalNotes.value;
             
+                //handle steadings
                 if (locationModalType.value === LocationType.Steading) {
                     if (selectedSteading) {
                         map.value.locations[mapLocationIdx].name = selectedSteading.name;
-                        map.value.locations[mapLocationIdx].steading_id == selectedSteading.id ?? null;
+                        map.value.locations[mapLocationIdx].steading_id = selectedSteading.id;
                         map.value.locations[mapLocationIdx].steading_type = selectedSteading.type;
                     }
                     else {
@@ -368,10 +443,23 @@
                         return;
                     }
                 }
+                else {
+                    if (map.value.locations[mapLocationIdx].steading_id !== null) {
+                        map.value.locations[mapLocationIdx].steading_id = null;
+                    }
+
+                    map.value.locations[mapLocationIdx].steading_type = null;
+                }
+
+                 //update fronts
+                if (selectedFronts.value) {
+                    map.value.locations[mapLocationIdx].fronts = selectedFronts.value;
+                }
             }
         }
         else {
-            const location = {
+            //otherwise we are adding a new location
+            const mapLocation = {
                 "id": uuid.generate(), 
                 "name": locationModalName.value,
                 "notes": locationModalNotes.value, 
@@ -380,26 +468,33 @@
                 "type": locationModalType.value,
                 "x": locationX.value, 
                 "y": locationY.value,
+                "fronts": new Array<FrontItem>(),
             }
             
             if (locationModalType.value === LocationType.Steading) {
                 if (selectedSteading) {
-                    location.name = selectedSteading.name;
-                    location.steading_id = selectedSteading.id;
-                    location.steading_type = selectedSteading.type;
+                    mapLocation.name = selectedSteading.name;
+                    mapLocation.steading_id = selectedSteading.id;
+                    mapLocation.steading_type = selectedSteading.type;
                 }
                 else {
                     toast("You must choose a Steading.");
                     return;
                 }
             }
+
+            //update fronts
+            if (selectedFronts.value) {
+                mapLocation.fronts = selectedFronts.value;
+            }
         
-            if ('showtools' in location) {
-                delete location.showtools;
+            if ('showtools' in mapLocation) {
+                delete mapLocation.showtools;
             }
             
-            map.value.locations.push(location);
+            map.value.locations.push(mapLocation);
         }
+
         //save map
         save();
         closeLocationModal();
@@ -560,6 +655,18 @@
 
 <style lang="scss">
 
+.party-location {
+    display: inline-block; /* Ensures the div fits around the image */
+    border-radius: 50%; /* Rounds the container to a circle */
+    overflow: hidden; /* Clips the shadow to the container */
+    box-shadow: 0 0 10px 5px rgba(255, 38, 0, 0.7); /* Orange highlight shadow */
+}
+
+.party-location img {
+    border-radius: 50%; /* Rounds the image to a circle */
+    overflow: hidden; /* Clips the shadow to the image */
+}
+
 .btn-secondary {
     max-height: 40px;
 }
@@ -571,17 +678,20 @@
 }
 
 .overlay {
-  position: absolute;
-  cursor: pointer;
-  .location-label {
-    border: 1px solid #000;
-    padding: 5px;
-    border-radius: 3px;
-    background-color: #fff;
-  }
-  .toolbar {
-    background-color: #fff;
-  }
+    position: absolute;
+        cursor: pointer;
+        .location-label {
+        border: 1px solid #000;
+        padding: 5px;
+        border-radius: 3px;
+        background-color: #fff;
+    }
+
+    .toolbar {
+        background: linear-gradient(to bottom, white, silver); /* Gradient from white to silver */
+        border: 2px solid rgba(0, 0, 0, 0.2); /* Border with some transparency */
+        border-radius: 5px; /* Rounded corners */
+    }
 }
 
 </style>

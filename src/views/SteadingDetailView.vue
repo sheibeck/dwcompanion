@@ -252,12 +252,13 @@ async function save() {
 
       const newSteadingId = await createSteading(steading.value);
       if (newSteadingId) {
-          toast(`Created ${steading.value.type} steading: ${steading.value.name}.`)
+        steading.value.id = newSteadingId;
+        
+        toast(`Created ${steading.value.type} steading: ${steading.value.name}.`)
 
-          setTimeout(async () => {
-              await router.push({ name: "steading", params: { id: newSteadingId }, replace: true });
-          }, 2000);
-          
+        setTimeout(async () => {
+            await router.push({ name: "steading", params: { id: newSteadingId }, replace: true });
+        }, 2000);
       }
       else {
           toast(`Failed to create steading!`);

@@ -2,6 +2,12 @@
 @import "/node_modules/bootstrap/scss/bootstrap.scss";
 @import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Londrina+Solid:wght@300;400&display=swap');
 
+:root {
+    --ms-tag-color: #000;
+    --ms-tag-font-weight: 400;
+}
+
+  
 body {
     font-family: 'Londrina Solid', sans-serif;
 }

@@ -72,19 +72,27 @@ export const getMaps = async(userId: string) => {
   const result: any = [];
 
   try {
-      const maps = await client.graphql({ query: queries.listMaps,
-          variables: { 
-              filter: {
-                  userId: {
-                      eq: userId
-                  }
-              },
-              limit: 1000,
-          }
-      });
+    const maps = await client.graphql({ query: queries.listMaps,
+        variables: { 
+            filter: {
+                userId: {
+                    eq: userId
+                }
+            },
+            limit: 1000,
+        }
+    });
 
-      const mapList: any = maps.data.listMaps.items;
-      return mapList;
+    const mapList: any = maps.data.listMaps.items;
+
+    // Parse locations property of each map item
+    mapList.forEach((map: any) => {
+        if (map.locations) {
+            map.locations = JSON.parse(map.locations);
+        }
+    });
+
+    return mapList;
   }
   catch(ex) {
       console.error(ex);

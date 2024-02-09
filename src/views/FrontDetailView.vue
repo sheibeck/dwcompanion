@@ -95,14 +95,14 @@
                           v-model="front.name">
                   </div>
                   
-                  <div class="" v-if="isOwner">
-                    <button type="button" class="m-1 btn btn-secondary" @click="generateFrontDescription()">Generate {{ front.type }} Front</button>
-                    <div v-if="creatingFront" class="d-flex">
-                      <span>Generating front, please do not navigate away from this page ... </span>
-                      <VueSpinnerHourglass class="w-25" v-if="creatingFront" />
-                    </div>
-                  </div>
+                  <hr />
 
+                  <button type="button" class="m-1 btn btn-secondary" @click="generateFrontDescription()">Generate {{ front.type }} Front</button>
+                  <div v-if="creatingFront" class="d-flex">
+                    <span>Generating front, please do not navigate away from this page ... </span>
+                    <VueSpinnerHourglass class="w-25" v-if="creatingFront" />
+                  </div>
+                 
                   <div class="bg-warning w-100 small p-1 rounded">The generate front button is experimental and will require you to have a ChatGPT Api Key.</div>
                 </div>
               </div>
@@ -217,11 +217,13 @@ async function save() {
 
       const newFrontId = await createFront(front.value);
       if (newFrontId) {
-          toast(`Created ${front.value.type} front: ${front.value.name}.`)
+        front.value.id = newFrontId;
+        
+        toast(`Created ${front.value.type} front: ${front.value.name}.`)
 
-          setTimeout(async () => {
-              await router.push({ name: "front", params: { id: newFrontId }, replace: true });
-          }, 2000);
+        setTimeout(async () => {
+            await router.push({ name: "front", params: { id: newFrontId }, replace: true });
+        }, 2000);
           
       }
       else {
@@ -294,7 +296,6 @@ function getFrontNameFromMarkdown(markdownText: string): string | null {
 function print() {
   window.print();
 }
-
 </script>
 
 <style scoped lang="scss">
@@ -362,8 +363,6 @@ function print() {
 }
 
 @media print {
-    
-  
     .front {   
       margin: 0px;
       padding: 0px;
