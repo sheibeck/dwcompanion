@@ -15,13 +15,18 @@
                     <div class="card-header" v-if="filteredMapsBySteading(steading.id)">
                         Maps:
                     </div>
+                    <ul class="list-group list-group-flush" v-if="filteredMapsBySteading(steading.id).length == 0">
+                        <li class="list-group-item">
+                            Not used.
+                        </li>
+                    </ul>
                     <ul class="list-group list-group-flush" v-for="map in filteredMapsBySteading(steading.id)">
                         <li class="list-group-item">
                             <a target="_blank" :href="`/map/${map.id}`">{{ map.name }}</a>
                         </li>
                     </ul>
 
-                    <button class="btn btn-sm btn-secondary me-3" type="button" @click="viewSteading(steading.id)">View</button>
+                    <button class="btn btn-sm btn-secondary me-3 ms-1" type="button" @click="viewSteading(steading.id)">View</button>
                     <button class="btn btn-sm btn-danger" type="button" @click="removeSteading(steading.id)">Delete</button>
                 </div>
             </div>

@@ -26,7 +26,7 @@
                         </li>
                     </ul>
 
-                    <button class="btn btn-sm btn-secondary me-3" type="button" @click="viewMap(map.id)">View</button>
+                    <button class="btn btn-sm btn-secondary me-3 ms-1" type="button" @click="viewMap(map.id)">View</button>
                     <button class="btn btn-sm btn-danger" type="button" @click="removeMap(map.id)">Delete</button>
                 </div>
             </div>
