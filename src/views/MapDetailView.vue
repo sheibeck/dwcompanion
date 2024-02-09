@@ -510,6 +510,7 @@
       locationModalNotes.value = null;
       locationModalType.value = LocationType.Unknown;
       isEditingLocation.value = false;
+      selectedFronts.value = null;
     }
 
     function showMapSettings() {

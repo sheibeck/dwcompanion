@@ -12,16 +12,16 @@
                     <h5 class="card-title">{{ front.name }}</h5>
                     <h6 class="card-subtitle mb-2 text-body-secondary">{{ front.type }}</h6>
 
-                    <div class="card-header" v-if="filteredMapByFronts(front.id)">
+                    <div class="card-header py-0 px-1" v-if="filteredMapByFronts(front.id)">
                         Maps:
                     </div>
-                    <ul class="list-group list-group-flush" v-if="filteredMapByFronts(front.id).length == 0">
-                        <li class="list-group-item">
+                    <ul class="list-group list-group-flush" v-if="filteredMapByFronts(front.id)?.length == 0 ?? true">
+                        <li class="list-group-item py-0 px-1">
                             Not used.
                         </li>
                     </ul>
                     <ul class="list-group list-group-flush" v-for="map in filteredMapByFronts(front.id)">
-                        <li class="list-group-item">
+                        <li class="list-group-item py-0 px-1">
                             <a target="_blank" :href="`/map/${map.id}`">{{ map.name }}</a>
                         </li>
                     </ul>
