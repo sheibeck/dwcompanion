@@ -470,6 +470,8 @@ export const getFront = /* GraphQL */ `query GetFront($id: ID!) {
     type
     name
     description
+    active
+    resolved
     createdAt
     updatedAt
     owner
@@ -489,6 +491,8 @@ export const listFronts = /* GraphQL */ `query ListFronts(
       type
       name
       description
+      active
+      resolved
       createdAt
       updatedAt
       owner

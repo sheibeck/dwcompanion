@@ -651,6 +651,8 @@ export const onCreateFront = /* GraphQL */ `subscription OnCreateFront(
     type
     name
     description
+    active
+    resolved
     createdAt
     updatedAt
     owner
@@ -671,6 +673,8 @@ export const onUpdateFront = /* GraphQL */ `subscription OnUpdateFront(
     type
     name
     description
+    active
+    resolved
     createdAt
     updatedAt
     owner
@@ -691,6 +695,8 @@ export const onDeleteFront = /* GraphQL */ `subscription OnDeleteFront(
     type
     name
     description
+    active
+    resolved
     createdAt
     updatedAt
     owner

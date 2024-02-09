@@ -126,6 +126,8 @@ type Front @model @auth(rules: [{allow: owner}, {allow: private, operations: [re
   type: String!
   name: String!
   description: String!
+  active: Boolean
+  resolved: Boolean
 } 
 
 type Steading @model @auth(rules: [{allow: owner}, {allow: private, operations: [read], provider: iam}, {allow: private, operations: [read]}, {allow: public, operations: [read], provider: iam}]) {
