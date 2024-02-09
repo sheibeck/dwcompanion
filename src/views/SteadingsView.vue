@@ -12,16 +12,16 @@
                     <h5 class="card-title">{{ steading.name }}</h5>
                     <h6 class="card-subtitle mb-2 text-body-secondary">{{ steading.type }}</h6>
                 
-                    <div class="card-header" v-if="filteredMapsBySteading(steading.id)">
+                    <div class="card-header py-0 px-1" v-if="filteredMapsBySteading(steading.id)">
                         Maps:
                     </div>
-                    <ul class="list-group list-group-flush" v-if="filteredMapsBySteading(steading.id).length == 0">
-                        <li class="list-group-item">
+                    <ul class="list-group list-group-flush" v-if="filteredMapsBySteading(steading.id)?.length == 0 ?? true">
+                        <li class="list-group-item py-0 px-1">
                             Not used.
                         </li>
                     </ul>
                     <ul class="list-group list-group-flush" v-for="map in filteredMapsBySteading(steading.id)">
-                        <li class="list-group-item">
+                        <li class="list-group-item py-0 px-1">
                             <a target="_blank" :href="`/map/${map.id}`">{{ map.name }}</a>
                         </li>
                     </ul>

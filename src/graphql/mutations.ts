@@ -720,6 +720,8 @@ export const createFront = /* GraphQL */ `mutation CreateFront(
     type
     name
     description
+    active
+    resolved
     createdAt
     updatedAt
     owner
@@ -740,6 +742,8 @@ export const updateFront = /* GraphQL */ `mutation UpdateFront(
     type
     name
     description
+    active
+    resolved
     createdAt
     updatedAt
     owner
@@ -760,6 +764,8 @@ export const deleteFront = /* GraphQL */ `mutation DeleteFront(
     type
     name
     description
+    active
+    resolved
     createdAt
     updatedAt
     owner

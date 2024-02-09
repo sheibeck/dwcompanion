@@ -12,16 +12,16 @@
                     <h5 class="card-title">{{ map.name }}</h5>
                     <h6 class="card-subtitle mb-2 text-body-secondary">{{ map.type }}</h6>
 
-                    <div class="card-header">
-                        Fronts:
+                    <div class="card-header py-0 px-1">
+                        Active Fronts:
                     </div>
-                    <ul class="list-group list-group-flush" v-if="frontsByMapData[map.id].length == 0">
-                        <li class="list-group-item">
-                            No fronts found on this map.
+                    <ul class="list-group list-group-flush" v-if="frontsByMapData[map.id]?.length == 0 ?? true">
+                        <li class="list-group-item py-0 px-1">
+                            No active fronts on this map.
                         </li>
                     </ul>
                     <ul class="list-group list-group-flush" v-for="front in frontsByMapData[map.id]">
-                        <li class="list-group-item">
+                        <li class="list-group-item py-0 px-1">
                             <a target="_blank" :href="`/front/${front.id}`">{{ front.name }}</a>
                         </li>
                     </ul>
@@ -69,7 +69,7 @@ async function frontsByMap(map: any): Promise<any[]> {
         await Promise.all(map.locations.flatMap(async (location: any) => {
             if (location.fronts) {
                 const fronts = await Promise.all(location.fronts.map((frontId: string) => getFront(frontId)));
-                listOfFronts.push(...fronts.filter(front => front !== null));
+                listOfFronts.push(...fronts.filter(front => front !== null && front.active == true));
             }
         }));
     }

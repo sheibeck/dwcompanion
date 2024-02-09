@@ -94,6 +94,20 @@
                       <input type="text" class="form-control text-dark" aria-label="Name" aria-describedby="name"
                           v-model="front.name">
                   </div>
+
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" v-model="front.active" id="active">
+                    <label class="form-check-label" for="active">
+                      Is Active?
+                    </label>
+                  </div>
+
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" v-model="front.resolved" id="resolved">
+                    <label class="form-check-label" for="resolved">
+                      Is Resolved?
+                    </label>
+                  </div>
                   
                   <hr />
 
