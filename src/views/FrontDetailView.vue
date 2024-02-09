@@ -217,11 +217,13 @@ async function save() {
 
       const newFrontId = await createFront(front.value);
       if (newFrontId) {
-          toast(`Created ${front.value.type} front: ${front.value.name}.`)
+        front.value.id = newFrontId;
+        
+        toast(`Created ${front.value.type} front: ${front.value.name}.`)
 
-          setTimeout(async () => {
-              await router.push({ name: "front", params: { id: newFrontId }, replace: true });
-          }, 2000);
+        setTimeout(async () => {
+            await router.push({ name: "front", params: { id: newFrontId }, replace: true });
+        }, 2000);
           
       }
       else {
