@@ -97,7 +97,7 @@
                         placeholder="Enter a front name (case-sensitive)"
                     >
                         <template v-slot:option="{ option }">
-                            {{ option.label }} ( {{ option.type }} )
+                            {{ option["label"] }} ( {{ option["type"] }} )
                         </template>
                     </Multiselect>
                   
