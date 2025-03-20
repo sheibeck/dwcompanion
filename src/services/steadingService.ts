@@ -40,6 +40,11 @@ export async function generateDungeonWorldSteading(steadingType: String) {
     let response = null;
     while (response === null || response.status !== "completed") {
       response = await openai.beta.threads.runs.retrieve(thread.id, assitantProcess.id);
+
+      if (response.status === "failed") {
+        throw new Error(response.last_error?.message ?? "openai request failed");
+      }
+
       if (response.status !== "completed") {
         // Wait for a while before polling again (adjust this as needed)
         await new Promise((resolve) => setTimeout(resolve, 2000)); // Wait for 2 seconds
