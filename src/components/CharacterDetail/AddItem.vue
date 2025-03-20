@@ -50,7 +50,7 @@ function addNew() {
             if (!character.startingMoves) {
                 character.startingMoves = [];
             }
-            character.startingMoves.push({"id": uuid.generate(), "name": "new starting move", "description": "new starting move description", "selected": false, "source": "Custom" });
+            character.startingMoves.push({"id": uuid.generate(), "name": "new starting move", "description": "new starting move description", "selected": false, "source": "Custom", "isOverflow": false, "isStartingMove": true });
             break;
         case "TwoTenMove":
             if (!character.advancedMovesTwoToTen) {
