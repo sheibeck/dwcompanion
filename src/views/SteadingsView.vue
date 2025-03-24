@@ -6,28 +6,30 @@
                 <a href="/steading/new-steading" class="btn btn-secondary ms-2"><img src="@/assets/plus-solid.svg" alt="plus icon" class="filter-white" /> Create a Steading</a>
             </div>
         </div>
-        <div class="d-md-flex">
-            <div v-for="steading in steadingList" class="card m-2">
-                <div class="card-body">
-                    <h5 class="card-title">{{ steading.name }}</h5>
-                    <h6 class="card-subtitle mb-2 text-body-secondary">{{ steading.type }}</h6>
-                
-                    <div class="card-header py-0 px-1" v-if="filteredMapsBySteading(steading.id)">
-                        Maps:
-                    </div>
-                    <ul class="list-group list-group-flush" v-if="filteredMapsBySteading(steading.id)?.length == 0 ?? true">
-                        <li class="list-group-item py-0 px-1">
-                            Not used.
-                        </li>
-                    </ul>
-                    <ul class="list-group list-group-flush" v-for="map in filteredMapsBySteading(steading.id)">
-                        <li class="list-group-item py-0 px-1">
-                            <a target="_blank" :href="`/map/${map.id}`">{{ map.name }}</a>
-                        </li>
-                    </ul>
+        <div class="row row-cols-1 row-cols-md-3 row-cols-lg-4 g-4">
+            <div v-for="steading in steadingList" class="col">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ steading.name }}</h5>
+                        <h6 class="card-subtitle mb-2 text-body-secondary">{{ steading.type }}</h6>
+                    
+                        <div class="card-header py-0 px-1" v-if="filteredMapsBySteading(steading.id)">
+                            Maps:
+                        </div>
+                        <ul class="list-group list-group-flush" v-if="filteredMapsBySteading(steading.id)?.length == 0 ?? true">
+                            <li class="list-group-item py-0 px-1">
+                                Not used.
+                            </li>
+                        </ul>
+                        <ul class="list-group list-group-flush" v-for="map in filteredMapsBySteading(steading.id)">
+                            <li class="list-group-item py-0 px-1">
+                                <a target="_blank" :href="`/map/${map.id}`">{{ map.name }} <img src="@/assets/up-right-from-square-solid.svg" alt="plus icon" height="12" class="filter-blue" /></a>
+                            </li>
+                        </ul>
 
-                    <button class="btn btn-sm btn-secondary me-3 ms-1" type="button" @click="viewSteading(steading.id)">View</button>
-                    <button class="btn btn-sm btn-danger" type="button" @click="removeSteading(steading.id)">Delete</button>
+                        <a class="btn btn-sm btn-secondary me-3 ms-1" type="button" title="Ctrl+Click to open in new window" @click="view($event, steading.id)">View</a>
+                        <button class="btn btn-sm btn-danger" type="button" @click="remove(steading.id)">Delete</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -54,8 +56,14 @@ onMounted(async () => {
     maps.value = await getMaps(userId.value);
 });
 
-async function viewSteading(id: string) {
-    await router.push({ name: "steading", params: { id: id } });
+async function view(event: MouseEvent, id: string) {
+    if (event.ctrlKey || event.metaKey || event.button === 1) {
+        // Ctrl + Click (Windows), Cmd + Click (Mac), or Middle Mouse Click
+        window.open(`/steading/${id}`, '_blank');
+    } else {
+        // Standard left-click navigation
+        await router.push({ name: "steading", params: { id: id } });
+    }
 }
 
 // Function to filter maps based on steading id
@@ -65,7 +73,7 @@ const filteredMapsBySteading = (id: string) => {
   });
 }
 
-async function removeSteading(id: string) {
+async function remove(id: string) {
     const confirmed = confirm("Are you sure you want to delete this steading?");
 
     const authenticated = await globalStore.isAuthenticated();

@@ -6,28 +6,30 @@
                 <a href="/front/new-front" class="btn btn-secondary ms-2"><img src="@/assets/plus-solid.svg" alt="plus icon" class="filter-white" /> Create a Front</a>
             </div>
         </div>
-        <div class="d-md-flex">
-            <div v-for="front in frontList" class="card m-2">
-                <div class="card-body">
-                    <h5 class="card-title">{{ front.name }}</h5>
-                    <h6 class="card-subtitle mb-2 text-body-secondary">{{ front.type }}</h6>
+        <div class="row row-cols-1 row-cols-md-3 row-cols-lg-4 g-4">
+            <div v-for="front in frontList" class="col">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ front.name }}</h5>
+                        <h6 class="card-subtitle mb-2 text-body-secondary">{{ front.type }}</h6>
 
-                    <div class="card-header py-0 px-1" v-if="filteredMapByFronts(front.id)">
-                        Maps:
+                        <div class="card-header py-0 px-1" v-if="filteredMapByFronts(front.id)">
+                            Maps:
+                        </div>
+                        <ul class="list-group list-group-flush" v-if="filteredMapByFronts(front.id)?.length == 0 ?? true">
+                            <li class="list-group-item py-0 px-1">
+                                Not used.
+                            </li>
+                        </ul>
+                        <ul class="list-group list-group-flush" v-for="map in filteredMapByFronts(front.id)">
+                            <li class="list-group-item py-0 px-1">
+                                <a target="_blank" :href="`/map/${map.id}`">{{ map.name }} <img src="@/assets/up-right-from-square-solid.svg" alt="plus icon" height="12" class="filter-blue" /></a>
+                            </li>
+                        </ul>
+
+                        <button class="btn btn-sm btn-secondary me-3 mt-1" type="button" title="Ctrl+Click to open in new window" @click="view($event, front.id)">View</button>
+                        <button class="btn btn-sm btn-danger" type="button" @click="removeFront(front.id)">Delete</button>
                     </div>
-                    <ul class="list-group list-group-flush" v-if="filteredMapByFronts(front.id)?.length == 0 ?? true">
-                        <li class="list-group-item py-0 px-1">
-                            Not used.
-                        </li>
-                    </ul>
-                    <ul class="list-group list-group-flush" v-for="map in filteredMapByFronts(front.id)">
-                        <li class="list-group-item py-0 px-1">
-                            <a target="_blank" :href="`/map/${map.id}`">{{ map.name }}</a>
-                        </li>
-                    </ul>
-
-                    <button class="btn btn-sm btn-secondary me-3 mt-1" type="button" @click="viewFront(front.id)">View</button>
-                    <button class="btn btn-sm btn-danger" type="button" @click="removeFront(front.id)">Delete</button>
                 </div>
             </div>
         </div>
@@ -63,8 +65,14 @@ const filteredMapByFronts = (id: string) => {
   });
 }
 
-async function viewFront(id: string) {
-    await router.push({ name: "front", params: { id: id } });
+async function view(event: MouseEvent, id: string) {
+    if (event.ctrlKey || event.metaKey || event.button === 1) {
+        // Ctrl + Click (Windows), Cmd + Click (Mac), or Middle Mouse Click
+        window.open(`/front/${id}`, '_blank');
+    } else {
+        // Standard left-click navigation
+        await router.push({ name: "front", params: { id: id } });
+    }
 }
 
 async function removeFront(id: string) {
