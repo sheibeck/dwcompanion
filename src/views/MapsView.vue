@@ -6,28 +6,30 @@
                 <a href="/map/new-map" class="btn btn-secondary ms-2"><img src="@/assets/plus-solid.svg" alt="plus icon" class="filter-white" /> Create a Map</a>
             </div>
         </div>
-        <div class="d-md-flex">
-            <div v-for="map in mapList" class="card m-2">
-                <div class="card-body">
-                    <h5 class="card-title">{{ map.name }}</h5>
-                    <h6 class="card-subtitle mb-2 text-body-secondary">{{ map.type }}</h6>
+        <div class="row row-cols-1 row-cols-md-3 row-cols-lg-4 g-4">
+            <div v-for="map in mapList" class="col">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ map.name }}</h5>
+                        <h6 class="card-subtitle mb-2 text-body-secondary">{{ map.type }}</h6>
 
-                    <div class="card-header py-0 px-1">
-                        Active Fronts:
+                        <div class="card-header py-0 px-1">
+                            Active Fronts:
+                        </div>
+                        <ul class="list-group list-group-flush" v-if="frontsByMapData[map.id]?.length == 0 ?? true">
+                            <li class="list-group-item py-0 px-1">
+                                No active fronts on this map.
+                            </li>
+                        </ul>
+                        <ul class="list-group list-group-flush" v-for="front in frontsByMapData[map.id]">
+                            <li class="list-group-item py-0 px-1">
+                                <a target="_blank" :href="`/front/${front.id}`">{{ front.name }}</a>
+                            </li>
+                        </ul>
+
+                        <button class="btn btn-sm btn-secondary me-3 ms-1" title="Ctrl+Click to open in new window" type="button" @click="view($event, map.id)">View</button>
+                        <button class="btn btn-sm btn-danger" type="button" @click="removeMap(map.id)">Delete</button>
                     </div>
-                    <ul class="list-group list-group-flush" v-if="frontsByMapData[map.id]?.length == 0 ?? true">
-                        <li class="list-group-item py-0 px-1">
-                            No active fronts on this map.
-                        </li>
-                    </ul>
-                    <ul class="list-group list-group-flush" v-for="front in frontsByMapData[map.id]">
-                        <li class="list-group-item py-0 px-1">
-                            <a target="_blank" :href="`/front/${front.id}`">{{ front.name }}</a>
-                        </li>
-                    </ul>
-
-                    <button class="btn btn-sm btn-secondary me-3 ms-1" type="button" @click="viewMap(map.id)">View</button>
-                    <button class="btn btn-sm btn-danger" type="button" @click="removeMap(map.id)">Delete</button>
                 </div>
             </div>
         </div>
@@ -58,8 +60,14 @@ onMounted(async () => {
     }
 });
 
-async function viewMap(id: string) {
-    await router.push({ name: "map", params: { id: id } });
+async function view(event: MouseEvent, id: string) {
+    if (event.ctrlKey || event.metaKey || event.button === 1) {
+        // Ctrl + Click (Windows), Cmd + Click (Mac), or Middle Mouse Click
+        window.open(`/map/${id}`, '_blank');
+    } else {
+        // Standard left-click navigation
+        await router.push({ name: "map", params: { id: id } });
+    }
 }
 
 async function frontsByMap(map: any): Promise<any[]> {
