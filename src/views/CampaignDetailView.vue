@@ -36,23 +36,33 @@
               <strong>Characters:</strong>
               <ul class="list-unstyled mb-0">
                 <li v-for="char in linkedCharacters" :key="char.id">
-                  <RouterLink :to="{ name: 'character', params: { id: char.id } }" class="link-primary">
+                  <a
+                    :href="`/character/${char.id}`"
+                    class="link-primary"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
                     {{ char.name }} ({{ char.profession.name }})
-                  </RouterLink>
+                  </a>
                 </li>
               </ul>
             </div>
           </div>
           <div class="col-md-6 mb-3">
             <div class="border rounded p-2 overflow-auto" style="max-height: 200px;">
-              <strong>Fronts:</strong>
+              <span><strong>Fronts:</strong> <small>(☑ completed front)</small></span>
               <ul class="list-unstyled mb-0">
                 <li v-for="front in linkedFronts" :key="front.id">
                   <span v-if="front.resolved" class="me-1">☑</span>
                   <span v-else class="me-1">☐</span>
-                  <RouterLink :to="{ name: 'front', params: { id: front.id } }" class="link-primary">
+                  <a
+                    :href="`/front/${front.id}`"
+                    class="link-primary"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
                     {{ front.name }} ({{ front.type }})
-                  </RouterLink>
+                  </a>
                 </li>
               </ul>
             </div>
@@ -62,21 +72,32 @@
               <strong>Maps:</strong>
               <ul class="list-unstyled mb-0">
                 <li v-for="map in linkedMaps" :key="map.id">
-                  <RouterLink :to="{ name: 'map', params: { id: map.id } }" class="link-primary">
+                  <a
+                    :href="`/map/${map.id}`"
+                    class="link-primary"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
                     {{ map.name }}
-                  </RouterLink>
+                  </a>
                 </li>
               </ul>
             </div>
           </div>
           <div class="col-md-6 mb-3">
             <div class="border rounded p-2 overflow-auto" style="max-height: 200px;">
-              <strong>Steadings:</strong>
+              <span><strong>Steadings:</strong> <small>(★ current party location)</small></span>
               <ul class="list-unstyled mb-0">
                 <li v-for="steading in linkedSteadings" :key="steading.id">
-                  <RouterLink :to="{ name: 'steading', params: { id: steading.id } }" class="link-primary">
+                  <span v-if="isPartyLocation(steading.id)" class="me-1">★</span>
+                  <a
+                    :href="`/steading/${steading.id}`"
+                    class="link-primary"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
                     {{ steading.name }} ({{ steading.type }})
-                  </RouterLink>
+                  </a>
                 </li>
               </ul>
             </div>
@@ -340,6 +361,15 @@ const linkedMaps = computed(() =>
 const linkedSteadings = computed(() =>
   [...campaignStore.linkedSteadings].sort((a: any, b: any) => a.name.localeCompare(b.name))
 );
+
+const isPartyLocation = (steadingId: string): boolean => {
+  return linkedMaps.value.some((map: any) =>
+    (map.locations || []).some((location: any) =>
+      location.currentPartyLocation === true &&
+      (location.steading_id === steadingId || (location.fronts || []).includes(steadingId))
+    )
+  );
+};
 
 onMounted(async () => {
   userId.value = await globalStore.getUserId();
