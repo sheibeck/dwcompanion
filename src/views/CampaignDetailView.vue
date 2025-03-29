@@ -144,29 +144,6 @@
                 </div>
               </div>
 
-              <!-- Fronts -->
-              <div class="col-md-6">
-                <label class="form-label">Fronts</label>
-                <div class="border rounded p-2 overflow-auto" style="max-height: 200px;">
-                  <div
-                    class="form-check"
-                    v-for="front in sortedFronts"
-                    :key="front.id"
-                  >
-                    <input
-                      class="form-check-input"
-                      type="checkbox"
-                      :id="'front-' + front.id"
-                      :value="front.id"
-                      v-model="campaign.frontIds"
-                    />
-                    <label class="form-check-label" :for="'front-' + front.id">
-                      {{ front.name }} ({{  front.type }})
-                    </label>
-                  </div>
-                </div>
-              </div>
-
               <!-- Maps -->
               <div class="col-md-6">
                 <label class="form-label">Maps</label>
@@ -189,29 +166,6 @@
                   </div>
                 </div>
               </div>
-
-              <!-- Steadings -->
-              <div class="col-md-6">
-                <label class="form-label">Steadings</label>
-                <div class="border rounded p-2 overflow-auto" style="max-height: 200px;">
-                  <div
-                    class="form-check"
-                    v-for="steading in sortedSteadings"
-                    :key="steading.id"
-                  >
-                    <input
-                      class="form-check-input"
-                      type="checkbox"
-                      :id="'steading-' + steading.id"
-                      :value="steading.id"
-                      v-model="campaign.steadingIds"
-                    />
-                    <label class="form-check-label" :for="'steading-' + steading.id">
-                      {{ steading.name }} ({{  steading.type }})
-                    </label>
-                  </div>
-                </div>
-              </div>
             </div>
           </div>
 
@@ -225,16 +179,13 @@
 
   </div>
 </template>
-
 <script setup lang="ts">
 import { computed, onMounted, ref } from 'vue';
 import { useCampaignStore } from '@/stores/campaignStore';
 import { useGlobalStore } from '@/stores/globalStore';
 import { useRoute } from 'vue-router';
 import { getCharacter, getCharactersWithProfessions } from '@/services/characterService';
-import { getFront, getFronts } from '@/services/frontService';
 import { getMap, getMaps } from '@/services/mapService';
-import { getSteading, getSteadings } from '@/services/steadingService';
 import MarkdownIt from 'markdown-it';
 import { toast } from 'vue3-toastify';
 
@@ -246,40 +197,23 @@ const newSession = ref({ title: '', notes: '' });
 const sessionEditId = ref<string | null>(null);
 
 const allCharacters = ref<any[]>([]);
-const allFronts = ref<any[]>([]);
 const allMaps = ref<any[]>([]);
-const allSteadings = ref<any[]>([]);
-
 const characters = ref<Record<string, any>>({});
-const fronts = ref<Record<string, any>>({});
 const maps = ref<Record<string, any>>({});
-const steadings = ref<Record<string, any>>({});
-const userId = ref<null|String>(null);
+const userId = ref<null | String>(null);
 
 const md = new MarkdownIt();
 
-const isOwner = computed(()=> {  
-    return userId.value !== null && (campaign.value?.userId === userId.value);
-});
-
-const isGuest = computed(()=> {
-  return userId.value == null;
+const isOwner = computed(() => {
+  return userId.value !== null && (campaign.value?.userId === userId.value);
 });
 
 const sortedSessions = computed(() => {
   return [...(campaign.value?.sessions || [])].sort((a, b) => b.date.localeCompare(a.date));
 });
 
-const sortedFronts = computed(() =>
-  [...allFronts.value].sort((a, b) => a.name.localeCompare(b.name))
-);
-
 const sortedCharacters = computed(() =>
   [...allCharacters.value].sort((a, b) => a.name.localeCompare(b.name))
-);
-
-const sortedSteadings = computed(() =>
-  [...allSteadings.value].sort((a, b) => a.name.localeCompare(b.name))
 );
 
 const sortedMaps = computed(() =>
@@ -299,27 +233,17 @@ const loadLinkedEntities = async () => {
     const c = await getCharacter(id);
     if (c) characters.value[id] = c;
   });
-  const frontPromises = campaign.value.frontIds.map(async (id: string) => {
-    const f = await getFront(id);
-    if (f) fronts.value[id] = f;
-  });
   const mapPromises = campaign.value.mapIds.map(async (id: string) => {
     const m = await getMap(id);
     if (m) maps.value[id] = m;
   });
-  const steadingPromises = campaign.value.steadingIds.map(async (id: string) => {
-    const s = await getSteading(id);
-    if (s) steadings.value[id] = s;
-  });
-  await Promise.all([...characterPromises, ...frontPromises, ...mapPromises, ...steadingPromises]);
+  await Promise.all([...characterPromises, ...mapPromises]);
 };
 
 const loadAvailableEntities = async () => {
   if (!campaign.value?.userId) return;
   allCharacters.value = await getCharactersWithProfessions(campaign.value.userId);
-  allFronts.value = await getFronts(campaign.value.userId);
   allMaps.value = await getMaps(campaign.value.userId);
-  allSteadings.value = await getSteadings(campaign.value.userId);
 };
 
 const renderMarkdown = (text: string) => md.render(text || '');
@@ -351,7 +275,6 @@ const confirmDelete = (id: string) => {
 const deleteSession = async (id: string) => {
   campaign.value.sessions = campaign.value.sessions.filter((s: any) => s.id !== id);
   await campaignStore.updateCampaign(campaign.value.id, { sessions: campaign.value.sessions });
-
   toast("Session deleted.");
 };
 
@@ -364,12 +287,9 @@ const saveSessionEdits = async () => {
 const saveLinkedEntitiesAndClose = async () => {
   await campaignStore.updateCampaign(campaign.value.id, {
     characterIds: campaign.value.characterIds,
-    frontIds: campaign.value.frontIds,
-    mapIds: campaign.value.mapIds,
-    steadingIds: campaign.value.steadingIds
+    mapIds: campaign.value.mapIds
   });
-
-  await loadLinkedEntities();
+  await campaignStore.loadLinkedEntities();
 };
 
 const saveCampaignDetails = async () => {
@@ -377,7 +297,6 @@ const saveCampaignDetails = async () => {
     name: campaign.value.name,
     description: campaign.value.description
   });
-
   toast(`Saved campaign.`);
 };
 
@@ -387,13 +306,12 @@ const linkedCharacters = computed(() =>
 );
 
 const linkedFronts = computed(() =>
-  (campaign.value?.frontIds.map((id: string) => fronts.value[id]).filter(Boolean) || [])
-    .sort((a:any, b: any) => {
-      if (a.resolved === b.resolved) {
-        return a.name.localeCompare(b.name);
-      }
-      return a.resolved ? 1 : -1; // resolved === true goes last
-    })
+  [...campaignStore.linkedFronts].sort((a: any, b: any) => {
+    if (a.resolved === b.resolved) {
+      return a.name.localeCompare(b.name);
+    }
+    return a.resolved ? 1 : -1;
+  })
 );
 
 const linkedMaps = computed(() =>
@@ -402,13 +320,11 @@ const linkedMaps = computed(() =>
 );
 
 const linkedSteadings = computed(() =>
-  (campaign.value?.steadingIds.map((id: string) => steadings.value[id]).filter(Boolean) || [])
-    .sort((a: any, b: any) => a.name.localeCompare(b.name))
+  [...campaignStore.linkedSteadings].sort((a: any, b: any) => a.name.localeCompare(b.name))
 );
 
-
 onMounted(async () => {
-    userId.value = await globalStore.getUserId();
-    await loadCampaign();
+  userId.value = await globalStore.getUserId();
+  await loadCampaign();
 });
 </script>

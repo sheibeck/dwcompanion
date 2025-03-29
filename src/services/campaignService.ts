@@ -25,7 +25,7 @@ const parseCampaign = (raw: any): Campaign | null => {
   };
 };
 
-export const getCampaigns = async (userId: string): Promise<Campaign[]> => {
+export const getCampaigns = async (userId: string): Promise<Campaign[] | string> => {
   try {
     const { data } = await client.graphql({
       query: queries.listCampaigns,
@@ -39,59 +39,66 @@ export const getCampaigns = async (userId: string): Promise<Campaign[]> => {
     return rawItems.map(parseCampaign).filter(Boolean) as Campaign[];
   } catch (error) {
     console.error('Error fetching campaigns:', error);
-    return [];
+    return 'Error fetching campaigns';
   }
 };
 
-export const getCampaign = async (id: string): Promise<Campaign | null> => {
+export const getCampaign = async (id: string): Promise<Campaign | string> => {
   try {
     const { data } = await client.graphql({
       query: queries.getCampaign,
       variables: { id }
     });
 
-    return parseCampaign((data as any)?.getCampaign);
+    const parsed = parseCampaign((data as any)?.getCampaign);
+    if (!parsed) return 'Failed to parse campaign';
+
+    return parsed;
   } catch (error) {
     console.error('Error fetching campaign:', error);
-    return null;
+    return 'Error fetching campaign';
   }
 };
 
-export const createCampaign = async (campaign: Omit<Campaign, 'id'>): Promise<Campaign | null> => {
+export const createCampaign = async (campaign: Omit<Campaign, 'id'>): Promise<Campaign | string> => {
   try {
     const input = {
       id: uuid.generate(),
       ...campaign
     };
 
-    const { data, errors } = await client.graphql({
+    const result = await client.graphql({
       query: mutations.createCampaign,
       variables: { input }
     });
 
+    const data = (result as any)?.data;
+    const errors = (result as any)?.errors;
+
     if (errors?.length) {
       console.error('GraphQL error(s):', errors);
-      return null;
+      return errors[0]?.message || 'Unknown error creating campaign';
     }
 
-    return parseCampaign((data as any)?.createCampaign);
+    const createdCampaign = parseCampaign(data?.createCampaign);
+    if (!createdCampaign) return 'Failed to parse created campaign';
+
+    return createdCampaign;
   } catch (error) {
     console.error('Error creating campaign:', error);
-    return null;
+    return 'Error creating campaign';
   }
 };
 
-export const updateCampaign = async (id: string, updates: Partial<Campaign>): Promise<boolean> => {
+export const updateCampaign = async (id: string, updates: Partial<Campaign>): Promise<boolean | string> => {
   try {
     const cleanedInput = { ...updates };
 
-    // Strip unwanted fields from campaign-level properties
     delete (cleanedInput as any).createdAt;
     delete (cleanedInput as any).updatedAt;
     delete (cleanedInput as any).owner;
     delete (cleanedInput as any).__typename;
 
-    // 🧼 Clean up sessions array (remove any unexpected fields)
     if (cleanedInput.sessions) {
       cleanedInput.sessions = cleanedInput.sessions.map((s: any) => ({
         id: s.id,
@@ -106,29 +113,38 @@ export const updateCampaign = async (id: string, updates: Partial<Campaign>): Pr
       ...cleanedInput,
     };
 
-    await client.graphql({
+    const result = await client.graphql({
       query: mutations.updateCampaign,
       variables: { input },
     });
 
+    const errors = (result as any)?.errors;
+    if (errors?.length) {
+      return errors[0]?.message || 'Unknown error updating campaign';
+    }
+
     return true;
   } catch (error) {
     console.error('Error updating campaign:', error);
-    return false;
+    return 'Error updating campaign';
   }
 };
 
-
-export const deleteCampaign = async (id: string): Promise<boolean> => {
+export const deleteCampaign = async (id: string): Promise<boolean | string> => {
   try {
-    await client.graphql({
+    const result = await client.graphql({
       query: mutations.deleteCampaign,
       variables: { input: { id } }
     });
 
+    const errors = (result as any)?.errors;
+    if (errors?.length) {
+      return errors[0]?.message || 'Unknown error deleting campaign';
+    }
+
     return true;
   } catch (error) {
     console.error('Error deleting campaign:', error);
-    return false;
+    return 'Error deleting campaign';
   }
 };
