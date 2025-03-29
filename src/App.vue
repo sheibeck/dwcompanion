@@ -24,7 +24,7 @@
               <ul class="dropdown-menu">
                 <li>
                   <a class="dropdown-item" href="/campaigns">
-                    <img src="@/assets/users-solid.svg" alt="characters icon" class="filter-light" /> Campaigns
+                    <img src="@/assets/earth-asia-solid.svg" alt="characters icon" class="filter-light" /> Campaigns
                   </a>
                 </li>
                 <li>

@@ -582,6 +582,7 @@ export const listMaps = /* GraphQL */ `query ListMaps($filter: ModelMapFilterInp
 ` as GeneratedQuery<APITypes.ListMapsQueryVariables, APITypes.ListMapsQuery>;
 export const getCampaign = /* GraphQL */ `query GetCampaign($id: ID!) {
   getCampaign(id: $id) {
+    userId
     id
     name
     description
@@ -613,6 +614,7 @@ export const listCampaigns = /* GraphQL */ `query ListCampaigns(
 ) {
   listCampaigns(filter: $filter, limit: $limit, nextToken: $nextToken) {
     items {
+      userId
       id
       name
       description

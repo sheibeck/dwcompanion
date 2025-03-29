@@ -832,6 +832,7 @@ export const onCreateCampaign = /* GraphQL */ `subscription OnCreateCampaign(
   $owner: String
 ) {
   onCreateCampaign(filter: $filter, owner: $owner) {
+    userId
     id
     name
     description
@@ -861,6 +862,7 @@ export const onUpdateCampaign = /* GraphQL */ `subscription OnUpdateCampaign(
   $owner: String
 ) {
   onUpdateCampaign(filter: $filter, owner: $owner) {
+    userId
     id
     name
     description
@@ -890,6 +892,7 @@ export const onDeleteCampaign = /* GraphQL */ `subscription OnDeleteCampaign(
   $owner: String
 ) {
   onDeleteCampaign(filter: $filter, owner: $owner) {
+    userId
     id
     name
     description

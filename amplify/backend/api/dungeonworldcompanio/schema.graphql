@@ -147,6 +147,7 @@ type Map @model @auth(rules: [{allow: owner}, {allow: private, operations: [read
 } 
 
 type Campaign @model @auth(rules: [{allow: owner}, {allow: private, operations: [read], provider: iam}, {allow: private, operations: [read]}, {allow: public, operations: [read], provider: iam}]) {
+  userId: ID!
   id: ID!
   name: String!
   description: String

@@ -1,4 +1,3 @@
-// stores/campaignStore.ts
 import { defineStore } from 'pinia';
 import type { Campaign } from '@/types/types';
 import {
@@ -15,17 +14,21 @@ export const useCampaignStore = defineStore('campaigns', {
     selectedCampaign: null as Campaign | null,
   }),
   actions: {
-    async fetchCampaigns() {
+    async fetchCampaigns(userId: string) {
       try {
-        this.campaigns = await getCampaigns();
+        this.campaigns = await getCampaigns(userId);
       } catch (error) {
         console.error('Failed to fetch campaigns', error);
       }
     },
 
-    async createCampaign(campaignData: Partial<Campaign>) {
+    async createCampaign(campaignData: Partial<Campaign>, userId: string) {
       try {
-        const created = await createCampaignService(campaignData as Omit<Campaign, 'id'>);
+        const created = await createCampaignService({
+          ...campaignData,
+          userId
+        } as Omit<Campaign, 'id'>);
+
         if (created) {
           this.campaigns.push(created);
         }
@@ -38,7 +41,7 @@ export const useCampaignStore = defineStore('campaigns', {
       try {
         const success = await updateCampaignService(campaignId, updates);
         if (success) {
-          await this.fetchCampaigns();
+          await this.fetchCampaigns(updates.userId!); // assumes userId exists in updates
         }
       } catch (error) {
         console.error('Failed to update campaign', error);

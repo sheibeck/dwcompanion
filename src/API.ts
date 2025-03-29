@@ -795,6 +795,7 @@ export type DeleteMapInput = {
 };
 
 export type CreateCampaignInput = {
+  userId: string,
   id?: string | null,
   name: string,
   description?: string | null,
@@ -813,6 +814,7 @@ export type SessionEntryInput = {
 };
 
 export type ModelCampaignConditionInput = {
+  userId?: ModelIDInput | null,
   name?: ModelStringInput | null,
   description?: ModelStringInput | null,
   characterIds?: ModelStringInput | null,
@@ -826,6 +828,7 @@ export type ModelCampaignConditionInput = {
 
 export type Campaign = {
   __typename: "Campaign",
+  userId: string,
   id: string,
   name: string,
   description?: string | null,
@@ -848,6 +851,7 @@ export type SessionEntry = {
 };
 
 export type UpdateCampaignInput = {
+  userId?: string | null,
   id: string,
   name?: string | null,
   description?: string | null,
@@ -1128,6 +1132,7 @@ export type ModelMapConnection = {
 };
 
 export type ModelCampaignFilterInput = {
+  userId?: ModelIDInput | null,
   id?: ModelIDInput | null,
   name?: ModelStringInput | null,
   description?: ModelStringInput | null,
@@ -1368,6 +1373,7 @@ export type ModelSubscriptionMapFilterInput = {
 };
 
 export type ModelSubscriptionCampaignFilterInput = {
+  userId?: ModelSubscriptionIDInput | null,
   id?: ModelSubscriptionIDInput | null,
   name?: ModelSubscriptionStringInput | null,
   description?: ModelSubscriptionStringInput | null,
@@ -2236,6 +2242,7 @@ export type CreateCampaignMutationVariables = {
 export type CreateCampaignMutation = {
   createCampaign?:  {
     __typename: "Campaign",
+    userId: string,
     id: string,
     name: string,
     description?: string | null,
@@ -2264,6 +2271,7 @@ export type UpdateCampaignMutationVariables = {
 export type UpdateCampaignMutation = {
   updateCampaign?:  {
     __typename: "Campaign",
+    userId: string,
     id: string,
     name: string,
     description?: string | null,
@@ -2292,6 +2300,7 @@ export type DeleteCampaignMutationVariables = {
 export type DeleteCampaignMutation = {
   deleteCampaign?:  {
     __typename: "Campaign",
+    userId: string,
     id: string,
     name: string,
     description?: string | null,
@@ -2937,6 +2946,7 @@ export type GetCampaignQueryVariables = {
 export type GetCampaignQuery = {
   getCampaign?:  {
     __typename: "Campaign",
+    userId: string,
     id: string,
     name: string,
     description?: string | null,
@@ -2968,6 +2978,7 @@ export type ListCampaignsQuery = {
     __typename: "ModelCampaignConnection",
     items:  Array< {
       __typename: "Campaign",
+      userId: string,
       id: string,
       name: string,
       description?: string | null,
@@ -3813,6 +3824,7 @@ export type OnCreateCampaignSubscriptionVariables = {
 export type OnCreateCampaignSubscription = {
   onCreateCampaign?:  {
     __typename: "Campaign",
+    userId: string,
     id: string,
     name: string,
     description?: string | null,
@@ -3841,6 +3853,7 @@ export type OnUpdateCampaignSubscriptionVariables = {
 export type OnUpdateCampaignSubscription = {
   onUpdateCampaign?:  {
     __typename: "Campaign",
+    userId: string,
     id: string,
     name: string,
     description?: string | null,
@@ -3869,6 +3882,7 @@ export type OnDeleteCampaignSubscriptionVariables = {
 export type OnDeleteCampaignSubscription = {
   onDeleteCampaign?:  {
     __typename: "Campaign",
+    userId: string,
     id: string,
     name: string,
     description?: string | null,

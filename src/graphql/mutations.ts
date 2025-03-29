@@ -901,6 +901,7 @@ export const createCampaign = /* GraphQL */ `mutation CreateCampaign(
   $condition: ModelCampaignConditionInput
 ) {
   createCampaign(input: $input, condition: $condition) {
+    userId
     id
     name
     description
@@ -930,6 +931,7 @@ export const updateCampaign = /* GraphQL */ `mutation UpdateCampaign(
   $condition: ModelCampaignConditionInput
 ) {
   updateCampaign(input: $input, condition: $condition) {
+    userId
     id
     name
     description
@@ -959,6 +961,7 @@ export const deleteCampaign = /* GraphQL */ `mutation DeleteCampaign(
   $condition: ModelCampaignConditionInput
 ) {
   deleteCampaign(input: $input, condition: $condition) {
+    userId
     id
     name
     description
