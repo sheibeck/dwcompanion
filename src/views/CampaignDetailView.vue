@@ -26,7 +26,7 @@
             <ul class="list-unstyled">
               <li v-for="char in linkedCharacters" :key="char.id">
                 <RouterLink :to="{ name: 'character', params: { id: char.id } }" class="link-primary">
-                  {{ char.name }}
+                  {{ char.name }} ({{  char.profession.name }})
                 </RouterLink>
               </li>
             </ul>
@@ -38,7 +38,7 @@
                 <span v-if="front.resolved" class="me-1">☑</span>
                 <span v-else class="me-1">☐</span>
                 <RouterLink :to="{ name: 'front', params: { id: front.id } }" class="link-primary">
-                  {{ front.name }}
+                  {{ front.name }} ({{ front.type }})
                 </RouterLink>
               </li>
             </ul>
@@ -58,7 +58,7 @@
             <ul class="list-unstyled">
               <li v-for="steading in linkedSteadings" :key="steading.id">
                 <RouterLink :to="{ name: 'steading', params: { id: steading.id } }" class="link-primary">
-                  {{ steading.name }}
+                  {{ steading.name }} ({{ steading.type }})
                 </RouterLink>
               </li>
             </ul>
@@ -111,42 +111,110 @@
       </section>
     </div>
 
-    <!-- Bootstrap Modal -->
+    <!-- Assign Items Modal -->
     <div class="modal fade" id="assignModal" tabindex="-1" aria-labelledby="assignModalLabel" aria-hidden="true">
       <div class="modal-dialog modal-lg">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="assignModalLabel">Assign Items to Campaign</h5>
+            <h5 class="modal-title" id="assignModalLabel">Assign Entities to Campaign</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
             <div class="row g-3">
+              <!-- Characters -->
               <div class="col-md-6">
                 <label class="form-label">Characters</label>
-                <select v-if="campaign?.characterIds" v-model="campaign.characterIds" multiple class="form-select">
-                  <option v-for="char in allCharacters" :key="char.id" :value="char.id">{{ char.name }}</option>
-                </select>
+                <div class="border rounded p-2 overflow-auto" style="max-height: 200px;">
+                  <div
+                    class="form-check"
+                    v-for="char in sortedCharacters"
+                    :key="char.id"
+                  >
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      :id="'char-' + char.id"
+                      :value="char.id"
+                      v-model="campaign.characterIds"
+                    />
+                    <label class="form-check-label" :for="'char-' + char.id">
+                      {{ char.name }} ({{ char.profession.name }})
+                    </label>
+                  </div>
+                </div>
               </div>
+
+              <!-- Fronts -->
               <div class="col-md-6">
                 <label class="form-label">Fronts</label>
-                <select v-if="campaign?.frontIds" v-model="campaign.frontIds" multiple class="form-select">
-                  <option v-for="front in allFronts" :key="front.id" :value="front.id">{{ front.name }}</option>
-                </select>
+                <div class="border rounded p-2 overflow-auto" style="max-height: 200px;">
+                  <div
+                    class="form-check"
+                    v-for="front in sortedFronts"
+                    :key="front.id"
+                  >
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      :id="'front-' + front.id"
+                      :value="front.id"
+                      v-model="campaign.frontIds"
+                    />
+                    <label class="form-check-label" :for="'front-' + front.id">
+                      {{ front.name }} ({{  front.type }})
+                    </label>
+                  </div>
+                </div>
               </div>
+
+              <!-- Maps -->
               <div class="col-md-6">
                 <label class="form-label">Maps</label>
-                <select v-if="campaign?.mapIds" v-model="campaign.mapIds" multiple class="form-select">
-                  <option v-for="map in allMaps" :key="map.id" :value="map.id">{{ map.name }}</option>
-                </select>
+                <div class="border rounded p-2 overflow-auto" style="max-height: 200px;">
+                  <div
+                    class="form-check"
+                    v-for="map in sortedMaps"
+                    :key="map.id"
+                  >
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      :id="'map-' + map.id"
+                      :value="map.id"
+                      v-model="campaign.mapIds"
+                    />
+                    <label class="form-check-label" :for="'map-' + map.id">
+                      {{ map.name }}
+                    </label>
+                  </div>
+                </div>
               </div>
+
+              <!-- Steadings -->
               <div class="col-md-6">
                 <label class="form-label">Steadings</label>
-                <select v-if="campaign?.steadingIds" v-model="campaign.steadingIds" multiple class="form-select">
-                  <option v-for="steading in allSteadings" :key="steading.id" :value="steading.id">{{ steading.name }}</option>
-                </select>
+                <div class="border rounded p-2 overflow-auto" style="max-height: 200px;">
+                  <div
+                    class="form-check"
+                    v-for="steading in sortedSteadings"
+                    :key="steading.id"
+                  >
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      :id="'steading-' + steading.id"
+                      :value="steading.id"
+                      v-model="campaign.steadingIds"
+                    />
+                    <label class="form-check-label" :for="'steading-' + steading.id">
+                      {{ steading.name }} ({{  steading.type }})
+                    </label>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
+
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
             <button type="button" class="btn btn-primary" data-bs-dismiss="modal" @click="saveLinkedEntitiesAndClose">Save</button>
@@ -154,6 +222,7 @@
         </div>
       </div>
     </div>
+
   </div>
 </template>
 
@@ -200,6 +269,22 @@ const isGuest = computed(()=> {
 const sortedSessions = computed(() => {
   return [...(campaign.value?.sessions || [])].sort((a, b) => b.date.localeCompare(a.date));
 });
+
+const sortedFronts = computed(() =>
+  [...allFronts.value].sort((a, b) => a.name.localeCompare(b.name))
+);
+
+const sortedCharacters = computed(() =>
+  [...allCharacters.value].sort((a, b) => a.name.localeCompare(b.name))
+);
+
+const sortedSteadings = computed(() =>
+  [...allSteadings.value].sort((a, b) => a.name.localeCompare(b.name))
+);
+
+const sortedMaps = computed(() =>
+  [...allMaps.value].sort((a, b) => a.name.localeCompare(b.name))
+);
 
 const loadCampaign = async () => {
   await campaignStore.fetchCampaignById(route.params.id as string);
