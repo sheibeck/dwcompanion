@@ -5,11 +5,17 @@
     </div>
 
     <div v-else>
+      <h1 class="d-print-none d-flex">
+        Campaign
+        <div class="ms-3" v-if="isOwner">
+          <a href="/campaigns/" class="btn btn-secondary mb-2"><img src="@/assets/earth-asia-solid.svg" alt="plus icon" class="filter-white" /> My Campaigns</a>
+        </div>
+      </h1>
+
       <div class="mb-4">
-        <a href="/campaigns/" class="btn btn-secondary mb-2"><img src="@/assets/earth-asia-solid.svg" alt="plus icon" class="filter-white" /> My Campaigns</a>
         <input v-model="campaign.name" class="form-control form-control-lg mb-2" placeholder="Campaign Name" />
         <textarea v-model="campaign.description" class="form-control mb-2" placeholder="Campaign Description"></textarea>
-        <button @click="saveCampaignDetails" class="btn btn-outline-primary btn-sm">Save Campaign</button>
+        <button v-if="isOwner" @click="saveCampaignDetails" class="btn btn-outline-primary btn-sm">Save Campaign</button>
       </div>
 
       <section class="mb-4">
@@ -29,6 +35,8 @@
             <strong>Fronts:</strong>
             <ul class="list-unstyled">
               <li v-for="front in linkedFronts" :key="front.id">
+                <span v-if="front.resolved" class="me-1">☑</span>
+                <span v-else class="me-1">☐</span>
                 <RouterLink :to="{ name: 'front', params: { id: front.id } }" class="link-primary">
                   {{ front.name }}
                 </RouterLink>
@@ -58,9 +66,9 @@
         </div>
       </section>
 
-      <section class="mb-4">
+      <section class="mb-4" v-if="isOwner">
         <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#assignModal">
-          Assign Entities
+          Assign Items
         </button>
       </section>
 
@@ -74,7 +82,7 @@
                   <input v-model="session.title" class="form-control form-control-sm mb-2" />
                   <input v-model="session.date" type="date" class="form-control form-control-sm mb-2" />
                   <textarea v-model="session.notes" class="form-control form-control-sm mb-2 w-100"></textarea>
-                  <div class="d-flex gap-2">
+                  <div class="d-flex gap-2" v-if="isOwner">
                     <button class="btn btn-sm btn-success" @click="saveSessionEdits">Save</button>
                     <button class="btn btn-sm btn-secondary" @click="sessionEditId = null">Cancel</button>
                   </div>
@@ -95,7 +103,7 @@
         <p v-else class="text-muted">No sessions yet.</p>
       </section>
 
-      <section>
+      <section v-if="isOwner">
         <h2 class="h5 mb-2">Add Session</h2>
         <input v-model="newSession.title" class="form-control mb-2" placeholder="Session Title" />
         <textarea v-model="newSession.notes" class="form-control mb-2 w-100" placeholder="Markdown session notes" />
@@ -108,7 +116,7 @@
       <div class="modal-dialog modal-lg">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="assignModalLabel">Assign Entities to Campaign</h5>
+            <h5 class="modal-title" id="assignModalLabel">Assign Items to Campaign</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
@@ -152,6 +160,7 @@
 <script setup lang="ts">
 import { computed, onMounted, ref } from 'vue';
 import { useCampaignStore } from '@/stores/campaignStore';
+import { useGlobalStore } from '@/stores/globalStore';
 import { useRoute } from 'vue-router';
 import { getCharacter, getCharactersWithProfessions } from '@/services/characterService';
 import { getFront, getFronts } from '@/services/frontService';
@@ -162,6 +171,7 @@ import { toast } from 'vue3-toastify';
 
 const route = useRoute();
 const campaignStore = useCampaignStore();
+const globalStore = useGlobalStore();
 const campaign = ref<any>(null);
 const newSession = ref({ title: '', notes: '' });
 const sessionEditId = ref<string | null>(null);
@@ -175,8 +185,17 @@ const characters = ref<Record<string, any>>({});
 const fronts = ref<Record<string, any>>({});
 const maps = ref<Record<string, any>>({});
 const steadings = ref<Record<string, any>>({});
+const userId = ref<null|String>(null);
 
 const md = new MarkdownIt();
+
+const isOwner = computed(()=> {  
+    return userId.value !== null && (campaign.value?.userId === userId.value);
+});
+
+const isGuest = computed(()=> {
+  return userId.value == null;
+});
 
 const sortedSessions = computed(() => {
   return [...(campaign.value?.sessions || [])].sort((a, b) => b.date.localeCompare(a.date));
@@ -277,10 +296,34 @@ const saveCampaignDetails = async () => {
   toast(`Saved campaign.`);
 };
 
-const linkedCharacters = computed(() => campaign.value?.characterIds.map((id: string) => characters.value[id]).filter(Boolean) || []);
-const linkedFronts = computed(() => campaign.value?.frontIds.map((id: string) => fronts.value[id]).filter(Boolean) || []);
-const linkedMaps = computed(() => campaign.value?.mapIds.map((id: string) => maps.value[id]).filter(Boolean) || []);
-const linkedSteadings = computed(() => campaign.value?.steadingIds.map((id: string) => steadings.value[id]).filter(Boolean) || []);
+const linkedCharacters = computed(() =>
+  (campaign.value?.characterIds.map((id: string) => characters.value[id]).filter(Boolean) || [])
+    .sort((a: any, b: any) => a.name.localeCompare(b.name))
+);
 
-onMounted(loadCampaign);
+const linkedFronts = computed(() =>
+  (campaign.value?.frontIds.map((id: string) => fronts.value[id]).filter(Boolean) || [])
+    .sort((a:any, b: any) => {
+      if (a.resolved === b.resolved) {
+        return a.name.localeCompare(b.name);
+      }
+      return a.resolved ? 1 : -1; // resolved === true goes last
+    })
+);
+
+const linkedMaps = computed(() =>
+  (campaign.value?.mapIds.map((id: string) => maps.value[id]).filter(Boolean) || [])
+    .sort((a: any, b: any) => a.name.localeCompare(b.name))
+);
+
+const linkedSteadings = computed(() =>
+  (campaign.value?.steadingIds.map((id: string) => steadings.value[id]).filter(Boolean) || [])
+    .sort((a: any, b: any) => a.name.localeCompare(b.name))
+);
+
+
+onMounted(async () => {
+    userId.value = await globalStore.getUserId();
+    await loadCampaign();
+});
 </script>
