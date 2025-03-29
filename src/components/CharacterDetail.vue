@@ -124,7 +124,8 @@ const isAuthenticated = ref(false);
 const pageNumber = ref(1);
 const isPrinting = ref(false);
 const userId = ref<null|String>(null);
-    const hasOverflowMoves = computed(() =>
+
+const hasOverflowMoves = computed(() =>
   Array.isArray(character.value.startingMoves)
     ? character.value.startingMoves.filter((m: any) => m.isOverflow === true).length > 0
     : false
