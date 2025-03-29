@@ -1,179 +1,156 @@
-
 import { generateClient } from 'aws-amplify/api';
-import * as queries from '@/graphql/queries';
-import * as mutations from '@/graphql/mutations';
 import * as uuid from 'short-uuid';
-
+import type { Character } from '@/types/types';
+import {
+  getCharacter as getCharacterQuery,
+  listCharacters as listCharactersQuery
+} from '@/graphql/queries';
+import {
+  createCharacter as createCharacterMutation,
+  updateCharacter as updateCharacterMutation,
+  deleteCharacter as deleteCharacterMutation
+} from '@/graphql/mutations';
 
 const client = generateClient();
 
-export const getCharactersWithProfessions = async(userId: string) => {
-    const result: any = [];
+const parseCharacterJSONFields = (character: any): Character => {
+  return {
+    ...character,
+    gear: character.gear ? JSON.parse(character.gear) : [],
+    startingMoves: character.startingMoves ? JSON.parse(character.startingMoves) : [],
+    advancedMovesTwoToTen: character.advancedMovesTwoToTen ? JSON.parse(character.advancedMovesTwoToTen) : [],
+    advancedMovesSixToTen: character.advancedMovesSixToTen ? JSON.parse(character.advancedMovesSixToTen) : [],
+    bonds: character.bonds ? JSON.parse(character.bonds) : [],
+    abilityScores: character.abilityScores ? JSON.parse(character.abilityScores) : [],
+    race: character.race ? JSON.parse(character.race) : [],
+    alignment: character.alignment ? JSON.parse(character.alignment) : [],
+    look: character.look ? JSON.parse(character.look) : [],
+    profession: character.profession ? JSON.parse(character.profession) : [],
+    spells: character.spells ? JSON.parse(character.spells) : []
+  };
+};
 
-    try {
-        const characters = await client.graphql({ query: queries.listCharacters,
-            variables: { 
-                filter: {
-                    userId: {
-                        eq: userId
-                    }
-                },
-                limit: 1000,
-            }
-        });
+const stringifyCharacterJSONFields = (character: Character): Partial<Character> => {
+  const { id, ...rest } = character;
+  return {
+    ...rest,
+    gear: JSON.stringify(character.gear || []),
+    startingMoves: JSON.stringify(character.startingMoves || []),
+    advancedMovesTwoToTen: JSON.stringify(character.advancedMovesTwoToTen || []),
+    advancedMovesSixToTen: JSON.stringify(character.advancedMovesSixToTen || []),
+    bonds: JSON.stringify(character.bonds || []),
+    abilityScores: JSON.stringify(character.abilityScores || []),
+    race: JSON.stringify(character.race || []),
+    alignment: JSON.stringify(character.alignment || []),
+    look: JSON.stringify(character.look || []),
+    profession: JSON.stringify(character.profession || []),
+    spells: JSON.stringify(character.spells || [])
+  };
+};
 
-        const charList: any = characters.data.listCharacters.items;
-        charList.forEach((item: any) => {
-            jsonCharacter(item)
-        });
+export const getCharacters = async (): Promise<Character[]> => {
+  try {
+    const { data } = await client.graphql({ query: listCharactersQuery });
+    const rawItems = (data as any)?.listCharacters?.items || [];
+    return rawItems.filter((item: any) => item != null).map(parseCharacterJSONFields);
+  } catch (error) {
+    console.error('Error fetching characters:', error);
+    return [];
+  }
+};
 
-        return charList;
-    }
-    catch(ex) {
-        console.error(ex);
-    }
+export const getCharacter = async (id: string): Promise<Character | null> => {
+  try {
+    const { data } = await client.graphql({ query: getCharacterQuery, variables: { id } });
+    return parseCharacterJSONFields(data.getCharacter);
+  } catch (error) {
+    console.error('Error fetching character:', error);
+    return null;
+  }
+};
 
-    return result;
-}
+export const createCharacter = async (character: Omit<Character, 'id'>): Promise<Character | null> => {
+  try {
+    const id = uuid.generate();
+    const input = { id, ...stringifyCharacterJSONFields(character as Character) };
+    const { data } = await client.graphql({ query: createCharacterMutation, variables: { input } });
+    return parseCharacterJSONFields(data.createCharacter);
+  } catch (error) {
+    console.error('Error creating character:', error);
+    return null;
+  }
+};
 
-export async function createNewCharacter(character: any) {
-    
-    try {
-       
-        //don't mutate the original character;
-        character.id = uuid.generate();
-        let newCharacter = JSON.parse(JSON.stringify(character));
-        newCharacter = stringifyCharacter(newCharacter);
+export const createNewCharacter = async (character: Partial<Character>): Promise<Character | null> => {
+  try {
+    const baseCharacter: Character = {
+      id: uuid.generate(),
+      name: character.name || 'New Character',
+      level: character.level || 1,
+      xp: character.xp || 0,
+      armor: character.armor || 0,
+      hitPointsMax: character.hitPointsMax || 0,
+      hitPointsCurrent: character.hitPointsCurrent || 0,
+      coin: character.coin || 0,
+      loadMax: character.loadMax || 0,
+      loadCurrent: character.loadCurrent || 0,
+      isTemplate: character.isTemplate || false,
+      tags: character.tags || [],
+      notes: character.notes || [],
+      gear: character.gear || [],
+      startingMoves: character.startingMoves || [],
+      advancedMovesTwoToTen: character.advancedMovesTwoToTen || [],
+      advancedMovesSixToTen: character.advancedMovesSixToTen || [],
+      bonds: character.bonds || [],
+      abilityScores: character.abilityScores || [],
+      race: character.race || [],
+      alignment: character.alignment || [],
+      look: character.look || [],
+      profession: character.profession || [],
+      spells: character.spells || [],
+      userId: character.userId || ''
+    };
 
-        const { data, errors } = await client.graphql({ query: mutations.createCharacter,
-            variables: {
-                input: newCharacter
-            }
-        });
+    const newCharacter = {
+      id: baseCharacter.id,
+      ...stringifyCharacterJSONFields(baseCharacter)
+    };
 
-        return newCharacter.id;
-       
-    }
-    catch(ex) {
-        console.error(ex);
-        return null;
-    }
+    const { data } = await client.graphql({ query: createCharacterMutation, variables: { input: newCharacter } });
+    return parseCharacterJSONFields(data.createCharacter);
+  } catch (error) {
+    console.error('Error creating new character:', error);
+    return null;
+  }
+};
 
-}
+export const updateCharacter = async (id: string, updates: Partial<Character>): Promise<boolean> => {
+  try {
+    const updated = stringifyCharacterJSONFields({ ...updates, id } as Character);
+    await client.graphql({ query: updateCharacterMutation, variables: { input: { id, ...updated } } });
+    return true;
+  } catch (error) {
+    console.error('Error updating character:', error);
+    return false;
+  }
+};
 
+export const deleteCharacter = async (id: string): Promise<boolean> => {
+  try {
+    await client.graphql({ query: deleteCharacterMutation, variables: { input: { id } } });
+    return true;
+  } catch (error) {
+    console.error('Error deleting character:', error);
+    return false;
+  }
+};
 
-export async function updateCharacter(character: any) {
-    
-    try {
-       
-        let updatedCharacter = JSON.parse(JSON.stringify(character));
-        updatedCharacter = stringifyCharacter(updatedCharacter);
-
-        const { data, errors } = await client.graphql({ query: mutations.updateCharacter,
-            variables: {
-                input: updatedCharacter
-            }
-        });
-        
-        if (errors) {
-            return null
-        }
-
-        return jsonCharacter(data.updateCharacter);
-       
-    }
-    catch(ex) {
-        console.error(ex);
-        return null;
-    }
-
-}
-
-// Fetch a single record by its identifier
-export async function getCharacter(id: string) {
-    const { data, errors } = await client.graphql({
-        query: queries.getCharacter,
-        variables: { id: id },
-        authMode: 'iam',
-    });
-
-    const character = data.getCharacter;
-    return jsonCharacter(character);
-}
-
-export async function deleteCharacter(id: any) {
-    try {
-        const character: any = await getCharacter(id);
-        const { data, errors } = await client.graphql({ query: mutations.deleteCharacter,
-            variables: { 
-                    input: {
-                        id: character.id
-                    }
-                 
-            } 
-        });
-    }
-    catch(ex) {
-        console.error(ex);
-        return false;
-    }
-}
-
-function stringifyCharacter(character: any) {
-    delete character['__typename'];
-    delete character['updatedAt'];
-    delete character['createdAt'];
-    delete character['_lastChangedAt'];
-    delete character['_deleted'];
-    delete character['owner'];
-
-    character.alignment = stringifyJson(character.alignment);
-    character.profession = stringifyJson(character.profession);
-    character.startingMoves = stringifyJson(character.startingMoves);
-    character.look = stringifyJson(character.look);
-    character.abilityScores = stringifyJson(character.abilityScores);
-    character.advancedMovesTwoToTen = stringifyJson(character.advancedMovesTwoToTen);
-    character.advancedMovesSixToTen = stringifyJson(character.advancedMovesSixToTen);
-    character.bonds = stringifyJson(character.bonds);
-    character.race = stringifyJson(character.race);
-    character.gear = stringifyJson(character.gear);
-    
-    return character;
-}
-
-function stringifyJson(thing: any) {
-    if(!thing) return null;
-
-    if (thing.length == 0) {
-        return null;
-    }
-
-    delete thing['__typename'];
-    delete thing['updatedAt'];
-    delete thing['createdAt'];
-    delete thing['_lastChangedAt'];
-    delete thing['_deleted'];
-    delete thing['owner'];
-
-    return JSON.stringify(thing);
-}
-
-function jsonCharacter(character: any) {
-    character.alignment = formatJson(character.alignment);
-    character.profession = formatJson(character.profession);
-    character.startingMoves = formatJson(character.startingMoves);
-    character.look = formatJson(character.look);
-    character.abilityScores = formatJson(character.abilityScores);
-    character.advancedMovesTwoToTen = formatJson(character.advancedMovesTwoToTen);
-    character.advancedMovesSixToTen = formatJson(character.advancedMovesSixToTen);
-    character.bonds = formatJson(character.bonds);
-    character.race = formatJson(character.race);
-    character.gear = formatJson(character.gear);
-    
-    return character;
-}
-
-function formatJson(text: any) {
-    if(!text) return text;
-    return JSON.parse(text);
-}
+export const getCharactersWithProfessions = async (userId: string): Promise<Character[]> => {
+  try {
+    const characters = await getCharacters();
+    return characters.filter((c) => c.userId === userId && c.profession);
+  } catch (error) {
+    console.error('Error filtering characters with professions:', error);
+    return [];
+  }
+};

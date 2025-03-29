@@ -139,7 +139,6 @@ import { FrontType } from '@/enums/frontType';
 import { VueShowdown } from 'vue-showdown';
 import { toast } from 'vue3-toastify';
 import { getApiKey } from '@/services/openAiService';
-import { defineEmits } from 'vue';
 import Modal from 'bootstrap/js/dist/modal';
 
 const emit = defineEmits(['openUserSettingsModal']);

@@ -794,6 +794,74 @@ export type DeleteMapInput = {
   id: string,
 };
 
+export type CreateCampaignInput = {
+  id?: string | null,
+  name: string,
+  description?: string | null,
+  characterIds?: Array< string | null > | null,
+  frontIds?: Array< string | null > | null,
+  mapIds?: Array< string | null > | null,
+  steadingIds?: Array< string | null > | null,
+  sessions?: Array< SessionEntryInput | null > | null,
+};
+
+export type SessionEntryInput = {
+  id: string,
+  title: string,
+  date: string,
+  notes?: string | null,
+};
+
+export type ModelCampaignConditionInput = {
+  name?: ModelStringInput | null,
+  description?: ModelStringInput | null,
+  characterIds?: ModelStringInput | null,
+  frontIds?: ModelStringInput | null,
+  mapIds?: ModelStringInput | null,
+  steadingIds?: ModelStringInput | null,
+  and?: Array< ModelCampaignConditionInput | null > | null,
+  or?: Array< ModelCampaignConditionInput | null > | null,
+  not?: ModelCampaignConditionInput | null,
+};
+
+export type Campaign = {
+  __typename: "Campaign",
+  id: string,
+  name: string,
+  description?: string | null,
+  characterIds?: Array< string | null > | null,
+  frontIds?: Array< string | null > | null,
+  mapIds?: Array< string | null > | null,
+  steadingIds?: Array< string | null > | null,
+  sessions?:  Array<SessionEntry | null > | null,
+  createdAt: string,
+  updatedAt: string,
+  owner?: string | null,
+};
+
+export type SessionEntry = {
+  __typename: "SessionEntry",
+  id: string,
+  title: string,
+  date: string,
+  notes?: string | null,
+};
+
+export type UpdateCampaignInput = {
+  id: string,
+  name?: string | null,
+  description?: string | null,
+  characterIds?: Array< string | null > | null,
+  frontIds?: Array< string | null > | null,
+  mapIds?: Array< string | null > | null,
+  steadingIds?: Array< string | null > | null,
+  sessions?: Array< SessionEntryInput | null > | null,
+};
+
+export type DeleteCampaignInput = {
+  id: string,
+};
+
 export type ModelProfessionFilterInput = {
   name?: ModelStringInput | null,
   description?: ModelStringInput | null,
@@ -1059,6 +1127,25 @@ export type ModelMapConnection = {
   nextToken?: string | null,
 };
 
+export type ModelCampaignFilterInput = {
+  id?: ModelIDInput | null,
+  name?: ModelStringInput | null,
+  description?: ModelStringInput | null,
+  characterIds?: ModelStringInput | null,
+  frontIds?: ModelStringInput | null,
+  mapIds?: ModelStringInput | null,
+  steadingIds?: ModelStringInput | null,
+  and?: Array< ModelCampaignFilterInput | null > | null,
+  or?: Array< ModelCampaignFilterInput | null > | null,
+  not?: ModelCampaignFilterInput | null,
+};
+
+export type ModelCampaignConnection = {
+  __typename: "ModelCampaignConnection",
+  items:  Array<Campaign | null >,
+  nextToken?: string | null,
+};
+
 export type ModelSubscriptionProfessionFilterInput = {
   name?: ModelSubscriptionStringInput | null,
   description?: ModelSubscriptionStringInput | null,
@@ -1278,6 +1365,18 @@ export type ModelSubscriptionMapFilterInput = {
   locations?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionMapFilterInput | null > | null,
   or?: Array< ModelSubscriptionMapFilterInput | null > | null,
+};
+
+export type ModelSubscriptionCampaignFilterInput = {
+  id?: ModelSubscriptionIDInput | null,
+  name?: ModelSubscriptionStringInput | null,
+  description?: ModelSubscriptionStringInput | null,
+  characterIds?: ModelSubscriptionStringInput | null,
+  frontIds?: ModelSubscriptionStringInput | null,
+  mapIds?: ModelSubscriptionStringInput | null,
+  steadingIds?: ModelSubscriptionStringInput | null,
+  and?: Array< ModelSubscriptionCampaignFilterInput | null > | null,
+  or?: Array< ModelSubscriptionCampaignFilterInput | null > | null,
 };
 
 export type CreateProfessionMutationVariables = {
@@ -2129,6 +2228,90 @@ export type DeleteMapMutation = {
   } | null,
 };
 
+export type CreateCampaignMutationVariables = {
+  input: CreateCampaignInput,
+  condition?: ModelCampaignConditionInput | null,
+};
+
+export type CreateCampaignMutation = {
+  createCampaign?:  {
+    __typename: "Campaign",
+    id: string,
+    name: string,
+    description?: string | null,
+    characterIds?: Array< string | null > | null,
+    frontIds?: Array< string | null > | null,
+    mapIds?: Array< string | null > | null,
+    steadingIds?: Array< string | null > | null,
+    sessions?:  Array< {
+      __typename: "SessionEntry",
+      id: string,
+      title: string,
+      date: string,
+      notes?: string | null,
+    } | null > | null,
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type UpdateCampaignMutationVariables = {
+  input: UpdateCampaignInput,
+  condition?: ModelCampaignConditionInput | null,
+};
+
+export type UpdateCampaignMutation = {
+  updateCampaign?:  {
+    __typename: "Campaign",
+    id: string,
+    name: string,
+    description?: string | null,
+    characterIds?: Array< string | null > | null,
+    frontIds?: Array< string | null > | null,
+    mapIds?: Array< string | null > | null,
+    steadingIds?: Array< string | null > | null,
+    sessions?:  Array< {
+      __typename: "SessionEntry",
+      id: string,
+      title: string,
+      date: string,
+      notes?: string | null,
+    } | null > | null,
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type DeleteCampaignMutationVariables = {
+  input: DeleteCampaignInput,
+  condition?: ModelCampaignConditionInput | null,
+};
+
+export type DeleteCampaignMutation = {
+  deleteCampaign?:  {
+    __typename: "Campaign",
+    id: string,
+    name: string,
+    description?: string | null,
+    characterIds?: Array< string | null > | null,
+    frontIds?: Array< string | null > | null,
+    mapIds?: Array< string | null > | null,
+    steadingIds?: Array< string | null > | null,
+    sessions?:  Array< {
+      __typename: "SessionEntry",
+      id: string,
+      title: string,
+      date: string,
+      notes?: string | null,
+    } | null > | null,
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
 export type GetProfessionQueryVariables = {
   id: string,
 };
@@ -2739,6 +2922,59 @@ export type ListMapsQuery = {
       name: string,
       mapFile: string,
       locations?: string | null,
+      createdAt: string,
+      updatedAt: string,
+      owner?: string | null,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type GetCampaignQueryVariables = {
+  id: string,
+};
+
+export type GetCampaignQuery = {
+  getCampaign?:  {
+    __typename: "Campaign",
+    id: string,
+    name: string,
+    description?: string | null,
+    characterIds?: Array< string | null > | null,
+    frontIds?: Array< string | null > | null,
+    mapIds?: Array< string | null > | null,
+    steadingIds?: Array< string | null > | null,
+    sessions?:  Array< {
+      __typename: "SessionEntry",
+      id: string,
+      title: string,
+      date: string,
+      notes?: string | null,
+    } | null > | null,
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type ListCampaignsQueryVariables = {
+  filter?: ModelCampaignFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ListCampaignsQuery = {
+  listCampaigns?:  {
+    __typename: "ModelCampaignConnection",
+    items:  Array< {
+      __typename: "Campaign",
+      id: string,
+      name: string,
+      description?: string | null,
+      characterIds?: Array< string | null > | null,
+      frontIds?: Array< string | null > | null,
+      mapIds?: Array< string | null > | null,
+      steadingIds?: Array< string | null > | null,
       createdAt: string,
       updatedAt: string,
       owner?: string | null,
@@ -3563,6 +3799,90 @@ export type OnDeleteMapSubscription = {
     name: string,
     mapFile: string,
     locations?: string | null,
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type OnCreateCampaignSubscriptionVariables = {
+  filter?: ModelSubscriptionCampaignFilterInput | null,
+  owner?: string | null,
+};
+
+export type OnCreateCampaignSubscription = {
+  onCreateCampaign?:  {
+    __typename: "Campaign",
+    id: string,
+    name: string,
+    description?: string | null,
+    characterIds?: Array< string | null > | null,
+    frontIds?: Array< string | null > | null,
+    mapIds?: Array< string | null > | null,
+    steadingIds?: Array< string | null > | null,
+    sessions?:  Array< {
+      __typename: "SessionEntry",
+      id: string,
+      title: string,
+      date: string,
+      notes?: string | null,
+    } | null > | null,
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type OnUpdateCampaignSubscriptionVariables = {
+  filter?: ModelSubscriptionCampaignFilterInput | null,
+  owner?: string | null,
+};
+
+export type OnUpdateCampaignSubscription = {
+  onUpdateCampaign?:  {
+    __typename: "Campaign",
+    id: string,
+    name: string,
+    description?: string | null,
+    characterIds?: Array< string | null > | null,
+    frontIds?: Array< string | null > | null,
+    mapIds?: Array< string | null > | null,
+    steadingIds?: Array< string | null > | null,
+    sessions?:  Array< {
+      __typename: "SessionEntry",
+      id: string,
+      title: string,
+      date: string,
+      notes?: string | null,
+    } | null > | null,
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type OnDeleteCampaignSubscriptionVariables = {
+  filter?: ModelSubscriptionCampaignFilterInput | null,
+  owner?: string | null,
+};
+
+export type OnDeleteCampaignSubscription = {
+  onDeleteCampaign?:  {
+    __typename: "Campaign",
+    id: string,
+    name: string,
+    description?: string | null,
+    characterIds?: Array< string | null > | null,
+    frontIds?: Array< string | null > | null,
+    mapIds?: Array< string | null > | null,
+    steadingIds?: Array< string | null > | null,
+    sessions?:  Array< {
+      __typename: "SessionEntry",
+      id: string,
+      title: string,
+      date: string,
+      notes?: string | null,
+    } | null > | null,
     createdAt: string,
     updatedAt: string,
     owner?: string | null,

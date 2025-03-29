@@ -827,3 +827,90 @@ export const onDeleteMap = /* GraphQL */ `subscription OnDeleteMap(
   APITypes.OnDeleteMapSubscriptionVariables,
   APITypes.OnDeleteMapSubscription
 >;
+export const onCreateCampaign = /* GraphQL */ `subscription OnCreateCampaign(
+  $filter: ModelSubscriptionCampaignFilterInput
+  $owner: String
+) {
+  onCreateCampaign(filter: $filter, owner: $owner) {
+    id
+    name
+    description
+    characterIds
+    frontIds
+    mapIds
+    steadingIds
+    sessions {
+      id
+      title
+      date
+      notes
+      __typename
+    }
+    createdAt
+    updatedAt
+    owner
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnCreateCampaignSubscriptionVariables,
+  APITypes.OnCreateCampaignSubscription
+>;
+export const onUpdateCampaign = /* GraphQL */ `subscription OnUpdateCampaign(
+  $filter: ModelSubscriptionCampaignFilterInput
+  $owner: String
+) {
+  onUpdateCampaign(filter: $filter, owner: $owner) {
+    id
+    name
+    description
+    characterIds
+    frontIds
+    mapIds
+    steadingIds
+    sessions {
+      id
+      title
+      date
+      notes
+      __typename
+    }
+    createdAt
+    updatedAt
+    owner
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnUpdateCampaignSubscriptionVariables,
+  APITypes.OnUpdateCampaignSubscription
+>;
+export const onDeleteCampaign = /* GraphQL */ `subscription OnDeleteCampaign(
+  $filter: ModelSubscriptionCampaignFilterInput
+  $owner: String
+) {
+  onDeleteCampaign(filter: $filter, owner: $owner) {
+    id
+    name
+    description
+    characterIds
+    frontIds
+    mapIds
+    steadingIds
+    sessions {
+      id
+      title
+      date
+      notes
+      __typename
+    }
+    createdAt
+    updatedAt
+    owner
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnDeleteCampaignSubscriptionVariables,
+  APITypes.OnDeleteCampaignSubscription
+>;
