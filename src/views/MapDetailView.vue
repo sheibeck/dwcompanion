@@ -220,8 +220,8 @@
             keyboard: false
         });
 
-        await refreshSteadings();
         await setupMap();
+        await refreshSteadings();
     });
 
     function getLocationTypeSelectLabel(locationType: any) {
@@ -229,7 +229,9 @@
     }
 
     function getSteadingName(id: string) {
-        return steadings.value.find((steading:any) => steading.id === id)?.name;
+        if (steadings.value) {
+            return steadings.value.find((steading:any) => steading.id === id)?.name;
+        }
     }
 
     async function refreshSteadings() {
@@ -388,20 +390,16 @@
     }
 
     async function listSteadings() {
-        const userId = await globalStore.getUserId();
-        if (userId) {
-            const steadingList = await getSteadings(userId);
-            return steadingList.sort((a: any, b: any) => {
-                if (a.name < b.name) {
-                    return -1;
-                }
-                if (a.name > b.name) {
-                    return 1;
-                }
-                return 0;
-            });
-        }
-        return null;
+        const steadingList = await getSteadings(map.value.userId);
+        return steadingList.sort((a: any, b: any) => {
+            if (a.name < b.name) {
+                return -1;
+            }
+            if (a.name > b.name) {
+                return 1;
+            }
+            return 0;
+        });
     }
 
     function getLocationTypeIconName(location: any) {

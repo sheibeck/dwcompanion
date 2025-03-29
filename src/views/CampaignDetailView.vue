@@ -1,75 +1,87 @@
 <template>
   <div class="container py-4">
-    <div v-if="!campaign">
+    <div v-if="!userId">
+      <p class="text-muted">Please login to view this campaign.</p>
+    </div>
+
+    <div v-else-if="!campaign">
       <p class="text-muted">Loading campaign...</p>
     </div>
 
     <div v-else>
-      <h1 class="d-print-none d-flex">
-        Campaign
-        <div class="ms-3" v-if="isOwner">
-          <a href="/campaigns/" class="btn btn-secondary mb-2"><img src="@/assets/earth-asia-solid.svg" alt="plus icon" class="filter-white" /> My Campaigns</a>
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <h1 class="d-print-none">Campaign</h1>
+        <div v-if="isOwner" class="d-flex gap-2">
+          <a href="/campaigns/" class="btn btn-outline-secondary">
+            <img src="@/assets/earth-asia-solid.svg" alt="planet icon" class="filter-black" /> My Campaigns
+          </a>
+          <button @click="saveCampaignDetails" class="btn btn-outline-primary btn-sm">Save Campaign</button>
         </div>
-      </h1>
+      </div>
 
       <div class="mb-4">
         <input v-model="campaign.name" class="form-control form-control-lg mb-2" placeholder="Campaign Name" />
         <textarea v-model="campaign.description" class="form-control mb-2" placeholder="Campaign Description"></textarea>
-        <button v-if="isOwner" @click="saveCampaignDetails" class="btn btn-outline-primary btn-sm">Save Campaign</button>
       </div>
 
       <section class="mb-4">
-        <h2 class="h5 mb-3">Linked Items</h2>
+        <h2 class="h5 mb-3">Campaign Items
+          <button v-if="isOwner" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#assignModal">
+            Assign Items
+          </button>
+        </h2> 
         <div class="row">
           <div class="col-md-6 mb-3">
-            <strong>Characters:</strong>
-            <ul class="list-unstyled">
-              <li v-for="char in linkedCharacters" :key="char.id">
-                <RouterLink :to="{ name: 'character', params: { id: char.id } }" class="link-primary">
-                  {{ char.name }} ({{  char.profession.name }})
-                </RouterLink>
-              </li>
-            </ul>
+            <div class="border rounded p-2 overflow-auto" style="max-height: 200px;">
+              <strong>Characters:</strong>
+              <ul class="list-unstyled mb-0">
+                <li v-for="char in linkedCharacters" :key="char.id">
+                  <RouterLink :to="{ name: 'character', params: { id: char.id } }" class="link-primary">
+                    {{ char.name }} ({{ char.profession.name }})
+                  </RouterLink>
+                </li>
+              </ul>
+            </div>
           </div>
           <div class="col-md-6 mb-3">
-            <strong>Fronts:</strong>
-            <ul class="list-unstyled">
-              <li v-for="front in linkedFronts" :key="front.id">
-                <span v-if="front.resolved" class="me-1">☑</span>
-                <span v-else class="me-1">☐</span>
-                <RouterLink :to="{ name: 'front', params: { id: front.id } }" class="link-primary">
-                  {{ front.name }} ({{ front.type }})
-                </RouterLink>
-              </li>
-            </ul>
+            <div class="border rounded p-2 overflow-auto" style="max-height: 200px;">
+              <strong>Fronts:</strong>
+              <ul class="list-unstyled mb-0">
+                <li v-for="front in linkedFronts" :key="front.id">
+                  <span v-if="front.resolved" class="me-1">☑</span>
+                  <span v-else class="me-1">☐</span>
+                  <RouterLink :to="{ name: 'front', params: { id: front.id } }" class="link-primary">
+                    {{ front.name }} ({{ front.type }})
+                  </RouterLink>
+                </li>
+              </ul>
+            </div>
           </div>
           <div class="col-md-6 mb-3">
-            <strong>Maps:</strong>
-            <ul class="list-unstyled">
-              <li v-for="map in linkedMaps" :key="map.id">
-                <RouterLink :to="{ name: 'map', params: { id: map.id } }" class="link-primary">
-                  {{ map.name }}
-                </RouterLink>
-              </li>
-            </ul>
+            <div class="border rounded p-2 overflow-auto" style="max-height: 200px;">
+              <strong>Maps:</strong>
+              <ul class="list-unstyled mb-0">
+                <li v-for="map in linkedMaps" :key="map.id">
+                  <RouterLink :to="{ name: 'map', params: { id: map.id } }" class="link-primary">
+                    {{ map.name }}
+                  </RouterLink>
+                </li>
+              </ul>
+            </div>
           </div>
           <div class="col-md-6 mb-3">
-            <strong>Steadings:</strong>
-            <ul class="list-unstyled">
-              <li v-for="steading in linkedSteadings" :key="steading.id">
-                <RouterLink :to="{ name: 'steading', params: { id: steading.id } }" class="link-primary">
-                  {{ steading.name }} ({{ steading.type }})
-                </RouterLink>
-              </li>
-            </ul>
+            <div class="border rounded p-2 overflow-auto" style="max-height: 200px;">
+              <strong>Steadings:</strong>
+              <ul class="list-unstyled mb-0">
+                <li v-for="steading in linkedSteadings" :key="steading.id">
+                  <RouterLink :to="{ name: 'steading', params: { id: steading.id } }" class="link-primary">
+                    {{ steading.name }} ({{ steading.type }})
+                  </RouterLink>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
-      </section>
-
-      <section class="mb-4" v-if="isOwner">
-        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#assignModal">
-          Assign Items
-        </button>
       </section>
 
       <section class="mb-4">
@@ -91,7 +103,7 @@
                   <h3 class="h6 mb-1">{{ session.title }}</h3>
                   <p class="text-muted small mb-2">{{ session.date }}</p>
                   <div v-html="renderMarkdown(session.notes)" class="prose"></div>
-                  <div class="mt-2">
+                  <div class="mt-2" v-if="isOwner">
                     <button class="btn btn-sm btn-outline-secondary" @click="editSession(session.id)">Edit</button>
                     <button class="btn btn-sm btn-outline-danger ms-2" @click="confirmDelete(session.id)">Delete</button>
                   </div>
@@ -179,6 +191,7 @@
 
   </div>
 </template>
+
 <script setup lang="ts">
 import { computed, onMounted, ref } from 'vue';
 import { useCampaignStore } from '@/stores/campaignStore';
@@ -223,11 +236,11 @@ const sortedMaps = computed(() =>
 const loadCampaign = async () => {
   await campaignStore.fetchCampaignById(route.params.id as string);
   campaign.value = campaignStore.selectedCampaign;
-  await loadLinkedEntities();
-  await loadAvailableEntities();
+  await loadLinkedMapsAndCharacters();
+  await loadAvailableMapsAndCharacters();
 };
 
-const loadLinkedEntities = async () => {
+const loadLinkedMapsAndCharacters = async () => {
   if (!campaign.value) return;
   const characterPromises = campaign.value.characterIds.map(async (id: string) => {
     const c = await getCharacter(id);
@@ -240,7 +253,7 @@ const loadLinkedEntities = async () => {
   await Promise.all([...characterPromises, ...mapPromises]);
 };
 
-const loadAvailableEntities = async () => {
+const loadAvailableMapsAndCharacters = async () => {
   if (!campaign.value?.userId) return;
   allCharacters.value = await getCharactersWithProfessions(campaign.value.userId);
   allMaps.value = await getMaps(campaign.value.userId);
@@ -289,7 +302,12 @@ const saveLinkedEntitiesAndClose = async () => {
     characterIds: campaign.value.characterIds,
     mapIds: campaign.value.mapIds
   });
+
+  // Immediately fetch and update local entity objects
+  await loadLinkedMapsAndCharacters();
   await campaignStore.loadLinkedEntities();
+
+  toast('Campaign updated.');
 };
 
 const saveCampaignDetails = async () => {
