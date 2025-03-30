@@ -16,7 +16,7 @@
                 </div>
                 <div class="banner-middle">
                     <div class="rotated-text">
-                        The {{ character.profession.name }}
+                        {{ character.profession.name }}
                     </div>
                 </div>
                 <div class="banner-bottom">
@@ -51,7 +51,7 @@
                 </div>
                 <div class="banner-middle">
                     <div class="rotated-text">
-                        The {{ character.profession.name }}
+                        {{ character.profession.name }}
                     </div>
                 </div>
                 <div class="banner-bottom">
@@ -263,6 +263,11 @@ function printCharacter() {
 
 <style scoped lang="scss">
 .character {
+    max-width: 1200px;
+    margin: 0 auto; // Center horizontally
+    width: 100%;
+    padding: 0 1rem; // Optional: add horizontal padding
+    
     .gradient-background {
         background: linear-gradient(to bottom, lightgray, #fff);
         height: 400px;
@@ -289,11 +294,19 @@ function printCharacter() {
             .banner-middle {
                 .rotated-text {
                     width: 600px;
-                    transform: translate(-43%, 300%) rotate(-90deg);
-                    font-size: 4vw;
+                    transform: translate(-255px, 240px) rotate(-90deg);
+                    font-size: 2.5vw;
                     text-align: center;
                 }
             }
+
+            @media(max-width: 1200px) {
+                .banner-middle {
+                    .rotated-text {
+                        font-size: 5vw;
+                    }
+                }
+            } 
 
             .banner-bottom {
                 height: 100%;
@@ -335,7 +348,7 @@ function printCharacter() {
                 display: grid;
                 grid-template-columns: 30% 1fr;
             }
-        }  
+        }
     }
 
     #combat {
@@ -376,7 +389,6 @@ function printCharacter() {
                 padding-top: 20px;
             }
         }
-        
     }
 }
 

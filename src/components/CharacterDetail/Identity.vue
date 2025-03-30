@@ -8,7 +8,7 @@
                     <img src="@/assets/dice-solid.svg" alt="random name" height="20" />
                 </button>
         </div>
-        <div class="input-group mb-2 pe-md-2">
+        <div class="input-group mb-2 pe-md-2 d-print-none">
             <span class="input-group-text text-dark" id="profession">Profession</span>
             <input type="text" min="0" class="form-control text-dark pe-0" aria-label="Level"
                 aria-describedby="profession" v-model="character.profession.name">
@@ -74,6 +74,10 @@ function generateFantasyName(): string {
     }
 
     @media print {
+        #identity {
+            display: grid;
+            grid-template-columns: auto 150px 200px;
+        }
         .form-control {
             border-width: 0px;
         }
