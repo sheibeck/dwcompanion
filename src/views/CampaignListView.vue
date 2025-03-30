@@ -108,7 +108,15 @@ const goToCampaign = (id: string) => {
 onMounted(async () => {
   userId.value = await globalStore.getUserId();
   await loadCampaigns();
+
+  
+  document.title = `Campaign List | Dungeon World Companion`;
 });
+
+onMounted(() => {
+  document.title = "Campaigns";
+});
+
 </script>
 
 <style scoped>

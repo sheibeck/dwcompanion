@@ -54,6 +54,7 @@ onMounted(async () => {
     userId.value = globalStore.currentUser;
     steadingList.value = await getSteadings(userId.value);
     maps.value = await getMaps(userId.value);
+    globalStore.updateTabTitle("Steadings");
 });
 
 async function view(event: MouseEvent, id: string) {

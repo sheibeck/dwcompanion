@@ -56,6 +56,7 @@ onMounted(async () => {
     frontList.value = await getFronts(userId.value);
 
     maps.value = await getMaps(userId.value);
+    globalStore.updateTabTitle("Fronts");
 });
 
 // Function to filter maps based on front id

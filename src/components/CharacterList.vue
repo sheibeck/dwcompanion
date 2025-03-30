@@ -65,6 +65,7 @@ const userId = ref()
 onMounted(async () => {
     userId.value = globalStore.currentUser;
     characterList.value = await getCharactersWithProfessions(userId.value);
+    globalStore.updateTabTitle("Characters");
 });
 
 async function view(event: MouseEvent, id: string) {

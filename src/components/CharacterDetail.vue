@@ -94,7 +94,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onBeforeUnmount, onMounted, ref } from 'vue';
+import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue';
 import Identity from '@/components/CharacterDetail/Identity.vue';
 import Look from '@/components/CharacterDetail/Look.vue';
 import Combat from '@/components/CharacterDetail/Combat.vue';
@@ -157,6 +157,15 @@ onMounted(async () => {
     await setupCharacter();
     window.addEventListener('beforeprint', setPrintOn);
     window.addEventListener('afterprint', setPrintOff);
+});
+
+watch(character, (newVal) => {
+  if (newVal?.name) {
+    globalStore.updateTabTitle(newVal?.name);
+  }
+  else {
+    globalStore.updateTabTitle(newVal?.profession?.name)
+  }
 });
 
 onBeforeUnmount(() => {

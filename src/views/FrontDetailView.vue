@@ -134,7 +134,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted, ref } from 'vue';
+import { computed, onMounted, ref, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { generateDungeonWorldFront, getFront, createFront, updateFront } from '@/services/frontService';
 import { VueSpinnerHourglass } from 'vue3-spinners';
@@ -199,6 +199,12 @@ onMounted(async () => {
 
   await setupFront();
 })
+
+watch(front, (newVal) => {
+  if (newVal?.name) {
+    globalStore.updateTabTitle(newVal?.name);
+  }
+});
 
 async function setupFront() {
     const userId = await globalStore.getUserId();
