@@ -7,7 +7,7 @@
             <input type="number" min="0" class="pe-0 form-control fs-5 text-center" aria-describedby="gear-description"
                 v-model="character.loadCurrent">
         </div>
-        <div class="form-text text-end mb-2 label" id="gear-description">Max Load ({{character.profession.loadBonus}}+ STR) / Current</div>
+        <div class="form-text text-end mb-2 label" id="gear-description">Max Load (<input type="number" class="ms-1 input-sm" v-model="character.profession.loadBonus" />+ STR) / Current</div>
         <div v-for="(gear, index) in character.gear" class="form-text gear">
             <EditableDescription :item="gear.description" :item-id="gear.id"
                 @save-item="(data) => gear.description = data" :editRows="20" 
@@ -41,6 +41,13 @@ initialize();
 
     .gear {
         line-height: .9em;
+    }
+
+    .input-sm {
+        height: 18px;
+        width: 50px;
+        text-align: center;
+        border-width: 1px;
     }
         
     @media print {

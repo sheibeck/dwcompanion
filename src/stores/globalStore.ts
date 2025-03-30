@@ -48,11 +48,16 @@ export const useGlobalStore = defineStore('globalStore', () => {
         currentUser.value = null;
         await router.push({ name: 'login' });
     }
+
+    function updateTabTitle(title: string) {
+        document.title = `${title} | Dungeon World Companion`;
+    }
     
     return { 
         getUserId,
         signOffUser,
         isAuthenticated,
-        currentUser
+        currentUser,
+        updateTabTitle,
     }
 })

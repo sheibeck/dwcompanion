@@ -214,7 +214,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted, ref } from 'vue';
+import { computed, onMounted, ref, watch } from 'vue';
 import { useCampaignStore } from '@/stores/campaignStore';
 import { useGlobalStore } from '@/stores/globalStore';
 import { useRoute } from 'vue-router';
@@ -374,5 +374,11 @@ const isPartyLocation = (steadingId: string): boolean => {
 onMounted(async () => {
   userId.value = await globalStore.getUserId();
   await loadCampaign();
+});
+
+watch(campaign, (newVal) => {
+  if (newVal?.name) {
+    globalStore.updateTabTitle(newVal?.name);
+  }
 });
 </script>

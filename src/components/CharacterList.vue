@@ -37,9 +37,13 @@
 
                         <!-- Portrait Section -->
                         <div class="col-12 col-md-4 d-flex align-items-center justify-content-center">
-                            <img loading="lazy" :src="`/professions/${character.profession.name.toLowerCase()}.png`" 
-                                class="w-100 img-fluid rounded-end portrait-image" 
-                                :alt="`Portrait of ${character.profession.name}`">
+                            <img
+                                loading="lazy"
+                                :src="`/professions/${character.profession?.name?.toLowerCase() || 'custom'}.png`"
+                                class="w-100 img-fluid rounded-end portrait-image"
+                                :alt="`Portrait of ${character.profession?.name || 'Custom'}`"
+                                @error="onImageError"
+                            />
                         </div>
                     </div>
                 </div>
@@ -65,6 +69,7 @@ const userId = ref()
 onMounted(async () => {
     userId.value = globalStore.currentUser;
     characterList.value = await getCharactersWithProfessions(userId.value);
+    globalStore.updateTabTitle("Characters");
 });
 
 async function view(event: MouseEvent, id: string) {
@@ -92,6 +97,11 @@ async function removeCharacter(id: string) {
         toast(`Deleted character ${characterToDelete.name}`);
     }
 }
+
+function onImageError(event: Event) {
+  const target = event.target as HTMLImageElement;
+  target.src = '/professions/custom.png';
+}
 </script>
 
 <style scoped lang="scss">
@@ -99,5 +109,9 @@ async function removeCharacter(id: string) {
     max-width: 150px;  /* Prevents large, fuzzy images */
     height: auto;      /* Maintains aspect ratio */
     object-fit: cover; /* Ensures the image scales nicely */
+}
+
+.card {
+    background: linear-gradient(to bottom, #FDF8E9, #fff);
 }
 </style>

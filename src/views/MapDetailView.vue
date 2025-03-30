@@ -224,6 +224,12 @@
         await refreshSteadings();
     });
 
+    watch(map, (newVal) => {
+        if (newVal?.name) {
+            globalStore.updateTabTitle(newVal?.name);
+        }
+    });
+
     function getLocationTypeSelectLabel(locationType: any) {
         return locationType == LocationType.Steading ? "Steading (link to Steading)" : locationType;
     }

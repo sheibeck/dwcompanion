@@ -58,6 +58,8 @@ onMounted(async () => {
     for (const map of mapList.value) {
         frontsByMapData.value[map.id] = await frontsByMap(map);
     }
+
+    globalStore.updateTabTitle("Maps");
 });
 
 async function view(event: MouseEvent, id: string) {

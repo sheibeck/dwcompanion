@@ -134,7 +134,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted, ref } from 'vue';
+import { computed, onMounted, ref, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { generateDungeonWorldSteading, getSteading, createSteading, updateSteading } from '@/services/steadingService';
 import { VueSpinnerHourglass } from 'vue3-spinners';
@@ -219,6 +219,12 @@ onMounted(async () => {
 
   await setupSteading();
 })
+
+watch(steading, (newVal) => {
+  if (newVal?.name) {
+    globalStore.updateTabTitle(newVal?.name);
+  }
+});
 
 async function setupSteading() {
     const userId = await globalStore.getUserId();

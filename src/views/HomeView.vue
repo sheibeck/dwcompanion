@@ -44,6 +44,7 @@ const getProfessionList = async () => {
 onMounted(async () => {
   const isAuthenticated = await globalStore.isAuthenticated();
   getProfessionList();
+  globalStore.updateTabTitle("Home");
 })
 
 async function createCharacter(profession: string) {
