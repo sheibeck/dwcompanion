@@ -289,8 +289,8 @@ function printCharacter() {
             .banner-middle {
                 .rotated-text {
                     width: 600px;
-                    transform: translate(-43%, 270%) rotate(-90deg);
-                    font-size: 60px;
+                    transform: translate(-43%, 300%) rotate(-90deg);
+                    font-size: 4vw;
                     text-align: center;
                 }
             }
