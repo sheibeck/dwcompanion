@@ -23,6 +23,11 @@
               </a>
               <ul class="dropdown-menu">
                 <li>
+                  <a class="dropdown-item" href="/campaigns">
+                    <img src="@/assets/earth-asia-solid.svg" alt="characters icon" class="filter-light" /> Campaigns
+                  </a>
+                </li>
+                <li>
                   <a class="dropdown-item" href="/characters">
                     <img src="@/assets/users-solid.svg" alt="characters icon" class="filter-light" /> Characters
                   </a>

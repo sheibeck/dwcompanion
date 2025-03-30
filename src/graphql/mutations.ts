@@ -896,3 +896,93 @@ export const deleteMap = /* GraphQL */ `mutation DeleteMap(
   APITypes.DeleteMapMutationVariables,
   APITypes.DeleteMapMutation
 >;
+export const createCampaign = /* GraphQL */ `mutation CreateCampaign(
+  $input: CreateCampaignInput!
+  $condition: ModelCampaignConditionInput
+) {
+  createCampaign(input: $input, condition: $condition) {
+    userId
+    id
+    name
+    description
+    characterIds
+    frontIds
+    mapIds
+    steadingIds
+    sessions {
+      id
+      title
+      date
+      notes
+      __typename
+    }
+    createdAt
+    updatedAt
+    owner
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.CreateCampaignMutationVariables,
+  APITypes.CreateCampaignMutation
+>;
+export const updateCampaign = /* GraphQL */ `mutation UpdateCampaign(
+  $input: UpdateCampaignInput!
+  $condition: ModelCampaignConditionInput
+) {
+  updateCampaign(input: $input, condition: $condition) {
+    userId
+    id
+    name
+    description
+    characterIds
+    frontIds
+    mapIds
+    steadingIds
+    sessions {
+      id
+      title
+      date
+      notes
+      __typename
+    }
+    createdAt
+    updatedAt
+    owner
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.UpdateCampaignMutationVariables,
+  APITypes.UpdateCampaignMutation
+>;
+export const deleteCampaign = /* GraphQL */ `mutation DeleteCampaign(
+  $input: DeleteCampaignInput!
+  $condition: ModelCampaignConditionInput
+) {
+  deleteCampaign(input: $input, condition: $condition) {
+    userId
+    id
+    name
+    description
+    characterIds
+    frontIds
+    mapIds
+    steadingIds
+    sessions {
+      id
+      title
+      date
+      notes
+      __typename
+    }
+    createdAt
+    updatedAt
+    owner
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.DeleteCampaignMutationVariables,
+  APITypes.DeleteCampaignMutation
+>;

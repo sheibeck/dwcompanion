@@ -580,3 +580,58 @@ export const listMaps = /* GraphQL */ `query ListMaps($filter: ModelMapFilterInp
   }
 }
 ` as GeneratedQuery<APITypes.ListMapsQueryVariables, APITypes.ListMapsQuery>;
+export const getCampaign = /* GraphQL */ `query GetCampaign($id: ID!) {
+  getCampaign(id: $id) {
+    userId
+    id
+    name
+    description
+    characterIds
+    frontIds
+    mapIds
+    steadingIds
+    sessions {
+      id
+      title
+      date
+      notes
+      __typename
+    }
+    createdAt
+    updatedAt
+    owner
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.GetCampaignQueryVariables,
+  APITypes.GetCampaignQuery
+>;
+export const listCampaigns = /* GraphQL */ `query ListCampaigns(
+  $filter: ModelCampaignFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listCampaigns(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      userId
+      id
+      name
+      description
+      characterIds
+      frontIds
+      mapIds
+      steadingIds
+      createdAt
+      updatedAt
+      owner
+      __typename
+    }
+    nextToken
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.ListCampaignsQueryVariables,
+  APITypes.ListCampaignsQuery
+>;

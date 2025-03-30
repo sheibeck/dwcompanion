@@ -14,6 +14,16 @@ const router = createRouter({
       component: () => import('../views/HomeView.vue')
     },
     {
+      path: '/campaigns',
+      name: 'campaigns',
+      component: () => import('../views/CampaignListView.vue')
+    },
+    {
+      path: '/campaign/:id',
+      name: 'campaign',
+      component: () => import('../views/CampaignDetailView.vue')
+    },
+    {
       path: '/characters',
       name: 'characters',
       component: () => import('../views/CharacterListView.vue')

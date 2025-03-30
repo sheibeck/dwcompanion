@@ -68,28 +68,34 @@ function deleteItem(id: String): any {
     }
 }
 
-const getMoveList = computed(() =>{ 
-    switch(moveType) {
-        case MoveType.STARTING_MOVES:
-    
-            if (isOverflow) {
-                return character.startingMoves?.filter((m: any) => m.isStartingMove == true && m.isOverflow == true);
-            }
-            else {
-                return character.startingMoves?.filter((m: any) => m.isStartingMove == true && !m.isOverflow)
-                    .sort(sortByHeight);
-            }
-            break;
+const getMoveList = computed(() => {
+  switch (moveType) {
+    case MoveType.STARTING_MOVES:
+      if (Array.isArray(character.startingMoves)) {
+        if (isOverflow) {
+          return character.startingMoves.filter((m: any) => m.isStartingMove === true && m.isOverflow === true);
+        } else {
+          return character.startingMoves
+            .filter((m: any) => m.isStartingMove === true && !m.isOverflow)
+            .sort(sortByHeight);
+        }
+      }
+      return [];
 
-        case MoveType.TWO_TO_TEN:
-            return character.advancedMovesTwoToTen?.sort(sortByHeight);
-            break;
+    case MoveType.TWO_TO_TEN:
+      return Array.isArray(character.advancedMovesTwoToTen)
+        ? character.advancedMovesTwoToTen.sort(sortByHeight)
+        : [];
 
-        case MoveType.SIX_TO_TEN:
-            return character.advancedMovesSixToTen?.sort(sortByHeight);
-        break;
-    }
-})
+    case MoveType.SIX_TO_TEN:
+      return Array.isArray(character.advancedMovesSixToTen)
+        ? character.advancedMovesSixToTen.sort(sortByHeight)
+        : [];
+
+    default:
+      return [];
+  }
+});
 
 function getMovesByType(): any { 
     switch(moveType) {

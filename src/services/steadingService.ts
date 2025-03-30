@@ -141,7 +141,6 @@ export async function updateSteading(steading: any) {
 
 }
 
-
 // Fetch a single record by its identifier
 export async function getSteading(id: string) {
   const { data, errors } = await client.graphql({

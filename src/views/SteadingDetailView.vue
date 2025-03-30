@@ -4,6 +4,9 @@
     <div v-if="isOwner">
         <a href="/steadings/" class="btn btn-secondary ms-2"><img src="@/assets/tree-city-solid.svg" alt="plus icon" class="filter-white" /> My Steadings</a>
     </div>
+    <div v-if="isOwner">
+        <a href="https://chatgpt.com/g/g-QyO1yNoE3-dungeon-world-steadings" class="btn btn-outline-secondary ms-2">Create with AI</a>
+    </div>
     <button v-if="isOwner" class="btn btn-secondary text-light ms-auto" @click="settingsModal.show()">
         <img src="@/assets/gear-solid.svg" alt="share icon" class="filter-white" /> Settings
     </button>
@@ -47,7 +50,7 @@
               <textarea type="text" class="form-control from-control-sm" ref="description" :rows="20" v-model="steading.description"></textarea>
 
               <div class="d-flex align-self-start">
-                  <button class="btn btn-link" type="button" @click="saveDescription()">
+                  <button class="btn btn-link" type="button" @click="saveDescription();update();">
                       <img src="@/assets/floppy-disk-solid.svg" alt="save description"/>
                   </button>
               </div>
@@ -104,8 +107,9 @@
                   
                   <div class="input-group mb-2 pe-md-2">
                       <span class="input-group-text text-dark" id="name">Name</span>
-                      <input type="text" class="form-control text-dark" aria-label="Name" aria-describedby="name"
+                      <input type="text" class="form-control text-dark" disabled="true" aria-label="Name" aria-describedby="name"
                           v-model="steading.name">
+                      <small>Name will auto populate from frist line in your Steading description. Make sure it starts with # </small>
                   </div>
                   
                   <div class="" v-if="isOwner">
@@ -139,7 +143,6 @@ import { SteadingType } from '@/enums/steadingType';
 import { VueShowdown } from 'vue-showdown';
 import { toast } from 'vue3-toastify';
 import { getApiKey } from '@/services/openAiService';
-import { defineEmits } from 'vue';
 import Modal from 'bootstrap/js/dist/modal';
 
 const emit = defineEmits(['openUserSettingsModal']);
