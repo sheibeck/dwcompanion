@@ -12,7 +12,7 @@
             <input type="number" min="0" class="form-control fs-5 text-center pe-0" aria-describedby="hitpoint-description"
                 v-model="character.hitPointsCurrent">
         </div>
-        <div class="form-text text-end mb-2 label" id="hitpoint-description">Max Health ({{ character.profession.healthBonus }} + Constitution) / Current</div>
+        <div class="form-text text-end mb-2 label" id="hitpoint-description">Max Health (<input type="number" class="ms-1 input-sm" v-model="character.profession.healthBonus" /> + Constitution) / Current</div>
 
         <div class="input-group">
             <span class="input-group-text w-75 fs-5 bg-dark text-light label">Damage</span>
@@ -41,5 +41,11 @@ const { character } = defineProps<{
         height: 50px;
         border-width: 3px;
         border-color: black;
+    }
+
+    .input-sm {
+        height: 18px;
+        text-align: center;
+        border-width: 1px;
     }
 </style>

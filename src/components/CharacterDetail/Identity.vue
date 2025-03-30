@@ -2,11 +2,16 @@
     <div id="identity" class="" data-bs-theme="dark">
         <div class="input-group mb-2 pe-md-2">
             <span class="input-group-text text-dark" id="name">Name</span>
-            <input type="text" class="form-control text-dark" aria-label="Name" aria-describedby="name"
+            <input type="text" class="form-control text-dark pe-0" aria-label="Name" aria-describedby="name"
                 v-model="character.name"> 
                 <button class="ps-0 btn btn-link d-print-none" type="button" @click="getName()">
                     <img src="@/assets/dice-solid.svg" alt="random name" height="20" />
                 </button>
+        </div>
+        <div class="input-group mb-2 pe-md-2">
+            <span class="input-group-text text-dark" id="profession">Profession</span>
+            <input type="text" min="0" class="form-control text-dark pe-0" aria-label="Level"
+                aria-describedby="profession" v-model="character.profession.name">
         </div>
         <div class="input-group mb-2 pe-md-2">
             <span class="input-group-text text-dark" id="level">Level</span>
@@ -64,7 +69,7 @@ function generateFantasyName(): string {
     @media(min-width: 800px) {
         #identity {
             display: grid;
-            grid-template-columns: auto 150px 200px;
+            grid-template-columns: auto 300px 150px 200px;
         }
     }
 
