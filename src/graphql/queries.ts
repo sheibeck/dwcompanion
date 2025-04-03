@@ -597,6 +597,7 @@ export const getCampaign = /* GraphQL */ `query GetCampaign($id: ID!) {
       notes
       __typename
     }
+    gm_notes
     createdAt
     updatedAt
     owner
@@ -622,6 +623,7 @@ export const listCampaigns = /* GraphQL */ `query ListCampaigns(
       frontIds
       mapIds
       steadingIds
+      gm_notes
       createdAt
       updatedAt
       owner

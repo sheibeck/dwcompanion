@@ -156,6 +156,7 @@ type Campaign @model @auth(rules: [{allow: owner}, {allow: private, operations: 
   mapIds: [String]
   steadingIds: [String]
   sessions: [SessionEntry]
+  gm_notes: String
 }
 
 type SessionEntry {

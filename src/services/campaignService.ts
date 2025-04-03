@@ -19,9 +19,10 @@ const parseCampaign = (raw: any): Campaign | null => {
     mapIds: raw.mapIds?.filter(Boolean) ?? [],
     steadingIds: raw.steadingIds?.filter(Boolean) ?? [],
     sessions: raw.sessions ?? [],
+    gm_notes: raw.gm_notes,
     createdAt: raw.createdAt,
     updatedAt: raw.updatedAt,
-    owner: raw.owner
+    owner: raw.owner,
   };
 };
 

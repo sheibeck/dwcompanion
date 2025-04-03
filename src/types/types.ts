@@ -19,6 +19,7 @@ export interface Campaign {
   createdAt?: string;
   updatedAt?: string;
   owner?: string;
+  gm_notes?: string;
 }
 
 export interface Character {

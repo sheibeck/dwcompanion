@@ -48,9 +48,9 @@
               </ul>
             </div>
           </div>
-          <div class="col-md-6 mb-3">
+          <div class="col-md-6 mb-3" v-if="isOwner">
             <div class="border rounded p-2 overflow-auto" style="max-height: 200px;">
-              <span><strong>Fronts:</strong> <small>(☑ completed front)</small></span>
+              <span><strong>Fronts:</strong> <small>(☑ completed front, only visible to you)</small></span>
               <ul class="list-unstyled mb-0">
                 <li v-for="front in linkedFronts" :key="front.id">
                   <span v-if="front.resolved" class="me-1">☑</span>
@@ -105,6 +105,28 @@
         </div>
       </section>
 
+      <section class="mb-4" v-if="isOwner">
+        <h2 class="h5 mb-2">Gm Notes</h2>
+        <small>(Only visible to you)</small>
+        <div class="d-flex justify-content-between align-items-start">
+          <div class="me-auto w-100">
+            <div v-if="gmedit">
+              <textarea v-model="campaign.gm_notes" class="form-control form-control-sm mb-2 w-100" rows="10"></textarea>
+              <div class="d-flex gap-2" v-if="isOwner">
+                <button class="btn btn-sm btn-success" @click="saveCampaignDetails(); gmedit = false">Save</button>
+                <button class="btn btn-sm btn-secondary" @click="gmedit = false">Cancel</button>
+              </div>
+            </div>
+            <div v-else>
+              <div v-html="renderMarkdown(campaign.gm_notes ?? '')" class="prose"></div>
+              <div class="mt-2">
+                <button class="btn btn-sm btn-outline-secondary" @click="gmedit = true">Edit</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <section class="mb-4">
         <h2 class="h5 mb-2">Sessions</h2>
         <ul v-if="campaign.sessions?.length" class="list-group mb-3">
@@ -114,7 +136,7 @@
                 <div v-if="sessionEditId === session.id">
                   <input v-model="session.title" class="form-control form-control-sm mb-2" />
                   <input v-model="session.date" type="date" class="form-control form-control-sm mb-2" />
-                  <textarea v-model="session.notes" class="form-control form-control-sm mb-2 w-100"></textarea>
+                  <textarea v-model="session.notes" class="form-control form-control-sm mb-2 w-100" rows="10"></textarea>
                   <div class="d-flex gap-2" v-if="isOwner">
                     <button class="btn btn-sm btn-success" @click="saveSessionEdits">Save</button>
                     <button class="btn btn-sm btn-secondary" @click="sessionEditId = null">Cancel</button>
@@ -236,6 +258,8 @@ const characters = ref<Record<string, any>>({});
 const maps = ref<Record<string, any>>({});
 const userId = ref<null | String>(null);
 
+const gmedit = ref<boolean>(false);
+
 const md = new MarkdownIt();
 
 const isOwner = computed(() => {
@@ -334,7 +358,8 @@ const saveLinkedEntitiesAndClose = async () => {
 const saveCampaignDetails = async () => {
   await campaignStore.updateCampaign(campaign.value.id, {
     name: campaign.value.name,
-    description: campaign.value.description
+    description: campaign.value.description,
+    gm_notes: campaign.value.gm_notes,
   });
   toast(`Saved campaign.`);
 };

@@ -916,6 +916,7 @@ export const createCampaign = /* GraphQL */ `mutation CreateCampaign(
       notes
       __typename
     }
+    gm_notes
     createdAt
     updatedAt
     owner
@@ -946,6 +947,7 @@ export const updateCampaign = /* GraphQL */ `mutation UpdateCampaign(
       notes
       __typename
     }
+    gm_notes
     createdAt
     updatedAt
     owner
@@ -976,6 +978,7 @@ export const deleteCampaign = /* GraphQL */ `mutation DeleteCampaign(
       notes
       __typename
     }
+    gm_notes
     createdAt
     updatedAt
     owner
