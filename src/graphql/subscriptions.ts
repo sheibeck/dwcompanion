@@ -847,6 +847,7 @@ export const onCreateCampaign = /* GraphQL */ `subscription OnCreateCampaign(
       notes
       __typename
     }
+    gm_notes
     createdAt
     updatedAt
     owner
@@ -877,6 +878,7 @@ export const onUpdateCampaign = /* GraphQL */ `subscription OnUpdateCampaign(
       notes
       __typename
     }
+    gm_notes
     createdAt
     updatedAt
     owner
@@ -907,6 +909,7 @@ export const onDeleteCampaign = /* GraphQL */ `subscription OnDeleteCampaign(
       notes
       __typename
     }
+    gm_notes
     createdAt
     updatedAt
     owner

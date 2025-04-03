@@ -55,7 +55,8 @@ const globalStore = useGlobalStore();
 const campaigns = ref(campaignStore.campaigns);
 const newCampaign = ref({
   name: '',
-  description: ''
+  description: '',
+  gm_notes: '',
 });
 
 const userId = ref<string | null>(null);
@@ -76,7 +77,8 @@ const createCampaign = async () => {
     mapIds: [],
     frontIds: [],
     steadingIds: [],
-    sessions: []
+    sessions: [],
+    gm_notes: newCampaign.value.gm_notes,
   }, userId.value!);
 
   if (result !== true) {
