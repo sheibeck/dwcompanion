@@ -12,9 +12,6 @@
       <div class="d-flex justify-content-between align-items-center mb-3">
         <h1 class="d-print-none">Campaign</h1>
         <div v-if="isOwner" class="d-flex gap-2">
-          <button v-if="isOwner" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#authModal">
-            <i class="fas fa-cog"></i> Settings
-          </button>
           <a href="/campaigns/" class="btn btn-outline-secondary">
             <img src="@/assets/earth-asia-solid.svg" alt="planet icon" class="filter-black" /> My Campaigns
           </a>
@@ -242,33 +239,6 @@
         </div>
       </div>
     </div>
-
-    <!-- N8N Auth Modal -->
-    <div class="modal fade" id="authModal" tabindex="-1" aria-labelledby="authModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="authModalLabel">Set n8n Login</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            <div class="mb-3">
-              <label class="form-label">Email</label>
-              <input v-model="n8nEmail" type="email" class="form-control" />
-            </div>
-            <div class="mb-3">
-              <label class="form-label">Password</label>
-              <input v-model="n8nPassword" type="password" class="form-control" />
-            </div>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary" @click="saveN8nCredentials">Save</button>
-          </div>
-        </div>
-      </div>
-    </div>
-
   </div>
 </template>
 
@@ -319,11 +289,6 @@ const toggleGmNotes = () => {
 // Function to toggle session details expansion
 const toggleSession = (sessionId: any) => {
   expandedSessions.value[sessionId] = !expandedSessions.value[sessionId];
-};
-
-const openChatWithCampaign = (campaignId: string) => {
-  const url = `https://sterling.braceyourself.solutions/webhook/73ed1047-b5d5-4208-8e68-aa5426cf9ed5/chat?campaignId=${campaignId}`;
-  window.open(url, '_blank');
 };
 
 const sortedSessions = computed(() => {
@@ -457,30 +422,10 @@ const isPartyLocation = (steadingId: string): boolean => {
 };
 
 const chatUrl = `https://sterling.braceyourself.solutions/webhook/73ed1047-b5d5-4208-8e68-aa5426cf9ed5/chat`;
+const aiEnabaledUsers = ["856b1c6b-c662-4cc0-a049-db77eabcf914", "8b9fc86a-725c-4b57-9c3a-90b23af44252"]
 
-// n8n credentials
-const n8nEmail = ref(localStorage.getItem('n8nEmail') || '');
-const n8nPassword = ref(localStorage.getItem('n8nPassword') || '');
-
-const saveN8nCredentials = async () => {
-  localStorage.setItem('n8nEmail', n8nEmail.value);
-  localStorage.setItem('n8nPassword', n8nPassword.value);
-  await loginToN8n(n8nEmail.value, n8nPassword.value);
-  toast('n8n credentials saved and authenticated!');
-};
-
-async function loginToN8n(email: string, password: string) {
-  const res = await fetch('https://sterling.braceyourself.solutions/rest/login', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    credentials: 'include',
-    body: JSON.stringify({ email, password })
-  });
-
-  if (!res.ok) throw new Error('Login failed');
-
-  //initialize chat bot
-  if (res.ok) {
+async function enableAiGm() {
+  if (aiEnabaledUsers.findIndex(uid => userId.value === uid) > -1) {
     await createChat({
       webhookUrl: chatUrl,
       webhookConfig: {
@@ -517,7 +462,7 @@ async function loginToN8n(email: string, password: string) {
 onMounted(async () => {
   userId.value = await globalStore.getUserId();
   await loadCampaign();
-  await loginToN8n(n8nEmail.value, n8nPassword.value);
+  await enableAiGm();
 });
 
 watch(campaign, (newVal) => {
