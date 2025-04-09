@@ -478,13 +478,14 @@ async function loginToN8n(email: string, password: string) {
   });
 
   if (!res.ok) throw new Error('Login failed');
+  else return res.ok;
 }
 
 onMounted(async () => {
   userId.value = await globalStore.getUserId();
   await loadCampaign();
 
-  const authenticated = await loginToN8n(n8nEmail.value, n8nPassword.value);
+  const authenticated: boolean = await loginToN8n(n8nEmail.value, n8nPassword.value);
 
   if (authenticated) {
     await createChat({
