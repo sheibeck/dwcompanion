@@ -169,7 +169,7 @@
       <section v-if="isOwner">
         <h2 class="h5 mb-2">Add Session</h2>
         <input v-model="newSession.title" class="form-control mb-2" placeholder="Session Title" />
-        <textarea v-model="newSession.notes" class="form-control mb-2 w-100" placeholder="Markdown session notes" />
+        <textarea rows="10" v-model="newSession.notes" class="form-control mb-2 w-100" placeholder="Markdown session notes" />
         <button @click="addSession" class="btn btn-success">Add Session</button>
       </section>
     </div>
