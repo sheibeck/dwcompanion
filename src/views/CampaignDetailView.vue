@@ -478,16 +478,9 @@ async function loginToN8n(email: string, password: string) {
   });
 
   if (!res.ok) throw new Error('Login failed');
-  else return res.ok;
-}
 
-onMounted(async () => {
-  userId.value = await globalStore.getUserId();
-  await loadCampaign();
-
-  const authenticated: boolean = await loginToN8n(n8nEmail.value, n8nPassword.value);
-
-  if (authenticated) {
+  //initialize chat bot
+  if (res.ok) {
     await createChat({
       webhookUrl: chatUrl,
       webhookConfig: {
@@ -505,20 +498,26 @@ onMounted(async () => {
       showWelcomeScreen: false,
       defaultLanguage: 'en',
       initialMessages: [
-        'Hail, I am the Game Master. Shall we explore your campaign?'
+        'Hail, I am the Game Master. Shall we explore this campaign?'
       ],
       i18n: {
         en: {
           title: 'Game Master',
-          subtitle: "I can assist you with exploring your campaign world.",
+          subtitle: "I can assist you with exploring this campaign world.",
           footer: '',
           getStarted: 'New Conversation',
-          inputPlaceholder: 'Ask me about your campaign ...',
+          inputPlaceholder: 'Ask me about this campaign ...',
           closeButtonTooltip: 'Close chat'
         },
       },
     });
   }
+}
+
+onMounted(async () => {
+  userId.value = await globalStore.getUserId();
+  await loadCampaign();
+  await loginToN8n(n8nEmail.value, n8nPassword.value);
 });
 
 watch(campaign, (newVal) => {
