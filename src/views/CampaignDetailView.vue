@@ -118,9 +118,13 @@
               </div>
             </div>
             <div v-else>
-              <div v-html="renderMarkdown(campaign.gm_notes ?? '')" class="prose"></div>
+              <div v-if="isGmNotesExpanded" v-html="renderMarkdown(campaign.gm_notes ?? '')" class="prose"></div>
+              <div v-else v-html="renderMarkdown(campaign.gm_notes?.substring(0, 500) ?? '')" class="prose"></div>
               <div class="mt-2">
-                <button class="btn btn-sm btn-outline-secondary" @click="gmedit = true">Edit</button>
+                <button class="btn btn-sm btn-outline-secondary" @click="toggleGmNotes">
+                  {{ isGmNotesExpanded ? 'Collapse' : 'Expand' }}
+                </button>
+                <button class="btn btn-sm btn-outline-secondary ms-2" @click="gmedit = true">Edit</button>
               </div>
             </div>
           </div>
@@ -145,9 +149,13 @@
                 <div v-else>
                   <h3 class="h6 mb-1">{{ session.title }}</h3>
                   <p class="text-muted small mb-2">{{ session.date }}</p>
-                  <div v-html="renderMarkdown(session.notes)" class="prose"></div>
+                  <div v-if="expandedSessions[session.id]" v-html="renderMarkdown(session.notes)" class="prose"></div>
+                  <div v-else v-html="renderMarkdown(session.notes.substring(0, 500) + '...')" class="prose"></div>
                   <div class="mt-2" v-if="isOwner">
-                    <button class="btn btn-sm btn-outline-secondary" @click="editSession(session.id)">Edit</button>
+                    <button class="btn btn-sm btn-outline-secondary" @click="toggleSession(session.id)">
+                      {{ expandedSessions[session.id] ? 'Collapse' : 'Expand' }}
+                    </button>
+                    <button class="btn btn-sm btn-outline-secondary ms-2" @click="editSession(session.id)">Edit</button>
                     <button class="btn btn-sm btn-outline-danger ms-2" @click="confirmDelete(session.id)">Delete</button>
                   </div>
                 </div>
@@ -161,7 +169,7 @@
       <section v-if="isOwner">
         <h2 class="h5 mb-2">Add Session</h2>
         <input v-model="newSession.title" class="form-control mb-2" placeholder="Session Title" />
-        <textarea v-model="newSession.notes" class="form-control mb-2 w-100" placeholder="Markdown session notes" />
+        <textarea rows="10" v-model="newSession.notes" class="form-control mb-2 w-100" placeholder="Markdown session notes" />
         <button @click="addSession" class="btn btn-success">Add Session</button>
       </section>
     </div>
@@ -231,7 +239,6 @@
         </div>
       </div>
     </div>
-
   </div>
 </template>
 
@@ -244,6 +251,8 @@ import { getCharacter, getCharactersWithProfessions } from '@/services/character
 import { getMap, getMaps } from '@/services/mapService';
 import MarkdownIt from 'markdown-it';
 import { toast } from 'vue3-toastify';
+import '@n8n/chat/style.css';
+import { createChat } from '@n8n/chat';
 
 const route = useRoute();
 const campaignStore = useCampaignStore();
@@ -265,6 +274,22 @@ const md = new MarkdownIt();
 const isOwner = computed(() => {
   return userId.value !== null && (campaign.value?.userId === userId.value);
 });
+
+// State to track if GM notes are expanded
+const isGmNotesExpanded = ref(false);
+
+// State to track if each session's details are expanded
+const expandedSessions = ref<any>({});
+
+// Function to toggle GM notes expansion
+const toggleGmNotes = () => {
+  isGmNotesExpanded.value = !isGmNotesExpanded.value;
+};
+
+// Function to toggle session details expansion
+const toggleSession = (sessionId: any) => {
+  expandedSessions.value[sessionId] = !expandedSessions.value[sessionId];
+};
 
 const sortedSessions = computed(() => {
   return [...(campaign.value?.sessions || [])].sort((a, b) => b.date.localeCompare(a.date));
@@ -396,9 +421,48 @@ const isPartyLocation = (steadingId: string): boolean => {
   );
 };
 
+const chatUrl = `https://sterling.braceyourself.solutions/webhook/73ed1047-b5d5-4208-8e68-aa5426cf9ed5/chat`;
+const aiEnabaledUsers = ["856b1c6b-c662-4cc0-a049-db77eabcf914", "8b9fc86a-725c-4b57-9c3a-90b23af44252"]
+
+async function enableAiGm() {
+  if (aiEnabaledUsers.findIndex(uid => userId.value === uid) > -1) {
+    await createChat({
+      webhookUrl: chatUrl,
+      webhookConfig: {
+        method: 'POST',
+        headers: {}
+      },
+      target: '#n8n-chat',
+      mode: 'window',
+      chatInputKey: 'chatInput',
+      chatSessionKey: 'sessionId',
+      metadata: {
+        campaignId: `${campaign.value.id}`,
+        isStaging: true
+      },
+      showWelcomeScreen: false,
+      defaultLanguage: 'en',
+      initialMessages: [
+        'Hail, I am the Game Master. Shall we explore this campaign?'
+      ],
+      i18n: {
+        en: {
+          title: 'Game Master',
+          subtitle: "I can assist you with exploring this campaign world.",
+          footer: '',
+          getStarted: 'New Conversation',
+          inputPlaceholder: 'Ask me about this campaign ...',
+          closeButtonTooltip: 'Close chat'
+        },
+      },
+    });
+  }
+}
+
 onMounted(async () => {
   userId.value = await globalStore.getUserId();
   await loadCampaign();
+  await enableAiGm();
 });
 
 watch(campaign, (newVal) => {
@@ -406,4 +470,12 @@ watch(campaign, (newVal) => {
     globalStore.updateTabTitle(newVal?.name);
   }
 });
+
 </script>
+<style>
+  /* Force chat window to fill its parent */
+  .chat-window-wrapper .chat-window {
+    width: 100vw !important;
+    height: 100vh !important;
+  }
+</style>
