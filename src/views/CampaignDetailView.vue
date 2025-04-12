@@ -271,6 +271,8 @@ const gmedit = ref<boolean>(false);
 
 const md = new MarkdownIt();
 
+const isDevelopment = window.location.hostname !== 'dungeon-world-companion.com';
+
 const isOwner = computed(() => {
   return userId.value !== null && (campaign.value?.userId === userId.value);
 });
@@ -438,7 +440,7 @@ async function enableAiGm() {
       chatSessionKey: 'sessionId',
       metadata: {
         campaignId: `${campaign.value.id}`,
-        isStaging: true
+        isStaging: isDevelopment,
       },
       showWelcomeScreen: false,
       defaultLanguage: 'en',
