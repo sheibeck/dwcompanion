@@ -253,6 +253,7 @@ import MarkdownIt from 'markdown-it';
 import { toast } from 'vue3-toastify';
 import '@n8n/chat/style.css';
 import { createChat } from '@n8n/chat';
+import sageLogo from '@/assets/sage_logo.png'
 
 const route = useRoute();
 const campaignStore = useCampaignStore();
@@ -472,7 +473,7 @@ onMounted(async () => {
 
     if (chatEl && toggleEl) {
       toggleEl.innerHTML = `
-        <img src="/src/assets/sage_logo.png" alt="S.A.G.E. Logo" width="80" height="80" />
+        <img src="${sageLogo}" alt="S.A.G.E. Logo" width="80" height="80" />
       `
       observer.disconnect(); // Done observing
     }
