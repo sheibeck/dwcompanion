@@ -445,15 +445,15 @@ async function enableAiGm() {
       showWelcomeScreen: false,
       defaultLanguage: 'en',
       initialMessages: [
-        'Hail, I am the Game Master. Shall we explore this campaign?'
+        'Hail, I am S.A.G.E., a humble but clever helper who’s always ready with a tale or twist.'
       ],
       i18n: {
         en: {
-          title: 'Game Master',
-          subtitle: "I can assist you with exploring this campaign world.",
+          title: 'S.A.G.E.',
+          subtitle: "Storycraft Advisor & GM Enhancer",
           footer: '',
           getStarted: 'New Conversation',
-          inputPlaceholder: 'Ask me about this campaign ...',
+          inputPlaceholder: 'Tell me how I can assist you ...',
           closeButtonTooltip: 'Close chat'
         },
       },
@@ -465,6 +465,23 @@ onMounted(async () => {
   userId.value = await globalStore.getUserId();
   await loadCampaign();
   await enableAiGm();
+
+  const observer = new MutationObserver(() => {
+    const chatEl = document.getElementById('n8n-chat')
+    const toggleEl = document.querySelector('.chat-window-toggle')
+
+    if (chatEl && toggleEl) {
+      toggleEl.innerHTML = `
+        <img src="/src/assets/sage_logo.png" alt="S.A.G.E. Logo" width="80" height="80" />
+      `
+      observer.disconnect(); // Done observing
+    }
+  })
+
+  observer.observe(document.body, {
+    childList: true,
+    subtree: true
+  })
 });
 
 watch(campaign, (newVal) => {
@@ -479,5 +496,8 @@ watch(campaign, (newVal) => {
   .chat-window-wrapper .chat-window {
     width: 100vw !important;
     height: 100vh !important;
+  }
+  .chat-window-toggle {
+    background-color: black !important;
   }
 </style>
